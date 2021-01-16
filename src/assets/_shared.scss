@@ -1,0 +1,19 @@
+$mainFont: "Cabin", sans-serif;
+$primiary-color: rgb(51, 204, 128);
+
+@mixin mainFontBold {
+  $mainFont: "Cabin", sans-serif;
+  font-weight: 700;
+}
+
+@mixin flexLayout() {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin setAndResizeBackgroundImg($url) {
+  background-image: url($url);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
