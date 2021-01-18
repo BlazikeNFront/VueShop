@@ -1,16 +1,19 @@
 <template>
   <div class="container">
+    <nav-bar></nav-bar>
     <main-page></main-page>
   </div>
 </template>
 
 <script>
 import MainPage from "./components/mainPage/mainPage.vue";
+import NavBar from "./components/navBar/navBar.vue";
 
 export default {
   name: "App",
   components: {
     MainPage,
+    NavBar,
   },
 };
 </script>
@@ -24,7 +27,6 @@ body * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: black;
 }
 
 #app {
@@ -38,8 +40,13 @@ body * {
 
 .container {
   width: 95%;
+  height: 100rem;
   max-width: 1400px;
   position: relative;
   margin: 0 auto;
+  background-color: black;
+}
+ul {
+  list-style: none;
 }
 </style>
