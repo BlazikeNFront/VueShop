@@ -27,7 +27,9 @@ export default {
 nav {
   width: 100%;
   height: 3rem;
+  position: relative;
   background-color: $primiary-color;
+  z-index: 100;
 }
 .mainNavList {
   @include flexLayout;

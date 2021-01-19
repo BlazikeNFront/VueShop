@@ -1,16 +1,25 @@
 <template>
-  <main></main>
+  <main>
+    <main-information-box></main-information-box>
+    <main-slider></main-slider>
+  </main>
 </template>
 <script>
+import MainInformationBox from "./mainInformationBox/mainInformationBox.vue";
+import MainSlider from "./slider/mainSlider.vue";
 export default {
-  components: {},
+  components: {
+    MainInformationBox,
+    MainSlider,
+  },
 };
 </script>
-<style lang='scss' scoped>
+<style lang='scss'>
 main {
-  margin: 0 auto;
+  margin: 2rem auto;
   width: 100%;
   overflow: hidden;
   color: $primiary-color;
+  @include setBorders(3px, 5px);
 }
 </style>

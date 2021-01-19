@@ -23,12 +23,16 @@ export default {
   li {
     font-size: $font-md;
     padding: 1rem;
+    &:hover {
+      font-weight: 700;
+    }
   }
 }
 .mainNavList__item:hover {
   color: black;
   & .subContent {
     display: block;
+    animation: fadeInAnim 0.8s ease;
   }
 }
 
@@ -44,5 +48,9 @@ export default {
   color: black;
   background-color: white;
   border-radius: 0 0 5px 5px;
+
+  transition: all 0.5s ease;
 }
+
+@include fadeInAnim;
 </style>

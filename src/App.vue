@@ -40,7 +40,7 @@ body * {
 
 .container {
   width: 95%;
-  height: 100rem;
+
   max-width: 1400px;
   position: relative;
   margin: 0 auto;
