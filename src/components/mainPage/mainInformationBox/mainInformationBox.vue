@@ -19,6 +19,7 @@
     width: 100%;
     opacity: 0.3;
     max-height: inherit;
+    object-fit: cover;
   }
 
   .containerForMainImg__text {

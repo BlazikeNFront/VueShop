@@ -7,7 +7,7 @@
         </div>
         <img
           class="sliderItem_visible"
-          src="../../../assets/rodCategoryImage.jpg"
+          src="../../../assets/rodCategoryImage.jpeg"
           alt="picture of fishing rod"
         />
       </li>
@@ -17,7 +17,7 @@
         </div>
         <img
           class="sliderItem1"
-          src="../../../assets/reelsCategoryImage.jpg"
+          src="../../../assets/reelsCategoryImage.jpeg"
           alt="picture of fishing reel"
         />
       </li>
@@ -31,13 +31,13 @@
           alt="picture of fishing reel"
         />
       </li>
-      <li class="check">
+      <li>
         <div>
           <p>LINES</p>
         </div>
         <img
           class="sliderItem1"
-          src="../../../assets/luresCategoryImage.png"
+          src="../../../assets/lineCategoryImage.jpeg"
           alt="picture of fishing reel"
         />
       </li>
@@ -56,9 +56,7 @@ export default {};
     justify-content: initial;
     height: 100%;
   }
-  .check {
-    width: 70%;
-  }
+
   li {
     position: relative;
     height: inherit;
@@ -68,19 +66,26 @@ export default {};
     transition: all 1s ease;
     &:hover {
       width: 70%;
+      img {
+        opacity: 1;
+      }
 
       p {
-        display: none;
+        top: 10%;
+        background-color: black;
+        padding: 0.5rem;
+        @include setBorders(1px, 5px);
       }
     }
     p {
       @include centerAbsolute;
       font-size: $font-bg;
+      transition: all 1s ease;
     }
 
     img {
       height: inherit;
-      opacity: 0.2;
+      opacity: 0.1;
       width: 100%;
       object-fit: cover;
     }
