@@ -5,10 +5,17 @@
 export default {
   methods: {
     redirectToMainPage() {
-      console.log("redirect with vue-router");
+      console.log("redirect via vue-router");
     },
   },
 };
 </script>
 <style lang='scss'>
+.logo {
+  width: 10rem;
+  height: 100%;
+  background-image: url("../../../assets/companyLogo.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
 </style>

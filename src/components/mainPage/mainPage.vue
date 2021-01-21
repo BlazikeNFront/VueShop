@@ -2,6 +2,7 @@
   <main>
     <main-information-box></main-information-box>
     <main-slider></main-slider>
+    <card-box></card-box>
   </main>
 </template>
 <script>
