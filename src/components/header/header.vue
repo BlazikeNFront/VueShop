@@ -2,17 +2,19 @@
   <header>
     <logo></logo>
     <search-bar></search-bar>
-    <div class="cart"></div>
+    <card-container></card-container>
   </header>
 </template>
 <script>
 import Logo from "./headerComponents/logo.vue";
 import SearchBar from "./headerComponents/searchBar.vue";
+import CardContainer from "./headerComponents/cardContainer.vue";
 
 export default {
   components: {
     Logo,
     SearchBar,
+    CardContainer,
   },
 };
 </script>

@@ -52,4 +52,7 @@ body * {
 ul {
   list-style: none;
 }
+input {
+  font-family: inherit;
+}
 </style>

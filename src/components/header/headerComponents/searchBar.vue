@@ -52,9 +52,14 @@ export default {
     @include flexLayout;
 
     input {
-      background-color: none;
+      background-color: black;
+      border: none;
       color: white;
+      text-align: center;
       height: 90%;
+      &:focus {
+        outline: none;
+      }
     }
     button {
       width: 3rem;
@@ -62,7 +67,7 @@ export default {
       border: none;
       background-repeat: no-repeat;
       height: 100%;
-      background-image: url(/img/searchIcon.a575f39d.png);
+      background-image: url("../../../assets/SearchBar/searchIcon.png");
       background-size: contain;
     }
   }
