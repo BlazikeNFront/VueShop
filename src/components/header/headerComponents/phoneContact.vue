@@ -16,8 +16,7 @@ export default {};
 
   .phoneIconImg {
     background-image: url("../../../assets/icons/phone.png");
-    width: 50%;
-    height: 50%;
+    padding: 1rem;
 
     background-size: cover;
     background-repeat: no-repeat;

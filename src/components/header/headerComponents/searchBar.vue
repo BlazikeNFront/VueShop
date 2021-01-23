@@ -4,7 +4,7 @@
     <form @click.prevent="submitSearchBarForm">
       <drop-down
         defaultCategory="Categories"
-        :listOfCategories="['Rods', 'Reels', 'Lures', 'Lines', 'Others']"
+        :listOfCategories="['Rods', 'Reels', 'Lures', 'Lines', 'Any']"
       ></drop-down>
       <div class="searchBarInput">
         <input

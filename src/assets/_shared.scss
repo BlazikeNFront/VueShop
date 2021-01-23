@@ -3,6 +3,13 @@ $primiary-color: rgb(51, 204, 128);
 $background-Select-gray: rgb(195, 199, 196);
 $font-bg: 2rem;
 $font-md: 1.5rem;
+
+@mixin containerPosition {
+  width: 95%;
+  margin-left: 50%;
+  transform: translate(-50%);
+}
+
 @mixin mainFontBold {
   $mainFont: "Cabin", sans-serif;
   font-weight: 700;

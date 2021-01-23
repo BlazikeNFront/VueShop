@@ -64,7 +64,7 @@ export default {
     width: 2rem;
 
     height: 1.5rem;
-    z-index: 10000;
+
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;

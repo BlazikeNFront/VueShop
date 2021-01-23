@@ -1,4 +1,8 @@
 <template>
+  <div class="chec">
+    <week-offer-box></week-offer-box>
+  </div>
+
   <div class="container">
     <header-component></header-component>
     <nav-bar></nav-bar>
@@ -7,6 +11,7 @@
 </template>
 
 <script>
+import WeekOfferBox from "./components/mainPage/currentOffersBox/currentOfferBox.vue";
 import MainPage from "./components/mainPage/mainPage.vue";
 import NavBar from "./components/navBar/navBar.vue";
 import HeaderComponent from "./components/header/header.vue";
@@ -17,6 +22,7 @@ export default {
     MainPage,
     NavBar,
     HeaderComponent,
+    WeekOfferBox,
   },
 };
 </script>
@@ -24,12 +30,41 @@ export default {
 <style lang='scss'>
 html {
   font-size: 62.5%;
-}
-
-body * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+ul {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+.chec {
+  position: fixed;
+  @include containerPosition;
+  z-index: 2222;
 }
 
 #app {
@@ -42,11 +77,9 @@ body * {
 }
 
 .container {
-  width: 95%;
-
-  max-width: 1400px;
+  @include containerPosition;
   position: relative;
-  margin: 0 auto;
+
   background-color: black;
 }
 ul {
