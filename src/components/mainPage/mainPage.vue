@@ -1,17 +1,20 @@
 <template>
   <main>
-    <main-information-box></main-information-box>
-    <main-slider></main-slider>
+    <!-- <main-information-box></main-information-box>
+    <main-slider></main-slider> -->
+    <search-result></search-result>
   </main>
 </template>
 <script>
-import MainInformationBox from "./mainInformationBox/mainInformationBox.vue";
-import MainSlider from "./slider/mainSlider.vue";
+/* import MainInformationBox from "./mainInformationBox/mainInformationBox.vue";
+import MainSlider from "./slider/mainSlider.vue"; */
+import SearchResult from "./searchResult/searchResult.vue";
 /* import WeekOfferBox from "./currentOffersBox/currentOfferBox.vue"; */
 export default {
   components: {
-    MainInformationBox,
-    MainSlider,
+    /*  MainInformationBox,
+    MainSlider, */
+    SearchResult,
     /*     WeekOfferBox, */
   },
 };

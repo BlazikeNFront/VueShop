@@ -1,8 +1,7 @@
 <template>
-  <div class="chec">
+  <div class="brandAdd">
     <week-offer-box></week-offer-box>
   </div>
-
   <div class="container">
     <header-component></header-component>
     <nav-bar></nav-bar>
@@ -61,10 +60,11 @@ ul {
   list-style: none;
 }
 
-.chec {
+.brandAdd {
   position: fixed;
   @include containerPosition;
   z-index: 2222;
+  top: 50%;
 }
 
 #app {

@@ -2,12 +2,15 @@
   <div v-if="!showAdd" @click="toggleAddBox" class="currentOfferToggler">
     <p>Brand of the month</p>
   </div>
-  <div v-if="showAdd" class="currentOfferContainer">
-    <button class="closeOfferButton" @click="toggleAddBox"></button>
-    <img src="../../../assets/offerboxBackground.jpg" alt="brand logo" />
+  <transition>
+    <div v-if="showAdd" class="currentOfferContainer">
+      <button class="closeOfferButton" @click="toggleAddBox"></button>
 
-    <p>New products from savegear !! <span>Click to check it out!</span></p>
-  </div>
+      <img src="../../../assets/offerboxBackground.jpg" alt="brand logo" />
+
+      <p>New products from savegear !! <span>Click to check it out!</span></p>
+    </div>
+  </transition>
 </template>
 <script>
 export default {
@@ -25,19 +28,15 @@ export default {
 </script>
 <style lang='scss'>
 .currentOfferToggler {
-  position: fixed;
-  transform: translate(-50%, -50%);
+  position: absolute;
+  top: -10rem;
+  right: 0;
   width: 3.5rem;
   background-color: #d47304;
   color: black;
-  z-index: 2000;
   border-radius: 10px 0 0 10px;
 
   p {
-    height: 100%;
-    display: flex;
-    width: 20%;
-    height: 100%;
     padding: 0.5rem;
   }
 }
@@ -47,7 +46,7 @@ export default {
   right: 7%;
   top: 4%;
   padding: 1.5rem;
-  background-image: url(/img/closeButton.9dc48ebb.svg);
+  background-image: url("../../../assets/icons/closeButton.svg");
   background-size: cover;
   background-color: transparent;
   border: none;
@@ -58,14 +57,12 @@ export default {
 }
 .currentOfferContainer {
   @include centerAbsolute;
-  padding: 1rem;
-  position: fixed;
   width: 60%;
-  height: fit-content;
-  border-radius: 15px;
   background-color: black;
+  padding: 1rem;
+  border-radius: 15px;
+  color: black;
   overflow: hidden;
-  z-index: 1300;
   img {
     width: 90%;
   }
@@ -76,5 +73,20 @@ export default {
       color: rgb(212, 115, 4);
     }
   }
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0 !important;
+  transform: translate(-25%, -50%);
+}
+.v-enter-active,
+.v-leave-active {
+  transition: all 0.5s ease;
+}
+.v-enter-to,
+.v-leave-from {
+  opacity: 1 !important;
+  transform: translate(-50%, -50%);
 }
 </style>

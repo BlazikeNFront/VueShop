@@ -6,6 +6,7 @@ $font-md: 1.5rem;
 
 @mixin containerPosition {
   width: 95%;
+  max-width: 140rem;
   margin-left: 50%;
   transform: translate(-50%);
 }
