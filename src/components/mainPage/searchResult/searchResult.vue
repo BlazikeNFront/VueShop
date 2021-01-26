@@ -15,6 +15,7 @@ export default {
       product: {
         imageUrl: "../../../../assetsproducts/rods/rod1.jpg",
         title: "Okuma Rod",
+        price: 105.77,
       },
     };
   },

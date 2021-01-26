@@ -32,6 +32,7 @@ html {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  text-decoration: none;
 }
 
 *,
@@ -79,8 +80,8 @@ ul {
 .container {
   @include containerPosition;
   position: relative;
-
   background-color: black;
+  /*  overflow: hidden; */
 }
 ul {
   list-style: none;
