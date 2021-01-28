@@ -4,21 +4,21 @@
     <search-bar></search-bar>
     <card-container></card-container>
     <button @click="toggleLoginForm">Login</button>
-    <user-login></user-login>
+    <user-sign-up></user-sign-up>
   </header>
 </template>
 <script>
 import Logo from "./headerComponents/logo.vue";
 import SearchBar from "./headerComponents/searchBar.vue";
 import CardContainer from "./headerComponents/cardContainer.vue";
-import UserLogin from "../userAuth/userLogin.vue";
+import UserSignUp from "../userAuth/userSignUp.vue";
 
 export default {
   components: {
     Logo,
     SearchBar,
     CardContainer,
-    UserLogin,
+    UserSignUp,
   },
   data() {
     return {

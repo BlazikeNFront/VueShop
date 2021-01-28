@@ -2,7 +2,7 @@
   <section class="loginForm">
     <form @submit.prevent="handleLogin">
       <div class="formControl">
-        <label>Email:</label>
+        <label for="userName">Email:</label>
         <input
           type="email"
           id="userName"
@@ -13,7 +13,7 @@
         <p>{{ this.userNameError }}</p>
       </div>
       <div class="formControl">
-        <label>Password:</label>
+        <label for="password">Password:</label>
         <input
           type="password"
           id="password"
@@ -48,11 +48,6 @@ export default {
         return;
       }
     },
-    /* checkForm(string) {
-
-       const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-      console.log(regex.test(string)); 
-    }, */
   },
 };
 </script>
@@ -65,7 +60,7 @@ export default {
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 20000;
   form {
-    margin: 50% 0 0 50%;
+    margin: 32% 0 0 50%;
     transform: translate(-50%, -50%);
     padding: 9%;
     padding-top: 3%;
