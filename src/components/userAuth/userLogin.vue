@@ -1,30 +1,31 @@
 <template>
-  <section class="loginForm">
-    <form @submit.prevent="handleLogin">
-      <div class="formControl">
-        <label for="userName">Email:</label>
-        <input
-          type="email"
-          id="userName"
-          v-model.trim="userName"
-          autocomplete="username"
-        />
+  <back-drop @click="$emit('hideLoginForm')"></back-drop>
+  <form @submit.prevent="handleLogin" class="loginForm">
+    <div class="loginFormControl">
+      <label for="userName" class="loginFormControll__label">Email:</label>
+      <input
+        class="loginFormControll__input"
+        type="email"
+        id="userName"
+        v-model.trim="userName"
+        autocomplete="username"
+      />
 
-        <p>{{ this.userNameError }}</p>
-      </div>
-      <div class="formControl">
-        <label for="password">Password:</label>
-        <input
-          type="password"
-          id="password"
-          v-model.trim="userPassword"
-          autocomplete="current-password"
-        />
-        <p>{{ passwordError }}</p>
-      </div>
-      <button>Login</button>
-    </form>
-  </section>
+      <p>{{ this.userNameError }}</p>
+    </div>
+    <div class="loginFormControl">
+      <label for="password" class="loginFormControll__label">Password:</label>
+      <input
+        class="loginFormControll__input"
+        type="password"
+        id="password"
+        v-model.trim="userPassword"
+        autocomplete="current-password"
+      />
+      <p class="loginFormControl__errorMsg">{{ passwordError }}</p>
+    </div>
+    <button class="loginFormControl__button">Login</button>
+  </form>
 </template>
 <script>
 export default {
@@ -53,42 +54,42 @@ export default {
 </script>
 <style lang='scss'>
 .loginForm {
-  position: fixed;
+  position: absolute;
   top: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
+  right: 0;
+  padding: 1rem;
+  border-radius: 0 0 0 25px;
+  background-color: rgb(0, 0, 0);
   z-index: 20000;
-  form {
-    margin: 32% 0 0 50%;
-    transform: translate(-50%, -50%);
-    padding: 9%;
-    padding-top: 3%;
-    border: 2px solid $primiary-color;
-    border-radius: 10px;
-    background-color: black;
-    label {
-      margin: 1rem;
-      font-size: $font-bg;
-    }
-    .formControl {
-      @include flexLayout;
-      flex-direction: column;
-      margin: 2rem;
+}
+.loginFormControl {
+  @include flexLayout;
+  flex-direction: column;
 
-      input {
-        width: 100%;
-        font-size: $font-md;
-        background-color: transparent;
-        color: $primiary-color;
-        border: 2px solid $primiary-color;
-        padding: 5%;
-      }
-    }
+  background-color: black;
+}
+.loginFormControll__label {
+  margin: 0.5rem;
+  font-size: $font-bg;
+}
 
-    p {
-      color: red;
-    }
-  }
+.loginFormControll__input {
+  font-size: $font-md;
+  background-color: transparent;
+  color: $primiary-color;
+  border: 1px solid $primiary-color;
+}
+
+.loginFormControl__errorMsg {
+  color: red;
+}
+.loginFormControl__button {
+  border: 1px solid #33cc80;
+  border-radius: 5px;
+  padding: 0.5rem;
+  background: none;
+  text-decoration: none;
+  color: #33cc80;
+  font-size: 1rem;
 }
 </style>

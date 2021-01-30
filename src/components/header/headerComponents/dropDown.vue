@@ -47,41 +47,38 @@ export default {
 };
 </script>
 <style lang='scss'>
-.customSelectContainer {
+.customSelect {
   position: relative;
   padding: 1rem;
   background-color: $background-Select-gray;
   @include flexLayout;
   width: 11rem;
   cursor: pointer;
+  width: 100%;
+  @include flexLayout;
+}
 
-  .customSelect {
-    width: 100%;
-    @include flexLayout;
-  }
+.dropDownArrow {
+  width: 2rem;
 
-  .dropDownArrow {
-    width: 2rem;
+  height: 1.5rem;
 
-    height: 1.5rem;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  background-image: url("../../../assets/icons/dropdownArrow.svg");
+}
+.customSelect__selectOption {
+  background-color: $background-Select-gray;
+  position: absolute;
+  z-index: 200;
+  width: 100%;
+  top: 100%;
+  left: 0%;
+  border-radius: 0 0 5px 5px;
 
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
-    background-image: url("../../../assets/icons/dropdownArrow.svg");
-  }
-  .customSelect__selectOption {
-    background-color: $background-Select-gray;
-    position: absolute;
-    z-index: 200;
-    width: 100%;
-    top: 100%;
-    left: 0%;
-    border-radius: 0 0 5px 5px;
-
-    li {
-      padding: 0.5rem;
-    }
+  li {
+    padding: 0.5rem;
   }
 }
 </style>

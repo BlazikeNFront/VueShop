@@ -5,20 +5,21 @@
   <div class="container">
     <header-component></header-component>
     <nav-bar></nav-bar>
-    <main-page></main-page>
+    <main>
+      <router-view></router-view>
+    </main>
   </div>
 </template>
 
 <script>
 import WeekOfferBox from "./components/mainPage/currentOffersBox/currentOfferBox.vue";
-import MainPage from "./components/mainPage/mainPage.vue";
+
 import NavBar from "./components/navBar/navBar.vue";
 import HeaderComponent from "./components/header/header.vue";
 
 export default {
   name: "App",
   components: {
-    MainPage,
     NavBar,
     HeaderComponent,
     WeekOfferBox,

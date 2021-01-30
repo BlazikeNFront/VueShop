@@ -1,48 +1,52 @@
 <template>
-  <section class="loginForm">
+  <section class="signUpForm" @click="closeForm">
     <form @submit.prevent="handleSignUp">
-      <div class="formControl">
-        <label for="email">Email:</label>
-        <input
-          :class="{ userInputError: !!formErrors.userNameErrorMsg }"
-          @blur="formErrors.userNameErrorMsg = null"
-          type="email"
-          id="email"
-          v-model.trim="email"
-          autocomplete="email"
-        />
+      <base-card>
+        <div class="formControl">
+          <label for="email">Email:</label>
+          <input
+            :class="{ userInputError: !!formErrors.userNameErrorMsg }"
+            @blur="formErrors.userNameErrorMsg = null"
+            type="email"
+            id="email"
+            v-model.trim="email"
+            autocomplete="email"
+          />
 
-        <p>{{ formErrors.userNameErrorMsg }}</p>
-      </div>
-      <div class="formControl">
-        <label for="password">Password:</label>
-        <input
-          type="password"
-          id="password"
-          autocomplete="current-password"
-          v-model.trim="userPassword"
-          @blur="formErrors.userPassword = null"
-          :class="{ userInputError: formErrors.passwordErrorMsg }"
-        />
-      </div>
-      <div class="formControl">
-        <label for="confirmPassword">Confirm password:</label>
-        <input
-          type="password"
-          id="confirmPassword"
-          autocomplete="current-password"
-          @blur="formErrors.userPassword = null"
-          v-model.trim="confirmPassword"
-          :class="{ userInputError: formErrors.passwordErrorMsg }"
-        />
-        <p>{{ formErrors.passwordErrorMsg }}</p>
-      </div>
-      <button>Login</button>
+          <p>{{ formErrors.userNameErrorMsg }}</p>
+        </div>
+        <div class="formControl">
+          <label for="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            autocomplete="current-password"
+            v-model.trim="userPassword"
+            @blur="formErrors.userPassword = null"
+            :class="{ userInputError: formErrors.passwordErrorMsg }"
+          />
+        </div>
+        <div class="formControl">
+          <label for="confirmPassword">Confirm password:</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            autocomplete="current-password"
+            @blur="formErrors.userPassword = null"
+            v-model.trim="confirmPassword"
+            :class="{ userInputError: formErrors.passwordErrorMsg }"
+          />
+          <p>{{ formErrors.passwordErrorMsg }}</p>
+        </div>
+        <button>Login</button>
+      </base-card>
     </form>
   </section>
 </template>
 <script>
+import BaseCard from "../../components/common/BaseCard.vue";
 export default {
+  components: { BaseCard },
   data() {
     return {
       email: null,
@@ -55,6 +59,10 @@ export default {
     };
   },
   methods: {
+    closeForm() {
+      console.log("work");
+      this.$router.push("/");
+    },
     handleSignUp() {
       this.checkForm();
     },
@@ -91,7 +99,7 @@ export default {
 };
 </script>
 <style lang='scss'>
-.loginForm {
+.signUpForm {
   position: fixed;
   top: 0;
   width: 100vw;
@@ -101,11 +109,7 @@ export default {
   form {
     margin: 32% 0 0 50%;
     transform: translate(-50%, -50%);
-    padding: 9%;
-    padding-top: 3%;
-    border: 2px solid $primiary-color;
-    border-radius: 10px;
-    background-color: black;
+
     label {
       margin: 1rem;
       font-size: $font-bg;
@@ -124,7 +128,9 @@ export default {
         padding: 5%;
       }
     }
-
+    button {
+      margin: 1rem;
+    }
     p {
       color: red;
     }

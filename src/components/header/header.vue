@@ -3,22 +3,23 @@
     <logo></logo>
     <search-bar></search-bar>
     <card-container></card-container>
+
     <button @click="toggleLoginForm">Login</button>
-    <user-sign-up></user-sign-up>
+    <user-login v-if="loginForm" @hideLoginForm="toggleLoginForm"></user-login>
   </header>
 </template>
 <script>
 import Logo from "./headerComponents/logo.vue";
 import SearchBar from "./headerComponents/searchBar.vue";
 import CardContainer from "./headerComponents/cardContainer.vue";
-import UserSignUp from "../userAuth/userSignUp.vue";
+import UserLogin from "../userAuth/userLogin.vue";
 
 export default {
   components: {
     Logo,
     SearchBar,
     CardContainer,
-    UserSignUp,
+    UserLogin,
   },
   data() {
     return {
