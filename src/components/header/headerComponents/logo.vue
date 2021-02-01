@@ -5,7 +5,7 @@
 export default {
   methods: {
     redirectToMainPage() {
-      console.log("redirect via vue-router");
+      this.$router.push("/");
     },
   },
 };

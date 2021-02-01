@@ -1,10 +1,12 @@
 <template>
   <section class="searchResult">
-    <product-box-small :product="product"></product-box-small>
+    <loader v-if="!product"></loader>
+    <product-box-small v-else :product="product"></product-box-small>
   </section>
 </template>
 <script>
-import ProductBoxSmall from "./searchResult/productBoxSmall.vue";
+import ProductBoxSmall from "../../components/searchResult/productBoxSmall.vue";
+
 export default {
   components: {
     ProductBoxSmall,
@@ -13,7 +15,7 @@ export default {
     return {
       searchResult: null,
       product: {
-        imageUrl: "../../../../assetsproducts/rods/rod1.jpg",
+        imageUrl: "../../assets/products/rods/rod1.jpg",
         title: "Okuma Rod",
         price: 105.77,
       },
@@ -23,10 +25,11 @@ export default {
 </script>
 <style lang='scss'>
 .searchResult {
+  margin-top: 2rem;
   @include flexLayout;
   justify-content: center;
   flex-wrap: wrap;
-  flex-wrap: wrap;
+
   width: 95%;
   margin-left: 50%;
   transform: translate(-50%);

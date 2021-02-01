@@ -54,7 +54,7 @@ export default {
   @include flexLayout;
   width: 11rem;
   cursor: pointer;
-  width: 100%;
+  width: 9rem;
   @include flexLayout;
 }
 

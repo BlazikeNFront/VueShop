@@ -1,12 +1,13 @@
-import { createStore } from 'vuex';
-import CarouselsData from './CarouselData/CarouselData.js'
+import { createStore } from 'vuex'
 
+import UserAuth from './userAuth/userAuth.js'
 
 
 const store = createStore({
-    modules: {
-        CarouselsData,
-    }
+ 
+  modules: {
+    UserAuth,
+  }
 })
 
-export default store;
+export default store

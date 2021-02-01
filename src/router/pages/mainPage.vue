@@ -1,15 +1,15 @@
 <template>
-  <div class="mainPage">
-    <search-result></search-result>
-  </div>
+  <div class="mainPage"></div>
+  <main-information-box></main-information-box>
+
+  <main-slider></main-slider>
 </template>
 <script>
-import SearchResult from "../../components/mainPage/searchResult/searchResult.vue";
+import MainInformationBox from "../../components/mainPage/mainInformationBox/mainInformationBox.vue";
+import MainSlider from "../../components/mainPage/slider/mainSlider.vue";
 
 export default {
-  components: {
-    SearchResult,
-  },
+  components: { MainInformationBox, MainSlider },
 };
 </script>
 <style lang='scss'>

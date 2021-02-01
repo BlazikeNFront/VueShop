@@ -17,7 +17,7 @@
         </div>
         <img
           class="sliderItem1"
-          src="../../../assets/reelsCategoryImage.jpeg"
+          src="../../../assets/nowe/imageForReels.jpeg"
           alt="picture of fishing reel"
         />
       </li>

@@ -33,7 +33,11 @@ export default {
   },
   methods: {
     submitSearchBarForm() {
+      if (this.searBarInputValue.length === 0) {
+        return;
+      }
       console.log("searchBar SUBMIT");
+      this.$router.push("/search");
     },
   },
 };
