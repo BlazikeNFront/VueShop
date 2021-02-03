@@ -7,6 +7,9 @@
     <h4>{{ this.product.title }}</h4>
     <div>
       <p>{{ this.product.price }} $</p>
+      <button @click="this.$router.push(`/productDetails/${this.product.id}`)">
+        Details
+      </button>
       <button>Add to cart</button>
     </div>
   </div>

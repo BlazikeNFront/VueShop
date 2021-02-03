@@ -28,7 +28,7 @@ export default {
 
   data() {
     return {
-      searBarInputValue: null,
+      searBarInputValue: "",
     };
   },
   methods: {
