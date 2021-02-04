@@ -8,6 +8,7 @@
     <main>
       <router-view></router-view>
     </main>
+    <footer-component></footer-component>
   </div>
 </template>
 
@@ -16,6 +17,7 @@ import WeekOfferBox from "./components/mainPage/currentOffersBox/currentOfferBox
 
 import NavBar from "./components/navBar/navBar.vue";
 import HeaderComponent from "./components/header/header.vue";
+import FooterComponent from "./components/footer/footer.vue";
 
 export default {
   name: "App",
@@ -23,6 +25,7 @@ export default {
     NavBar,
     HeaderComponent,
     WeekOfferBox,
+    FooterComponent,
   },
 };
 </script>
@@ -35,7 +38,17 @@ html {
   box-sizing: border-box;
   text-decoration: none;
 }
-
+/* Change Autocomplete styles in Chrome*/
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  box-shadow: 0 0 0 30px black inset;
+  -webkit-box-shadow: 0 0 0 30px black inset;
+}
+input:-webkit-autofill {
+  -webkit-text-fill-color: white;
+}
 *,
 *:before,
 *:after {

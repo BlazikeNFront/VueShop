@@ -41,7 +41,7 @@ export default {
   color: white;
 }
 .productDetails__image {
-  width: 100%;
+  width: 85%;
   height: 35rem;
   object-fit: cover;
 }

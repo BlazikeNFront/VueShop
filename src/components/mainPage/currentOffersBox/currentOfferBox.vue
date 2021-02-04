@@ -2,15 +2,17 @@
   <div v-if="!showAdd" @click="toggleAddBox" class="currentOfferToggler">
     <p>Brand of the month</p>
   </div>
-  <transition>
-    <div v-if="showAdd" class="currentOfferContainer">
-      <button class="closeOfferButton" @click="toggleAddBox"></button>
+  <teleport to="body">
+    <transition>
+      <div v-if="showAdd" class="currentOfferContainer">
+        <button class="closeOfferButton" @click="toggleAddBox"></button>
 
-      <img src="../../../assets/offerboxBackground.jpg" alt="brand logo" />
+        <img src="../../../assets/offerboxBackground.jpg" alt="brand logo" />
 
-      <p>New products from savegear !! <span>Click to check it out!</span></p>
-    </div>
-  </transition>
+        <p>New products from savegear !! <span>Click to check it out!</span></p>
+      </div>
+    </transition>
+  </teleport>
 </template>
 <script>
 export default {

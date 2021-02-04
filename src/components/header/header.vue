@@ -4,8 +4,8 @@
     <search-bar></search-bar>
     <card-container></card-container>
 
-    <button @click="toggleLoginForm">Login</button>
-    <user-login v-if="loginForm" @hideLoginForm="toggleLoginForm"></user-login>
+    <button @click="toggleLoginForm" v-if="!loginForm">Login</button>
+    <user-login v-else @hideLoginForm="toggleLoginForm"></user-login>
   </header>
 </template>
 <script>
@@ -21,6 +21,7 @@ export default {
     CardContainer,
     UserLogin,
   },
+  emits: {},
   data() {
     return {
       loginForm: false,

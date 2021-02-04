@@ -1,34 +1,41 @@
 <template>
-  <back-drop @click="$emit('hideLoginForm')"></back-drop>
-  <form @submit.prevent="handleLogin" class="loginForm">
-    <div class="loginFormControl">
-      <label for="userName" class="loginFormControll__label">Email:</label>
-      <input
-        class="loginFormControll__input"
-        type="email"
-        id="userName"
-        v-model.trim="userName"
-        autocomplete="username"
-      />
+  <section class="loginBox">
+    <back-drop @click="$emit('hideLoginForm')"></back-drop>
+    <form @submit.prevent="handleLogin" class="loginForm">
+      <div class="loginFormControl">
+        <label for="userName" class="loginFormControll__label">Email:</label>
+        <input
+          class="loginFormControll__input"
+          type="email"
+          id="userName"
+          v-model.trim="userName"
+          autocomplete="username"
+        />
 
-      <p>{{ this.userNameError }}</p>
-    </div>
-    <div class="loginFormControl">
-      <label for="password" class="loginFormControll__label">Password:</label>
-      <input
-        class="loginFormControll__input"
-        type="password"
-        id="password"
-        v-model.trim="userPassword"
-        autocomplete="current-password"
-      />
-      <p class="loginFormControl__errorMsg">{{ passwordError }}</p>
-    </div>
-    <button class="loginFormControl__button">Login</button>
-  </form>
+        <p>{{ this.userNameError }}</p>
+      </div>
+      <div class="loginFormControl">
+        <label for="password" class="loginFormControll__label">Password:</label>
+        <input
+          class="loginFormControll__input"
+          type="password"
+          id="password"
+          v-model.trim="userPassword"
+          autocomplete="current-password"
+        />
+        <p class="loginFormControl__errorMsg">{{ passwordError }}</p>
+      </div>
+      <button class="loginFormControl__button">Login</button>
+    </form>
+    <p class="signUpLink">
+      U dont have an account? Click
+      <router-link to="/SignUp">Here</router-link> to Sign up !
+    </p>
+  </section>
 </template>
 <script>
 export default {
+  emits: ["hideLoginForm"],
   data() {
     return {
       userName: null,
@@ -45,7 +52,7 @@ export default {
       }
       if (this.userName === null || this.userName.split("").length < 5) {
         this.userNameError = "Please insert correct email";
-        console.log("woroks");
+
         return;
       }
     },
@@ -53,6 +60,9 @@ export default {
 };
 </script>
 <style lang='scss'>
+.loginBox {
+  width: 15%;
+}
 .loginForm {
   position: absolute;
   top: 0;
@@ -91,5 +101,8 @@ export default {
   text-decoration: none;
   color: #33cc80;
   font-size: 1rem;
+}
+.signUpLink a {
+  color: $primiary-color;
 }
 </style>
