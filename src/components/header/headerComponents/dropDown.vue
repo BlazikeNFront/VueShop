@@ -1,11 +1,13 @@
 <template>
   <div class="customSelectContainer">
     <div class="customSelect" @click="selectCategoryAction">
-      <h4>{{ selectedCategory || this.defaultCategory }}</h4>
+      <h4 class="customSelect__selected">
+        {{ selectedCategory || this.defaultCategory }}
+      </h4>
       <div class="dropDownArrow"></div>
 
       <div class="customSelect__selectOption" v-if="selectCategory">
-        <ul>
+        <ul class="customSelect_list">
           <li
             v-for="category in this.listOfCategories"
             :key="category"
@@ -50,26 +52,28 @@ export default {
 .customSelect {
   position: relative;
   padding: 1rem;
-  background-color: $background-Select-gray;
-  @include flexLayout;
-  width: 11rem;
+  @include mainBorder;
+  font-size: $font-bg;
   cursor: pointer;
-  width: 9rem;
+  width: 15rem;
   @include flexLayout;
 }
 
 .dropDownArrow {
   width: 2rem;
-
-  height: 1.5rem;
-
+  height: 2rem;
+  background-color: $primiary-color;
+  border-radius: 50%;
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
   background-image: url("../../../assets/icons/dropdownArrow.svg");
 }
+.customSelect__selected {
+  color: $primiary-color;
+}
 .customSelect__selectOption {
-  background-color: $background-Select-gray;
+  background-color: black;
   position: absolute;
   z-index: 200;
   width: 100%;
@@ -79,6 +83,9 @@ export default {
 
   li {
     padding: 0.5rem;
+    &:hover {
+      color: $primiary-color;
+    }
   }
 }
 </style>

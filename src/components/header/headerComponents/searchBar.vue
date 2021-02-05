@@ -1,12 +1,12 @@
 <template>
   <div class="searchBarContainer">
     <h2>Our statement on <span>COVID-19</span></h2>
-    <form @click.prevent="submitSearchBarForm">
+    <form>
       <drop-down
         defaultCategory="Categories"
         :listOfCategories="['Rods', 'Reels', 'Lures', 'Lines', 'Any']"
       ></drop-down>
-      <div class="searchBarInput">
+      <div class="searchBarInput" @click.prevent="submitSearchBarForm">
         <input
           type="text"
           id="searchBarInput"
@@ -53,6 +53,7 @@ export default {
     border: 2px solid $primiary-color;
     height: 4rem;
     border-radius: 5px;
+
     @include flexLayout;
 
     input {
@@ -66,13 +67,14 @@ export default {
       }
     }
     button {
-      width: 3rem;
+      width: 3.5rem;
       background-color: black;
       border: none;
       background-repeat: no-repeat;
       height: 100%;
       background-image: url("../../../assets/SearchBar/searchIcon.png");
       background-size: contain;
+      cursor: pointer;
     }
   }
 }

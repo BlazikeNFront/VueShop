@@ -10,7 +10,7 @@
       <button @click="this.$router.push(`/productDetails/${this.product.id}`)">
         Details
       </button>
-      <button>Add to cart</button>
+      <button @click="addToCart">Add to cart</button>
     </div>
   </div>
 </template>
@@ -22,12 +22,17 @@ export default {
       type: Object,
     },
   },
+  methods: {
+    addToCart() {
+      this.$store.dispatch("Cart/addItemtoCart", this.product);
+    },
+  },
 };
 </script>
 <style lang='scss'>
 .productBoxSmall {
   margin: 1rem;
-  width: 22%;
+  width: 22rem;
   font-size: $font-md;
   border: 2px solid $primiary-color;
   border-radius: 10px;

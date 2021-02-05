@@ -35,13 +35,19 @@
         </li>
         <li class="footerSingleList__listElement">
           <div class="footerSingleList__box">
-            <font-awesome-icon :icon="['fas', 'envelope']"></font-awesome-icon>
+            <font-awesome-icon
+              :icon="['fas', 'envelope']"
+              class="envelope_icon"
+            ></font-awesome-icon>
             <p class="footerSingleList__paragraph">sales@taimen.com</p>
           </div>
         </li>
         <li class="footerSingleList__listElement">
           <div class="footerSingleList__box">
-            <font-awesome-icon :icon="['fas', 'envelope']"></font-awesome-icon>
+            <font-awesome-icon
+              :icon="['fas', 'envelope']"
+              class="envelope_icon"
+            ></font-awesome-icon>
             <p class="footerSingleList__paragraph">support@taimen.com</p>
           </div>
         </li>
@@ -59,9 +65,15 @@
         </li>
       </ul>
       <div class="icons">
-        <font-awesome-icon :icon="['fab', 'facebook']"></font-awesome-icon>
-        <font-awesome-icon :icon="['fab', 'twitter']"></font-awesome-icon>
-        <font-awesome-icon :icon="['fab', 'instagram']"></font-awesome-icon>
+        <div class="icons__facebookIcon">
+          <font-awesome-icon :icon="['fab', 'facebook']"></font-awesome-icon>
+        </div>
+        <div class="icons__twitterIcon">
+          <font-awesome-icon :icon="['fab', 'twitter']"></font-awesome-icon>
+        </div>
+        <div class="icons__instagramIcon">
+          <font-awesome-icon :icon="['fab', 'instagram']"></font-awesome-icon>
+        </div>
       </div>
     </div>
   </footer>
@@ -100,16 +112,65 @@ footer {
   font-size: $font-md;
   width: inherit;
   text-align: inherit;
+  cursor: pointer;
+  &:hover {
+    color: $primiary-color;
+  }
 }
 .footerSingleList__paragraph {
   text-align: left;
   margin-left: 0.7rem;
 }
+
 .icons {
   margin: 1rem 0;
   width: 100%;
   @include flexLayout;
   justify-content: space-around;
   font-size: $font-bg;
+  & * {
+    cursor: pointer;
+    width: 2.5rem;
+  }
+}
+.icons__facebookIcon:hover {
+  :nth-child(1) {
+    color: rgb(59, 89, 152);
+  }
+}
+.icons__twitterIcon:hover {
+  :nth-child(1) {
+    color: rgb(8, 160, 233);
+  }
+}
+.icons__instagramIcon:hover {
+  width: 2.5rem;
+  border-radius: 50%;
+  background: radial-gradient(
+      circle farthest-corner at 35% 90%,
+      #fec564,
+      transparent 50%
+    ),
+    radial-gradient(circle farthest-corner at 0 140%, #fec564, transparent 50%),
+    radial-gradient(ellipse farthest-corner at 0 -25%, #5258cf, transparent 50%),
+    radial-gradient(
+      ellipse farthest-corner at 20% -50%,
+      #5258cf,
+      transparent 50%
+    ),
+    radial-gradient(ellipse farthest-corner at 100% 0, #893dc2, transparent 50%),
+    radial-gradient(
+      ellipse farthest-corner at 60% -20%,
+      #893dc2,
+      transparent 50%
+    ),
+    radial-gradient(ellipse farthest-corner at 100% 100%, #d9317a, transparent),
+    linear-gradient(
+      #6559ca,
+      #bc318f 30%,
+      #e33f5f 50%,
+      #f77638 70%,
+      #fec66d 100%
+    );
 }
 </style>
