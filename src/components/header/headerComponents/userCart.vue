@@ -1,40 +1,47 @@
 <template>
-  <div class="cartContainer" @click="showUserCardAction">
-    <img
-      src="../../../assets/icons/shoppingCart.svg"
-      alt="shopping Cart icon"
-    />
-    <p>{{ totalQuantityOfUserProducts }}</p>
-    <ul class="cardDisplay" v-if="showUserCard">
+  <div class="cartContainer" @click="showUserCartAction">
+    <font-awesome-icon
+      :icon="['fas', 'shopping-cart']"
+      class="cartContainer__cartIcon"
+    ></font-awesome-icon>
+    <p class="cartContainer__totalQtn">
+      {{ totalQuantityOfUserProducts }} Products in basket
+    </p>
+    <ul class="cardDisplay" v-if="showUserCart">
       <li v-if="this.userCart.length === 0">
         There is no product in your card
       </li>
-      <li v-else v-for="product in this.userCart" :key="product">
-        {{ product[0] }} | Quantity:{{ product[1] }}
+      <li v-else v-for="product in userCart" :key="product">
+        {{ product.title }} | Quantity:{{ product.quantity }}
       </li>
     </ul>
   </div>
 </template>
 <script>
 export default {
-  props: {
-    userCart: {
-      required: true,
-      type: Object,
-    },
-  },
   data() {
-    return { showUserCard: false };
+    return {
+      showUserCart: false,
+      userCart: [],
+    };
   },
   methods: {
-    showUserCardAction() {
-      this.showUserCard = !this.showUserCard;
+    showUserCartAction() {
+      this.showUserCart = !this.showUserCart;
     },
   },
 
   computed: {
+    getCart() {
+      return this.$store.getters["Cart/getCart"];
+    },
     totalQuantityOfUserProducts() {
-      return this.userCart.reduce((qtn, elem) => (qtn += elem[1]), 0);
+      return this.userCart.reduce((qtn, elem) => (qtn += elem.quantity), 0);
+    },
+  },
+  watch: {
+    getCart(newVal) {
+      this.userCart = newVal;
     },
   },
 };
@@ -51,17 +58,14 @@ export default {
     width: 100%;
     max-width: 4rem;
   }
-  p {
-    margin-left: 2rem;
-    font-size: $font-bg;
-    @include mainFontBold;
-  }
+
   .cardDisplay {
     position: absolute;
-    width: 158%;
-    top: 112%;
-    left: -58%;
-    background-color: white;
+    width: 148%;
+    top: 120%;
+    left: -24%;
+    @include mainBorder;
+    border-top: 0;
     border-radius: 0 0 10px 10px;
     z-index: 1000;
 
@@ -69,5 +73,16 @@ export default {
       padding: 1rem;
     }
   }
+}
+.cartContainer__cartIcon {
+  font-size: $font-bg;
+  color: $primiary-color;
+}
+.cartContainer__totalQtn {
+  font-size: $font-md;
+
+  margin-left: 2rem;
+
+  @include mainFontBold;
 }
 </style>

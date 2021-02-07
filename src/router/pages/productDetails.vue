@@ -5,7 +5,10 @@
     <h4 class="productDetails__title">{{ product.title }}</h4>
     <p class="productDetails__desc">{{ product.description }}</p>
     <p class="productDetails__price">{{ product.price }} $</p>
-    <button class="productDetails__button">Add to cart</button>
+    <button @click="addToCart" class="productBoxSmall__addToCartBtn">
+      Add to cart
+      <font-awesome-icon :icon="['fas', 'cart-arrow-down']"></font-awesome-icon>
+    </button>
   </section>
 </template>
 <script>
@@ -25,6 +28,9 @@ export default {
   methods: {
     createImgPath() {
       return require("../../assets/products/rods/rod1.jpg");
+    },
+    addToCart() {
+      this.$store.dispatch("Cart/addItemtoCart", this.product);
     },
   },
 };

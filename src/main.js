@@ -5,11 +5,11 @@ import router from './router/router.js'
 
 //font-awesome Icons
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faPhone, faEnvelope, faMapMarkerAlt, faFax } from '@fortawesome/free-solid-svg-icons'
+import { faPhone, faEnvelope, faMapMarkerAlt, faFax, faShoppingCart,faCartArrowDown,faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { faFacebook,faTwitter,faInstagram } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faPhone,faEnvelope,faMapMarkerAlt,faFax,faFacebook,faTwitter,faInstagram);
+library.add(faPhone,faEnvelope,faMapMarkerAlt,faFax,faFacebook,faTwitter,faInstagram,faShoppingCart,faCartArrowDown,faArrowRight);
 
 
 //global componenets

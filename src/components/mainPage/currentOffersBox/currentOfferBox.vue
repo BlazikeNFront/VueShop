@@ -59,6 +59,7 @@ export default {
 }
 .currentOfferContainer {
   @include centerAbsolute;
+  position: fixed;
   width: 60%;
   background-color: black;
   padding: 1rem;
@@ -71,6 +72,8 @@ export default {
   p {
     font-size: $font-bg;
     color: white;
+    font-family: $mainFont;
+    text-align: center;
     span {
       color: rgb(212, 115, 4);
     }

@@ -10,7 +10,7 @@ export default {
     mutations: {
         addItemToCart(state,payload) {
             state.cart = payload;
-            console.log(state.cart)
+           
         },
         deleteItemFromCart(state, payload) {
            state.cart = payload;
@@ -28,7 +28,7 @@ export default {
             const newCart = [...context.state.cart];
             
             const productIndex = newCart.findIndex(product => product.id = id) ;
-            console.log(newCart,productIndex)
+            
             if (productIndex < 0) {
                 payload.quantity = 1
                 newCart.push(payload);
@@ -58,6 +58,7 @@ export default {
     },
     getters: {
         getCart(state) {
+            
             return state.cart
         }
     }

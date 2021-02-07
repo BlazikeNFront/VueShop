@@ -19,6 +19,8 @@ export default {
         title: "Okuma Rod",
         price: 105.77,
         id: 22545,
+        desc:
+          "This is very goood rod, very good mr , i give a good discount 2% ,yea ,yea very big only for you ^-^",
       },
     };
   },

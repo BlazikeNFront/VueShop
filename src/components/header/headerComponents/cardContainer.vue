@@ -1,33 +1,23 @@
 <template>
   <div class="cardLayoutContainer">
-    <phone-contact></phone-contact>
-    <user-cart :userCart="userCart"></user-cart>
+    <user-cart></user-cart>
   </div>
 </template>
 <script>
-import PhoneContact from "./phoneContact.vue";
 import UserCart from "./userCart.vue";
 export default {
   components: {
-    PhoneContact,
     UserCart,
-  },
-  data() {
-    return {
-      userCart: [
-        ["shitmano reel", 1],
-        ["daiwa rod", 2],
-        ["rapala lure", 4],
-      ],
-    };
   },
 };
 </script>
 <style lang='scss'>
 .cardLayoutContainer {
+  padding: 0.5rem;
   @include flexLayout;
   justify-content: space-around;
-  height: 5rem;
-  background-color: white;
+  width: 18rem;
+
+  @include mainBorder;
 }
 </style>
