@@ -15,6 +15,8 @@ library.add(faPhone,faEnvelope,faMapMarkerAlt,faFax,faFacebook,faTwitter,faInsta
 //global componenets
 import BackDrop from './components/common/BackDrop.vue';
 import Loader from './components/common/loader.vue';
+import BaseCard from './components/common/BaseCard.vue';
+import ErrorModal from './components/common/ErrorModal.vue';
 
 
 
@@ -26,6 +28,8 @@ app.use(store);
 app.use(router);
 app.component('back-drop', BackDrop);
 app.component('loader', Loader);
+app.component('base-card', BaseCard);
+app.component('error-modal', ErrorModal);
 app.component('font-awesome-icon', FontAwesomeIcon);
 
 app.mount('#app');

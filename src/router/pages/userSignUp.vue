@@ -1,5 +1,5 @@
 <template>
-  <section class="signUpForm" @click="closeForm">
+  <section class="signUpForm">
     <form @submit.prevent="handleSignUp">
       <base-card>
         <div class="formControl">
@@ -38,15 +38,22 @@
           />
           <p>{{ formErrors.passwordErrorMsg }}</p>
         </div>
-        <button>Login</button>
+        <button class="signUpForm__button">Sign Me Up !</button>
+        <loader v-if="loader"></loader>
       </base-card>
     </form>
+    <error-modal
+      v-if="serverErrorMsg"
+      @closeDialog="closeErrorModal"
+      @confirmError="closeErrorModal"
+      ><p class="signUpForm__errorMsg">
+        {{ serverErrorMsg }}
+      </p>
+    </error-modal>
   </section>
 </template>
 <script>
-import BaseCard from "../../components/common/BaseCard.vue";
 export default {
-  components: { BaseCard },
   data() {
     return {
       email: null,
@@ -56,18 +63,43 @@ export default {
         passwordErrorMsg: null,
         userNameErrorMsg: null,
       },
+      loader: false,
+      serverErrorMsg: null,
     };
   },
   methods: {
     closeForm() {
-      console.log("work");
       this.$router.push("/");
     },
-    handleSignUp() {
-      this.checkForm();
+    async handleSignUp() {
+      if (this.checkForm() === false) {
+        return;
+      }
+      try {
+        this.loader = true;
+        const userData = {
+          email: this.email,
+          password: this.userPassword,
+        };
+
+        const data = await fetch("http://localhost:3000/SignUp", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(userData),
+        });
+        const dataJSON = await data.json();
+
+        if (dataJSON.status !== 200) {
+          this.serverErrorMsg = dataJSON.message;
+        }
+        this.loader = false;
+      } catch (err) {
+        this.loader = false;
+        console.log(err.message);
+      }
     },
     checkForm() {
-      //Requirement -minimum eight characters, at least one letter and one number
+      //Requirements -minimum eight characters, at least one letter and one number
       const regexForEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
       const regexForPassword = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
@@ -92,18 +124,15 @@ export default {
       }
       this.formErrors.userNameErrorMsg = null;
       this.formErrors.passwordErrorMsg = null;
-
-      /////// STORE ACTION /////////
+    },
+    closeErrorModal() {
+      this.serverErrorMsg = null;
     },
   },
 };
 </script>
 <style lang='scss'>
 .signUpForm {
-  position: fixed;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 20000;
   form {
@@ -128,9 +157,7 @@ export default {
         padding: 5%;
       }
     }
-    button {
-      margin: 1rem;
-    }
+
     p {
       color: red;
     }
@@ -138,5 +165,17 @@ export default {
   .userInputError {
     border: 2px solid red !important;
   }
+}
+.signUpForm__button {
+  margin: 1rem;
+  background: none;
+
+  padding: 1rem;
+  color: $primiary-color;
+  border: 1px solid $primiary-color;
+}
+.signUpForm__errorMsg {
+  color: $primiary-color;
+  font-size: $font-bg;
 }
 </style>

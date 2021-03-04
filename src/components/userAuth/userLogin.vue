@@ -1,36 +1,50 @@
 <template>
   <section class="loginBox">
     <back-drop @click="$emit('hideLoginForm')"></back-drop>
-    <form @submit.prevent="handleLogin" class="loginForm">
-      <div class="loginFormControl">
-        <label for="userName" class="loginFormControll__label">Email:</label>
-        <input
-          class="loginFormControll__input"
-          type="email"
-          id="userName"
-          v-model.trim="userName"
-          autocomplete="username"
-        />
 
-        <p>{{ this.userNameError }}</p>
-      </div>
-      <div class="loginFormControl">
-        <label for="password" class="loginFormControll__label">Password:</label>
-        <input
-          class="loginFormControll__input"
-          type="password"
-          id="password"
-          v-model.trim="userPassword"
-          autocomplete="current-password"
-        />
-        <p class="loginFormControl__errorMsg">{{ passwordError }}</p>
-      </div>
-      <button class="loginFormControl__button">Login</button>
-    </form>
-    <p class="signUpLink">
-      U dont have an account? Click
-      <router-link to="/SignUp">Here</router-link> to Sign up !
-    </p>
+    <div class="loginForm">
+      <form @submit.prevent="handleLogin">
+        <div class="loginFormControl">
+          <label for="userName" class="loginFormControll__label">Email:</label>
+          <input
+            class="loginFormControll__input"
+            type="email"
+            id="userName"
+            v-model.trim="userName"
+            autocomplete="username"
+          />
+
+          <p>{{ this.userNameError }}</p>
+        </div>
+        <div class="loginFormControl">
+          <label for="password" class="loginFormControll__label"
+            >Password:</label
+          >
+          <input
+            class="loginFormControll__input"
+            type="password"
+            id="password"
+            v-model.trim="userPassword"
+            autocomplete="current-password"
+          />
+          <p class="loginFormControl__errorMsg">{{ passwordError }}</p>
+        </div>
+        <button class="loginFormControl__button">Login</button>
+
+        <p class="signUpLink">
+          U dont have an account? Click
+          <span class="loginForm__routerLink" @click="changeRoute">Here</span>
+          to Sign up !
+        </p>
+      </form>
+    </div>
+    <error-modal
+      v-if="serverErrorMsg"
+      @closeDialog="closeErrorModal"
+      @confirmError="closeErrorModal"
+    >
+      <p class="login__modalErrorMsg">{{}}</p>
+    </error-modal>
   </section>
 </template>
 <script>
@@ -42,19 +56,35 @@ export default {
       userPassword: null,
       passwordError: null,
       userNameError: null,
+      serverErrorMsg: null,
     };
   },
   methods: {
-    handleLogin() {
+    async handleLogin() {
       if (this.userPassword === null || "") {
         this.passwordError = "Please insert password";
         return;
       }
       if (this.userName === null || this.userName.split("").length < 5) {
         this.userNameError = "Please insert correct email";
-
         return;
       }
+      try {
+        const payload = {
+          userName: this.userName,
+          password: this.userPassword,
+        };
+        await this.$store.dispatch("UserAuth/handleLogin", payload);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    changeRoute() {
+      this.$emit("hideLoginForm");
+      this.$router.push("/SignUp");
+    },
+    closeErrorModal() {
+      this.serverErrorMsg = null;
     },
   },
 };
@@ -102,7 +132,16 @@ export default {
   color: #33cc80;
   font-size: 1rem;
 }
+
 .signUpLink a {
   color: $primiary-color;
+}
+.loginForm__routerLink {
+  color: $primiary-color;
+  cursor: pointer;
+}
+.login__modalErrorMsg {
+  color: $primiary-color;
+  font-size: $font-bg;
 }
 </style>

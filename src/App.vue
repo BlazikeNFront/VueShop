@@ -68,6 +68,7 @@ ul {
   margin: 0;
   padding: 0;
   font-weight: normal;
+  font-family: $mainFont;
 }
 
 ol,

@@ -62,7 +62,7 @@ export default {
 .productBoxSmall__imageBox__img {
   max-width: 100%;
   margin-bottom: 1rem;
-  transition: all 0.5s ease;
+  transition: all 0.1s ease;
 }
 .productBoxSmall__imageBox {
   width: 100%;
