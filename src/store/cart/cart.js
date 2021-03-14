@@ -10,6 +10,7 @@ export default {
     mutations: {
         addItemToCart(state,payload) {
             state.cart = payload;
+            
            
         },
         deleteItemFromCart(state, payload) {
@@ -23,7 +24,7 @@ export default {
     },
     actions: {
         addItemtoCart(context, payload) {
-            
+          
             const id = payload.id;
             const newCart = [...context.state.cart];
             
@@ -33,13 +34,11 @@ export default {
                 payload.quantity = 1
                 newCart.push(payload);
                 context.commit('addItemToCart', newCart);
-               
             }
             else {
-              
                 newCart[productIndex].quantity++
             }
-        
+            context.dispatch('updateCartInDb');
         },
 
         deleteItemFromCart(context, payload) {
@@ -50,10 +49,39 @@ export default {
             if (newCard[productIndex].quantity === 0) {
                 newCard.splice(productIndex,1)
             }
-            context.commit('deleteItemFromCart',newCard)
+            context.commit('deleteItemFromCart', newCard)
+            context.dispatch('updateCartInDb');
         },
         resetCart(context) {
-            context.commit('resetCart',[])
+            context.commit('resetCart', [])
+            context.dispatch('updateCartInDb');
+        },
+       async updateCartInDb(context) {
+           try {
+
+              
+               
+               const cart = context.getters['getCart']
+               const token = context.rootGetters['UserAuth/getToken'];
+               
+               
+               console.log(token)
+               const payload = {
+                   cart,
+                   token
+               }
+               const updateCartResult = await fetch('http://localhost:3000/updateUserCart', {
+                   method: 'POST',
+                   headers: { "Content-Type": "application/json" },
+                   body: JSON.stringify(payload),
+                   
+               })
+               console.log(updateCartResult)
+            }
+           catch (err) {
+               console.log(err)
+           }
+
         }
     },
     getters: {

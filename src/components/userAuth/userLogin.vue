@@ -75,6 +75,7 @@ export default {
           password: this.userPassword,
         };
         await this.$store.dispatch("UserAuth/handleLogin", payload);
+        this.$emit("hideLoginForm");
       } catch (err) {
         console.log(err);
       }

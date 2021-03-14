@@ -1,17 +1,19 @@
 
+
 export default  {
     namespaced: true,
     state() {
         return {
-            token: null,
-            userId:null,
+            token:null,
+   
         }
     },
     mutations: {
         handleLogin(state,payload) {
             state.token = payload.token
-            state.userId = payload.userId
-        
+        },
+        logout(state) {
+            state.token = null
         }
     },
     actions: {
@@ -32,21 +34,27 @@ export default  {
                     return dataJSON.message
                  }
                 else {
+                  
                     const payload = {
-                        token: dataJSON.token,
-                        userId: dataJSON.userId
-                        
+                        token: dataJSON,
                     }
+
                     context.commit('handleLogin',payload)
                  
                 }
                 
             }
             catch (err) { console.log(err) }
-        
-      }
+        },
+        logout(context) {
+            context.commit('logout')
+        }
     },
-    getters: {},
+    getters: {
+        getToken(state) {
+            return state.token
+        }
+    },
     
 
 }

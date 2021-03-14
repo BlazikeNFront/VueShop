@@ -75,6 +75,9 @@ ol,
 ul {
   list-style: none;
 }
+button {
+  cursor: pointer;
+}
 
 .brandAdd {
   position: fixed;

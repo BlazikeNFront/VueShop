@@ -43,11 +43,11 @@
       </base-card>
     </form>
     <error-modal
-      v-if="serverErrorMsg"
+      v-if="dialogModal.type"
       @closeDialog="closeErrorModal"
       @confirmError="closeErrorModal"
       ><p class="signUpForm__errorMsg">
-        {{ serverErrorMsg }}
+        {{ dialogModal.msg }}
       </p>
     </error-modal>
   </section>
@@ -64,7 +64,10 @@ export default {
         userNameErrorMsg: null,
       },
       loader: false,
-      serverErrorMsg: null,
+      dialogModal: {
+        type: null,
+        msg: null,
+      },
     };
   },
   methods: {
@@ -89,9 +92,14 @@ export default {
         });
         const dataJSON = await data.json();
 
-        if (dataJSON.status !== 200) {
-          this.serverErrorMsg = dataJSON.message;
+        if (data.status !== 200) {
+          this.dialogModal.type = "error";
+          this.dialogModal.msg = dataJSON.message;
+          this.loader = false;
+          return;
         }
+        this.dialogModal.type = "confirmation";
+        this.dialogModal.msg = dataJSON.message;
         this.loader = false;
       } catch (err) {
         this.loader = false;
@@ -126,7 +134,11 @@ export default {
       this.formErrors.passwordErrorMsg = null;
     },
     closeErrorModal() {
-      this.serverErrorMsg = null;
+      if (this.dialogModal.type === "confirmation") {
+        this.$router.push("/");
+      }
+      this.dialogModal.type = null;
+      this.dialogModal.msg = null;
     },
   },
 };

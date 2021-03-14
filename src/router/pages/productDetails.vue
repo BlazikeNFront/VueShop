@@ -5,7 +5,11 @@
     <h4 class="productDetails__title">{{ product.title }}</h4>
     <p class="productDetails__desc">{{ product.description }}</p>
     <p class="productDetails__price">{{ product.price }} $</p>
-    <button @click="addToCart" class="productBoxSmall__addToCartBtn">
+    <button
+      @click="addToCart"
+      :disabled="!token"
+      class="productBoxSmall__addToCartBtn"
+    >
       Add to cart
       <font-awesome-icon :icon="['fas', 'cart-arrow-down']"></font-awesome-icon>
     </button>
@@ -30,7 +34,16 @@ export default {
       return require("../../assets/products/rods/rod1.jpg");
     },
     addToCart() {
-      this.$store.dispatch("Cart/addItemtoCart", this.product);
+      const payload = {};
+      payload.id = this.product.id;
+      payload.title = this.product.title;
+
+      this.$store.dispatch("Cart/addItemtoCart", payload);
+    },
+  },
+  computed: {
+    token() {
+      return this.$store.getters["UserAuth/getToken"];
     },
   },
 };

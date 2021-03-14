@@ -4,8 +4,13 @@
     <search-bar></search-bar>
     <card-container></card-container>
 
-    <button @click="toggleLoginForm" v-if="!loginForm">Login</button>
-    <user-login v-else @hideLoginForm="toggleLoginForm"></user-login>
+    <button @click="handleLoginButton" v-if="!loginForm">
+      {{ buttonMsg }}
+    </button>
+    <user-login
+      v-if="loginForm && !token"
+      @hideLoginForm="hideForm"
+    ></user-login>
   </header>
 </template>
 <script>
@@ -21,15 +26,36 @@ export default {
     CardContainer,
     UserLogin,
   },
-  emits: {},
+
   data() {
     return {
       loginForm: false,
     };
   },
+
   methods: {
-    toggleLoginForm() {
-      this.loginForm = !this.loginForm;
+    hideForm() {
+      this.loginForm = false;
+    },
+    handleLoginButton() {
+      if (this.token) {
+        this.$store.dispatch("UserAuth/logout");
+      } else {
+        this.loginForm = true;
+      }
+    },
+  },
+  computed: {
+    token() {
+      return this.$store.getters["UserAuth/getToken"];
+    },
+
+    buttonMsg() {
+      if (this.token) {
+        return "Logout";
+      } else {
+        return "Login";
+      }
     },
   },
 };
