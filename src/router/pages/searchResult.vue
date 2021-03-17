@@ -1,7 +1,13 @@
 <template>
-  <section class="searchResult">
-    <loader v-if="!product"></loader>
-    <product-box-small v-else :product="product"></product-box-small>
+  <section class="searchData">
+    <loader v-if="!searchData"></loader>
+    <div v-else>
+      <product-box-small
+        v-for="product in searchData"
+        :key="product._id"
+        :product="product"
+      ></product-box-small>
+    </div>
   </section>
 </template>
 <script>
@@ -11,23 +17,25 @@ export default {
   components: {
     ProductBoxSmall,
   },
-  data() {
-    return {
-      searchResult: null,
-      product: {
-        imageUrl: "../../assets/products/rods/rod1.jpg",
-        title: "Okuma Rod",
-        price: 105.77,
-        id: 22545,
-        desc:
-          "This is very goood rod, very good mr , i give a good discount 2% ,yea ,yea very big only for you ^-^",
-      },
-    };
+  mounted() {
+    this.handleSearchRequest();
+  },
+
+  methods: {
+    handleSearchRequest() {
+      const query = this.$route.params.query;
+      this.$store.dispatch("UserSearch/handleSearchRequest", query);
+    },
+  },
+  computed: {
+    searchData() {
+      return this.$store.getters["UserSearch/getSearchResultData"];
+    },
   },
 };
 </script>
 <style lang='scss'>
-.searchResult {
+.searchData {
   margin-top: 2rem;
   @include flexLayout;
   justify-content: center;

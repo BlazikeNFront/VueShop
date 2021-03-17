@@ -71,18 +71,18 @@
         <label
           class="addProduct__formControl__lables"
           for="addProduct__productTile"
-          >Title:</label
+          >Name:</label
         >
         <input
           class="addProduct__formControl__input"
           id="addProduct__productTile"
           type="text"
-          placeholder="Enter a title"
-          v-model="formInputs.title.value"
+          placeholder="Enter product name"
+          v-model="formInputs.name.value"
         />
       </div>
-      <p class="addProduct__errorMsg" v-if="formInputs.title.error">
-        {{ formInputs.title.errorMsg }}
+      <p class="addProduct__errorMsg" v-if="formInputs.name.error">
+        {{ formInputs.name.errorMsg }}
       </p>
     </div>
     <div class="addProduct__formControl">
@@ -165,12 +165,12 @@
     <button class="form-addProduct__button">Create product</button>
   </form>
   <confirmation-modal
-    v-if="this.formRequestConfirmation"
+    v-if="this.formRequestConfirmation.visible"
     @closeDialog="closeModal"
     @confirmError="closeModal"
   >
     <h4 class="addProduct__errorMsg__moddalText">
-      Product was added succesfully
+      {{ formRequestConfirmation.text }}
     </h4>
   </confirmation-modal>
 </template>
@@ -182,10 +182,10 @@ export default {
   },
   data() {
     return {
-      formRequestConfirmation: false,
+      formRequestConfirmation: { visible: false, text: null },
       formInputs: {
         typeOfProduct: { value: null, error: false, errorMsg: null },
-        title: { value: null, error: false, errorMsg: null },
+        name: { value: null, error: false, errorMsg: null },
         descritpion: { value: null, error: false, errorMsg: null },
         price: { value: null, error: false, errorMsg: null },
         quantity: { value: null, error: false, errorMsg: null },
@@ -195,7 +195,8 @@ export default {
   },
   methods: {
     closeModal() {
-      this.formRequestConfirmation = false;
+      this.formRequestConfirmation.visible = false;
+      this.formRequestConfirmation.text = null;
     },
     updateImageFile(e) {
       this.formInputs.image.value = e.target.files[0];
@@ -203,7 +204,7 @@ export default {
     checkForm() {
       const {
         typeOfProduct,
-        title,
+        name,
         descritpion,
         price,
         quantity,
@@ -216,10 +217,10 @@ export default {
           "U need to pick a category of product";
         return false;
       }
-      if (title.value === null || title.value.length < 5) {
-        this.formInputs.title.error = true;
-        this.formInputs.title.errorMsg =
-          "Title should contaitn at least 5 characters";
+      if (name.value === null || name.value.length < 5) {
+        this.formInputs.name.error = true;
+        this.formInputs.name.errorMsg =
+          "Name should contaitn at least 5 characters";
         return false;
       }
       if (
@@ -256,7 +257,7 @@ export default {
     async handleFormRequest() {
       const {
         typeOfProduct,
-        title,
+        name,
         descritpion,
         price,
         quantity,
@@ -267,7 +268,7 @@ export default {
       const product = new FormData();
 
       product.append("type", typeOfProduct.value);
-      product.append("title", title.value);
+      product.append("name", name.value);
       product.append("description", descritpion.value);
       product.append("price", price.value);
       product.append("quantity", quantity.value);
@@ -277,9 +278,13 @@ export default {
         const productId = await this.addProduct(product);
 
         if (!productId) {
+          this.formRequestConfirmation.text =
+            "Server couldnt add product :( Try again";
+          this.formRequestConfirmation.visible = true;
           throw new Error("no product iD in VUE PAGE");
         }
-        this.formRequestConfirmation = true;
+        this.formRequestConfirmation.text = "Added product succesfully";
+        this.formRequestConfirmation.visible = true;
         this.cleanForm();
       }
     },

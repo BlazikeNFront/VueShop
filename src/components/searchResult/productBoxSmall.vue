@@ -2,14 +2,14 @@
   <div class="productBoxSmall">
     <div class="productBoxSmall__imageBox">
       <img
-        src="../../assets/products/rods/rod1.jpg"
-        :alt="product.title + 'rod'"
+        :src="product.imagePath"
+        :alt="product.name + 'rod'"
         class="productBoxSmall__imageBox__img"
       />
 
       <button
         class="productBoxSmall__button"
-        @click="this.$router.push(`/productDetails/${this.product.id}`)"
+        @click="this.$router.push(`/productDetails/${this.product._id}`)"
       >
         <font-awesome-icon
           :icon="['fas', 'arrow-right']"
@@ -17,7 +17,7 @@
         ></font-awesome-icon>
       </button>
     </div>
-    <h4 class="productBoxSmall__productTitle">{{ this.product.title }}</h4>
+    <h4 class="productBoxSmall__productTitle">{{ this.product.name }}</h4>
     <p class="productBoxSmall__productPrice">{{ this.product.price }} $</p>
     <p class="productBoxSmall__productDesc">{{ cutDesc }}</p>
   </div>
@@ -37,8 +37,7 @@ export default {
   },
   computed: {
     cutDesc() {
-      console.log(this.product.desc.split("").splice(0, 20).join(""));
-      return this.product.desc.split("").splice(0, 70).join("") + "...";
+      return this.product.description.split("").splice(0, 70).join("") + "...";
     },
   },
 };
