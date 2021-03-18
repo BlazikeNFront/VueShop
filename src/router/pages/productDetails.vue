@@ -1,42 +1,41 @@
 <template>
   <section class="productDetails">
-    <img :src="product.imgSrc" alt="rod" class="productDetails__image" />
+    <loader v-if="!product"></loader>
+    <div class="productDetails_productBox" v-else>
+      <img :src="product.imagePath" alt="rod" class="productDetails__image" />
 
-    <h4 class="productDetails__title">{{ product.title }}</h4>
-    <p class="productDetails__desc">{{ product.description }}</p>
-    <p class="productDetails__price">{{ product.price }} $</p>
-    <button
-      @click="addToCart"
-      :disabled="!token"
-      class="productBoxSmall__addToCartBtn"
-    >
-      Add to cart
-      <font-awesome-icon :icon="['fas', 'cart-arrow-down']"></font-awesome-icon>
-    </button>
+      <h4 class="productDetails__title">{{ product.name }}</h4>
+      <p class="productDetails__desc">{{ product.description }}</p>
+      <p class="productDetails__price">{{ product.price }} $</p>
+      <button
+        @click="addToCart"
+        :disabled="!token"
+        class="productBoxSmall__addToCartBtn"
+      >
+        Add to cart
+        <font-awesome-icon
+          :icon="['fas', 'cart-arrow-down']"
+        ></font-awesome-icon>
+      </button>
+    </div>
   </section>
 </template>
 <script>
 export default {
-  data() {
-    return {
-      product: {
-        imgSrc: this.createImgPath(),
-        title: "Okuma Rod",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisl tincidunt eget nullam non. Quis hendrerit dolor magna eget est lorem ipsum dolor sit. Volutpat odio facilisis mauris sit amet massa. Commodo odio aenean sed adipiscing diam donec adipiscing tristique. Mi eget mauris pharetra et. Non tellus orci ac auctor augue. Elit at imperdiet dui accumsan sit. Ornare arcu dui vivamus arcu felis. Egestas integer eget aliquet nibh praesent. In hac habitasse platea dictumst quisque sagittis purus. Pulvinar elementum integer enim neque volutpat ac.",
-        price: 105.77,
-        id: 22545,
-      },
-    };
+  mounted() {
+    const routerProductId = this.$route.params.productId;
+
+    if (this.product === null || this.product._id !== routerProductId) {
+      this.$store.dispatch("UserSearch/setProductDetails", routerProductId);
+    }
   },
   methods: {
-    createImgPath() {
-      return require("../../assets/products/rods/rod1.jpg");
-    },
     addToCart() {
       const payload = {};
-      payload.id = this.product.id;
-      payload.title = this.product.title;
+      payload._id = this.product._id;
+      payload.name = this.product.name;
+      payload.imagePath = this.product.imagePath;
+      payload.price = this.product.price;
 
       this.$store.dispatch("Cart/addItemtoCart", payload);
     },
@@ -44,6 +43,9 @@ export default {
   computed: {
     token() {
       return this.$store.getters["UserAuth/getToken"];
+    },
+    product() {
+      return this.$store.getters["UserSearch/getProductDetails"];
     },
   },
 };

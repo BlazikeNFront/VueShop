@@ -36,6 +36,11 @@ export default {
       if (this.searBarInputValue.length === 0) {
         return;
       }
+
+      this.$store.dispatch(
+        "UserSearch/handleSearchRequest",
+        this.searBarInputValue
+      );
       this.$router.push(`/search/${this.searBarInputValue}`);
     },
   },

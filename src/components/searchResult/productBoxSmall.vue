@@ -7,10 +7,7 @@
         class="productBoxSmall__imageBox__img"
       />
 
-      <button
-        class="productBoxSmall__button"
-        @click="this.$router.push(`/productDetails/${this.product._id}`)"
-      >
+      <button class="productBoxSmall__button" @click="checkDetails">
         <font-awesome-icon
           :icon="['fas', 'arrow-right']"
           class="productBoxSmall__arrowIcon"
@@ -38,6 +35,12 @@ export default {
   computed: {
     cutDesc() {
       return this.product.description.split("").splice(0, 70).join("") + "...";
+    },
+  },
+  methods: {
+    checkDetails() {
+      this.$store.dispatch("UserSearch/setProductDetails", this.product._id);
+      this.$router.push(`/productDetails/${this.product._id}`);
     },
   },
 };

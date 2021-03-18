@@ -7,14 +7,25 @@
     <p class="cartContainer__totalQtn">
       {{ totalQuantityOfUserProducts }} Products in basket
     </p>
-    <ul class="cardDisplay" v-if="showUserCart">
-      <li v-if="this.userCart.length === 0">
+    <div class="cardDisplay" v-if="showUserCart">
+      <p class="cardDsiplay__listItem" v-if="this.userCart.length === 0">
         There is no product in your card
-      </li>
-      <li v-else v-for="product in userCart" :key="product">
-        {{ product.title }} | Quantity:{{ product.quantity }}
-      </li>
-    </ul>
+      </p>
+      <div v-else>
+        <ul class="cardDsiplay__list">
+          <li
+            class="cardDsiplay__listItem"
+            v-for="product in userCart"
+            :key="product"
+          >
+            {{ product.name }} | Quantity:{{ product.quantity }}
+          </li>
+        </ul>
+        <button class="cardDsiplay__button" @click="handleOrderRequest">
+          Order
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -22,17 +33,19 @@ export default {
   data() {
     return {
       showUserCart: false,
-      userCart: [],
     };
   },
   methods: {
     showUserCartAction() {
       this.showUserCart = !this.showUserCart;
     },
+    handleOrderRequest() {
+      this.$router.push("/userOrder");
+    },
   },
 
   computed: {
-    getCart() {
+    userCart() {
       return this.$store.getters["Cart/getCart"];
     },
     totalQuantityOfUserProducts() {
@@ -65,14 +78,16 @@ export default {
     top: 120%;
     left: -24%;
     @include mainBorder;
+    border-color: white;
+    background-color: black;
     border-top: 0;
     border-radius: 0 0 10px 10px;
     z-index: 1000;
-
-    li {
-      padding: 1rem;
-    }
+    color: white;
   }
+}
+.cardDsiplay__listItem {
+  padding: 2rem;
 }
 .cartContainer__cartIcon {
   font-size: $font-bg;
@@ -84,5 +99,9 @@ export default {
   margin-left: 2rem;
 
   @include mainFontBold;
+}
+.cardDsiplay__button {
+  font-family: inherit;
+  font-size: $font-md;
 }
 </style>

@@ -5,7 +5,7 @@
   <div class="container">
     <header-component></header-component>
     <nav-bar></nav-bar>
-    <main>
+    <main class="main">
       <router-view></router-view>
     </main>
     <footer-component></footer-component>
@@ -105,5 +105,8 @@ ul {
 }
 input {
   font-family: inherit;
+}
+.main {
+  height: 100rem;
 }
 </style>
