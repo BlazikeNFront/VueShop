@@ -2,15 +2,7 @@ export default {
   namespaced: true,
   state() {
     return {
-      cart: [
-        {
-          imagePath: "http://localhost:3000/images/BEZBEk-1616008582010.jpg",
-          name: "Okuma rod",
-          price: "233",
-          quantity: 5,
-          _id: "60525586730ed757fcfb10e2",
-        },
-      ],
+      cart: [],
     };
   },
   mutations: {

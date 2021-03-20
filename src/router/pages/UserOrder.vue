@@ -47,21 +47,48 @@
     <button class="userOrder__confirmationButton" @click="handleOrderRequest">
       Confirm order
     </button>
+    <error-modal
+      v-if="this.modal.visible"
+      @closeDialog="this.hideModal"
+      @confirmError="this.hideModal"
+      ><p class="userOrder__modalMessage" v-if="modal.error">
+        {{ modal.message }}
+      </p>
+      <p class="userOrder__modalMessage" v-else>
+        Order is accteped for more information check Yours orders
+        <router-link to="/user/historyOrder"></router-link>
+      </p>
+    </error-modal>
   </section>
 </template>
 <script>
 export default {
+  data() {
+    return {
+      productsUnavaliable: null,
+      modal: {
+        visible: false,
+        message: null,
+        error: false,
+      },
+    };
+  },
   computed: {
     userCart() {
       return this.$store.getters["Cart/getCart"];
     },
   },
   methods: {
+    hideModal() {
+      this.modal.error = false;
+      this.modal.visible = false;
+      this.modal.message = null;
+    },
     async handleOrderRequest() {
       try {
         const token = this.$store.getters["UserAuth/getToken"];
         const payload = {
-          userCart: this.userCart,
+          cart: this.userCart,
           token,
         };
 
@@ -70,11 +97,26 @@ export default {
           headers: { "Content-Type": "application/json" },
           body: await JSON.stringify(payload),
         });
-        const data = await rawData.json();
-        if (rawData.status !== 200) {
-          throw new Error(`${data.message}`);
+
+        if (rawData.status === 406) {
+          const data = await rawData.json();
+          const productsUnavaliable = data.products;
+          this.productsUnavaliable = productsUnavaliable;
+          this.modal.error = true;
+          this.modal.message = "One or more products are not longer avaliable";
+          this.modal.visible = true;
+
+          return;
+        } else if (rawData.status !== 200) {
+          this.modal.error = true;
+          this.modal.message = "Shop couldnt accept order, try again later";
+          this.modal.visible = true;
+          throw new Error("Shop couldnt accept order");
         }
+
+        this.modal.visible = true;
       } catch (err) {
+        console.log(this.modal.message);
         console.log(err);
       }
     },
@@ -138,5 +180,9 @@ export default {
   @include mainBorder;
   font-size: $font-md;
   padding: 1rem;
+}
+.userOrder__modalMessage {
+  color: white;
+  font-size: $font-md;
 }
 </style>

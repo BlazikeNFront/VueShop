@@ -5,6 +5,7 @@ import SignUpForm from "./pages/userSignUp.vue";
 import SearchResult from "./pages/searchResult.vue";
 import ProductDetails from "./pages/productDetails.vue";
 import AdminAddProduct from "./pages/AddProduct.vue";
+import AdminCMS from "./pages/adminCMS.vue";
 import UserOrder from "./pages/UserOrder.vue";
 
 const router = createRouter({
@@ -14,8 +15,10 @@ const router = createRouter({
     { path: "/search/:query", component: SearchResult },
     { path: "/productDetails/:productId", component: ProductDetails },
     { path: "/SignUp", component: SignUpForm },
+    { path: "/Admin", component: AdminCMS },
     { path: "/Admin/AddProduct", component: AdminAddProduct },
     { path: "/userOrder", component: UserOrder },
+    { path: "/user/historyOrder", component: UserOrder },
   ],
 });
 
