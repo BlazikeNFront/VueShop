@@ -1,7 +1,7 @@
 <template>
   <teleport to="body">
     <back-drop @click="this.$emit('closeDialog')"></back-drop>
-    <div class="errorDialog">
+    <div class="errorDialog" :style="boxDimension">
       <h3 class="errorDialog__h3">Infomation</h3>
       <slot> </slot>
       <button class="errorDialog__button" @click="this.$emit('confirmError')">
@@ -13,6 +13,12 @@
 <script>
 export default {
   emits: ["closeDialog", "confirmError"],
+  props: ["width", "height"],
+  computed: {
+    boxDimension() {
+      return "width:" + this.width + "; height:" + this.height + ";";
+    },
+  },
 };
 </script>
 <style lang='scss'>
@@ -23,8 +29,8 @@ export default {
   position: fixed;
   z-index: 1100;
   width: inherit;
-  width: 50%;
-  height: 25rem;
+  width: 100%;
+  height: fit-content;
   border: 2px solid $primiary-color;
   border-radius: 10px;
   background-color: black;

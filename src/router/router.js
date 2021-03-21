@@ -6,6 +6,7 @@ import SearchResult from "./pages/searchResult.vue";
 import ProductDetails from "./pages/productDetails.vue";
 import AdminAddProduct from "./pages/AddProduct.vue";
 import AdminCMS from "./pages/adminCMS.vue";
+import AdminOrders from "./pages/adminCheckOrders.vue";
 import UserOrder from "./pages/UserOrder.vue";
 
 const router = createRouter({
@@ -19,6 +20,7 @@ const router = createRouter({
     { path: "/Admin/AddProduct", component: AdminAddProduct },
     { path: "/userOrder", component: UserOrder },
     { path: "/user/historyOrder", component: UserOrder },
+    { path: "/Admin/orders", component: AdminOrders },
   ],
 });
 
