@@ -23,7 +23,7 @@
         <div class="userOrder__productInfomartionBox">
           <button
             class="userOrder__checkDeatils"
-            @click="updateOrderDetailsData(order)"
+            @click="updateSelectedOrder(order)"
           >
             Check details
           </button>
@@ -35,124 +35,49 @@
         </div>
         <div class="userOrder__productInfomartionBox">
           <p class="userOrder__productInformation">
-            {{ getOrderStatus(order.status) }}
+            {{ getOrderStatus(parseInt(order.status)) }}
           </p>
         </div>
       </li>
     </ul>
     <button @click="this.getOrders">FETHC ORDER</button>
-    <div class="detailOrderView__modal">
-      <error-modal
-        v-if="showOrderDeatils"
-        @closeDialog="toggleOrderDeatils"
-        @confirmError="toggleOrderDeatils"
-        width="70%"
-        height="fit-content"
-      >
-        <h4 class="detailOrderView__h4">
-          Order Details for {{ orderDetailsData._id }}
-        </h4>
-        <ul>
-          <li
-            class="userOrder__product"
-            v-for="product in orderDetailsData.cart"
-            :key="product._id"
-          >
-            <img
-              class="userOrder__productImage"
-              :src="product.imagePath"
-              :alt="product.name + 'image'"
-            />
-            <div class="userOrder__productInfomartionBox">
-              <p class="userOrder__productInformation">
-                {{ product.name }}
-              </p>
-            </div>
-            <div class="userOrder__productInfomartionBox">
-              <p class="userOrder__productInformation">
-                {{ product.quantity }}
-              </p>
-            </div>
-            <div class="userOrder__productInfomartionBox">
-              <p class="userOrder__productInformation">
-                {{ product.price }}
-              </p>
-            </div>
-            <div class="userOrder__productInfomartionBox">
-              <p class="userOrder__productInformation">
-                {{ product.price * product.quantity }}
-              </p>
-            </div>
-          </li>
-        </ul>
-        <h5 class="detailOrderView__h5">Client information</h5>
-        <div class="detailOrderView__userInformation">
-          <p class="detailOrderView__p">Name: Damian</p>
-          <p class="detailOrderView__p">Surname:Stachurski</p>
-          <p class="detailOrderView__p">Adress:Panstwo Dykty i kartonu</p>
-        </div>
-        <form class="orderStatusForm" @submit.prevent="handleChangeOrderStatus">
-          <p class="orderStatusForm__p">Change order Status</p>
-          <div class="orderStatusForm__formControl">
-            <label class="orderStatusForm__lablel" for="0"
-              >Waiting for acceptance</label
-            >
-            <input
-              id="orderStatusOptions"
-              name="ordersStatus"
-              type="radio"
-              value="0"
-            />
-          </div>
-          <div class="orderStatusForm__formControl">
-            <label class="orderStatusForm__lablel" for="1"
-              >In realization</label
-            >
-            <input
-              id="orderStatusOptions"
-              name="ordersStatus"
-              type="radio"
-              value="1"
-            />
-          </div>
-          <div class="orderStatusForm__formControl">
-            <label class="orderStatusForm__lablel" for="2">Realized</label>
-            <input
-              id="orderStatusOptions"
-              name="ordersStatus"
-              type="radio"
-              value="2"
-            />
-          </div>
-          <button class="orderStatusForm__button">Submit change</button>
-        </form>
-      </error-modal>
-    </div>
+    <order-details
+      v-if="showOrderDeatils"
+      :order="this.selectedOrder"
+      @orderStatusChanged="this.getOrders"
+    ></order-details>
   </section>
 </template>
 <script>
+import OrderDetails from "../../components/admin/orderDetails.vue";
 export default {
+  components: {
+    OrderDetails,
+  },
   mounted() {
     this.getOrders();
   },
   data() {
     return {
       orders: null,
-      showOrderDeatils: false,
-      orderDetailsData: null,
+
+      selectedOrder: null,
     };
   },
   computed: {
     getToken() {
       return this.$store.getters["UserAuth/getToken"];
     },
+    showOrderDeatils() {
+      return this.$store.getters["Admin/showOrderDetails"];
+    },
   },
   methods: {
     toggleOrderDeatils() {
-      this.showOrderDeatils = !this.showOrderDeatils;
+      this.$store.dispatch("Admin/openShowOrderDetails");
     },
-    updateOrderDetailsData(order) {
-      this.orderDetailsData = order;
+    updateSelectedOrder(order) {
+      this.selectedOrder = order;
       this.toggleOrderDeatils();
     },
     getOrderStatus(status) {
@@ -183,12 +108,10 @@ export default {
           throw new Error("Couldnt fetched data from server");
         }
         this.orders = data;
-        console.log(this.orders);
       } catch (err) {
         console.log(err);
       }
     },
-    async handleChangeOrderStatus() {},
   },
 };
 </script>
@@ -230,37 +153,5 @@ export default {
   font-size: $font-md;
   @include mainFontBold;
   border: none;
-}
-.detailOrderView__h5 {
-  margin-top: 1rem;
-  font-size: $font-md;
-  color: white;
-}
-.detailOrderView__userInformation {
-  margin: 1rem;
-  @include flexLayout;
-  width: 100%;
-  justify-content: space-evenly;
-}
-.orderStatusForm {
-  @include flexLayout;
-}
-.detailOrderView__p {
-  color: white;
-}
-.orderStatusForm__lablel {
-  color: White;
-}
-.orderStatusForm__p {
-  color: white;
-  font-size: $font-md;
-}
-.orderStatusForm__formControl {
-  @include flexLayout;
-  margin: 0.5rem;
-}
-.orderStatusForm__button {
-  @include button;
-  color: white;
 }
 </style>
