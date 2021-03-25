@@ -41,7 +41,12 @@ export default {
         "UserSearch/handleSearchRequest",
         this.searBarInputValue
       );
-      this.$router.push(`/search/${this.searBarInputValue}`);
+
+      this.$router.push({
+        name: "search-for-product",
+        params: { searchQuery: this.searBarInputValue },
+        query: { page: 1 },
+      });
     },
   },
 };

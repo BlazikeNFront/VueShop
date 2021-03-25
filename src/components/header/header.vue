@@ -7,6 +7,7 @@
     <button @click="handleLoginButton" v-if="!loginForm">
       {{ buttonMsg }}
     </button>
+    <router-link class="TESTING__ADMIN_CMS" to="/admin">ADMIN</router-link>
     <user-login
       v-if="loginForm && !token"
       @hideLoginForm="hideForm"
@@ -74,5 +75,9 @@ header {
     color: $primiary-color;
     font-size: $font-bg;
   }
+}
+.TESTING__ADMIN_CMS {
+  color: white;
+  font-size: $font-md;
 }
 </style>

@@ -5,6 +5,7 @@ export default {
       searchResultData: null,
       query: null,
       productDetails: null,
+      pages: null,
     };
   },
   mutations: {
@@ -13,22 +14,53 @@ export default {
     },
     setQuery(state, payload) {
       state.query = payload;
+      console.log(state.query);
     },
     setProductDetails(state, payload) {
       state.productDetails = payload;
     },
+    setPage(state, payload) {
+      state.page = payload;
+    },
+    setNumberOfPages(state, payload) {
+      state.pages = payload;
+    },
   },
   actions: {
-    async handleSearchRequest(context, query) {
+    async handleSearchRequest(context, payload) {
+      const { query, page } = payload;
       try {
+        context.commit("setQuery", query);
+
         const rawData = await fetch(
-          `http://localhost:3000/searchProducts/:${query}`
+          `http://localhost:3000/searchProducts/${query}?page=${page || 1}`
         );
         const payload = await rawData.json();
         if (rawData.status !== 200) {
           throw new Error("Server side error");
         }
-        context.commit("setSearchResult", payload);
+        const getNumberOfPages = Math.ceil(payload.totalItems / 8);
+
+        context.commit("setSearchResult", payload.data);
+        context.commit("setNumberOfPages", getNumberOfPages);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async handlePageChange(context, page) {
+      try {
+        const rawData = await fetch(
+          `http://localhost:3000/searchProducts/${context.getters.getQuery}?page=${page}`
+        );
+        const payload = await rawData.json();
+
+        if (rawData.status !== 200) {
+          throw new Error("Server side error");
+        }
+        const getNumberOfPages = Math.ceil(payload.totalItems / 8);
+
+        context.commit("setSearchResult", payload.data);
+        context.commit("setNumberOfPages", getNumberOfPages);
       } catch (err) {
         console.log(err);
       }
@@ -42,6 +74,7 @@ export default {
           `http://localhost:3000/getProductDetails/${prodId}`
         );
         const data = await rawData.json();
+
         context.commit("setProductDetails", data);
       } catch (err) {
         console.log(err);
@@ -57,6 +90,9 @@ export default {
     },
     getProductDetails(state) {
       return state.productDetails;
+    },
+    getNumberOfPages(state) {
+      return state.pages;
     },
   },
 };

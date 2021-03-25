@@ -17,8 +17,8 @@
         >
           <img
             class="userOrder__productImage"
-            :src="product.imagePath"
-            :alt="product.name + 'image'"
+            :src="product.imagePath.small"
+            :alt="product.name + ' image'"
           />
           <div class="userOrder__productInfomartionBox">
             <p class="userOrder__productInformation">

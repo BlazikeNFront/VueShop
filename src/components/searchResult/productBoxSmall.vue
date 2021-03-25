@@ -2,21 +2,22 @@
   <div class="productBoxSmall">
     <div class="productBoxSmall__imageBox">
       <img
-        :src="product.imagePath"
-        :alt="product.name + 'rod'"
+        :src="product.imagePath.medium"
+        :alt="product.name + ' image'"
         class="productBoxSmall__imageBox__img"
       />
-
-      <button class="productBoxSmall__button" @click="checkDetails">
-        <font-awesome-icon
-          :icon="['fas', 'arrow-right']"
-          class="productBoxSmall__arrowIcon"
-        ></font-awesome-icon>
-      </button>
     </div>
-    <h4 class="productBoxSmall__productTitle">{{ this.product.name }}</h4>
-    <p class="productBoxSmall__productPrice">{{ this.product.price }} $</p>
-    <p class="productBoxSmall__productDesc">{{ cutDesc }}</p>
+    <div class="productBoxSmall__textContent">
+      <h4 class="productBoxSmall__productTitle">{{ this.product.name }}</h4>
+      <p class="productBoxSmall__productPrice">{{ this.product.price }} $</p>
+      <p class="productBoxSmall__productDesc">{{ cutDesc }}</p>
+    </div>
+    <button class="productBoxSmall__button" @click="checkDetails">
+      <font-awesome-icon
+        :icon="['fas', 'arrow-right']"
+        class="productBoxSmall__arrowIcon"
+      ></font-awesome-icon>
+    </button>
   </div>
 </template>
 <script>
@@ -34,7 +35,7 @@ export default {
   },
   computed: {
     cutDesc() {
-      return this.product.description.split("").splice(0, 70).join("") + "...";
+      return this.product.description.split("").splice(0, 150).join("") + "...";
     },
   },
   methods: {
@@ -47,30 +48,18 @@ export default {
 </script>
 <style lang='scss'>
 .productBoxSmall {
+  position: relative;
   margin: 1rem;
-  width: 22rem;
+  width: 25rem;
+  height: 40rem;
   font-size: $font-md;
   color: $primiary-color;
   border: 2px solid $primiary-color;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 2px 0px 10px $primiary-color;
-
-  div {
-    @include flexLayout;
-    justify-content: space-around;
-  }
-}
-.productBoxSmall__imageBox__img {
-  max-width: 100%;
-  margin-bottom: 1rem;
-  transition: all 0.1s ease;
-}
-.productBoxSmall__imageBox {
-  width: 100%;
-  margin: 0;
-
-  &:hover img {
+  &:hover .productBoxSmall__imageBox,
+  &:hover .productBoxSmall__textContent {
     opacity: 0.5;
   }
   &:hover button {
@@ -82,6 +71,20 @@ export default {
       color: black;
     }
   }
+  div {
+    @include flexLayout;
+    justify-content: space-around;
+  }
+}
+.productBoxSmall__imageBox__img {
+  max-width: 100%;
+  height: 22rem;
+
+  transition: all 0.1s ease;
+}
+.productBoxSmall__imageBox {
+  width: 100%;
+  margin: 0;
 }
 .productBoxSmall__button {
   opacity: 0;
@@ -94,6 +97,10 @@ export default {
   border-radius: 20px;
   transition: all 0.5s ease;
   cursor: pointer;
+}
+.productBoxSmall__textContent {
+  @include flexLayout;
+  flex-direction: column;
 }
 .productBoxSmall__productTitle {
   margin: 1rem;

@@ -1,7 +1,7 @@
 <template>
   <section class="searchData">
     <loader v-if="!searchData"></loader>
-    <div v-else>
+    <div class="searchData__wrapper" v-else>
       <h3 class="serachData__h3" v-if="searchData.length === 0">
         No single product was found :(
       </h3>
@@ -12,25 +12,47 @@
         :product="product"
       ></product-box-small>
     </div>
+    <pagination-buttons
+      class="searchResult__paginationButtons"
+      :numberOfPages="numberOfPages"
+      @pageChange="handleChangePageRequest"
+    ></pagination-buttons>
   </section>
 </template>
 <script>
 import ProductBoxSmall from "../../components/searchResult/productBoxSmall.vue";
+import PaginationButtons from "../../components/common/PaginationButtons.vue";
 
 export default {
   components: {
     ProductBoxSmall,
+    PaginationButtons,
+  },
+  data() {
+    return {
+      page: this.$route.query.page,
+    };
   },
   mounted() {
     this.handleSearchRequest();
   },
   methods: {
     handleSearchRequest() {
-      const query = this.$route.params.query;
+      const query = this.$route.params.searchQuery;
+      const page = this.$route.query.page;
       if (this.storeQuery === query) {
         return;
       }
-      this.$store.dispatch("UserSearch/handleSearchRequest", query);
+      const payload = { query, page };
+      this.$store.dispatch("UserSearch/handleSearchRequest", payload);
+    },
+    handleChangePageRequest(page) {
+      this.$store.dispatch("UserSearch/handlePageChange", page);
+      this.$router.push({
+        name: "search-for-product",
+        params: { searchQuery: this.$store.getters["UserSearch/getQuery"] },
+        query: { page: page },
+      });
     },
   },
   computed: {
@@ -40,11 +62,14 @@ export default {
     storeQuery() {
       return this.$store.getters["UserSearch/getQuery"];
     },
+    numberOfPages() {
+      return this.$store.getters["UserSearch/getNumberOfPages"];
+    },
   },
 };
 </script>
 <style lang='scss'>
-.searchData {
+.searchData__wrapper {
   margin-top: 2rem;
   @include flexLayout;
   justify-content: center;
@@ -58,5 +83,12 @@ export default {
   margin-top: 25rem;
   font-size: $font-bg;
   color: $primiary-color;
+}
+.searchResult__paginationButtons {
+  position: absolute;
+  bottom: 0rem;
+  width: 50%;
+  margin-left: 50%;
+  transform: translate(-50%);
 }
 </style>

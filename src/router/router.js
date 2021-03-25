@@ -13,7 +13,11 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     { path: "/", component: MainPage },
-    { path: "/search/:query", component: SearchResult },
+    {
+      name: "search-for-product",
+      path: "/search/:searchQuery",
+      component: SearchResult,
+    },
     { path: "/productDetails/:productId", component: ProductDetails },
     { path: "/SignUp", component: SignUpForm },
     { path: "/Admin", component: AdminCMS },

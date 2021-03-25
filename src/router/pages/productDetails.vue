@@ -2,7 +2,11 @@
   <section class="productDetails">
     <loader v-if="!product"></loader>
     <div class="productDetails_productBox" v-else>
-      <img :src="product.imagePath" alt="rod" class="productDetails__image" />
+      <img
+        :src="product.imagePath.large"
+        alt="rod"
+        class="productDetails__image"
+      />
 
       <h4 class="productDetails__title">{{ product.name }}</h4>
       <p class="productDetails__desc">{{ product.description }}</p>
@@ -34,7 +38,7 @@ export default {
       const payload = {};
       payload._id = this.product._id;
       payload.name = this.product.name;
-      payload.imagePath = this.product.imagePath;
+      payload.imagePath = this.product.imagePath.large;
       payload.price = this.product.price;
 
       this.$store.dispatch("Cart/addItemtoCart", payload);
@@ -62,9 +66,7 @@ export default {
   color: white;
 }
 .productDetails__image {
-  width: 85%;
-  height: 35rem;
-  object-fit: cover;
+  width: 72rem;
 }
 
 .productDetails__title {

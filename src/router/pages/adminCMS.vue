@@ -9,10 +9,14 @@
         >Check Orders</router-link
       >
     </div>
+    <slider class="test"></slider>
   </section>
 </template>
 <script>
-export default {};
+import Slider from "../../components/common/Slider.vue";
+export default {
+  components: { Slider },
+};
 </script>
 <style lang="scss">
 .adminCMS {
