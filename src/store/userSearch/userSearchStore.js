@@ -14,7 +14,6 @@ export default {
     },
     setQuery(state, payload) {
       state.query = payload;
-      console.log(state.query);
     },
     setProductDetails(state, payload) {
       state.productDetails = payload;

@@ -10,12 +10,14 @@
       >
     </div>
     <slider class="test"></slider>
+    <hexagon-shape :color="'orange'"></hexagon-shape>
   </section>
 </template>
 <script>
 import Slider from "../../components/common/Slider.vue";
+import HexagonShape from "../../components/common/HexagonalShape.vue";
 export default {
-  components: { Slider },
+  components: { Slider, HexagonShape },
 };
 </script>
 <style lang="scss">

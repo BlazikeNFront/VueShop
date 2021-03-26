@@ -36,11 +36,12 @@ export default {
       if (this.searBarInputValue.length === 0) {
         return;
       }
+      const query = this.searBarInputValue;
 
-      this.$store.dispatch(
-        "UserSearch/handleSearchRequest",
-        this.searBarInputValue
-      );
+      const payload = {
+        query,
+      };
+      this.$store.dispatch("UserSearch/handleSearchRequest", payload);
 
       this.$router.push({
         name: "search-for-product",

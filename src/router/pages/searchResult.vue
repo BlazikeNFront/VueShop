@@ -43,6 +43,7 @@ export default {
       if (this.storeQuery === query) {
         return;
       }
+
       const payload = { query, page };
       this.$store.dispatch("UserSearch/handleSearchRequest", payload);
     },
@@ -85,7 +86,6 @@ export default {
   color: $primiary-color;
 }
 .searchResult__paginationButtons {
-  position: absolute;
   bottom: 0rem;
   width: 50%;
   margin-left: 50%;

@@ -107,7 +107,7 @@ input {
   font-family: inherit;
 }
 .main {
-  height: 100rem;
+  min-height: 100rem;
   margin-top: 5rem;
   position: relative;
 }
