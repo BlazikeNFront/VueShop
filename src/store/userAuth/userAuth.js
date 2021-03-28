@@ -27,12 +27,25 @@ export default {
         });
 
         const dataJSON = await data.json();
+
         if (data.status !== 200) {
           return dataJSON.message;
         } else {
           const payload = {
             token: dataJSON,
           };
+          const localStorageUserCart = await this.dispatch(
+            "Cart/fetchCartFromLocalStorage",
+            {
+              root: true,
+            }
+          );
+          if (localStorageUserCart === false) {
+            console.log("NIE LOKAL");
+            this.dispatch("Cart/fetchCartFromDb", dataJSON.token, {
+              root: true,
+            });
+          }
 
           context.commit("handleLogin", payload);
         }
@@ -42,6 +55,9 @@ export default {
     },
     logout(context) {
       context.commit("logout");
+      this.dispatch("Cart/resetCartFron", {
+        root: true,
+      });
     },
   },
   getters: {

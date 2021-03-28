@@ -41,38 +41,79 @@
       </li>
     </ul>
     <button @click="this.getOrders">FETHC ORDER</button>
+    <pagination-buttons
+      class="searchResult__paginationButtons"
+      :numberOfPages="numberOfPages"
+      @pageChange="handleChangePageRequest"
+      @previousPageClick="
+        handleChangePageRequest(parseInt(this.currentPage) - 1)
+      "
+      @nextPageClick="handleChangePageRequest(parseInt(this.currentPage) + 1)"
+    ></pagination-buttons>
+
     <order-details
       v-if="showOrderDeatils"
       :order="this.selectedOrder"
-      @orderStatusChanged="this.getOrders"
+      @orderStatusChanged="this.handleChangePageRequest"
     ></order-details>
   </section>
 </template>
-<script>
+<script >
 import OrderDetails from "../../components/admin/orderDetails.vue";
+import PaginationButtons from "../../components/common/PaginationButtons.vue";
 export default {
   components: {
     OrderDetails,
+    PaginationButtons,
   },
   mounted() {
-    this.getOrders();
+    const page = this.$route.query.page;
+
+    const payload = {
+      token: this.getToken.token || null,
+      page,
+    };
+    this.$store.dispatch("Admin/fetchOrders", payload);
   },
   data() {
     return {
-      orders: null,
-
       selectedOrder: null,
     };
   },
   computed: {
+    orders() {
+      return this.$store.getters["Admin/getOrders"];
+    },
     getToken() {
       return this.$store.getters["UserAuth/getToken"];
     },
     showOrderDeatils() {
       return this.$store.getters["Admin/showOrderDetails"];
     },
+    currentPage() {
+      return this.$route.query.page;
+    },
+    numberOfPages() {
+      return this.$store.getters["Admin/getNumberOfPages"];
+    },
   },
+
   methods: {
+    handleChangePageRequest(page) {
+      if (page < 1 || page > this.numberOfPages) {
+        return;
+      }
+      const token = this.getToken.token;
+      const payload = {
+        token,
+        page,
+      };
+      this.$store.dispatch("Admin/fetchOrders", payload);
+      this.$router.push({
+        name: "admin-orders",
+        query: { page: page },
+      });
+    },
     toggleOrderDeatils() {
       this.$store.dispatch("Admin/openShowOrderDetails");
     },
@@ -96,26 +137,15 @@ export default {
       );
       return value;
     },
-    async getOrders() {
-      try {
-        const rawData = await fetch("http://localhost:3000/admin/getOrders", {
-          headers: {
-            Authorization: this.getToken.token,
-          },
-        });
-        const data = await rawData.json();
-        if (rawData.status !== 200) {
-          throw new Error("Couldnt fetched data from server");
-        }
-        this.orders = data;
-      } catch (err) {
-        console.log(err);
-      }
-    },
   },
 };
 </script>
 <style lang='scss'>
+.checkOrders {
+  min-height: 100rem;
+  @include flexLayout;
+  flex-direction: column;
+}
 .checkOrders__ordersList {
   margin: 0 auto;
   width: 80%;

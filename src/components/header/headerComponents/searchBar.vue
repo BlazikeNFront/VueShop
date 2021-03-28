@@ -5,6 +5,7 @@
       <drop-down
         defaultCategory="Categories"
         :listOfCategories="['Rods', 'Reels', 'Lures', 'Lines', 'Any']"
+        @categoryChange="addCategoryToSearchQuery"
       ></drop-down>
       <div class="searchBarInput" @click.prevent="submitSearchBarForm">
         <input
@@ -29,14 +30,26 @@ export default {
   data() {
     return {
       searBarInputValue: "",
+      selectedCategory: null,
     };
   },
   methods: {
+    addCategoryToSearchQuery(e) {
+      if (e === "Any") {
+        this.selectedCategory = null;
+        return;
+      }
+      this.selectedCategory = e;
+    },
     submitSearchBarForm() {
       if (this.searBarInputValue.length === 0) {
         return;
       }
-      const query = this.searBarInputValue;
+      let query = this.searBarInputValue;
+
+      if (this.selectedCategory !== null) {
+        query = query + ` ${this.selectedCategory}`;
+      }
 
       const payload = {
         query,
@@ -45,7 +58,7 @@ export default {
 
       this.$router.push({
         name: "search-for-product",
-        params: { searchQuery: this.searBarInputValue },
+        params: { searchQuery: query },
         query: { page: 1 },
       });
     },

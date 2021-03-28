@@ -24,7 +24,7 @@ const router = createRouter({
     { path: "/Admin/AddProduct", component: AdminAddProduct },
     { path: "/userOrder", component: UserOrder },
     { path: "/user/historyOrder", component: UserOrder },
-    { path: "/Admin/orders", component: AdminOrders },
+    { name: "admin-orders", path: "/Admin/orders", component: AdminOrders },
   ],
 });
 

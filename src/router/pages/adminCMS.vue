@@ -5,19 +5,23 @@
       <router-link class="adminCMS__a" to="/Admin/AddProduct"
         >Add product</router-link
       >
-      <router-link class="adminCMS__a" to="/Admin/Orders"
+      <router-link class="adminCMS__a" :to="ordersLink"
         >Check Orders</router-link
       >
     </div>
     <slider class="test"></slider>
-    <hexagon-shape :color="'orange'"></hexagon-shape>
   </section>
 </template>
 <script>
 import Slider from "../../components/common/Slider.vue";
-import HexagonShape from "../../components/common/HexagonalShape.vue";
+
 export default {
-  components: { Slider, HexagonShape },
+  components: { Slider },
+  computed: {
+    ordersLink() {
+      return { name: "admin-orders", query: { page: 1 } };
+    },
+  },
 };
 </script>
 <style lang="scss">
@@ -40,5 +44,8 @@ export default {
   padding: 3rem;
   color: $primiary-color;
   font-size: $font-md;
+}
+.test {
+  margin: 2rem auto;
 }
 </style>

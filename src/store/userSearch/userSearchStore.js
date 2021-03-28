@@ -56,10 +56,8 @@ export default {
         if (rawData.status !== 200) {
           throw new Error("Server side error");
         }
-        const getNumberOfPages = Math.ceil(payload.totalItems / 8);
 
         context.commit("setSearchResult", payload.data);
-        context.commit("setNumberOfPages", getNumberOfPages);
       } catch (err) {
         console.log(err);
       }

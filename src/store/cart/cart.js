@@ -8,7 +8,6 @@ export default {
   mutations: {
     addItemToCart(state, payload) {
       state.cart = payload;
-      console.log(state.cart);
     },
     deleteItemFromCart(state, payload) {
       state.cart = payload;
@@ -16,8 +15,42 @@ export default {
     resetCart(state, payload) {
       state.cart = payload;
     },
+    setCart(state, payload) {
+      state.cart = payload;
+    },
   },
   actions: {
+    async fetchCartFromDb(context, token) {
+      try {
+        const rawData = await fetch("http://localhost:3000/getUserCart", {
+          headers: { Authorization: token },
+        });
+        if (rawData.status !== 200) {
+          throw new Error("Server couldnt update the cart");
+        }
+        const cart = await rawData.json();
+        context.commit("setCart", cart.cart);
+        const localStorageCart = await JSON.stringify(cart.cart);
+        localStorage.setItem("userCart", localStorageCart);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async fetchCartFromLocalStorage(context) {
+      try {
+        const rawData = await localStorage.getItem("userCart");
+        if (rawData === null) {
+          return false;
+        }
+        const cart = await JSON.parse(rawData);
+
+        context.commit("setCart", cart);
+
+        return true;
+      } catch (err) {
+        console.log(err);
+      }
+    },
     addItemtoCart(context, payload) {
       const id = payload._id;
       const newCart = [...context.state.cart];
@@ -25,17 +58,17 @@ export default {
       const productIndex = newCart.findIndex((product) => (product._id = id));
 
       if (productIndex < 0) {
-        payload.quantity = 1;
         newCart.push(payload);
         context.commit("addItemToCart", newCart);
       } else {
-        newCart[productIndex].quantity++;
+        newCart[productIndex].quantity += payload.quantity;
       }
       context.dispatch("updateCartInDb");
     },
 
     deleteItemFromCart(context, payload) {
       const id = payload;
+
       const newCard = [...context.state.card];
       const productIndex = newCard.find((product) => (product.id = id));
       newCard[productIndex].quantity--;
@@ -47,7 +80,10 @@ export default {
     },
     resetCart(context) {
       context.commit("resetCart", []);
-      context.dispatch("updateCartInDb");
+      context.dispatch("updateCartInDb"); // IT SHOULD ONLOY RESET CART IN FRONT
+    },
+    resetCartFron(context) {
+      context.commit("resetCart", []);
     },
     async updateCartInDb(context) {
       try {

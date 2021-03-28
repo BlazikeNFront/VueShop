@@ -7,6 +7,7 @@
     <button @click="handleLoginButton" v-if="!loginForm">
       {{ buttonMsg }}
     </button>
+
     <router-link class="TESTING__ADMIN_CMS" to="/admin">ADMIN</router-link>
     <user-login
       v-if="loginForm && !token"
@@ -39,6 +40,7 @@ export default {
       this.loginForm = false;
     },
     handleLoginButton() {
+      console.log(this.token);
       if (this.token) {
         this.$store.dispatch("UserAuth/logout");
       } else {

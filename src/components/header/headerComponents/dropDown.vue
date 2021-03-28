@@ -32,6 +32,7 @@ export default {
       type: Object,
     },
   },
+  emits: ["categoryChange"],
   data() {
     return {
       selectedCategory: null,
@@ -44,6 +45,7 @@ export default {
     },
     changeSelectedCategory(category) {
       this.selectedCategory = category;
+      this.$emit("categoryChange", category);
     },
   },
 };

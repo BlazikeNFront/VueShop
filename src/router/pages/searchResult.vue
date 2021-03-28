@@ -16,6 +16,12 @@
       class="searchResult__paginationButtons"
       :numberOfPages="numberOfPages"
       @pageChange="handleChangePageRequest"
+      @previousPageClick="
+        this.handleChangePageRequest(parseInt(this.currentPage) - 1)
+      "
+      @nextPageClick="
+        this.handleChangePageRequest(parseInt(this.currentPage) + 1)
+      "
     ></pagination-buttons>
   </section>
 </template>
@@ -28,13 +34,23 @@ export default {
     ProductBoxSmall,
     PaginationButtons,
   },
-  data() {
-    return {
-      page: this.$route.query.page,
-    };
-  },
+
   mounted() {
     this.handleSearchRequest();
+  },
+  computed: {
+    searchData() {
+      return this.$store.getters["UserSearch/getSearchResultData"];
+    },
+    storeQuery() {
+      return this.$store.getters["UserSearch/getQuery"];
+    },
+    currentPage() {
+      return this.$route.query.page;
+    },
+    numberOfPages() {
+      return this.$store.getters["UserSearch/getNumberOfPages"];
+    },
   },
   methods: {
     handleSearchRequest() {
@@ -48,23 +64,15 @@ export default {
       this.$store.dispatch("UserSearch/handleSearchRequest", payload);
     },
     handleChangePageRequest(page) {
+      if (page < 1 || page > this.numberOfPages) {
+        return;
+      }
       this.$store.dispatch("UserSearch/handlePageChange", page);
       this.$router.push({
         name: "search-for-product",
         params: { searchQuery: this.$store.getters["UserSearch/getQuery"] },
         query: { page: page },
       });
-    },
-  },
-  computed: {
-    searchData() {
-      return this.$store.getters["UserSearch/getSearchResultData"];
-    },
-    storeQuery() {
-      return this.$store.getters["UserSearch/getQuery"];
-    },
-    numberOfPages() {
-      return this.$store.getters["UserSearch/getNumberOfPages"];
     },
   },
 };

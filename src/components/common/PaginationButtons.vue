@@ -2,7 +2,7 @@
   <div>
     <div class="paginationButtons">
       <button
-        @click="this.$emit('previousClick')"
+        @click="this.$emit('previousPageClick')"
         class="pagination__pageChangersButtons"
       >
         <font-awesome-icon
@@ -12,22 +12,19 @@
       </button>
       <div class="paginationButtons__pages">
         <hexagonal-shape
-          :color="this.colorOfHexagonButtons"
+          :color="'orange' || this.backgroundOfHexagon"
           v-for="index in numberOfPages"
           :key="index"
-          @click="pageChange"
+          @click="this.$emit('pageChange', index)"
           class="paginationButtons__hexagonShapes"
         >
-          <button
-            class="paginationButtons__hexagonButtons"
-            :style="'background-color:' + this.colorOfHexagonButtons"
-          >
+          <button class="paginationButtons__hexagonButtons">
             {{ index }}
           </button>
         </hexagonal-shape>
       </div>
       <button
-        @click="this.$emit('nextClick')"
+        @click="this.$emit('nextPageClick')"
         class="pagination__pageChangersButtons"
       >
         <font-awesome-icon
@@ -41,20 +38,10 @@
 <script>
 import HexagonalShape from "./HexagonalShape.vue";
 export default {
-  props: ["numberOfPages"],
-  emits: ["pageChange"],
+  props: ["numberOfPages", "backgroundOfHexagon"],
+  emits: ["pageChange", "previousPageClick", "nextPageClick"],
   components: {
     HexagonalShape,
-  },
-  data() {
-    return {
-      colorOfHexagonButtons: "orange",
-    };
-  },
-  methods: {
-    pageChange(e) {
-      this.$emit("pageChange", e.toElement.innerText);
-    },
   },
 };
 </script>
@@ -71,18 +58,21 @@ export default {
     padding: 1rem;
   }
   button:hover {
-    color: $primiary-color;
-    background-color: white;
+    color: white;
   }
 }
 .paginationButtons__hexagonButtons {
-  color: white;
+  position: relative;
+  color: black;
   padding: 0;
   outline: none;
   width: 100%;
   height: 100%;
-  font-size: 1rem;
+  font-size: 1.5rem;
+  background-color: transparent;
   border: none;
+  z-index: 1;
+
   @include mainFontBold;
 }
 .paginationButtons__pages {
@@ -90,8 +80,15 @@ export default {
   @include flexLayout;
 }
 .paginationButtons__hexagonShapes {
-  margin: 2rem 1rem;
-  transition: all 0.2s;
+  margin: 0 1rem;
+
+  transform: scale(1.4);
+  transition: all 0.5s;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.6);
+  }
 }
 .paginationButtons__previousButton {
   transform: rotate(180deg);
