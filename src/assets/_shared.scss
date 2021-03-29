@@ -5,15 +5,16 @@ $font-bg: 2rem;
 $font-md: 1.5rem;
 $font-sm: 1.2rem;
 
-@mixin containerPosition {
-  width: 95%;
-  max-width: 140rem;
-  margin-left: 50%;
-  transform: translate(-50%);
+@mixin containerLaptop {
+  width: 96rem;
+}
+@mixin buttonTransparent {
+  border: none;
+  background: transparent;
 }
 
 @mixin mainFontBold {
-  $mainFont: "Cabin", sans-serif;
+  font-family: "Cabin", sans-serif;
   font-weight: 700;
 }
 
@@ -35,9 +36,13 @@ $font-sm: 1.2rem;
   justify-content: space-between;
 }
 @mixin button {
-  background:none;
-  border:1px solid #d47304;
-  font-size:inherit;
+  background: none;
+  border: 1px solid #d47304;
+  font-size: inherit;
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  font-family: "Cabin", sans-serif;
+  font-weight: 700;
 }
 @mixin mainBorder {
   border: $primiary-color 3px solid;
@@ -53,6 +58,10 @@ $font-sm: 1.2rem;
 @mixin setBorders($width, $radius) {
   border: $primiary-color $width solid;
   border-radius: $radius;
+}
+@mixin disabledButton {
+  opacity: 0.7;
+  cursor: default;
 }
 
 @mixin setAndResizeBackgroundImg($url) {

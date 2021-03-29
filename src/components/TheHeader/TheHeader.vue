@@ -1,29 +1,34 @@
 <template>
-  <header>
-    <logo></logo>
-    <search-bar></search-bar>
-    <card-container></card-container>
+  <header class="header">
+    <promo-bar class="header__promoBar"></promo-bar>
+    <div class="header__elements">
+      <shop-logo class="header__logo"></shop-logo>
+      <search-bar></search-bar>
+      <card-container></card-container>
 
-    <button @click="handleLoginButton" v-if="!loginForm">
-      {{ buttonMsg }}
-    </button>
+      <button @click="handleLoginButton" v-if="!loginForm">
+        {{ buttonMsg }}
+      </button>
 
-    <router-link class="TESTING__ADMIN_CMS" to="/admin">ADMIN</router-link>
-    <user-login
-      v-if="loginForm && !token"
-      @hideLoginForm="hideForm"
-    ></user-login>
+      <router-link class="TESTING__ADMIN_CMS" to="/admin">ADMIN</router-link>
+      <user-login
+        v-if="loginForm && !token"
+        @hideLoginForm="hideForm"
+      ></user-login>
+    </div>
   </header>
 </template>
 <script>
-import Logo from "./headerComponents/logo.vue";
+import PromoBar from "./headerComponents/promoBar.vue";
+import ShopLogo from "../common/shopLogo.vue";
 import SearchBar from "./headerComponents/searchBar.vue";
 import CardContainer from "./headerComponents/cardContainer.vue";
 import UserLogin from "../userAuth/userLogin.vue";
 
 export default {
   components: {
-    Logo,
+    PromoBar,
+    ShopLogo,
     SearchBar,
     CardContainer,
     UserLogin,
@@ -67,19 +72,34 @@ export default {
 header {
   height: 10rem;
   @include flexLayout;
-  justify-content: space-around;
+  flex-direction: column;
+
   button {
-    border: 2px solid $primiary-color;
+    border: 1px solid black;
     border-radius: 5px;
     padding: 0.5rem;
     background: none;
     text-decoration: none;
-    color: $primiary-color;
+
     font-size: $font-bg;
   }
 }
-.TESTING__ADMIN_CMS {
+.header__elements {
+  @include containerLaptop;
+  @include flexLayout;
+  height: 7rem;
+  position: relative;
+}
+.header__logo {
+  overflow: hidden;
+  height: 7rem;
+  & img {
+    transform: translate(0, -1.5rem);
+  }
+}
+.header__promoBar {
+  height: 3rem;
+  background-color: #2d2d2d;
   color: white;
-  font-size: $font-md;
 }
 </style>

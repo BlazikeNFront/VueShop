@@ -1,5 +1,12 @@
 <template>
-  <div class="logo" @click="redirectToMainPage"></div>
+  <div>
+    <img
+      class="logo"
+      src="../../assets/companyLogo.png"
+      alt="Taimen Company Logo"
+      @click="redirectToMainPage"
+    />
+  </div>
 </template>
 <script>
 export default {
@@ -13,9 +20,6 @@ export default {
 <style lang='scss'>
 .logo {
   width: 10rem;
-  height: 100%;
-  background-image: url("../../../assets/companyLogo.png");
-  background-repeat: no-repeat;
-  background-size: contain;
+  height: 10rem;
 }
 </style>

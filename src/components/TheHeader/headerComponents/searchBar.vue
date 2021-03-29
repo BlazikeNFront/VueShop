@@ -1,6 +1,5 @@
 <template>
   <div class="searchBarContainer">
-    <h2>Our statement on <span>COVID-19</span></h2>
     <form>
       <drop-down
         defaultCategory="Categories"
@@ -12,9 +11,15 @@
           type="text"
           id="searchBarInput"
           name="searchBarInputArea"
+          placeholder="Search products"
           v-model.trim="searBarInputValue"
         />
-        <button type="submit"></button>
+        <button type="submit">
+          <font-awesome-icon
+            :icon="['fa', 'search']"
+            class="searchBarContainer__submitIcon"
+          ></font-awesome-icon>
+        </button>
       </div>
     </form>
   </div>
@@ -69,20 +74,17 @@ export default {
 .searchBarContainer {
   form {
     @include flexLayout;
-    width: 35rem;
+    width: 30rem;
   }
   .searchBarInput {
+    @include flexLayout;
     padding: 0.5rem;
-    border: 2px solid $primiary-color;
+    border: 1px solid black;
     height: 4rem;
     border-radius: 5px;
 
-    @include flexLayout;
-
     input {
-      background-color: black;
       border: none;
-      color: white;
       text-align: center;
       height: 90%;
       &:focus {
@@ -91,14 +93,18 @@ export default {
     }
     button {
       width: 3.5rem;
-      background-color: black;
       border: none;
       background-repeat: no-repeat;
       height: 100%;
-      background-image: url("../../../assets/SearchBar/searchIcon.png");
       background-size: contain;
       cursor: pointer;
     }
+  }
+  .searchBarContainer__submitIcon {
+    width: 100%;
+    height: 100%;
+    color: black;
+    transform: translate(0, -0.3rem);
   }
 }
 </style>
