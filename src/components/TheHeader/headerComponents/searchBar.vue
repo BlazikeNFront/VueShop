@@ -78,18 +78,27 @@ export default {
   }
   .searchBarInput {
     @include flexLayout;
-    padding: 0.5rem;
-    border: 1px solid black;
-    height: 4rem;
-    border-radius: 5px;
+
+    border: 1px solid grey;
+    height: 3rem;
 
     input {
       border: none;
       text-align: center;
       height: 90%;
+      font-family: inherit;
       &:focus {
         outline: none;
       }
+    }
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus {
+      border: none;
+      -webkit-text-fill-color: black;
+      -webkit-box-shadow: 0 0 0 30px white inset;
+      box-shadow: 0 0 0 30px white inset;
+      // transition: background-color 5000s ease-in-out 0s;
     }
     button {
       width: 3.5rem;
@@ -101,10 +110,9 @@ export default {
     }
   }
   .searchBarContainer__submitIcon {
-    width: 100%;
+    width: 70%;
     height: 100%;
-    color: black;
-    transform: translate(0, -0.3rem);
+    color: gray;
   }
 }
 </style>

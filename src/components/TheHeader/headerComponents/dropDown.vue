@@ -69,6 +69,12 @@ export default {
   cursor: pointer;
   width: 11rem;
   z-index: 300;
+  &:hover {
+    color: $primary-color;
+    svg {
+      color: $primary-color;
+    }
+  }
   p {
     @include mainFontBold;
   }
@@ -92,7 +98,7 @@ export default {
   z-index: 200;
   width: 11rem;
   top: 5rem;
-  left: 14rem;
+  left: 20rem;
   border-radius: 0 0 5px 5px;
   font-size: $font-sm;
   overflow: hidden;

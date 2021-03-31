@@ -57,8 +57,5 @@
 .promoBar__icon {
   font-size: 1.1rem;
   color: #03a49b;
-  &:nth-child(2) {
-    font-size: 1rem;
-  }
 }
 </style>

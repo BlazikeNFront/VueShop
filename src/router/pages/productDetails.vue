@@ -51,7 +51,7 @@ export default {
       const payload = {};
       payload._id = this.product._id;
       payload.name = this.product.name;
-      payload.imagePath = this.product.imagePath.large;
+      payload.imagePath = this.product.imagePath.small;
       payload.price = this.product.price;
       payload.quantity = this.quantity;
 
@@ -77,7 +77,7 @@ export default {
   @include flexLayout;
   flex-direction: column;
   font-size: $font-md;
-  color: white;
+  color: black;
 }
 .productDetails__image {
   width: 72rem;
@@ -99,7 +99,7 @@ export default {
   button {
     @include button;
     margin: 1rem;
-    color: white;
+    color: black;
     padding: 1rem;
     border-radius: 20px;
   }

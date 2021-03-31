@@ -26,16 +26,18 @@ export default {
 <style lang='scss'>
 nav {
   width: 100%;
-  height: 3rem;
+  height: 4rem;
   position: relative;
-  background-color: $primiary-color;
+
   z-index: 100;
-}
-.mainNavList {
-  @include flexLayout;
-  justify-content: space-around;
-  font-size: 2rem;
-  color: white;
-  background-color: $primiary-color;
+  ul {
+    @include centerWithTranslate;
+    @include flexLayout;
+
+    justify-content: space-around;
+    width: 80%;
+    height: 100%;
+    font-size: 1.5rem;
+  }
 }
 </style>

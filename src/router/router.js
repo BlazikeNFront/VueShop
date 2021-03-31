@@ -22,7 +22,7 @@ const router = createRouter({
     { path: "/SignUp", component: SignUpForm },
     { path: "/Admin", component: AdminCMS },
     { path: "/Admin/AddProduct", component: AdminAddProduct },
-    { path: "/userOrder", component: UserOrder },
+    { name: "user-order", path: "/userOrder", component: UserOrder },
     { path: "/user/historyOrder", component: UserOrder },
     { name: "admin-orders", path: "/Admin/orders", component: AdminOrders },
   ],

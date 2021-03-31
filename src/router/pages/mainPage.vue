@@ -9,6 +9,9 @@ import MainInformationBox from "../../components/mainPage/mainInformationBox/mai
 import MainSlider from "../../components/mainPage/slider/mainSlider.vue";
 
 export default {
+  mounted() {
+    this.$store.dispatch("Cart/fetchCartFromLocalStorage");
+  },
   components: { MainInformationBox, MainSlider },
 };
 </script>

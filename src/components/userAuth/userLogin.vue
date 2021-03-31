@@ -3,7 +3,7 @@
     <back-drop @click="$emit('hideLoginForm')"></back-drop>
 
     <div class="loginForm">
-      <form @submit.prevent="handleLogin">
+      <form @submit.prevent="handleLogin" v-if="!token">
         <div class="loginFormControl">
           <label for="userName" class="loginFormControll__label">Email:</label>
           <input
@@ -37,6 +37,9 @@
           to Sign up !
         </p>
       </form>
+      <button v-else class="loginFormControl__button" @click="logout">
+        Logout
+      </button>
     </div>
     <error-modal
       v-if="serverErrorMsg"
@@ -86,6 +89,15 @@ export default {
     },
     closeErrorModal() {
       this.serverErrorMsg = null;
+    },
+    logout() {
+      this.$store.dispatch("UserAuth/logout");
+      this.$emit("hideLoginForm");
+    },
+  },
+  computed: {
+    token() {
+      return this.$store.getters["UserAuth/getToken"];
     },
   },
 };

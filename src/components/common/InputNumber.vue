@@ -35,7 +35,7 @@ export default {
   emits: ["valueChange"],
   methods: {
     handleClick(number) {
-      if (this.number + number < 0) {
+      if (this.number + number < 1) {
         return;
       }
       this.number = parseInt(this.number) + number;
@@ -54,7 +54,7 @@ export default {
   @include flexLayout;
   flex-direction: column;
   label {
-    color: white;
+    color: black;
     font-size: $font-md;
   }
 }
@@ -70,7 +70,7 @@ export default {
   @include flexLayout;
   span {
     font-size: 1.5rem;
-    color: white;
+    color: black;
   }
 }
 .noSelect {
@@ -85,7 +85,7 @@ export default {
 .customInputRange__formControl {
   input {
     width: 3rem;
-    color: white;
+    color: black;
     text-align: center;
     background: none;
     border: none;
@@ -103,7 +103,7 @@ export default {
   }
 }
 .customInputRange__arrow {
-  color: white;
+  color: black;
   cursor: pointer;
   width: 2rem;
   height: 2rem;

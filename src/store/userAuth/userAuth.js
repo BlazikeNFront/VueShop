@@ -10,6 +10,7 @@ export default {
       state.token = payload.token;
     },
     logout(state) {
+      console.log(state.token)
       state.token = null;
     },
   },

@@ -52,10 +52,12 @@ export default {
       }
     },
     addItemtoCart(context, payload) {
+      console.log(payload);
       const id = payload._id;
+
       const newCart = [...context.state.cart];
 
-      const productIndex = newCart.findIndex((product) => (product._id = id));
+      const productIndex = newCart.findIndex((product) => product._id === id);
 
       if (productIndex < 0) {
         newCart.push(payload);
