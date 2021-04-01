@@ -1,5 +1,5 @@
 <template>
-  <footer>
+  <footer class="footer">
     <div class="footerSingleList">
       <h3 class="footerSingleList__title">COMPANY</h3>
       <ul class="footerSingleList__listBox">
@@ -82,11 +82,14 @@
 export default {};
 </script>
 <style lang='scss'>
-footer {
+.footer {
+  margin: 0 auto;
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  color: white;
+  color: black;
+  margin-top: 10rem;
+  max-width: 130rem;
 }
 .footerSingleList {
   width: 20rem;

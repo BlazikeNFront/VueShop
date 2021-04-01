@@ -2,9 +2,10 @@
   <li class="mainNavList__item">
     {{ this.title }}
     <ul>
-      <li>Shimano</li>
-      <li>Daiwa</li>
-      <li>Abu Garcia</li>
+      <li>Rods</li>
+      <li>Reels</li>
+      <li>Lines</li>
+      <li>Others</li>
     </ul>
   </li>
 </template>

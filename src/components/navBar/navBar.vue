@@ -18,7 +18,7 @@ export default {
   },
   data() {
     return {
-      navBarItems: ["Reels", "Rods", "Lures", "Lines", "Others"],
+      navBarItems: ["Spinning", "Bait Fishing", "Fly Fishing", "Casting"],
     };
   },
 };

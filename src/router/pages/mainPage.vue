@@ -2,7 +2,7 @@
   <div class="mainPage"></div>
   <main-information-box></main-information-box>
 
-  <main-slider></main-slider>
+  <main-slider class="slides"></main-slider>
 </template>
 <script>
 import MainInformationBox from "../../components/mainPage/mainInformationBox/mainInformationBox.vue";
@@ -22,5 +22,10 @@ export default {
   overflow: hidden;
   color: $primiary-color;
   @include setBorders(3px, 5px);
+}
+.slides {
+  max-width: 130rem;
+  margin: 0 auto;
+  margin-top: 7rem;
 }
 </style>
