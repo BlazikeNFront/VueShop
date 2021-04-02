@@ -77,12 +77,9 @@ header {
   position: relative;
 }
 .header__logo {
-  overflow: hidden;
+  width: 25rem;
   height: 7rem;
   cursor: pointer;
-  & img {
-    transform: translate(0, -1.5rem);
-  }
 }
 .header__promoBar {
   height: 3rem;

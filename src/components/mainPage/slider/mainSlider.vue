@@ -1,54 +1,63 @@
 <template>
   <div class="sliderContainer">
-    <p>Discover</p>
     <h2>Latest Gear</h2>
     <ul>
       <li>
-        <p class="sliderContainer__categoryPara">RODS</p>
+        <p class="sliderContainer__para sliderContainer__para--normal">RODS</p>
         <img
           class="sliderItem_visible"
           src="../../../assets/rodCategoryImage.jpg"
           alt="picture of fishing rod"
         />
+        <p class="sliderContainer__para sliderContainer__para--hover">RODS</p>
         <router-link class="sliderContainer__link" :to="'/'"
           >Discover</router-link
         >
       </li>
       <li>
         <div>
-          <p class="sliderContainer__categoryPara">REELS</p>
+          <p class="sliderContainer__para sliderContainer__para--normal">
+            REELS
+          </p>
         </div>
         <img
           class="sliderItem1"
-          src="../../../assets/nowe/imageForReels.jpeg"
+          src="../../../assets/reelsCategoryImage.jpg"
           alt="picture of fishing reel"
         />
+        <p class="sliderContainer__para sliderContainer__para--hover">REELS</p>
         <router-link class="sliderContainer__link" :to="'/'"
           >Discover</router-link
         >
       </li>
       <li>
         <div>
-          <p class="sliderContainer__categoryPara">LURES</p>
+          <p class="sliderContainer__para sliderContainer__para--normal">
+            LURES
+          </p>
         </div>
         <img
           class="sliderItem1"
-          src="../../../assets/luresCategoryImage.png"
+          src="../../../assets/luresCategoryImage.jpg"
           alt="picture of fishing reel"
         />
+        <p class="sliderContainer__para sliderContainer__para--hover">LURES</p>
         <router-link class="sliderContainer__link" :to="'/'"
           >Discover</router-link
         >
       </li>
       <li>
         <div>
-          <p class="sliderContainer__categoryPara">LINES</p>
+          <p class="sliderContainer__para sliderContainer__para--normal">
+            LINES
+          </p>
         </div>
         <img
           class="sliderItem1"
-          src="../../../assets/lineCategoryImage.jpeg"
+          src="../../../assets/lineCategoryImage.jpg"
           alt="picture of fishing reel"
         />
+        <p class="sliderContainer__para sliderContainer__para--hover">LINES</p>
         <router-link class="sliderContainer__link" :to="'/'"
           >Discover</router-link
         >
@@ -56,26 +65,29 @@
     </ul>
   </div>
 </template>
-<script>
-export default {};
-</script>
+
 <style lang='scss'>
 .sliderContainer {
   width: 100%;
   height: 100%;
   font-family: $secondaryFont;
 
-  p {
-    text-align: right;
-    font-size: $font-md;
-  }
   h2 {
+    position: relative;
     text-align: right;
     color: black;
     font-size: 5rem;
     font-family: $secondaryFont;
     font-weight: 800;
     margin-bottom: 2rem;
+    &::before {
+      position: absolute;
+      top: -2rem;
+      right: 0;
+      content: "Discover";
+      font-size: 2rem;
+      color: gray;
+    }
   }
   ul {
     @include flexLayout;
@@ -97,8 +109,14 @@ export default {};
       & img {
         opacity: 0.4;
       }
-      p {
-        transform: translate(-50rem, 0);
+      .sliderContainer__para--normal {
+        transform: translate(-50rem, -50%);
+      }
+      .sliderContainer__para--hover {
+        transform: translate(-50%, -50%);
+      }
+      a {
+        transform: translate(-50%, -50%);
       }
     }
 
@@ -111,26 +129,34 @@ export default {};
     }
   }
 }
-.sliderContainer__categoryPara {
+.sliderContainer__para {
   display: block;
   position: absolute;
-  bottom: 2rem;
-  margin-left: 50%;
-  transform: translate(-50%);
+  font-size: 3rem;
+
   z-index: 100;
   font-family: $secondaryFont;
   font-weight: 800;
   color: white;
-  font-size: 3rem;
   transition: all 0.6s;
 }
+.sliderContainer__para--normal {
+  bottom: 2rem;
+  margin-left: 50%;
+  transform: translate(-50%, -50%);
+}
+.sliderContainer__para--hover {
+  top: 5rem;
+  margin-left: 50%;
 
+  transform: translate(-50rem, -50%);
+}
 .sliderContainer__link {
   display: block;
   @include centerAbsolute;
   text-decoration: none;
-
-  // transform: translate(-50rem, 0);
+  width: 23rem;
+  transform: translate(-50rem, -50%);
   z-index: 100;
   font-family: $secondaryFont;
   font-weight: 800;
@@ -141,7 +167,7 @@ export default {};
     content: "";
     position: absolute;
     top: 50%;
-    left: 0;
+    left: -1rem;
     display: block;
     width: 0rem;
     height: 0.2rem;
@@ -152,15 +178,16 @@ export default {};
     content: "";
     position: absolute;
     top: 50%;
-    right: -6rem;
+    right: -1rem;
     display: block;
     width: 4rem;
     height: 0.2rem;
     background-color: white;
     transition: 0.2s all ease-in-out;
   }
-  /*   &:hover {
+  &:hover {
     color: #0bd3d3;
+    transform: translate(1rem, -50%);
     &::before {
       width: 4rem;
       background-color: #0bd3d3;
@@ -169,6 +196,6 @@ export default {};
       width: 0rem;
       background-color: #0bd3d3;
     }
-  } */
+  }
 }
 </style>

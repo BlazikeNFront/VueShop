@@ -21,7 +21,6 @@ export default {
   width: 100%;
   overflow: hidden;
   color: $primiary-color;
-  @include setBorders(3px, 5px);
 }
 .slides {
   max-width: 130rem;

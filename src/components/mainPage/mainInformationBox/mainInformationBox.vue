@@ -1,13 +1,8 @@
 <template>
   <section class="containerForMainImg">
-    <img
-      src="../../../assets/mainInformationBackground.png"
-      alt="fishing tackle picture"
-    />
-
     <div class="containerForMainImg__InfoDisplay">
       <div class="containerForMainImg__text">
-        <h3>NEW SAVA GEAR</h3>
+        <h3>NEW SAVAGE GEAR</h3>
         <img src="../../../assets/savagearLogo.png" alt="savagear logo" />
 
         <p>
@@ -31,13 +26,13 @@ export default {
 <style lang='scss'>
 .containerForMainImg {
   position: relative;
-
-  img {
-    width: 100%;
-    height: 100%;
-    max-height: inherit;
-    object-fit: cover;
-  }
+  width: 100%;
+  height: 80rem;
+  background-image: url("../../../assets/mainInformationBackground.png");
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .containerForMainImg__text {

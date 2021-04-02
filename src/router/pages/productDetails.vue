@@ -12,9 +12,7 @@
       <p class="productDetails__desc">{{ product.description }}</p>
       <p class="productDetails__price">{{ product.price }} $</p>
       <form class="producyDetails__form" @submit.prevent="addToCart">
-        <div class="productDetails__formControl">
-          <input-range @valueChange="changeQuantity"></input-range>
-        </div>
+        <input-range @valueChange="changeQuantity"></input-range>
         <button :disabled="!token" class="productBoxSmall__addToCartBtn">
           Add to cart
           <font-awesome-icon
@@ -84,24 +82,40 @@ export default {
 }
 
 .productDetails__title {
-  font-size: $font-bg;
+  @include mainFontBold;
+  font-size: 4rem;
+  margin: 5rem 0 3rem 0;
 }
 .productDetails__desc {
-  margin: 1rem;
+  margin: 0 auto;
+  width: 80%;
   text-align: left;
+  font-size: 1.4rem;
+  white-space: pre-wrap;
+  line-height: 3.5rem;
 }
 .producyDetails__form {
   margin: 2rem auto;
-  height: 14rem;
-  width: 15rem;
-  @include flexLayout;
-  flex-direction: column;
+
+  width: 23rem;
+
   button {
     @include button;
-    margin: 1rem;
+    background-color: $primary-color;
+    font-family: inherit;
+    width: 80%;
+    box-shadow: 3px 3px 8px;
     color: black;
     padding: 1rem;
     border-radius: 20px;
+
+    &:hover {
+      transform: scale(1.01);
+    }
   }
+}
+.productDetails__price {
+  font-size: 3.5rem;
+  font-weight: 500;
 }
 </style>

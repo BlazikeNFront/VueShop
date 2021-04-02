@@ -71,7 +71,7 @@ export default {
           `http://localhost:3000/getProductDetails/${prodId}`
         );
         const data = await rawData.json();
-
+        data.description = data.description.split("•").join("\n•");
         context.commit("setProductDetails", data);
       } catch (err) {
         console.log(err);

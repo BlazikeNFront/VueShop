@@ -89,6 +89,7 @@ export default {
     text-align: center;
     background: none;
     border: none;
+    @include mainFontBold;
 
     &::-webkit-outer-spin-button,
     &::-webkit-inner-spin-button {
@@ -107,8 +108,16 @@ export default {
   cursor: pointer;
   width: 2rem;
   height: 2rem;
+  &:hover {
+    transform: scale(1.1);
+  }
 }
 .customInputRange__leftArrow {
   transform: rotate(180deg);
+  &:hover {
+    &:hover {
+      transform: scale(1.1) rotate(180deg);
+    }
+  }
 }
 </style>

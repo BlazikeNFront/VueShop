@@ -2,6 +2,7 @@
   <div class="searchBarContainer">
     <form>
       <drop-down
+        class="searchBarContainer__dropdown"
         defaultCategory="Categories"
         :listOfCategories="['Rods', 'Reels', 'Lures', 'Lines', 'Any']"
         @categoryChange="addCategoryToSearchQuery"
@@ -108,6 +109,9 @@ export default {
       background-size: contain;
       cursor: pointer;
     }
+  }
+  .searchBarContainer__dropdown {
+    position: relative;
   }
   .searchBarContainer__submitIcon {
     width: 70%;

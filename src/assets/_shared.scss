@@ -2,8 +2,8 @@ $primiary-color: #d47304;
 $background-Select-gray: rgb(195, 199, 196);
 
 //fonts
-$mainFont: "Cabin", sans-serif;
-$secondaryFont: "Montserrat", sans-serif;
+$mainFont: "Montserrat", sans-serif;
+$secondaryFont: "Cabin", sans-serif;
 
 //sizes
 $font-bg: 2rem;
@@ -24,8 +24,8 @@ $backdrop: 1000;
 }
 
 @mixin mainFontBold {
-  font-family: "Cabin", sans-serif;
-  font-weight: 700;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 800;
 }
 
 @mixin centerWithTranslate {

@@ -1,6 +1,15 @@
 <template>
   <div>
-    <div class="customSelect" @click="selectCategoryAction">
+    <back-drop
+      @click="selectCategoryAction"
+      v-if="selectCategory"
+      blackOpacity="0"
+    ></back-drop>
+    <div
+      class="customSelect"
+      :class="{ hideBorderBotton: selectCategory }"
+      @click="selectCategoryAction"
+    >
       <p class="customSelect__selected">
         {{ selectedCategory || this.defaultCategory }}
       </p>
@@ -11,9 +20,6 @@
         ></font-awesome-icon>
       </button>
     </div>
-    <!-- list is not nested becouse of stacking context and z-index(problem with transition) -->
-
-    <!-- <div class="customSelect__selectOption" v-if="selectCategory"> -->
     <transition name="dropDown">
       <ul class="customSelect__selectOption" v-if="selectCategory">
         <li
@@ -25,7 +31,6 @@
         </li>
       </ul>
     </transition>
-    <!-- </div> -->
   </div>
 </template>
 <script>
@@ -68,7 +73,8 @@ export default {
   font-size: $font-md;
   cursor: pointer;
   width: 11rem;
-  z-index: 300;
+  z-index: 1200;
+
   &:hover {
     color: $primary-color;
     svg {
@@ -95,17 +101,20 @@ export default {
 .customSelect__selectOption {
   background-color: white;
   position: absolute;
-  z-index: 200;
+  z-index: 1200;
   width: 11rem;
-  top: 5rem;
-  left: 20rem;
+  top: 3.5rem;
+
   border-radius: 0 0 5px 5px;
-  font-size: $font-sm;
+  font-size: 1.2rem;
   overflow: hidden;
   cursor: pointer;
 
+  border-top: none;
+
   li {
     padding: 0.5rem;
+    @include mainFontBold;
     &:hover {
       color: $primiary-color;
     }
@@ -114,16 +123,14 @@ export default {
 
 .dropDown-enter-active,
 .dropDown-leave-active {
-  transition: all 0.2s;
+  transition: all 0.2s linear;
 }
 .dropDown-enter-from,
 .dropDown-leave-to {
-  transform: translate(0, -4rem);
   height: 0rem;
 }
 .dropDown-enter-to,
 .dropDown-leave-from {
-  transform: translate(0, 1);
-  height: 100%;
+  height: 12rem;
 }
 </style>

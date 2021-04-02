@@ -8,7 +8,11 @@
       {{ totalQuantityOfUserProducts }}
     </p>
   </div>
-  <back-drop @click="showUserCartAction" v-if="showUserCart"></back-drop>
+  <back-drop
+    @click="showUserCartAction"
+    v-if="showUserCart"
+    zIndex="1200"
+  ></back-drop>
   <transition name="cart">
     <section class="cartContainer" v-if="showUserCart">
       <h4>
@@ -115,6 +119,7 @@ export default {
     max-width: 4rem;
   }
 }
+
 .cartContainer {
   width: 30rem;
   height: 100%;
@@ -125,7 +130,7 @@ export default {
   align-items: center;
   right: 0;
   top: 0;
-  z-index: 1000;
+  z-index: 1400;
   cursor: default;
 
   h4 {
