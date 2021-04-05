@@ -4,13 +4,12 @@
     <div class="header__elements">
       <shop-logo class="header__logo"></shop-logo>
       <search-bar></search-bar>
-      <button @click="handleLoginButton">
+      <button @click="handleUserButton">
         <font-awesome-icon :icon="['fa', 'user']"></font-awesome-icon>
       </button>
       <user-cart></user-cart>
 
       <router-link class="TESTING__ADMIN_CMS" to="/admin">ADMIN</router-link>
-      <user-login v-if="loginForm" @hideLoginForm="hideForm"></user-login>
     </div>
   </header>
 </template>
@@ -19,32 +18,18 @@ import PromoBar from "./headerComponents/promoBar.vue";
 import ShopLogo from "../common/shopLogo.vue";
 import SearchBar from "./headerComponents/searchBar.vue";
 
-import UserLogin from "../userAuth/userLogin.vue";
-
 import UserCart from "./headerComponents/userCart.vue";
 export default {
   components: {
     PromoBar,
     ShopLogo,
     SearchBar,
-
-    UserLogin,
-
     UserCart,
   },
 
-  data() {
-    return {
-      loginForm: false,
-    };
-  },
-
   methods: {
-    hideForm() {
-      this.loginForm = false;
-    },
-    handleLoginButton() {
-      this.loginForm = true;
+    handleUserButton() {
+      this.$router.push({ name: "user-login" });
     },
   },
   computed: {
@@ -82,7 +67,7 @@ header {
   cursor: pointer;
 }
 .header__promoBar {
-  height: 3rem;
+  height: 4rem;
   background-color: #2d2d2d;
   color: white;
 }

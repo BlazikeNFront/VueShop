@@ -1,9 +1,7 @@
 <template>
-  <section class="loginBox">
-    <back-drop @click="$emit('hideLoginForm')"></back-drop>
-
-    <div class="loginForm">
-      <form @submit.prevent="handleLogin" v-if="!token">
+  <div>
+    <form class="loginForm__form" @submit.prevent="handleLogin" v-if="!token">
+      <div class="loginForm__inputs">
         <div class="loginFormControl">
           <label for="userName" class="loginFormControll__label">Email:</label>
           <input
@@ -12,9 +10,10 @@
             id="userName"
             v-model.trim="userName"
             autocomplete="username"
+            placeholder="Email"
           />
 
-          <p>{{ this.userNameError }}</p>
+          <p v-if="userNameError">{{ this.userNameError }}</p>
         </div>
         <div class="loginFormControl">
           <label for="password" class="loginFormControll__label"
@@ -26,21 +25,22 @@
             id="password"
             v-model.trim="userPassword"
             autocomplete="current-password"
+            placeholder="Password"
           />
-          <p class="loginFormControl__errorMsg">{{ passwordError }}</p>
+          <p v-if="passwordError" class="loginFormControl__errorMsg">
+            {{ passwordError }}
+          </p>
         </div>
-        <button class="loginFormControl__button">Login</button>
+      </div>
+      <button class="loginFormControl__button">Login</button>
 
-        <p class="signUpLink">
-          U dont have an account? Click
-          <span class="loginForm__routerLink" @click="changeRoute">Here</span>
-          to Sign up !
-        </p>
-      </form>
-      <button v-else class="loginFormControl__button" @click="logout">
-        Logout
-      </button>
-    </div>
+      <p class="signUpLink">
+        U dont have an account? Click
+        <span @click="this.$emit('changeView')">Here</span>
+        to Sign up !
+      </p>
+    </form>
+
     <error-modal
       v-if="serverErrorMsg"
       @closeDialog="closeErrorModal"
@@ -48,13 +48,13 @@
     >
       <p class="login__modalErrorMsg">{{}}</p>
     </error-modal>
-  </section>
+  </div>
 </template>
 <script>
 export default {
-  emits: ["hideLoginForm"],
   data() {
     return {
+      loginPage: true, //true === userLogin page, false=== signUp page
       userName: null,
       userPassword: null,
       passwordError: null,
@@ -78,21 +78,15 @@ export default {
           password: this.userPassword,
         };
         await this.$store.dispatch("UserAuth/handleLogin", payload);
-        this.$emit("hideLoginForm");
       } catch (err) {
         console.log(err);
       }
     },
     changeRoute() {
-      this.$emit("hideLoginForm");
-      this.$router.push("/SignUp");
+      this.$router.push({ name: "user-signUp" });
     },
     closeErrorModal() {
       this.serverErrorMsg = null;
-    },
-    logout() {
-      this.$store.dispatch("UserAuth/logout");
-      this.$emit("hideLoginForm");
     },
   },
   computed: {
@@ -103,58 +97,66 @@ export default {
 };
 </script>
 <style lang='scss'>
-.loginBox {
-  width: 15%;
+.loginForm__form {
+  @include flexLayout;
+  color: white;
+  padding: 10rem 0 10rem 0;
+  flex-direction: column;
+  width: 100%;
+  height: 60rem;
 }
-.loginForm {
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 1rem;
-  border-radius: 0 0 0 25px;
-  background-color: rgb(0, 0, 0);
-  z-index: 20000;
+.loginForm__inputs {
+  @include flexLayout;
+  flex-direction: column;
+  margin-top: 8rem;
+  height: 13rem;
 }
 .loginFormControl {
   @include flexLayout;
   flex-direction: column;
-
-  background-color: black;
 }
 .loginFormControll__label {
-  margin: 0.5rem;
-  font-size: $font-bg;
+  visibility: hidden;
 }
 
 .loginFormControll__input {
-  font-size: $font-md;
-  background-color: transparent;
-  color: $primiary-color;
-  border: 1px solid $primiary-color;
+  width: 30rem;
+  font-size: 1.5rem;
+  padding: 1rem 0 1rem 1rem;
+  border-radius: 5px;
+  border: none;
+  background-color: #efefef;
 }
-
+.signUpLink {
+  font-size: $font-md;
+  span {
+    cursor: pointer;
+    font-size: 2rem;
+    font-weight: 600;
+    color: #bdbb40;
+  }
+}
 .loginFormControl__errorMsg {
   color: red;
 }
 .loginFormControl__button {
-  border: 1px solid #33cc80;
-  border-radius: 5px;
+  background-color: #bdbb40;
+  color: White;
+  border: none;
+  width: 25rem;
+  border-radius: 20px;
   padding: 0.5rem;
-  background: none;
+  font-family: inherit;
   text-decoration: none;
-  color: #33cc80;
-  font-size: 1rem;
+  font-size: 2.5rem;
+  font-weight: 600;
 }
-
-.signUpLink a {
-  color: $primiary-color;
-}
-.loginForm__routerLink {
-  color: $primiary-color;
-  cursor: pointer;
-}
-.login__modalErrorMsg {
+.login .login__modalErrorMsg {
   color: $primiary-color;
   font-size: $font-bg;
+}
+.kekw-enter-active,
+.kekw-leave-active {
+  animation: test 4s;
 }
 </style>

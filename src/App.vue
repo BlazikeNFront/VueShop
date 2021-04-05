@@ -6,7 +6,12 @@
     <the-header></the-header>
     <nav-bar></nav-bar>
     <main class="main">
-      <router-view></router-view>
+      <router-view v-slot="{ Component, route }">
+        <!-- Use any custom transition and fallback to `fade` -->
+        <transition :name="route.meta.transition || 'fade'">
+          <component :is="Component" />
+        </transition>
+      </router-view>
     </main>
     <footer-component></footer-component>
   </div>
@@ -46,9 +51,7 @@ input:-webkit-autofill:active {
   box-shadow: 0 0 0 30px black inset;
   -webkit-box-shadow: 0 0 0 30px black inset;
 } */
-input:-webkit-autofill {
-  -webkit-text-fill-color: white;
-}
+
 *,
 *:before,
 *:after {
@@ -71,6 +74,11 @@ ul {
   font-family: $mainFont;
 }
 
+h2 {
+  font-size: 4rem;
+  font-weight: 800;
+}
+
 ol,
 ul {
   list-style: none;
@@ -81,7 +89,6 @@ button {
 
 .brandAdd {
   position: fixed;
-
   z-index: 2222;
   top: 50%;
 }
@@ -101,8 +108,10 @@ button {
 }
 
 .main {
-  min-height: 100rem;
+  height: 140rem;
+
   margin-top: 5rem;
   position: relative;
+  overflow: hidden;
 }
 </style>

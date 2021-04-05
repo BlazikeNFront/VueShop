@@ -1,35 +1,43 @@
 <template>
-  <section class="signUpForm">
-    <form @submit.prevent="handleSignUp">
-      <base-card>
-        <div class="formControl">
-          <label for="email">Email:</label>
+  <div>
+    <form class="loginForm__form" @submit.prevent="handleSignUp">
+      <div class="loginForm__inputs loginForm__signUpInputs">
+        <div class="loginFormControl">
+          <label class="loginForm_label" for="email">Email:</label>
           <input
+            class="loginFormControll__input"
             :class="{ userInputError: !!formErrors.userNameErrorMsg }"
             @blur="formErrors.userNameErrorMsg = null"
             type="email"
             id="email"
+            placeholder="Type your email"
             v-model.trim="email"
             autocomplete="email"
           />
 
           <p>{{ formErrors.userNameErrorMsg }}</p>
         </div>
-        <div class="formControl">
-          <label for="password">Password:</label>
+        <div class="loginFormControl">
+          <label class="loginForm_label" for="password">Password:</label>
           <input
+            class="loginFormControll__input"
             type="password"
             id="password"
+            placeholder="Type your passowrd"
             autocomplete="current-password"
             v-model.trim="userPassword"
             @blur="formErrors.userPassword = null"
             :class="{ userInputError: formErrors.passwordErrorMsg }"
           />
         </div>
-        <div class="formControl">
-          <label for="confirmPassword">Confirm password:</label>
+        <div class="loginFormControl">
+          <label class="loginForm_label" for="confirmPassword"
+            >Confirm password:</label
+          >
           <input
+            class="loginFormControll__input"
             type="password"
+            placeholder="Confirm password"
             id="confirmPassword"
             autocomplete="current-password"
             @blur="formErrors.userPassword = null"
@@ -38,10 +46,20 @@
           />
           <p>{{ formErrors.passwordErrorMsg }}</p>
         </div>
-        <button class="signUpForm__button">Sign Me Up !</button>
-        <loader v-if="loader"></loader>
-      </base-card>
+      </div>
+      <button class="loginFormControl__button loginFormControl__button--signUp">
+        Sign Me Up !
+      </button>
+      <loader v-if="loader"></loader>
+      <p class="signUpLink">
+        U dont have an account? Click
+        <span class="loginForm__routerLink" @click="this.$emit('changeView')"
+          >Here</span
+        >
+        to Log in !
+      </p>
     </form>
+
     <error-modal
       v-if="dialogModal.type"
       @closeDialog="closeErrorModal"
@@ -50,7 +68,7 @@
         {{ dialogModal.msg }}
       </p>
     </error-modal>
-  </section>
+  </div>
 </template>
 <script>
 export default {
@@ -144,47 +162,49 @@ export default {
 };
 </script>
 <style lang='scss'>
-.signUpForm {
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 20000;
-  form {
-    margin: 32% 0 0 50%;
-    transform: translate(-50%, -50%);
+.loginForm_label {
+  font-size: 2rem;
+  margin: 0.5rem;
+}
+.loginForm__form--signUp {
+  padding: 5rem 0 10rem 0;
+}
+.loginForm__signUpInputs {
+  margin-top: 5rem;
+}
+.userInputError {
+  border: 2px solid red !important;
+}
+.signupForm__form {
+  border: 2px solid $primary-color;
+  margin: 0 auto;
+  width: 40rem;
+  height: 50rem;
+  label {
+    margin: 1rem;
+    font-size: $font-bg;
+  }
+  .formControl {
+    @include flexLayout;
+    flex-direction: column;
+    margin: 2rem;
 
-    label {
-      margin: 1rem;
-      font-size: $font-bg;
-    }
-    .formControl {
-      @include flexLayout;
-      flex-direction: column;
-      margin: 2rem;
-
-      input {
-        width: 100%;
-        font-size: $font-md;
-        background-color: transparent;
-        color: $primiary-color;
-        border: 2px solid $primiary-color;
-        padding: 5%;
-      }
-    }
-
-    p {
-      color: red;
+    input {
+      width: 100%;
+      font-size: $font-md;
+      background-color: transparent;
+      color: $primiary-color;
+      border: 2px solid $primiary-color;
+      padding: 5%;
     }
   }
-  .userInputError {
-    border: 2px solid red !important;
+
+  p {
+    color: red;
   }
 }
-.signUpForm__button {
-  margin: 1rem;
-  background: none;
-
-  padding: 1rem;
-  color: $primiary-color;
-  border: 1px solid $primiary-color;
+.loginFormControl__button--signUp {
+  margin-top: 6rem;
 }
 .signUpForm__errorMsg {
   color: $primiary-color;

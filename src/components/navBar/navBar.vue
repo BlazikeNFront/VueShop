@@ -25,6 +25,7 @@ export default {
 </script>
 <style lang='scss'>
 nav {
+  margin: 1rem;
   width: 100%;
   height: 4rem;
   position: relative;

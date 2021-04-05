@@ -62,6 +62,72 @@
           >
         </div>
       </div>
+
+      <p class="addProduct__errorMsg" v-if="formInputs.typeOfProduct.error">
+        {{ formInputs.typeOfProduct.errorMsg }}
+      </p>
+    </div>
+    <div class="addProduct__formControl">
+      <div class="addProduct__formControl__inputBox">
+        <p class="form-addProduct__para">Select category of product:</p>
+        <div class="addProduct__formControl__radioInput">
+          <input
+            id="spinning"
+            type="radio"
+            name="categoryType"
+            value="spinning"
+            v-model="formInputs.categoryOfProduct.value"
+          />
+          <label class="addProduct__formControl__lables" for="rod"
+            >Spinning</label
+          >
+        </div>
+        <div class="addProduct__formControl__radioInput">
+          <input
+            id="bait"
+            type="radio"
+            name="categoryType"
+            value="bait"
+            v-model="formInputs.categoryOfProduct.value"
+          />
+          <label class="addProduct__formControl__lables" for="reel">Bait</label>
+        </div>
+        <div class="addProduct__formControl__radioInput">
+          <input
+            id="fly"
+            type="radio"
+            name="categoryType"
+            value="fly"
+            v-model="formInputs.categoryOfProduct.value"
+          />
+          <label class="addProduct__formControl__lables" for="line">Fly</label>
+        </div>
+        <div class="addProduct__formControl__radioInput">
+          <input
+            id="casting"
+            type="radio"
+            name="categoryType"
+            value="casting"
+            v-model="formInputs.categoryOfProduct.value"
+          />
+          <label class="addProduct__formControl__lables" for="lure"
+            >Casting</label
+          >
+        </div>
+        <div class="addProduct__formControl__radioInput">
+          <input
+            id="other"
+            type="radio"
+            name="categoryType"
+            value="other"
+            v-model="formInputs.categoryOfProduct.value"
+          />
+          <label class="addProduct__formControl__lables" for="other"
+            >Other</label
+          >
+        </div>
+      </div>
+
       <p class="addProduct__errorMsg" v-if="formInputs.typeOfProduct.error">
         {{ formInputs.typeOfProduct.errorMsg }}
       </p>
@@ -185,6 +251,7 @@ export default {
       formRequestConfirmation: { visible: false, text: null },
       formInputs: {
         typeOfProduct: { value: null, error: false, errorMsg: null },
+        categoryOfProduct: { value: null, error: false, errorMsg: null },
         name: { value: null, error: false, errorMsg: null },
         descritpion: { value: null, error: false, errorMsg: null },
         price: { value: null, error: false, errorMsg: null },
@@ -204,6 +271,7 @@ export default {
     checkForm() {
       const {
         typeOfProduct,
+        categoryOfProduct,
         name,
         descritpion,
         price,
@@ -214,6 +282,12 @@ export default {
       if (typeOfProduct.value === null) {
         this.formInputs.typeOfProduct.error = true;
         this.formInputs.typeOfProduct.errorMsg =
+          "U need to pick a type of product";
+        return false;
+      }
+      if (categoryOfProduct.value === null) {
+        this.formInputs.categoryOfProduct.error = true;
+        this.formInputs.categoryOfProduct.errorMsg =
           "U need to pick a category of product";
         return false;
       }
@@ -257,6 +331,7 @@ export default {
     async handleFormRequest() {
       const {
         typeOfProduct,
+        categoryOfProduct,
         name,
         descritpion,
         price,
@@ -268,6 +343,7 @@ export default {
       const product = new FormData();
 
       product.append("type", typeOfProduct.value);
+      product.append("category", categoryOfProduct.value);
       product.append("name", name.value);
       product.append("description", descritpion.value);
       product.append("price", price.value);
