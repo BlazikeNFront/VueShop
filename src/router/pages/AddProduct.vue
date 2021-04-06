@@ -39,16 +39,7 @@
           />
           <label class="addProduct__formControl__lables" for="line">Line</label>
         </div>
-        <div class="addProduct__formControl__radioInput">
-          <input
-            id="lure"
-            type="radio"
-            name="productType"
-            value="lure"
-            v-model="formInputs.typeOfProduct.value"
-          />
-          <label class="addProduct__formControl__lables" for="lure">Lure</label>
-        </div>
+
         <div class="addProduct__formControl__radioInput">
           <input
             id="other"
@@ -402,18 +393,21 @@ export default {
 </script>
 <style lang='scss'>
 .form-addProduct {
-  width: 100%;
-  height: 80rem;
+  @include basicCart;
+  margin: 3rem auto;
+  padding: 2rem;
+  width: 80%;
+  height: 80%;
   @include flexLayout;
   flex-direction: column;
   font-size: $font-md;
+
   color: white;
-  margin: 5rem 0;
 }
 .addProduct__formControl {
   @include flexLayout;
   flex-direction: column;
-  margin: 1.5rem;
+  margin: 1rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid grey;
   position: relative;
@@ -435,11 +429,14 @@ export default {
 }
 .form-addProduct__para {
   margin-right: 1rem;
+  font-weight: 600;
 }
 .form-addProduct__button {
   @include button;
   color: white;
-  padding: 1rem;
+  font-size: 2rem;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
 }
 .addProduct__formControl__input {
   text-align: center;

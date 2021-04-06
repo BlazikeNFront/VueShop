@@ -88,6 +88,7 @@ export default {
       text-align: center;
       height: 90%;
       font-family: inherit;
+      background: transparent;
       &:focus {
         outline: none;
       }

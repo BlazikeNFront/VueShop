@@ -68,7 +68,7 @@ export default {
 .customSelect {
   position: relative;
   @include flexLayout;
-  background-color: White;
+
   padding: 0.5rem;
   font-size: $font-md;
   cursor: pointer;
@@ -99,12 +99,11 @@ export default {
 }
 
 .customSelect__selectOption {
-  background-color: white;
   position: absolute;
   z-index: 1200;
   width: 11rem;
   top: 3.5rem;
-
+  background-color: White;
   border-radius: 0 0 5px 5px;
   font-size: 1.2rem;
   overflow: hidden;

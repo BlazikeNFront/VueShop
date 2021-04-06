@@ -46,6 +46,7 @@ export default {
   width: 90%;
   height: 50%;
   margin: 0 auto;
+  margin-top: 1.5rem;
   background-color: #bd4f6c;
   background-image: linear-gradient(326deg, #bd4f6c 0%, #d7816a 74%);
   border-radius: 10px;

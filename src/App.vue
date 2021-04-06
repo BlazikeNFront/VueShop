@@ -6,11 +6,8 @@
     <the-header></the-header>
     <nav-bar></nav-bar>
     <main class="main">
-      <router-view v-slot="{ Component, route }">
-        <!-- Use any custom transition and fallback to `fade` -->
-        <transition :name="route.meta.transition || 'fade'">
-          <component :is="Component" />
-        </transition>
+      <router-view v-slot="{ Component }">
+        <component :is="Component" />
       </router-view>
     </main>
     <footer-component></footer-component>
@@ -43,14 +40,6 @@ html {
   box-sizing: border-box;
   text-decoration: none;
 }
-/* Change Autocomplete styles in Chrome*/
-/* input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-  box-shadow: 0 0 0 30px black inset;
-  -webkit-box-shadow: 0 0 0 30px black inset;
-} */
 
 *,
 *:before,
@@ -99,6 +88,8 @@ button {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  background-color: #d9e4f5;
+  background-image: linear-gradient(315deg, #d9e4f5 0%, #f5e3e6 74%);
 }
 
 .container {

@@ -1,17 +1,49 @@
 <template>
-  <li class="mainNavList__item">
+  <li class="mainNavList__item" @click="searchAction(this.title)">
     {{ this.title }}
     <ul>
-      <li>Rods</li>
-      <li>Reels</li>
-      <li>Lines</li>
-      <li>Others</li>
+      <li
+        v-for="element in this.listElements"
+        :key="element"
+        @click.stop="searchAction(this.title, element)"
+      >
+        {{ element }}
+      </li>
     </ul>
   </li>
 </template>
 <script>
 export default {
   props: ["title"],
+  data() {
+    return {
+      listElements: ["Rods", "Reels", "Lines", "Other"],
+    };
+  },
+  methods: {
+    searchAction(title, element) {
+      const category = title.split(" ")[0];
+
+      let query;
+      if (element) {
+        query = category + " " + element;
+      } else {
+        query = category;
+      }
+
+      const payload = {
+        query: query,
+        page: 1,
+      };
+
+      this.$store.dispatch("UserSearch/handleSearchRequest", payload);
+      this.$router.push({
+        name: "search-for-product",
+        params: { searchQuery: payload.query },
+        query: { page: 1 },
+      });
+    },
+  },
 };
 </script>
 <style lang='scss'>

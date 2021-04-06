@@ -26,6 +26,9 @@ export default {
     },
   },
   actions: {
+    setQuery(context, payload) {
+      context.commit(payload);
+    },
     async handleSearchRequest(context, payload) {
       const { query, page } = payload;
       try {
@@ -62,9 +65,7 @@ export default {
         console.log(err);
       }
     },
-    setQuery(context, payload) {
-      context.commit(payload);
-    },
+
     async setProductDetails(context, prodId) {
       try {
         const rawData = await fetch(

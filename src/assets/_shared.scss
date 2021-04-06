@@ -46,14 +46,22 @@ $backdrop: 1000;
   align-items: center;
   justify-content: space-between;
 }
+
+@mixin basicCart {
+  background-color: #bd4f6c;
+  background-image: linear-gradient(326deg, #bd4f6c 0%, #d7816a 74%);
+  border-radius: 10px;
+  box-shadow: 5px 5px 15px black;
+}
+
 @mixin button {
-  background: none;
-  border: 1px solid #d47304;
-  font-size: inherit;
+  background-color: #bdbb40;
+  color: White;
+  border: none;
   border-radius: 20px;
-  padding: 0.5rem 1rem;
-  font-family: "Cabin", sans-serif;
-  font-weight: 700;
+  padding: 0.5rem;
+  font-family: inherit;
+  text-decoration: none;
 }
 @mixin mainBorder {
   border: $primiary-color 3px solid;

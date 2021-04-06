@@ -3,13 +3,13 @@
     <form class="loginForm__form" @submit.prevent="handleSignUp">
       <div class="loginForm__inputs loginForm__signUpInputs">
         <div class="loginFormControl">
-          <label class="loginForm_label" for="email">Email:</label>
+          <label class="loginForm_label" for="signupEmail">Email:</label>
           <input
             class="loginFormControll__input"
             :class="{ userInputError: !!formErrors.userNameErrorMsg }"
             @blur="formErrors.userNameErrorMsg = null"
             type="email"
-            id="email"
+            id="signupEmail"
             placeholder="Type your email"
             v-model.trim="email"
             autocomplete="email"
@@ -18,11 +18,11 @@
           <p>{{ formErrors.userNameErrorMsg }}</p>
         </div>
         <div class="loginFormControl">
-          <label class="loginForm_label" for="password">Password:</label>
+          <label class="loginForm_label" for="signupPassword">Password:</label>
           <input
             class="loginFormControll__input"
             type="password"
-            id="password"
+            id="signupPassword"
             placeholder="Type your passowrd"
             autocomplete="current-password"
             v-model.trim="userPassword"
