@@ -2,7 +2,7 @@
   <div>
     <div class="paginationButtons">
       <button
-        @click="this.$emit('previousPageClick')"
+        @click="previousPageClick()"
         class="pagination__pageChangersButtons"
       >
         <font-awesome-icon
@@ -10,21 +10,24 @@
           class="paginationButtons__previousButton"
         ></font-awesome-icon>
       </button>
-      <div class="paginationButtons__pages">
+      <div class="paginationButtons__pages" ref="buttons">
         <hexagonal-shape
-          :color="'orange' || this.backgroundOfHexagon"
-          v-for="index in numberOfPages"
-          :key="index"
-          @click="this.$emit('pageChange', index)"
+          :color="'salmon' || this.backgroundOfHexagon"
+          v-for="page in numberOfPages"
+          :key="page"
+          @click="pageClick($event, page)"
           class="paginationButtons__hexagonShapes"
         >
-          <button class="paginationButtons__hexagonButtons">
-            {{ index }}
+          <button
+            class="paginationButtons__hexagonButtons"
+            :class="{ activePage: currentPage == parseInt(page) }"
+          >
+            {{ page }}
           </button>
         </hexagonal-shape>
       </div>
       <button
-        @click="this.$emit('nextPageClick')"
+        @click="nextPageClick($event)"
         class="pagination__pageChangersButtons"
       >
         <font-awesome-icon
@@ -38,10 +41,50 @@
 <script>
 import HexagonalShape from "./HexagonalShape.vue";
 export default {
-  props: ["numberOfPages", "backgroundOfHexagon"],
+  props: ["numberOfPages", "backgroundOfHexagon", "currentPage"],
   emits: ["pageChange", "previousPageClick", "nextPageClick"],
   components: {
     HexagonalShape,
+  },
+
+  computed: {
+    /*  currentPage() {
+      return this.currentPage;
+    }, */
+  },
+
+  methods: {
+    previousPageClick() {
+      if (parseInt(this.currentPage) === 1) {
+        return;
+      }
+      const buttonToAnimate = this.$refs["buttons"].children[
+        this.currentPage - 2
+      ];
+      buttonToAnimate.classList.remove("buttonClickAnimation");
+      void buttonToAnimate.offsetWidth; //force reflow
+      buttonToAnimate.classList.add("buttonClickAnimation");
+      this.$emit("previousPageClick");
+    },
+
+    pageClick(e, page) {
+      const element = e.path[1];
+      element.classList.remove("buttonClickAnimation");
+      void element.offsetWidth; //force reflow
+      element.classList.add("buttonClickAnimation");
+      this.$emit("pageChange", page);
+    },
+    nextPageClick() {
+      const buttonsNumber = Array.from(this.$refs["buttons"].children).length;
+      if (parseInt(this.currentPage) === buttonsNumber) {
+        return;
+      }
+      const buttonToAnimate = this.$refs["buttons"].children[this.currentPage];
+      buttonToAnimate.classList.remove("buttonClickAnimation");
+      void buttonToAnimate.offsetWidth; //force reflow
+      buttonToAnimate.classList.add("buttonClickAnimation");
+      this.$emit("nextPageClick");
+    },
   },
 };
 </script>
@@ -53,17 +96,17 @@ export default {
   @include flexLayout;
   .pagination__pageChangersButtons {
     @include button;
-    color: orange;
+    color: $primary-color;
     font-size: $font-md;
     padding: 1rem;
   }
   button:hover {
-    color: white;
+    color: black;
   }
 }
 .paginationButtons__hexagonButtons {
   position: relative;
-  color: black;
+  color: white;
   padding: 0;
   outline: none;
   width: 100%;
@@ -78,6 +121,7 @@ export default {
 .paginationButtons__pages {
   flex-wrap: wrap;
   @include flexLayout;
+  justify-content: center;
 }
 .paginationButtons__hexagonShapes {
   margin: 0 1rem;
@@ -85,12 +129,26 @@ export default {
   transform: scale(1.4);
   transition: all 0.5s;
   cursor: pointer;
-
-  &:hover {
-    transform: scale(1.6);
-  }
 }
 .paginationButtons__previousButton {
   transform: rotate(180deg);
+}
+.activePage {
+  color: black;
+}
+
+.buttonClickAnimation {
+  animation-name: buttonAnimation;
+  animation-fill-mode: forwards;
+  animation-duration: 1s;
+}
+@keyframes buttonAnimation {
+  0% {
+    transform: rotateY(0turn) scale(1.4);
+  }
+
+  100% {
+    transform: rotateY(1turn) scale(1.4);
+  }
 }
 </style>

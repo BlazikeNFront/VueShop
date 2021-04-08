@@ -94,14 +94,19 @@ button {
 
 .container {
   width: 100%;
+
   position: relative;
   overflow: hidden;
 }
 
 .main {
-  height: 140rem;
+  margin: 2.5rem 0;
+  padding: 2.5rem 0; // avoid margin stacking
+  height: 100rem;
+  height: 100%;
+  width: 100%;
+  max-width: 125rem;
 
-  margin-top: 5rem;
   position: relative;
   overflow: hidden;
 }

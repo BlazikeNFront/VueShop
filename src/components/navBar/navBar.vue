@@ -38,7 +38,6 @@ nav {
     justify-content: space-around;
     width: 80%;
     height: 100%;
-    font-size: 1.5rem;
   }
 }
 </style>

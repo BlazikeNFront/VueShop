@@ -1,5 +1,6 @@
 <template>
   <div class="productBoxSmall">
+    <div class="productBoxSmall__hoverBackdrop"></div>
     <div class="productBoxSmall__imageBox">
       <img
         :src="product.imagePath.medium"
@@ -35,7 +36,7 @@ export default {
   },
   computed: {
     cutDesc() {
-      return this.product.description.split("").splice(0, 150).join("") + "...";
+      return this.product.description.split("").splice(0, 100).join("") + "...";
     },
   },
   methods: {
@@ -52,29 +53,36 @@ export default {
   margin: 1rem;
   width: 25rem;
   height: 40rem;
+  background-color: White;
   font-size: $font-md;
-  color: $primiary-color;
+
   border: 2px solid $primiary-color;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 2px 0px 10px $primiary-color;
-  &:hover .productBoxSmall__imageBox,
-  &:hover .productBoxSmall__textContent {
-    opacity: 0.5;
+  &:hover .productBoxSmall__hoverBackdrop {
+    display: block;
   }
+  /*  &:hover .productBoxSmall__imageBox,
+  &:hover .productBoxSmall__textContent {
+    // opacity: 0.5;
+  } */
   &:hover button {
     opacity: 1;
-    transform: translate(-50%, 90%);
+    transform: translate(-50%, 150%);
     &:hover {
-      background-color: $primiary-color;
-      border-color: black;
-      color: black;
+      background-color: #f5e3e6;
+      border-color: #ff6600;
+      color: #ff6600;
     }
   }
-  div {
-    @include flexLayout;
-    justify-content: space-around;
-  }
+}
+.productBoxSmall__hoverBackdrop {
+  position: absolute;
+  display: none;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 .productBoxSmall__imageBox__img {
   max-width: 100%;
@@ -91,7 +99,7 @@ export default {
   @include centerAbsolute;
   color: $primiary-color;
   top: 25%;
-  background-color: black;
+  background-color: white;
   padding: 1rem 5rem;
   @include mainBorder;
   border-radius: 20px;
@@ -105,15 +113,25 @@ export default {
 .productBoxSmall__productTitle {
   margin: 1rem;
   font-size: $font-bg;
+  font-weight: 600;
 }
 .productBoxSmall__productPrice {
-  margin-bottom: 1rem;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+
+  bottom: 8.5rem;
+
+  font-size: 1.7rem;
+  font-weight: 600;
 }
 .productBoxSmall__arrowIcon {
   font-size: $font-md;
 }
 .productBoxSmall__productDesc {
-  margin: 1rem;
+  margin: 0 0.5rem;
+  position: absolute;
+  bottom: 3rem;
   display: block;
   font-size: $font-sm;
 }

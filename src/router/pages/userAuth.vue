@@ -66,7 +66,7 @@ export default {
 }
 .userAuth__companyLogoText {
   margin: 0 auto;
-  width: 60%;
+  width: 70%;
   height: 50%;
   background-image: url("../../assets/companyTextLogo.png");
   background-size: cover;

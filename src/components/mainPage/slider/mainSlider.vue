@@ -10,7 +10,7 @@
           alt="picture of fishing rod"
         />
         <p class="sliderContainer__para sliderContainer__para--hover">RODS</p>
-        <router-link class="sliderContainer__link" :to="'/'"
+        <router-link class="sliderContainer__link" :to="rodsLink"
           >Discover</router-link
         >
       </li>
@@ -26,7 +26,7 @@
           alt="picture of fishing reel"
         />
         <p class="sliderContainer__para sliderContainer__para--hover">REELS</p>
-        <router-link class="sliderContainer__link" :to="'/'"
+        <router-link class="sliderContainer__link" :to="reelsLink"
           >Discover</router-link
         >
       </li>
@@ -42,7 +42,7 @@
           alt="picture of fishing reel"
         />
         <p class="sliderContainer__para sliderContainer__para--hover">LURES</p>
-        <router-link class="sliderContainer__link" :to="'/'"
+        <router-link class="sliderContainer__link" :to="luresLink"
           >Discover</router-link
         >
       </li>
@@ -58,14 +58,63 @@
           alt="picture of fishing reel"
         />
         <p class="sliderContainer__para sliderContainer__para--hover">LINES</p>
-        <router-link class="sliderContainer__link" :to="'/'"
+        <router-link class="sliderContainer__link" :to="linesLink"
           >Discover</router-link
         >
       </li>
     </ul>
   </div>
 </template>
-
+<script>
+export default {
+  computed: {
+    rodsLink() {
+      return {
+        name: "search-for-product",
+        params: {
+          searchQuery: "rod",
+        },
+        query: {
+          page: 1,
+        },
+      };
+    },
+    reelsLink() {
+      return {
+        name: "search-for-product",
+        params: {
+          searchQuery: "reel",
+        },
+        query: {
+          page: 1,
+        },
+      };
+    },
+    luresLink() {
+      return {
+        name: "search-for-product",
+        params: {
+          searchQuery: "lure",
+        },
+        query: {
+          page: 1,
+        },
+      };
+    },
+    linesLink() {
+      return {
+        name: "search-for-product",
+        params: {
+          searchQuery: "line",
+        },
+        query: {
+          page: 1,
+        },
+      };
+    },
+  },
+};
+</script>
 <style lang='scss'>
 .sliderContainer {
   width: 100%;

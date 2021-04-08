@@ -74,6 +74,7 @@ export default {
   @include mainBorder;
   @include flexLayout;
   flex-direction: column;
+  background-color: white;
   font-size: $font-md;
   color: black;
 }

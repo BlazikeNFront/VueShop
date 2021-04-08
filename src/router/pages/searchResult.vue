@@ -15,6 +15,7 @@
     <pagination-buttons
       class="searchResult__paginationButtons"
       :numberOfPages="numberOfPages"
+      :currentPage="currentPage"
       @pageChange="handleChangePageRequest"
       @previousPageClick="
         this.handleChangePageRequest(parseInt(this.currentPage) - 1)

@@ -79,8 +79,8 @@ export default {
   }
   .searchBarInput {
     @include flexLayout;
-
-    border: 1px solid grey;
+    margin-left: 2rem;
+    border-bottom: 1px solid grey;
     height: 3rem;
 
     input {
@@ -98,8 +98,8 @@ export default {
     input:-webkit-autofill:focus {
       border: none;
       -webkit-text-fill-color: black;
-      -webkit-box-shadow: 0 0 0 30px white inset;
-      box-shadow: 0 0 0 30px white inset;
+      -webkit-box-shadow: 0 0 0 30px #f5e3e6 inset;
+      box-shadow: 0 0 0 30px #f5e3e6 inset;
       // transition: background-color 5000s ease-in-out 0s;
     }
     button {

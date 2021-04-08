@@ -1,7 +1,8 @@
 <template>
   <li class="mainNavList__item" @click="searchAction(this.title)">
     {{ this.title }}
-    <ul>
+    <ul class="mainNavList__subList">
+      <li>{{ this.title }}</li>
       <li
         v-for="element in this.listElements"
         :key="element"
@@ -48,36 +49,62 @@ export default {
 </script>
 <style lang='scss'>
 .mainNavList__item {
-  width: 100%;
+  width: 22rem;
   position: relative;
+  z-index: 10000;
+  margin: 0 0.5rem;
   padding: 1rem 0;
+  font-size: 1.5rem;
   cursor: pointer;
-  ul {
-    position: absolute;
-    top: 3.8rem;
-    width: 100%;
-    @include flexLayout;
-    @include centerWithTranslate;
-    display: none;
-    flex-direction: column;
-    font-size: $font-md;
-    color: black;
-    background-color: white;
-    border-radius: 0 0 5px 5px;
-    transition: all 0.5s ease;
-  }
+  background-color: #ffac81;
+
+  background-image: linear-gradient(315deg, #ffac81 0%, #ff928b 74%);
+  border-radius: 10px 10px 0 0;
+
   li {
     font-size: 1.2rem;
+    width: 100%;
     padding: 1rem;
-    background-color: #fcfbf8;
+  }
+  li:nth-child(1) {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  li:nth-child(4) {
+    border-radius: 0 0 10px 10px;
   }
 }
+.mainNavList__subList {
+  @include flexLayout;
+  @include centerWithTranslate;
+
+  margin-left: 50%;
+  display: none;
+  margin: 0 0.5rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 22rem;
+  height: 18.5rem;
+
+  flex-direction: column;
+  font-size: 1.5rem;
+  color: black;
+  border-radius: 0 0 5px 5px;
+  transition: all 0.5s ease;
+  background-color: #ffac81;
+  background-image: linear-gradient(315deg, #ffac81 0%, #ff928b 74%);
+  border-radius: 10px;
+  margin: 0 0.5rem;
+  margin-left: 50%;
+  padding: 1rem 0;
+  font-size: 1.5rem;
+}
 .mainNavList__item:hover {
-  background-color: #fcfbf8;
   font-weight: 700;
-  & ul {
+
+  .mainNavList__subList {
     display: block;
-    animation: fadeInAnim 0.5s ease;
   }
   li {
     &:hover {
@@ -85,6 +112,4 @@ export default {
     }
   }
 }
-
-@include fadeInAnim;
 </style>
