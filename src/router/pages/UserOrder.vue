@@ -4,7 +4,8 @@
 
     <ul class="userOrder__productList">
       <li class="userOrder__product userOrder_tableDescritpion">
-        <span></span>
+        <span></span
+        ><!-- empty cell -->
         <h4 class="userOrder__columnDescription">Product name</h4>
         <h4 class="userOrder__columnDescription">Product name</h4>
         <h4 class="userOrder__columnDescription">Product price</h4>
@@ -152,7 +153,6 @@ export default {
   height: 100%;
   justify-self: center;
   align-self: center;
-  border-left: 2px solid black;
 }
 .userOrder__productInformation {
   @include flexLayout;

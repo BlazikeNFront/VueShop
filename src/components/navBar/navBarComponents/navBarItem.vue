@@ -3,6 +3,7 @@
     {{ this.title }}
     <ul class="mainNavList__subList">
       <li>{{ this.title }}</li>
+      <!-- i want to have same gradient continues in sublist item so sublist works like popUp replaceing oringal nav -->
       <li
         v-for="element in this.listElements"
         :key="element"
@@ -80,7 +81,9 @@ export default {
 
   margin-left: 50%;
   display: none;
-  margin: 0 0.5rem;
+  margin-left: 50%;
+
+  font-size: 1.5rem;
   position: absolute;
   top: 0;
   left: 0;
@@ -95,10 +98,6 @@ export default {
   background-color: #ffac81;
   background-image: linear-gradient(315deg, #ffac81 0%, #ff928b 74%);
   border-radius: 10px;
-  margin: 0 0.5rem;
-  margin-left: 50%;
-  padding: 1rem 0;
-  font-size: 1.5rem;
 }
 .mainNavList__item:hover {
   font-weight: 700;

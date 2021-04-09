@@ -149,6 +149,7 @@ export default {};
 .icons__instagramIcon:hover {
   width: 2.5rem;
   border-radius: 50%;
+  color: white;
   background: radial-gradient(
       circle farthest-corner at 35% 90%,
       #fec564,

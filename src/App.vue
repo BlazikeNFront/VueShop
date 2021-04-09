@@ -100,7 +100,7 @@ button {
 }
 
 .main {
-  margin: 2.5rem 0;
+  margin: 2.5rem auto;
   padding: 2.5rem 0; // avoid margin stacking
   height: 100rem;
   height: 100%;

@@ -1,52 +1,59 @@
 <template>
-  <div class="detailOrderView__modal">
+  <div class="orderDetailsView__modal">
     <error-modal
       @closeDialog="closeModal"
       @confirmError="closeModal"
       width="70%"
       height="fit-content"
     >
-      <h4 class="detailOrderView__h4">
+      <h4 class="orderDetailsView__h4">
         Order Details for {{ this.order._id }}
       </h4>
-      <ul>
-        <li
-          class="userOrder__product"
-          v-for="product in this.order.cart"
-          :key="product._id"
-        >
-          <img
-            class="userOrder__productImage"
-            :src="product.imagePath.small"
-            :alt="product.name + ' image'"
-          />
-          <div class="userOrder__productInfomartionBox">
-            <p class="userOrder__productInformation">
+      <ul class="orderDetails__products">
+        <li class="orderDetails__products__thead">
+          <div class="orderDetails__descriptionBox">
+            <p>Product Image</p>
+          </div>
+          <div class="orderDetails__descriptionBox">
+            <p>Product Name</p>
+          </div>
+          <div class="orderDetails__descriptionBox">
+            <p>Quantity</p>
+          </div>
+          <div class="orderDetails__descriptionBox">
+            <p>Price</p>
+          </div>
+          <div class="orderDetails__descriptionBox">
+            <p>Total cost of product</p>
+          </div>
+        </li>
+        <li v-for="product in this.order.cart" :key="product._id">
+          <div class="orderDetails__productInfomartionBox">
+            <img :src="product.imagePath" :alt="product.name + ' image'" />
+          </div>
+          <div class="orderDetails__productInfomartionBox">
+            <p>
               {{ product.name }}
             </p>
           </div>
-          <div class="userOrder__productInfomartionBox">
-            <p class="userOrder__productInformation">
+          <div class="orderDetails__productInfomartionBox">
+            <p>
               {{ product.quantity }}
             </p>
           </div>
-          <div class="userOrder__productInfomartionBox">
-            <p class="userOrder__productInformation">
-              {{ product.price }}
-            </p>
+          <div class="orderDetails__productInfomartionBox">
+            <p>{{ product.price }}$</p>
           </div>
-          <div class="userOrder__productInfomartionBox">
-            <p class="userOrder__productInformation">
-              {{ product.price * product.quantity }}
-            </p>
+          <div class="orderDetails__productInfomartionBox">
+            <p>{{ product.price * product.quantity }}$</p>
           </div>
         </li>
       </ul>
-      <h5 class="detailOrderView__h5">Client information</h5>
-      <div class="detailOrderView__userInformation">
-        <p class="detailOrderView__p">Name: Damian</p>
-        <p class="detailOrderView__p">Surname:Stachurski</p>
-        <p class="detailOrderView__p">Adress:Panstwo Dykty i kartonu</p>
+      <h5 class="orderDetailsView__h5">Client information</h5>
+      <div class="orderDetailsView__userInformation">
+        <p class="orderDetailsView__p">Name: Damian</p>
+        <p class="orderDetailsView__p">Surname:Stachurski</p>
+        <p class="orderDetailsView__p">Adress:Panstwo Dykty i kartonu</p>
       </div>
       <form
         class="orderStatusForm"
@@ -85,6 +92,9 @@
 export default {
   props: ["order"],
   emits: ["orderStatusChanged"],
+  mounted() {
+    console.log(this.order);
+  },
   data() {
     return {
       orderDetailsStatus: null,
@@ -95,6 +105,7 @@ export default {
   },
   computed: {
     getToken() {
+      console.log(this.order);
       return this.$store.getters["UserAuth/getToken"];
     },
   },
@@ -135,28 +146,75 @@ export default {
 };
 </script>
 <style lang='scss'>
-.detailOrderView__h5 {
-  margin-top: 1rem;
-  font-size: $font-md;
-  color: white;
+.orderDetailsView__h4 {
+  font-size: 2rem;
 }
-.detailOrderView__userInformation {
-  margin: 1rem;
+.orderDetailsView__h5 {
+  margin-top: 1rem;
+  font-size: 1.5rem;
+  color: black;
+}
+.orderDetails__products {
+  @include flexLayout;
+  flex-direction: column;
+  width: 80%;
+  background-color: white;
+
+  li {
+    width: 100%;
+    @include flexLayout;
+    border: 1px solid black;
+    border-bottom: none;
+    &:first-child {
+      border: none;
+    }
+    &:last-child {
+      border-bottom: 1px solid black;
+    }
+  }
+}
+
+.orderDetails__productInfomartionBox {
+  width: 100%;
+  height: 10rem;
+  @include flexLayout;
+  justify-content: center;
+  &:not(:first-child) {
+    border-left: 1px solid black;
+  }
+  p {
+    text-align: center;
+    font-size: $font-md;
+  }
+}
+.orderDetails__products__thead {
+  height: 5rem;
+}
+.orderDetails__descriptionBox {
+  width: 100%;
+  height: 3rem;
+  @include flexLayout;
+  justify-content: center;
+}
+.orderDetailsView__userInformation {
+  margin: 2rem;
   @include flexLayout;
   width: 100%;
   justify-content: space-evenly;
 }
 .orderStatusForm {
   @include flexLayout;
+  margin: 2rem;
 }
-.detailOrderView__p {
-  color: white;
+.orderDetailsView__p {
+  color: black;
 }
+
 .orderStatusForm__lablel {
-  color: White;
+  color: black;
 }
 .orderStatusForm__p {
-  color: white;
+  color: black;
   font-size: $font-md;
 }
 .orderStatusForm__formControl {
@@ -165,7 +223,7 @@ export default {
 }
 .orderStatusForm__button {
   @include button;
-  color: white;
+  color: black;
 }
 .orderStatusForm__loader {
   transform: scale(0.5);

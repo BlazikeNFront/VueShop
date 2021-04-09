@@ -96,7 +96,7 @@ export default {
   @include flexLayout;
   .pagination__pageChangersButtons {
     @include button;
-    color: $primary-color;
+    color: white;
     font-size: $font-md;
     padding: 1rem;
   }

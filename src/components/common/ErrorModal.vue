@@ -33,21 +33,19 @@ export default {
   height: fit-content;
   border: 2px solid $primiary-color;
   border-radius: 10px;
-  background-color: black;
+  background-color: #d9e4f5;
+  background-image: linear-gradient(315deg, #d9e4f5 0%, #f5e3e6 74%);
 }
 .errorDialog__h3 {
   margin: 1rem;
-  color: $primiary-color;
-  font-size: $font-bg;
+  color: black;
+  font-size: 3rem;
 }
 .errorDialog__button {
-  margin: 1rem;
-  font-family: inherit;
-  font-size: $font-bg;
+  @include button;
+  font-size: 2rem;
+  font-weight: 600;
   padding: 0.5rem 1rem;
-  background: none;
-  border: 1px solid $primiary-color;
-  color: $primiary-color;
-  cursor: pointer;
+  margin: 2rem;
 }
 </style>

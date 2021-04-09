@@ -2,11 +2,11 @@
   <section class="checkOrders">
     <h3 class="checkOrders__h3">Orders</h3>
     <ul class="checkOrders__ordersList">
-      <li class="checkOrder__product userOrder_tableDescritpion">
-        <h4 class="userOrder__columnDescription">Order id</h4>
-        <h4 class="userOrder__columnDescription">Order Details</h4>
-        <h4 class="userOrder__columnDescription">Order Value</h4>
-        <h4 class="userOrder__columnDescription">Status</h4>
+      <li class="checkOrder__product">
+        <h4>Order id</h4>
+        <h4>Order Details</h4>
+        <h4>Order Value</h4>
+        <h4>Status</h4>
       </li>
       <loader v-if="!this.orders"></loader>
       <li
@@ -142,46 +142,64 @@ export default {
 </script>
 <style lang='scss'>
 .checkOrders {
+  @include basicCart;
   min-height: 100rem;
   @include flexLayout;
+  margin: 3rem;
   flex-direction: column;
+  button {
+    @include button;
+  }
 }
 .checkOrders__ordersList {
   margin: 0 auto;
   width: 80%;
+  background-color: White;
 }
 .checkOrder__li {
   font-size: $font-md;
   height: 4.5rem;
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 2fr;
-  background-color: $primiary-color;
-  border: 1px solid white;
+
+  border: 1px solid black;
   grid-gap: 0;
-  color: white;
+  color: black;
+  &:nth-child(odd) {
+    background-color: rgba(189, 187, 64, 0.4);
+  }
 }
+
 .userOrder__productInfomartionBox {
+  @include flexLayout;
   width: 100%;
   height: 100%;
-  justify-self: center;
-  align-self: center;
-  border-left: 2px solid black;
+
+  &:not(:first-child) {
+    border-left: 1px solid black;
+  }
 }
 .checkOrder__product {
   font-size: 1.5rem;
+  height: 4rem;
   display: grid;
+  align-self: center;
   grid-template-columns: 2fr 1fr 1fr 2fr;
-  background-color: #d47304;
-  border: 1px solid white;
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid black;
   grid-gap: 0;
-  color: white;
+  color: black;
+  h4 {
+    align-self: center;
+    font-weight: 600;
+  }
 }
 .userOrder__checkDeatils {
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 80%;
   background: none;
   font-size: $font-md;
+  @include button;
   @include mainFontBold;
-  border: none;
 }
 </style>
