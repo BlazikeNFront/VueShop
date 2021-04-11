@@ -40,7 +40,7 @@
         </div>
       </li>
     </ul>
-    <button @click="this.getOrders">FETHC ORDER</button>
+    <button @click="this.getOrders">FETCH ORDER</button>
     <pagination-buttons
       class="searchResult__paginationButtons"
       :numberOfPages="numberOfPages"
@@ -52,9 +52,11 @@
     ></pagination-buttons>
 
     <order-details
-      v-if="showOrderDeatils"
+      v-if="this.showOrderDeatils"
       :order="this.selectedOrder"
+      :changeOrderStatus="true"
       @orderStatusChanged="this.handleChangePageRequest"
+      @closeModal="this.showOrderDeatils = false"
     ></order-details>
   </section>
 </template>
@@ -78,6 +80,7 @@ export default {
   data() {
     return {
       selectedOrder: null,
+      showOrderDeatils: false,
     };
   },
   computed: {
@@ -87,9 +90,7 @@ export default {
     getToken() {
       return this.$store.getters["UserAuth/getToken"];
     },
-    showOrderDeatils() {
-      return this.$store.getters["Admin/showOrderDetails"];
-    },
+
     currentPage() {
       return this.$route.query.page;
     },
@@ -114,12 +115,10 @@ export default {
         query: { page: page },
       });
     },
-    toggleOrderDeatils() {
-      this.$store.dispatch("Admin/openShowOrderDetails");
-    },
+
     updateSelectedOrder(order) {
       this.selectedOrder = order;
-      this.toggleOrderDeatils();
+      this.showOrderDeatils = true;
     },
     getOrderStatus(status) {
       if (status === 0) {
@@ -171,12 +170,16 @@ export default {
 }
 
 .userOrder__productInfomartionBox {
-  @include flexLayout;
   width: 100%;
   height: 100%;
-
+  @include flexLayout;
+  justify-content: center;
   &:not(:first-child) {
     border-left: 1px solid black;
+  }
+  p {
+    text-align: center;
+    width: 100%;
   }
 }
 .checkOrder__product {

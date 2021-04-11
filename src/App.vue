@@ -94,7 +94,7 @@ button {
 
 .container {
   width: 100%;
-
+  min-height: 100vh;
   position: relative;
   overflow: hidden;
 }
@@ -102,8 +102,9 @@ button {
 .main {
   margin: 2.5rem auto;
   padding: 2.5rem 0; // avoid margin stacking
-  height: 100rem;
-  height: 100%;
+
+  height: clamp(50rem, 100%, 140rem);
+  min-height: 50rem;
   width: 100%;
   max-width: 125rem;
 

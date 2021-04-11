@@ -1,8 +1,8 @@
 <template>
   <div class="orderDetailsView__modal">
     <error-modal
-      @closeDialog="closeModal"
-      @confirmError="closeModal"
+      @closeDialog="this.$emit('closeModal')"
+      @confirmError="this.$emit('closeModal')"
       width="70%"
       height="fit-content"
     >
@@ -45,7 +45,7 @@
             <p>{{ product.price }}$</p>
           </div>
           <div class="orderDetails__productInfomartionBox">
-            <p>{{ product.price * product.quantity }}$</p>
+            <p>{{ (product.price * product.quantity).toFixed(2) }}$</p>
           </div>
         </li>
       </ul>
@@ -56,6 +56,7 @@
         <p class="orderDetailsView__p">Adress:Panstwo Dykty i kartonu</p>
       </div>
       <form
+        v-if="this.changeOrderStatus"
         class="orderStatusForm"
         @submit.prevent="handleChangeOrderStatus(this.order._id)"
       >
@@ -90,11 +91,9 @@
 </template>
 <script>
 export default {
-  props: ["order"],
-  emits: ["orderStatusChanged"],
-  mounted() {
-    console.log(this.order);
-  },
+  props: ["order", "changeOrderStatus"],
+  emits: ["orderStatusChanged", "closeModal"],
+
   data() {
     return {
       orderDetailsStatus: null,
@@ -105,7 +104,6 @@ export default {
   },
   computed: {
     getToken() {
-      console.log(this.order);
       return this.$store.getters["UserAuth/getToken"];
     },
   },

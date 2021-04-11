@@ -1,53 +1,56 @@
 <template>
   <section class="userOrder">
-    <h3 class="userOrder__h3">Order</h3>
+    <h2>Order</h2>
+    <div v-if="this.userCart.length > 0">
+      <ul class="userOrder__productList">
+        <li class="userOrder__product userOrder_tableDescritpion">
+          <span></span
+          ><!-- empty cell -->
+          <h4 class="userOrder__columnDescription">Product name</h4>
+          <h4 class="userOrder__columnDescription">Product name</h4>
+          <h4 class="userOrder__columnDescription">Product price</h4>
+          <h4 class="userOrder__columnDescription">Summary</h4>
+        </li>
+        <li
+          class="userOrder__product"
+          v-for="product in userCart"
+          :key="product._id"
+        >
+          <img
+            class="userOrder__productImage"
+            :src="product.imagePath"
+            :alt="product.name + 'image'"
+          />
+          <div class="userOrder__productInfomartionBox">
+            <p class="userOrder__productInformation">
+              {{ product.name }}
+            </p>
+          </div>
+          <div class="userOrder__productInfomartionBox">
+            <p class="userOrder__productInformation">
+              {{ product.quantity }}
+            </p>
+          </div>
+          <div class="userOrder__productInfomartionBox">
+            <p class="userOrder__productInformation">
+              {{ product.price }}
+            </p>
+          </div>
+          <div class="userOrder__productInfomartionBox">
+            <p class="userOrder__productInformation">
+              {{ product.price * product.quantity }}
+            </p>
+          </div>
+        </li>
+      </ul>
 
-    <ul class="userOrder__productList">
-      <li class="userOrder__product userOrder_tableDescritpion">
-        <span></span
-        ><!-- empty cell -->
-        <h4 class="userOrder__columnDescription">Product name</h4>
-        <h4 class="userOrder__columnDescription">Product name</h4>
-        <h4 class="userOrder__columnDescription">Product price</h4>
-        <h4 class="userOrder__columnDescription">Summary</h4>
-      </li>
-      <li
-        class="userOrder__product"
-        v-for="product in userCart"
-        :key="product._id"
-      >
-        <img
-          class="userOrder__productImage"
-          :src="product.imagePath.small"
-          :alt="product.name + 'image'"
-        />
-        <div class="userOrder__productInfomartionBox">
-          <p class="userOrder__productInformation">
-            {{ product.name }}
-          </p>
-        </div>
-        <div class="userOrder__productInfomartionBox">
-          <p class="userOrder__productInformation">
-            {{ product.quantity }}
-          </p>
-        </div>
-        <div class="userOrder__productInfomartionBox">
-          <p class="userOrder__productInformation">
-            {{ product.price }}
-          </p>
-        </div>
-        <div class="userOrder__productInfomartionBox">
-          <p class="userOrder__productInformation">
-            {{ product.price * product.quantity }}
-          </p>
-        </div>
-      </li>
-    </ul>
+      <p class="userOrder__summaryCost">Summary $</p>
+      <button class="userOrder__confirmationButton" @click="handleOrderRequest">
+        Confirm order
+      </button>
+    </div>
+    <p v-else class="userOrder__summaryCost">There is no product in cart !</p>
 
-    <p class="userOrder__summaryCost">Summary $</p>
-    <button class="userOrder__confirmationButton" @click="handleOrderRequest">
-      Confirm order
-    </button>
     <error-modal
       v-if="this.modal.visible"
       @closeDialog="this.hideModal"
@@ -87,6 +90,11 @@ export default {
     },
     async handleOrderRequest() {
       try {
+        if (this.userCart.length === 0) {
+          this.modal.visible = true;
+          this.modal.message = "Cart is empty";
+          this.modal.error = true;
+        }
         const token = this.$store.getters["UserAuth/getToken"];
         const payload = {
           cart: this.userCart,

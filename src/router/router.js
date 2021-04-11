@@ -9,7 +9,9 @@ import ProductDetails from "./pages/productDetails.vue";
 import AdminAddProduct from "./pages/AddProduct.vue";
 import AdminCMS from "./pages/adminCMS.vue";
 import AdminOrders from "./pages/adminCheckOrders.vue";
-import UserOrder from "./pages/UserOrder.vue";
+import UserCart from "./pages/UserCart.vue";
+import UserOrders from "./pages/UserOrders.vue";
+import UserMenu from "./pages/UserMenu.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -35,8 +37,10 @@ const router = createRouter({
 
     { path: "/Admin", component: AdminCMS },
     { path: "/Admin/AddProduct", component: AdminAddProduct },
-    { name: "user-order", path: "/userOrder", component: UserOrder },
-    { path: "/user/historyOrder", component: UserOrder },
+    { name: "user-cart", path: "/UserCart", component: UserCart },
+    { name: "user-orders", path: "/UserOrders", component: UserOrders },
+    { name: "user-menu", path: "/menu", component: UserMenu },
+    { path: "/user/historyOrder", component: UserCart },
     { name: "admin-orders", path: "/Admin/orders", component: AdminOrders },
   ],
 });

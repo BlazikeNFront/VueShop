@@ -29,7 +29,11 @@ export default {
 
   methods: {
     handleUserButton() {
-      this.$router.push({ name: "user-login" });
+      if (this.token) {
+        this.$router.push({ name: "user-menu" });
+      } else {
+        this.$router.push({ name: "user-login" });
+      }
     },
   },
   computed: {
