@@ -3,6 +3,7 @@ export default {
   state() {
     return {
       token: null,
+      admin: true,
     };
   },
   mutations: {
@@ -10,7 +11,7 @@ export default {
       state.token = payload.token;
     },
     logout(state) {
-      console.log(state.token)
+      console.log(state.token);
       state.token = null;
     },
   },
@@ -42,12 +43,10 @@ export default {
             }
           );
           if (localStorageUserCart === false) {
-            console.log("NIE LOKAL");
             this.dispatch("Cart/fetchCartFromDb", dataJSON.token, {
               root: true,
             });
           }
-
           context.commit("handleLogin", payload);
         }
       } catch (err) {
@@ -64,6 +63,9 @@ export default {
   getters: {
     getToken(state) {
       return state.token;
+    },
+    getAdminState(state) {
+      return state.admin;
     },
   },
 };

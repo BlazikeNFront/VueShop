@@ -43,17 +43,12 @@ export default {
 <style lang="scss">
 .userAuth {
   @include flexLayout;
-  width: 90%;
+  width: 100%;
   height: 50%;
-  margin: 0 auto;
-  margin-top: 1.5rem;
   background-color: #bd4f6c;
   background-image: linear-gradient(326deg, #bd4f6c 0%, #d7816a 74%);
   border-radius: 10px;
   box-shadow: 5px 5px 15px black;
-
-  position: relative;
-  overflow: hidden;
 }
 .userAuth__logoBox {
   width: 50%;

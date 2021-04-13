@@ -78,18 +78,14 @@ export default {
 .mainNavList__subList {
   @include flexLayout;
   @include centerWithTranslate;
-
-  margin-left: 50%;
   display: none;
   margin-left: 50%;
-
   font-size: 1.5rem;
   position: absolute;
   top: 0;
   left: 0;
   width: 22rem;
   height: 18.5rem;
-
   flex-direction: column;
   font-size: 1.5rem;
   color: black;
@@ -98,6 +94,21 @@ export default {
   background-color: #ffac81;
   background-image: linear-gradient(315deg, #ffac81 0%, #ff928b 74%);
   border-radius: 10px;
+  li {
+    position: relative;
+    border-radius: 10px;
+  }
+  li::after {
+    content: "";
+    display: block;
+    bottom: 1px;
+    left: 50%;
+    transform: translate(-50%);
+    position: absolute;
+    width: 70%;
+    height: 0.1rem;
+    background-color: white;
+  }
 }
 .mainNavList__item:hover {
   font-weight: 700;
@@ -108,6 +119,10 @@ export default {
   li {
     &:hover {
       font-weight: 700;
+      background-color: rgba(0, 0, 0, 0.2);
+      &::after {
+        background-color: #bdbb40;
+      }
     }
   }
 }

@@ -6,8 +6,10 @@
     <the-header></the-header>
     <nav-bar></nav-bar>
     <main class="main">
-      <router-view v-slot="{ Component }">
-        <component :is="Component" />
+      <router-view v-slot="{ Component, route }">
+        <transition mode="out-in" :name="route.meta.transition || 'pageChange'">
+          <component :is="Component" />
+        </transition>
       </router-view>
     </main>
     <footer-component></footer-component>
@@ -101,14 +103,34 @@ button {
 
 .main {
   margin: 2.5rem auto;
-  padding: 2.5rem 0; // avoid margin stacking
-
-  height: clamp(50rem, 100%, 140rem);
-  min-height: 50rem;
+  padding: 2rem 2rem; // avoid margin stacking
+  height: 150rem;
   width: 100%;
   max-width: 125rem;
-
   position: relative;
   overflow: hidden;
+}
+.pageChange-enter-active,
+.pageChange-leave-active {
+  transition: all 0.5s;
+}
+
+.pageChange-enter-from {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+.pageChange-leave-to {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.pageChange-enter-to,
+.pageChange-leave-from {
+  opacity: 1;
+  transform: translateX(0%);
+}
+.rawRedirect-enter-active,
+.rawRedirect-leave-active {
+  opacity: 1;
 }
 </style>

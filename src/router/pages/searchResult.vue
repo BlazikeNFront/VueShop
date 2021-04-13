@@ -1,30 +1,32 @@
 <template>
-  <section class="searchData">
-    <loader v-if="!searchData"></loader>
-    <div class="searchData__wrapper" v-else>
-      <h3 class="serachData__h3" v-if="searchData.length === 0">
-        No single product was found :(
-      </h3>
-      <product-box-small
-        v-else
-        v-for="product in searchData"
-        :key="product._id"
-        :product="product"
-      ></product-box-small>
-    </div>
-    <pagination-buttons
-      class="searchResult__paginationButtons"
-      :numberOfPages="numberOfPages"
-      :currentPage="currentPage"
-      @pageChange="handleChangePageRequest"
-      @previousPageClick="
-        this.handleChangePageRequest(parseInt(this.currentPage) - 1)
-      "
-      @nextPageClick="
-        this.handleChangePageRequest(parseInt(this.currentPage) + 1)
-      "
-    ></pagination-buttons>
-  </section>
+  <div>
+    <section class="searchData">
+      <loader v-if="!searchData"></loader>
+      <div class="searchData__wrapper" v-else>
+        <h3 class="serachData__h3" v-if="searchData.length === 0">
+          No single product was found :(
+        </h3>
+        <product-box-small
+          v-else
+          v-for="product in searchData"
+          :key="product._id"
+          :product="product"
+        ></product-box-small>
+      </div>
+      <pagination-buttons
+        class="searchResult__paginationButtons"
+        :numberOfPages="numberOfPages"
+        :currentPage="currentPage"
+        @pageChange="handleChangePageRequest"
+        @previousPageClick="
+          this.handleChangePageRequest(parseInt(this.currentPage) - 1)
+        "
+        @nextPageClick="
+          this.handleChangePageRequest(parseInt(this.currentPage) + 1)
+        "
+      ></pagination-buttons>
+    </section>
+  </div>
 </template>
 <script>
 import ProductBoxSmall from "../../components/searchResult/productBoxSmall.vue";
@@ -84,7 +86,6 @@ export default {
   @include flexLayout;
   justify-content: center;
   flex-wrap: wrap;
-
   width: 95%;
   margin-left: 50%;
   transform: translate(-50%);

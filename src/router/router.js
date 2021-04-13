@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-
+import globalStore from "../store/index.js";
 import MainPage from "./pages/mainPage.vue";
 
 import SearchResult from "./pages/searchResult.vue";
@@ -16,7 +16,7 @@ import UserMenu from "./pages/UserMenu.vue";
 const router = createRouter({
   history: createWebHistory(),
   routes: [
-    { path: "/", component: MainPage },
+    { name: "main-page", path: "/", component: MainPage },
     {
       name: "search-for-product",
       path: "/search/:searchQuery",
@@ -35,13 +35,66 @@ const router = createRouter({
       component: UserAuth,
     },
 
-    { path: "/Admin", component: AdminCMS },
-    { path: "/Admin/AddProduct", component: AdminAddProduct },
+    {
+      name: "admin-cms",
+      path: "/Admin",
+      component: AdminCMS,
+      beforeEnter(to, from, next) {
+        to;
+        from;
+        next;
+
+        if (
+          !globalStore.getters["UserAuth/getAdminState"] ||
+          !globalStore.getters["UserAuth/getToken"]
+        ) {
+          next({ name: "main-page" });
+        } else {
+          next();
+        }
+      },
+    },
+    {
+      path: "/Admin/AddProduct",
+      component: AdminAddProduct,
+      beforeEnter(to, from, next) {
+        to;
+        from;
+        next;
+
+        if (
+          !globalStore.getters["UserAuth/getAdminState"] ||
+          !globalStore.getters["UserAuth/getToken"]
+        ) {
+          next({ name: "main-page" });
+        } else {
+          next();
+        }
+      },
+    },
+    {
+      name: "admin-orders",
+      path: "/Admin/orders",
+      component: AdminOrders,
+      beforeEnter(to, from, next) {
+        to;
+        from;
+        next;
+
+        if (
+          !globalStore.getters["UserAuth/getAdminState"] ||
+          !globalStore.getters["UserAuth/getToken"]
+        ) {
+          next({ name: "main-page" });
+        } else {
+          next();
+        }
+      },
+    },
     { name: "user-cart", path: "/UserCart", component: UserCart },
     { name: "user-orders", path: "/UserOrders", component: UserOrders },
     { name: "user-menu", path: "/menu", component: UserMenu },
     { path: "/user/historyOrder", component: UserCart },
-    { name: "admin-orders", path: "/Admin/orders", component: AdminOrders },
   ],
 });
 

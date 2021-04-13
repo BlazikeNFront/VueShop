@@ -78,6 +78,7 @@ export default {
           password: this.userPassword,
         };
         await this.$store.dispatch("UserAuth/handleLogin", payload);
+        this.$router.push("/");
       } catch (err) {
         console.log(err);
       }

@@ -70,13 +70,12 @@ export default {
 
     deleteItemFromCart(context, payload) {
       const id = payload;
-
-      const newCard = [...context.state.card];
+      console.log(payload);
+      const newCard = [...context.getters.getCart];
       const productIndex = newCard.find((product) => (product.id = id));
-      newCard[productIndex].quantity--;
-      if (newCard[productIndex].quantity === 0) {
-        newCard.splice(productIndex, 1);
-      }
+
+      newCard.splice(productIndex, 1);
+
       context.commit("deleteItemFromCart", newCard);
       context.dispatch("updateCartInDb");
     },
@@ -105,6 +104,28 @@ export default {
           }
         );
         console.log(updateCartResult);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    updateProductQuantityInCart(context, payload) {
+      const { newQuantity, prodId } = payload;
+
+      const newCart = [...context.getters.getCart];
+      const productIndex = newCart.findIndex(
+        (product) => product._id === prodId
+      );
+
+      newCart[productIndex].quantity = newQuantity;
+
+      context.commit("setCart", newCart);
+      context.dispatch("updateCartInDb");
+      context.dispatch("setCartInLocalStorage");
+    },
+    setCartInLocalStorage(context) {
+      try {
+        const cart = context.getters.getCart;
+        localStorage.setItem("userCart", JSON.stringify(cart));
       } catch (err) {
         console.log(err);
       }

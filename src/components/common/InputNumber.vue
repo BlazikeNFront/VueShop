@@ -29,8 +29,14 @@
 </template>
 <script>
 export default {
+  props: {
+    initialNumber: {
+      type: Number,
+    },
+  },
+
   data() {
-    return { number: 1 };
+    return { number: this.initialNumber || 1 };
   },
   emits: ["valueChange"],
   methods: {
@@ -43,7 +49,7 @@ export default {
       this.$emit("valueChange", payload);
     },
     emitInputValue() {
-      const payload = this.number;
+      const payload = parseInt(this.number);
       this.$emit("valueChange", payload);
     },
   },

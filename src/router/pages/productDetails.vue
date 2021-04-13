@@ -13,7 +13,7 @@
       <p class="productDetails__price">{{ product.price }} $</p>
       <form class="producyDetails__form" @submit.prevent="addToCart">
         <input-range @valueChange="changeQuantity"></input-range>
-        <button :disabled="!token" class="productBoxSmall__addToCartBtn">
+        <button class="productBoxSmall__addToCartBtn">
           Add to cart
           <font-awesome-icon
             :icon="['fas', 'cart-arrow-down']"
@@ -36,13 +36,13 @@ export default {
   },
   mounted() {
     const routerProductId = this.$route.params.productId;
-
     if (this.product === null || this.product._id !== routerProductId) {
       this.$store.dispatch("UserSearch/setProductDetails", routerProductId);
     }
   },
   methods: {
     changeQuantity(number) {
+      console.log(number);
       this.quantity = number;
     },
     addToCart() {
@@ -52,8 +52,8 @@ export default {
       payload.imagePath = this.product.imagePath.small;
       payload.price = this.product.price;
       payload.quantity = this.quantity;
-
       this.$store.dispatch("Cart/addItemtoCart", payload);
+      this.$store.dispatch("Cart/setCartInLocalStorage");
     },
   },
   computed: {

@@ -5,6 +5,7 @@
       <router-link :to="userCartLink">Check current cart</router-link>
       <router-link :to="userOrdersLink">Check orders</router-link>
     </div>
+    <button @click="logout">Logout</button>
   </section>
 </template>
 <script>
@@ -15,6 +16,12 @@ export default {
     },
     userOrdersLink() {
       return { name: "user-orders" };
+    },
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch("UserAuth/logout");
+      this.$router.push("/");
     },
   },
 };
@@ -32,6 +39,13 @@ export default {
     padding: 1rem 2rem;
     font-size: 2rem;
     font-weight: 600;
+  }
+  button {
+    margin-top: 10rem;
+    font-size: 4rem;
+    font-weight: 600;
+    @include button;
+    padding: 1rem 2rem;
   }
 }
 </style>

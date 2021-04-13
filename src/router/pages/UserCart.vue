@@ -32,13 +32,11 @@
             </p>
           </div>
           <div class="userOrder__productInfomartionBox">
-            <p class="userOrder__productInformation">
-              {{ product.price }}
-            </p>
+            <p class="userOrder__productInformation">{{ product.price }} $</p>
           </div>
           <div class="userOrder__productInfomartionBox">
             <p class="userOrder__productInformation">
-              {{ product.price * product.quantity }}
+              {{ (product.price * product.quantity).toFixed(2) }} $
             </p>
           </div>
         </li>
@@ -146,15 +144,25 @@ export default {
 }
 .userOrder__columnDescription {
   margin: auto;
+  font-weight: 600;
 }
 .userOrder__product {
   font-size: $font-md;
+
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
-  background-color: $primiary-color;
-  border: 1px solid white;
+  grid-template-columns: 13rem 2fr 1fr 1fr 1fr;
+  background-color: white;
+
   grid-gap: 0;
-  color: white;
+  color: black;
+  border: 1px solid black;
+  border-bottom: none;
+  &:nth-child(odd) {
+    background-color: rgba(189, 187, 64, 0.4);
+  }
+  &:last-child {
+    border-bottom: 1px solid black;
+  }
 }
 .userOrder__productInfomartionBox {
   width: 100%;
@@ -169,9 +177,6 @@ export default {
 }
 .userOrder__productImage {
   margin: 0 auto;
-  padding: 0.5rem;
-  width: 10rem;
-  height: 10rem;
 }
 
 .userOrder__summaryPrice {

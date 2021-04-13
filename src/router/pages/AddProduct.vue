@@ -1,235 +1,245 @@
 <template>
-  <form
-    ref="addProductFrom"
-    class="form-addProduct"
-    @submit.prevent="handleFormRequest"
-    @click="cleanErrors"
-  >
-    <h4 class="form-addProduct__h4">Add product to store:</h4>
-    <div class="addProduct__formControl">
-      <div class="addProduct__formControl__inputBox">
-        <p class="form-addProduct__para">Select type of product:</p>
-        <div class="addProduct__formControl__radioInput">
-          <input
-            id="rod"
-            type="radio"
-            name="productType"
-            value="rod"
-            v-model="formInputs.typeOfProduct.value"
-          />
-          <label class="addProduct__formControl__lables" for="rod">Rod</label>
-        </div>
-        <div class="addProduct__formControl__radioInput">
-          <input
-            id="reel"
-            type="radio"
-            name="productType"
-            value="reel"
-            v-model="formInputs.typeOfProduct.value"
-          />
-          <label class="addProduct__formControl__lables" for="reel">Reel</label>
-        </div>
-        <div class="addProduct__formControl__radioInput">
-          <input
-            id="line"
-            type="radio"
-            name="productType"
-            value="line"
-            v-model="formInputs.typeOfProduct.value"
-          />
-          <label class="addProduct__formControl__lables" for="line">Line</label>
+  <div>
+    <form
+      ref="addProductFrom"
+      class="form-addProduct"
+      @submit.prevent="handleFormRequest"
+      @click="cleanErrors"
+    >
+      <h4 class="form-addProduct__h4">Add product to store:</h4>
+      <div class="addProduct__formControl">
+        <div class="addProduct__formControl__inputBox">
+          <p class="form-addProduct__para">Select type of product:</p>
+          <div class="addProduct__formControl__radioInput">
+            <input
+              id="rod"
+              type="radio"
+              name="productType"
+              value="rod"
+              v-model="formInputs.typeOfProduct.value"
+            />
+            <label class="addProduct__formControl__lables" for="rod">Rod</label>
+          </div>
+          <div class="addProduct__formControl__radioInput">
+            <input
+              id="reel"
+              type="radio"
+              name="productType"
+              value="reel"
+              v-model="formInputs.typeOfProduct.value"
+            />
+            <label class="addProduct__formControl__lables" for="reel"
+              >Reel</label
+            >
+          </div>
+          <div class="addProduct__formControl__radioInput">
+            <input
+              id="line"
+              type="radio"
+              name="productType"
+              value="line"
+              v-model="formInputs.typeOfProduct.value"
+            />
+            <label class="addProduct__formControl__lables" for="line"
+              >Line</label
+            >
+          </div>
+
+          <div class="addProduct__formControl__radioInput">
+            <input
+              id="other"
+              type="radio"
+              name="productType"
+              value="other"
+              v-model="formInputs.typeOfProduct.value"
+            />
+            <label class="addProduct__formControl__lables" for="other"
+              >Other</label
+            >
+          </div>
         </div>
 
-        <div class="addProduct__formControl__radioInput">
-          <input
-            id="other"
-            type="radio"
-            name="productType"
-            value="other"
-            v-model="formInputs.typeOfProduct.value"
-          />
-          <label class="addProduct__formControl__lables" for="other"
-            >Other</label
-          >
-        </div>
+        <p class="addProduct__errorMsg" v-if="formInputs.typeOfProduct.error">
+          {{ formInputs.typeOfProduct.errorMsg }}
+        </p>
       </div>
+      <div class="addProduct__formControl">
+        <div class="addProduct__formControl__inputBox">
+          <p class="form-addProduct__para">Select category of product:</p>
+          <div class="addProduct__formControl__radioInput">
+            <input
+              id="spinning"
+              type="radio"
+              name="categoryType"
+              value="spinning"
+              v-model="formInputs.categoryOfProduct.value"
+            />
+            <label class="addProduct__formControl__lables" for="rod"
+              >Spinning</label
+            >
+          </div>
+          <div class="addProduct__formControl__radioInput">
+            <input
+              id="bait"
+              type="radio"
+              name="categoryType"
+              value="bait"
+              v-model="formInputs.categoryOfProduct.value"
+            />
+            <label class="addProduct__formControl__lables" for="reel"
+              >Bait</label
+            >
+          </div>
+          <div class="addProduct__formControl__radioInput">
+            <input
+              id="fly"
+              type="radio"
+              name="categoryType"
+              value="fly"
+              v-model="formInputs.categoryOfProduct.value"
+            />
+            <label class="addProduct__formControl__lables" for="line"
+              >Fly</label
+            >
+          </div>
+          <div class="addProduct__formControl__radioInput">
+            <input
+              id="casting"
+              type="radio"
+              name="categoryType"
+              value="casting"
+              v-model="formInputs.categoryOfProduct.value"
+            />
+            <label class="addProduct__formControl__lables" for="lure"
+              >Casting</label
+            >
+          </div>
+          <div class="addProduct__formControl__radioInput">
+            <input
+              id="other"
+              type="radio"
+              name="categoryType"
+              value="other"
+              v-model="formInputs.categoryOfProduct.value"
+            />
+            <label class="addProduct__formControl__lables" for="other"
+              >Other</label
+            >
+          </div>
+        </div>
 
-      <p class="addProduct__errorMsg" v-if="formInputs.typeOfProduct.error">
-        {{ formInputs.typeOfProduct.errorMsg }}
-      </p>
-    </div>
-    <div class="addProduct__formControl">
-      <div class="addProduct__formControl__inputBox">
-        <p class="form-addProduct__para">Select category of product:</p>
-        <div class="addProduct__formControl__radioInput">
-          <input
-            id="spinning"
-            type="radio"
-            name="categoryType"
-            value="spinning"
-            v-model="formInputs.categoryOfProduct.value"
-          />
-          <label class="addProduct__formControl__lables" for="rod"
-            >Spinning</label
+        <p class="addProduct__errorMsg" v-if="formInputs.typeOfProduct.error">
+          {{ formInputs.typeOfProduct.errorMsg }}
+        </p>
+      </div>
+      <div class="addProduct__formControl">
+        <div class="addProduct__formControl__inputBox">
+          <label
+            class="addProduct__formControl__lables"
+            for="addProduct__productTile"
+            >Name:</label
           >
-        </div>
-        <div class="addProduct__formControl__radioInput">
           <input
-            id="bait"
-            type="radio"
-            name="categoryType"
-            value="bait"
-            v-model="formInputs.categoryOfProduct.value"
+            class="addProduct__formControl__input"
+            id="addProduct__productTile"
+            type="text"
+            placeholder="Enter product name"
+            v-model="formInputs.name.value"
           />
-          <label class="addProduct__formControl__lables" for="reel">Bait</label>
         </div>
-        <div class="addProduct__formControl__radioInput">
-          <input
-            id="fly"
-            type="radio"
-            name="categoryType"
-            value="fly"
-            v-model="formInputs.categoryOfProduct.value"
-          />
-          <label class="addProduct__formControl__lables" for="line">Fly</label>
-        </div>
-        <div class="addProduct__formControl__radioInput">
-          <input
-            id="casting"
-            type="radio"
-            name="categoryType"
-            value="casting"
-            v-model="formInputs.categoryOfProduct.value"
-          />
-          <label class="addProduct__formControl__lables" for="lure"
-            >Casting</label
+        <p class="addProduct__errorMsg" v-if="formInputs.name.error">
+          {{ formInputs.name.errorMsg }}
+        </p>
+      </div>
+      <div class="addProduct__formControl">
+        <div class="addProduct__formControl__inputBox">
+          <label class="addProduct__formControl__lables" for="desc"
+            >Enter description of product:</label
           >
+          <textarea
+            class="addProduct__formControl__textarea"
+            id="desc"
+            rows="10"
+            cols="50"
+            placeholder="Enter a description"
+            v-model="formInputs.descritpion.value"
+          ></textarea>
         </div>
-        <div class="addProduct__formControl__radioInput">
-          <input
-            id="other"
-            type="radio"
-            name="categoryType"
-            value="other"
-            v-model="formInputs.categoryOfProduct.value"
-          />
-          <label class="addProduct__formControl__lables" for="other"
-            >Other</label
+        <p class="addProduct__errorMsg" v-if="formInputs.descritpion.error">
+          {{ formInputs.descritpion.errorMsg }}
+        </p>
+      </div>
+      <div class="addProduct__formControl">
+        <div class="addProduct__formControl__inputBox">
+          <label class="addProduct__formControl__lables" for="price">
+            Price:</label
           >
+          <input
+            class="addProduct__formControl__input"
+            id="price"
+            type="number"
+            name="price"
+            min="0.01"
+            placeholder="100"
+            step="0.01"
+            v-model="formInputs.price.value"
+          />
         </div>
+        <p class="addProduct__errorMsg" v-if="formInputs.price.error">
+          {{ formInputs.price.errorMsg }}
+        </p>
       </div>
-
-      <p class="addProduct__errorMsg" v-if="formInputs.typeOfProduct.error">
-        {{ formInputs.typeOfProduct.errorMsg }}
-      </p>
-    </div>
-    <div class="addProduct__formControl">
-      <div class="addProduct__formControl__inputBox">
-        <label
-          class="addProduct__formControl__lables"
-          for="addProduct__productTile"
-          >Name:</label
-        >
-        <input
-          class="addProduct__formControl__input"
-          id="addProduct__productTile"
-          type="text"
-          placeholder="Enter product name"
-          v-model="formInputs.name.value"
-        />
+      <div class="addProduct__formControl">
+        <div class="addProduct__formControl__inputBox">
+          <label class="addProduct__formControl__lables" for="quantity">
+            Quantity:</label
+          >
+          <input
+            class="addProduct__formControl__input"
+            id="quantity"
+            type="number"
+            name="quantity"
+            min="1"
+            placeholder="1"
+            step="1"
+            v-model="formInputs.quantity.value"
+          />
+        </div>
+        <p class="addProduct__errorMsg" v-if="formInputs.quantity.error">
+          {{ formInputs.quantity.errorMsg }}
+        </p>
       </div>
-      <p class="addProduct__errorMsg" v-if="formInputs.name.error">
-        {{ formInputs.name.errorMsg }}
-      </p>
-    </div>
-    <div class="addProduct__formControl">
-      <div class="addProduct__formControl__inputBox">
-        <label class="addProduct__formControl__lables" for="desc"
-          >Enter description of product:</label
-        >
-        <textarea
-          class="addProduct__formControl__textarea"
-          id="desc"
-          rows="10"
-          cols="50"
-          placeholder="Enter a description"
-          v-model="formInputs.descritpion.value"
-        ></textarea>
+      <div class="addProduct__formControl">
+        <div class="addProduct__formControl__inputBox">
+          <label class="addProduct__formControl__lables" for="image"
+            >Upload product image</label
+          >
+          <input
+            class="addProduct__formControl__input"
+            type="file"
+            id="img"
+            name="img"
+            accept="image/*"
+            ref="imageInput"
+            @change="updateImageFile"
+          />
+        </div>
+        <p class="addProduct__errorMsg" v-if="formInputs.image.error">
+          {{ formInputs.image.error.errorMsg }}
+        </p>
       </div>
-      <p class="addProduct__errorMsg" v-if="formInputs.descritpion.error">
-        {{ formInputs.descritpion.errorMsg }}
-      </p>
-    </div>
-    <div class="addProduct__formControl">
-      <div class="addProduct__formControl__inputBox">
-        <label class="addProduct__formControl__lables" for="price">
-          Price:</label
-        >
-        <input
-          class="addProduct__formControl__input"
-          id="price"
-          type="number"
-          name="price"
-          min="0.01"
-          placeholder="100"
-          step="0.01"
-          v-model="formInputs.price.value"
-        />
-      </div>
-      <p class="addProduct__errorMsg" v-if="formInputs.price.error">
-        {{ formInputs.price.errorMsg }}
-      </p>
-    </div>
-    <div class="addProduct__formControl">
-      <div class="addProduct__formControl__inputBox">
-        <label class="addProduct__formControl__lables" for="quantity">
-          Quantity:</label
-        >
-        <input
-          class="addProduct__formControl__input"
-          id="quantity"
-          type="number"
-          name="quantity"
-          min="1"
-          placeholder="1"
-          step="1"
-          v-model="formInputs.quantity.value"
-        />
-      </div>
-      <p class="addProduct__errorMsg" v-if="formInputs.quantity.error">
-        {{ formInputs.quantity.errorMsg }}
-      </p>
-    </div>
-    <div class="addProduct__formControl">
-      <div class="addProduct__formControl__inputBox">
-        <label class="addProduct__formControl__lables" for="image"
-          >Upload product image</label
-        >
-        <input
-          class="addProduct__formControl__input"
-          type="file"
-          id="img"
-          name="img"
-          accept="image/*"
-          ref="imageInput"
-          @change="updateImageFile"
-        />
-      </div>
-      <p class="addProduct__errorMsg" v-if="formInputs.image.error">
-        {{ formInputs.image.error.errorMsg }}
-      </p>
-    </div>
-    <button class="form-addProduct__button">Create product</button>
-  </form>
-  <confirmation-modal
-    v-if="this.formRequestConfirmation.visible"
-    @closeDialog="closeModal"
-    @confirmError="closeModal"
-  >
-    <h4 class="addProduct__errorMsg__moddalText">
-      {{ formRequestConfirmation.text }}
-    </h4>
-  </confirmation-modal>
+      <button class="form-addProduct__button">Create product</button>
+    </form>
+    <confirmation-modal
+      v-if="this.formRequestConfirmation.visible"
+      @closeDialog="closeModal"
+      @confirmError="closeModal"
+    >
+      <h4 class="addProduct__errorMsg__moddalText">
+        {{ formRequestConfirmation.text }}
+      </h4>
+    </confirmation-modal>
+  </div>
 </template>
 <script>
 import ConfirmationModal from "../../components/common/ErrorModal.vue";
@@ -251,6 +261,7 @@ export default {
       },
     };
   },
+
   methods: {
     closeModal() {
       this.formRequestConfirmation.visible = false;

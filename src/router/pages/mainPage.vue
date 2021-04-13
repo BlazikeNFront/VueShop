@@ -1,8 +1,10 @@
 <template>
-  <div class="mainPage"></div>
-  <main-information-box></main-information-box>
+  <div>
+    <div class="mainPage"></div>
+    <main-information-box></main-information-box>
 
-  <main-slider class="slides"></main-slider>
+    <main-slider class="slides"></main-slider>
+  </div>
 </template>
 <script>
 import MainInformationBox from "../../components/mainPage/mainInformationBox/mainInformationBox.vue";

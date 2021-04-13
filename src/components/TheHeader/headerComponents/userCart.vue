@@ -37,8 +37,22 @@
       <div v-else class="cartContainer__cartList">
         <ul>
           <li v-for="product in userCart" :key="product">
-            <img :src="product.imagePath" :alt="product.name" />
-            <p>{{ product.name }} | Quantity:{{ product.quantity }}</p>
+            <div class="cartContainer__productDesc">
+              <button
+                class="cartContainer__deleteProductButton"
+                @click="deleteProductFromCart(product._id)"
+              >
+                <font-awesome-icon :icon="['fas', 'times']"></font-awesome-icon>
+              </button>
+              <img :src="product.imagePath" :alt="product.name" />
+              <p>
+                {{ product.name }}
+              </p>
+            </div>
+            <input-number
+              :initialNumber="product.quantity"
+              @valueChange="changeProductQuantityInCart($event, product._id)"
+            ></input-number>
           </li>
         </ul>
         <div class="cartContainer__summary">
@@ -48,7 +62,7 @@
           </div>
           <div class="cartContainer__SummaryBox">
             <p>Total price</p>
-            <span>{{ totalCartPrice }}$</span>
+            <span>{{ totalCartPrice.toFixed(2) }}$</span>
           </div>
           <button
             class="cartContainer__orderButton"
@@ -63,7 +77,11 @@
   </transition>
 </template>
 <script>
+import InputNumber from "../../common/InputNumber.vue";
 export default {
+  components: {
+    InputNumber,
+  },
   data() {
     return {
       showUserCart: false,
@@ -74,17 +92,34 @@ export default {
       this.showUserCart = !this.showUserCart;
     },
     handleOrderRequest() {
+      if (!this.token) {
+        this.$router.push({ name: "user-login" });
+        return;
+      }
       this.$router.push("/userOrder");
     },
     userCartPageLink() {
       this.showUserCartAction();
       this.$router.push({
-        name: "user-order",
+        name: "user-cart",
       });
+    },
+    changeProductQuantityInCart(number, prodId) {
+      const payload = {
+        newQuantity: number,
+        prodId,
+      };
+      this.$store.dispatch("Cart/updateProductQuantityInCart", payload);
+    },
+    deleteProductFromCart(prodId) {
+      this.$store.dispatch("Cart/deleteItemFromCart", prodId);
     },
   },
 
   computed: {
+    token() {
+      return this.$store.getters["UserAuth/getToken"];
+    },
     userCart() {
       return this.$store.getters["Cart/getCart"];
     },
@@ -119,7 +154,30 @@ export default {
     max-width: 4rem;
   }
 }
-
+.cartContainer__productDesc {
+  @include flexLayout;
+  width: 100%;
+}
+.cartContainer__deleteProductButton {
+  @include buttonTransparent;
+  font-size: 2rem;
+  position: absolute;
+  top: 0;
+  left: 1rem;
+}
+.cartContainer__orderButton {
+  font-size: $font-md;
+  @include mainFontBold;
+  width: 75%;
+  height: 4rem;
+  border: none;
+  background-color: #00ba48;
+  transition: all 0.2s ease-in-out;
+  color: white;
+  &:hover {
+    background-color: #292d2b;
+  }
+}
 .cartContainer {
   width: 30rem;
   height: 100%;
@@ -207,25 +265,17 @@ export default {
     font-size: $font-md;
   }
 }
-.cartContainer__orderButton {
-  font-size: $font-md;
-  @include mainFontBold;
-  width: 75%;
-  height: 4rem;
-  background-color: #00ba48;
-  transition: all 0.2s ease-in-out;
-  color: white;
-  &:hover {
-    background-color: #292d2b;
-  }
-}
+
 .cartContainer__cartList {
   ul {
+    margin-top: 5rem;
     overflow-y: scroll;
     height: 60rem;
   }
   li {
     @include flexLayout;
+    position: relative;
+    flex-direction: column;
     padding: 2rem;
   }
 }
