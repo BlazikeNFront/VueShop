@@ -12,13 +12,27 @@
       <p class="productDetails__desc">{{ product.description }}</p>
       <p class="productDetails__price">{{ product.price }} $</p>
       <form class="producyDetails__form" @submit.prevent="addToCart">
-        <input-range @valueChange="changeQuantity"></input-range>
-        <button class="productBoxSmall__addToCartBtn">
-          Add to cart
-          <font-awesome-icon
-            :icon="['fas', 'cart-arrow-down']"
-          ></font-awesome-icon>
-        </button>
+        <input-range
+          class="productDetails__inputRange"
+          @valueChange="changeQuantity"
+        ></input-range>
+        <div class="productDetails__addProductToCartBox">
+          <button class="productBoxSmall__addToCartBtn">
+            Add to cart
+            <font-awesome-icon
+              :icon="['fas', 'cart-arrow-down']"
+            ></font-awesome-icon>
+          </button>
+          <transition name="productDetailsNotifacation">
+            <div
+              class="productDetails__addedToCartNotification"
+              v-if="showNotifaction"
+            >
+              <font-awesome-icon :icon="['fas', 'check']"></font-awesome-icon>
+              <p>Product added to cart</p>
+            </div>
+          </transition>
+        </div>
       </form>
     </div>
   </section>
@@ -32,6 +46,7 @@ export default {
   data() {
     return {
       quantity: 1,
+      showNotifaction: false,
     };
   },
   mounted() {
@@ -42,7 +57,6 @@ export default {
   },
   methods: {
     changeQuantity(number) {
-      console.log(number);
       this.quantity = number;
     },
     addToCart() {
@@ -53,6 +67,7 @@ export default {
       payload.price = this.product.price;
       payload.quantity = this.quantity;
       this.$store.dispatch("Cart/addItemtoCart", payload);
+      this.showNotifaction = true;
       this.$store.dispatch("Cart/setCartInLocalStorage");
     },
   },
@@ -115,8 +130,44 @@ export default {
     }
   }
 }
+
 .productDetails__price {
   font-size: 3.5rem;
   font-weight: 500;
+}
+.productDetails__inputRange {
+  margin: 1rem;
+}
+.productDetails__addProductToCartBox {
+  position: relative;
+  width: 100%;
+}
+.productDetails__addedToCartNotification {
+  @include flexLayout;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(100%, -50%);
+  display: flex;
+  color: rgb(62, 175, 124);
+  font-size: 1.5rem;
+  opacity: 1;
+
+  svg {
+    height: 100%;
+  }
+  p {
+    margin-left: 2rem;
+  }
+}
+
+.productDetailsNotifacation-enter-active {
+  transition: all 0.5s ease-out;
+}
+.productDetailsNotifacation-enter-from {
+  opacity: 0;
+}
+.productDetailsNotifacation-enter-to {
+  opacity: 1;
 }
 </style>

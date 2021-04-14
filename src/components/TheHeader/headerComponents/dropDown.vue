@@ -7,7 +7,7 @@
     ></back-drop>
     <div
       class="customSelect"
-      :class="{ hideBorderBotton: selectCategory }"
+      :class="{ hideBorderRadius: selectCategory }"
       @click="selectCategoryAction"
     >
       <p class="customSelect__selected">
@@ -66,19 +66,18 @@ export default {
 </script>
 <style lang='scss'>
 .customSelect {
-  position: relative;
   @include flexLayout;
-
-  padding: 0.5rem;
+  position: relative;
+  padding: 1rem 1.5rem;
   font-size: $font-md;
   cursor: pointer;
-  width: 11rem;
+  width: 14rem;
   z-index: 1200;
 
   &:hover {
-    color: $primary-color;
+    color: white;
     svg {
-      color: $primary-color;
+      color: white;
     }
   }
   p {
@@ -101,21 +100,35 @@ export default {
 .customSelect__selectOption {
   position: absolute;
   z-index: 1200;
-  width: 11rem;
-  top: 3.5rem;
-  background-color: White;
+  width: 14rem;
+  top: 3.2rem;
+  left: 0;
   border-radius: 0 0 5px 5px;
   font-size: 1.2rem;
   overflow: hidden;
   cursor: pointer;
-
+  background-color: #bdbb40;
   border-top: none;
 
   li {
     padding: 0.5rem;
     @include mainFontBold;
+    border-radius: 5px;
+    position: relative;
+    &::after {
+      content: "";
+      display: block;
+      bottom: 1px;
+      left: 50%;
+      transform: translate(-50%);
+      position: absolute;
+      width: 70%;
+      height: 0.1rem;
+      background-color: white;
+    }
     &:hover {
-      color: $primiary-color;
+      color: white;
+      background-color: rgba(0, 0, 0, 0.2);
     }
   }
 }

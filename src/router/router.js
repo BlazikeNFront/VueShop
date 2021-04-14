@@ -96,6 +96,16 @@ const router = createRouter({
     { name: "user-menu", path: "/menu", component: UserMenu },
     { path: "/user/historyOrder", component: UserCart },
   ],
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      savedPosition.behavior = "smooth";
+      return savedPosition;
+    }
+    return {
+      el: "#nav",
+      behavior: "smooth",
+    };
+  },
 });
 
 export default router;

@@ -70,14 +70,17 @@ export default {
 
     deleteItemFromCart(context, payload) {
       const id = payload;
-      console.log(payload);
+
       const newCard = [...context.getters.getCart];
-      const productIndex = newCard.find((product) => (product.id = id));
+      const productIndex = newCard.findIndex((product) => product.id === id);
 
       newCard.splice(productIndex, 1);
 
       context.commit("deleteItemFromCart", newCard);
-      context.dispatch("updateCartInDb");
+      context.dispatch("setCartInLocalStorage");
+      if (this.token) {
+        context.dispatch("updateCartInDb");
+      }
     },
     resetCart(context) {
       context.commit("resetCart", []);
@@ -90,7 +93,9 @@ export default {
       try {
         const cart = context.getters["getCart"];
         const token = context.rootGetters["UserAuth/getToken"];
-
+        if (!token) {
+          return;
+        }
         const payload = {
           cart,
           token,
@@ -103,7 +108,7 @@ export default {
             body: JSON.stringify(payload),
           }
         );
-        console.log(updateCartResult);
+        updateCartResult;
       } catch (err) {
         console.log(err);
       }

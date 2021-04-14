@@ -96,15 +96,16 @@ export default {
   @include flexLayout;
   .pagination__pageChangersButtons {
     @include button;
-    color: white;
+    color: black;
     font-size: $font-md;
     padding: 1rem;
   }
   button:hover {
-    color: black;
+    color: white;
   }
 }
 .paginationButtons__hexagonButtons {
+  @include mainFontBold;
   position: relative;
   color: white;
   padding: 0;
@@ -115,9 +116,8 @@ export default {
   background-color: transparent;
   border: none;
   z-index: 1;
-
-  @include mainFontBold;
 }
+
 .paginationButtons__pages {
   flex-wrap: wrap;
   @include flexLayout;
@@ -129,6 +129,11 @@ export default {
   transform: scale(1.4);
   transition: all 0.5s;
   cursor: pointer;
+  &:hover {
+    button {
+      color: black;
+    }
+  }
 }
 .paginationButtons__previousButton {
   transform: rotate(180deg);

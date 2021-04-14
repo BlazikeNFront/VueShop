@@ -28,7 +28,9 @@ export default {
 </script>
 <style lang="scss">
 .userMenu {
-  height: 100%;
+  @include basicCart;
+  min-height: 100rem;
+  margin: 3rem;
   div {
     margin-top: 5rem;
     @include flexLayout;

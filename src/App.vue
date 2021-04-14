@@ -4,8 +4,8 @@
   </div>
   <div class="container">
     <the-header></the-header>
-    <nav-bar></nav-bar>
-    <main class="main">
+    <nav-bar id="nav"></nav-bar>
+    <main id="main">
       <router-view v-slot="{ Component, route }">
         <transition mode="out-in" :name="route.meta.transition || 'pageChange'">
           <component :is="Component" />
@@ -101,10 +101,10 @@ button {
   overflow: hidden;
 }
 
-.main {
+#main {
   margin: 2.5rem auto;
   padding: 2rem 2rem; // avoid margin stacking
-  height: 150rem;
+  height: 100%;
   width: 100%;
   max-width: 125rem;
   position: relative;

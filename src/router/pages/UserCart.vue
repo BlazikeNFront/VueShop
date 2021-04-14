@@ -1,62 +1,61 @@
 <template>
-  <section class="userOrder">
-    <h2>Order</h2>
+  <section class="userCart">
+    <h2>Cart</h2>
     <div v-if="this.userCart.length > 0">
-      <ul class="userOrder__productList">
-        <li class="userOrder__product userOrder_tableDescritpion">
-          <span></span
-          ><!-- empty cell -->
-          <h4 class="userOrder__columnDescription">Product name</h4>
-          <h4 class="userOrder__columnDescription">Product name</h4>
-          <h4 class="userOrder__columnDescription">Product price</h4>
-          <h4 class="userOrder__columnDescription">Summary</h4>
+      <ul class="userCart__productList">
+        <li class="userCart__product userCart_tableDescritpion">
+          <span></span>
+          <h4 class="userCart__columnDescription">Product name</h4>
+          <h4 class="userCart__columnDescription">Product name</h4>
+          <h4 class="userCart__columnDescription">Product price</h4>
+          <h4 class="userCart__columnDescription">Summary</h4>
         </li>
         <li
-          class="userOrder__product"
+          class="userCart__product"
           v-for="product in userCart"
           :key="product._id"
         >
           <img
-            class="userOrder__productImage"
+            class="userCart__productImage"
             :src="product.imagePath"
             :alt="product.name + 'image'"
           />
-          <div class="userOrder__productInfomartionBox">
-            <p class="userOrder__productInformation">
+          <div class="userCart__productInfomartionBox">
+            <p class="userCart__productInformation">
               {{ product.name }}
             </p>
           </div>
-          <div class="userOrder__productInfomartionBox">
-            <p class="userOrder__productInformation">
+          <div class="userCart__productInfomartionBox">
+            <p class="userCart__productInformation">
               {{ product.quantity }}
             </p>
           </div>
-          <div class="userOrder__productInfomartionBox">
-            <p class="userOrder__productInformation">{{ product.price }} $</p>
+          <div class="userCart__productInfomartionBox">
+            <p class="userCart__productInformation">{{ product.price }} $</p>
           </div>
-          <div class="userOrder__productInfomartionBox">
-            <p class="userOrder__productInformation">
+          <div class="userCart__productInfomartionBox">
+            <p class="userCart__productInformation">
               {{ (product.price * product.quantity).toFixed(2) }} $
             </p>
           </div>
         </li>
       </ul>
 
-      <p class="userOrder__summaryCost">Summary $</p>
-      <button class="userOrder__confirmationButton" @click="handleOrderRequest">
+      <p class="userCart__summaryCost">Summary: {{ summaryCost }}$</p>
+      <button class="userCart__confirmationButton" @click="handleOrderRequest">
         Confirm order
       </button>
     </div>
-    <p v-else class="userOrder__summaryCost">There is no product in cart !</p>
+    <p v-else class="userCart__summaryCost">There is no product in cart !</p>
 
     <error-modal
       v-if="this.modal.visible"
       @closeDialog="this.hideModal"
       @confirmError="this.hideModal"
-      ><p class="userOrder__modalMessage" v-if="modal.error">
+      ><p class="userCart__modalMessage" v-if="modal.error">
         {{ modal.message }}
       </p>
-      <p class="userOrder__modalMessage" v-else>
+      <p class="userCart__modalMessage" v-else>
         Order is accteped for more information check Yours orders
         <router-link to="/user/historyOrder"></router-link>
       </p>
@@ -65,6 +64,10 @@
 </template>
 <script>
 export default {
+  mounted() {
+    console.log(this.summaryCost);
+  },
+
   data() {
     return {
       productsUnavaliable: null,
@@ -78,6 +81,14 @@ export default {
   computed: {
     userCart() {
       return this.$store.getters["Cart/getCart"];
+    },
+    summaryCost() {
+      const summaryCost = this.userCart.reduce((acc, element) => {
+        const sum = Number(element.price) * Number(element.quantity);
+        return acc + sum;
+      }, 0);
+
+      return summaryCost;
     },
   },
   methods: {
@@ -131,22 +142,23 @@ export default {
 };
 </script>
 <style lang='scss'>
-.userOrder {
-  width: 90%;
-  margin: 0 auto;
+.userCart {
+  @include basicCart;
+
+  margin: 3rem;
 }
-.userOrder__productList {
+.userCart__productList {
   margin: 5rem auto;
   width: 80%;
 }
-.userOrder_tableDescritpion {
+.userCart_tableDescritpion {
   height: 4rem;
 }
-.userOrder__columnDescription {
+.userCart__columnDescription {
   margin: auto;
   font-weight: 600;
 }
-.userOrder__product {
+.userCart__product {
   font-size: $font-md;
 
   display: grid;
@@ -164,29 +176,32 @@ export default {
     border-bottom: 1px solid black;
   }
 }
-.userOrder__productInfomartionBox {
+.userCart__productInfomartionBox {
   width: 100%;
   height: 100%;
   justify-self: center;
   align-self: center;
+  border-left: 1px solid black;
 }
-.userOrder__productInformation {
+.userCart__productInformation {
   @include flexLayout;
   justify-content: center;
   height: 100%;
 }
-.userOrder__productImage {
+.userCart__productImage {
   margin: 0 auto;
+  width: 100%;
 }
 
-.userOrder__summaryPrice {
+.userCart__summaryPrice {
   text-align: right;
 }
-.userOrder__summaryCost {
+.userCart__summaryCost {
+  font-weight: 600;
   font-size: $font-md;
-  color: white;
+  color: rgb(44, 62, 80);
 }
-.userOrder__confirmationButton {
+.userCart__confirmationButton {
   margin: 1rem;
   @include button;
   color: white;
@@ -194,7 +209,7 @@ export default {
   font-size: $font-md;
   padding: 1rem;
 }
-.userOrder__modalMessage {
+.userCart__modalMessage {
   color: white;
   font-size: $font-md;
 }

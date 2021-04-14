@@ -52,8 +52,8 @@
       <h5 class="orderDetailsView__h5">Client information</h5>
       <div class="orderDetailsView__userInformation">
         <p class="orderDetailsView__p">Name: Damian</p>
-        <p class="orderDetailsView__p">Surname:Stachurski</p>
-        <p class="orderDetailsView__p">Adress:Panstwo Dykty i kartonu</p>
+        <p class="orderDetailsView__p">Surname: Stachurski</p>
+        <p class="orderDetailsView__p">Adress: Panstwo Dykty i kartonu</p>
       </div>
       <form
         v-if="this.changeOrderStatus"
@@ -153,6 +153,7 @@ export default {
   color: black;
 }
 .orderDetails__products {
+  margin-top: 2rem;
   @include flexLayout;
   flex-direction: column;
   width: 80%;
@@ -187,6 +188,8 @@ export default {
 }
 .orderDetails__products__thead {
   height: 5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 .orderDetails__descriptionBox {
   width: 100%;
@@ -199,6 +202,7 @@ export default {
   @include flexLayout;
   width: 100%;
   justify-content: space-evenly;
+  font-size: 1.5rem;
 }
 .orderStatusForm {
   @include flexLayout;

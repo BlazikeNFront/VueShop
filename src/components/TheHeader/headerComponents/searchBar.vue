@@ -3,7 +3,7 @@
     <form>
       <drop-down
         class="searchBarContainer__dropdown"
-        defaultCategory="Categories"
+        defaultCategory="Search In"
         :listOfCategories="['Rods', 'Reels', 'Lures', 'Lines', 'Any']"
         @categoryChange="addCategoryToSearchQuery"
       ></drop-down>
@@ -73,6 +73,7 @@ export default {
 </script>
 <style lang='scss'>
 .searchBarContainer {
+  width: 40%;
   form {
     @include flexLayout;
     width: 30rem;
@@ -88,6 +89,7 @@ export default {
       text-align: center;
       height: 90%;
       font-family: inherit;
+      font-weight: 600;
       background: transparent;
       &:focus {
         outline: none;
@@ -100,24 +102,30 @@ export default {
       -webkit-text-fill-color: black;
       -webkit-box-shadow: 0 0 0 30px #f5e3e6 inset;
       box-shadow: 0 0 0 30px #f5e3e6 inset;
-      // transition: background-color 5000s ease-in-out 0s;
     }
     button {
-      width: 3.5rem;
       border: none;
-      background-repeat: no-repeat;
+      width: 3.5rem;
       height: 100%;
       background-size: contain;
+      background-repeat: no-repeat;
+      background: transparent;
       cursor: pointer;
     }
   }
   .searchBarContainer__dropdown {
     position: relative;
+
+    border-radius: 25px 25px 0 0;
+    background-color: #bdbb40;
   }
   .searchBarContainer__submitIcon {
     width: 70%;
     height: 100%;
     color: gray;
+    &:hover {
+      color: black;
+    }
   }
 }
 </style>

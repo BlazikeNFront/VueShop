@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="userOrders">
     <h2>History of orders</h2>
     <div>
       <ul v-if="this.userOrders.length > 0" class="checkOrders__ordersList">
@@ -111,4 +111,10 @@ export default {
 };
 </script>
 <style lang="scss">
+.userOrders {
+  @include basicCart;
+
+  min-height: 100rem;
+  margin: 3rem;
+}
 </style>

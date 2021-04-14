@@ -71,9 +71,6 @@ export default {
     font-size: 1.5rem;
     font-weight: 600;
   }
-  li:nth-child(4) {
-    border-radius: 0 0 10px 10px;
-  }
 }
 .mainNavList__subList {
   @include flexLayout;
@@ -85,7 +82,7 @@ export default {
   top: 0;
   left: 0;
   width: 22rem;
-  height: 18.5rem;
+  height: 18rem;
   flex-direction: column;
   font-size: 1.5rem;
   color: black;

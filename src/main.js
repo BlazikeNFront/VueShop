@@ -19,6 +19,7 @@ import {
   faSearch,
   faUser,
   faTimes,
+  faCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faFacebook,
@@ -43,7 +44,8 @@ library.add(
   faCoins,
   faSearch,
   faUser,
-  faTimes
+  faTimes,
+  faCheck
 );
 
 //global componenets
