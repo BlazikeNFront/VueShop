@@ -75,9 +75,9 @@ export default {
   z-index: 1200;
 
   &:hover {
-    color: white;
+    color: #2c3e50;
     svg {
-      color: white;
+      color: #2c3e50;
     }
   }
   p {
@@ -91,7 +91,7 @@ export default {
   svg {
     width: 100%;
     height: 100%;
-    color: black;
+    color: white;
     font-size: 1.5rem;
     transform: rotate(90deg);
   }
@@ -107,8 +107,7 @@ export default {
   font-size: 1.2rem;
   overflow: hidden;
   cursor: pointer;
-  background-color: #bdbb40;
-  border-top: none;
+  background-color: rgb(62, 175, 124);
 
   li {
     padding: 0.5rem;
@@ -127,8 +126,11 @@ export default {
       background-color: white;
     }
     &:hover {
-      color: white;
+      color: #2c3e50;
       background-color: rgba(0, 0, 0, 0.2);
+      &::after {
+        background-color: #2c3e50;
+      }
     }
   }
 }

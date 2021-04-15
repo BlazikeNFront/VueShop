@@ -3,7 +3,7 @@
     <h2>Cart</h2>
     <div v-if="this.userCart.length > 0">
       <ul class="userCart__productList">
-        <li class="userCart__product userCart_tableDescritpion">
+        <li class="userCart__tableDescription userCart__product">
           <span></span>
           <h4 class="userCart__columnDescription">Product name</h4>
           <h4 class="userCart__columnDescription">Product name</h4>
@@ -47,7 +47,7 @@
       </button>
     </div>
     <p v-else class="userCart__summaryCost">There is no product in cart !</p>
-
+    <user-confirmation></user-confirmation>
     <error-modal
       v-if="this.modal.visible"
       @closeDialog="this.hideModal"
@@ -63,7 +63,10 @@
   </section>
 </template>
 <script>
+import ErrorModal from "../../components/common/ErrorModal.vue";
+import UserConfirmation from "../../components/UserActions/userOrderConfirmation.vue";
 export default {
+  components: { ErrorModal, UserConfirmation },
   mounted() {
     console.log(this.summaryCost);
   },
@@ -146,12 +149,17 @@ export default {
   @include basicCart;
 
   margin: 3rem;
+
+  h2 {
+    padding: 2rem;
+  }
 }
 .userCart__productList {
   margin: 5rem auto;
   width: 80%;
 }
-.userCart_tableDescritpion {
+.userCart__tableDescription {
+  @include flexLayout;
   height: 4rem;
 }
 .userCart__columnDescription {
@@ -170,7 +178,7 @@ export default {
   border: 1px solid black;
   border-bottom: none;
   &:nth-child(odd) {
-    background-color: rgba(189, 187, 64, 0.4);
+    background-color: #3eaf7c;
   }
   &:last-child {
     border-bottom: 1px solid black;
@@ -198,7 +206,7 @@ export default {
 }
 .userCart__summaryCost {
   font-weight: 600;
-  font-size: $font-md;
+  font-size: 2rem;
   color: rgb(44, 62, 80);
 }
 .userCart__confirmationButton {
@@ -209,6 +217,7 @@ export default {
   font-size: $font-md;
   padding: 1rem;
 }
+
 .userCart__modalMessage {
   color: white;
   font-size: $font-md;

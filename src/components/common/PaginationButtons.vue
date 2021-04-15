@@ -12,7 +12,7 @@
       </button>
       <div class="paginationButtons__pages" ref="buttons">
         <hexagonal-shape
-          :color="'salmon' || this.backgroundOfHexagon"
+          :color="'#3eaf7c' || this.backgroundOfHexagon"
           v-for="page in numberOfPages"
           :key="page"
           @click="pageClick($event, page)"
@@ -45,12 +45,6 @@ export default {
   emits: ["pageChange", "previousPageClick", "nextPageClick"],
   components: {
     HexagonalShape,
-  },
-
-  computed: {
-    /*  currentPage() {
-      return this.currentPage;
-    }, */
   },
 
   methods: {
@@ -96,7 +90,7 @@ export default {
   @include flexLayout;
   .pagination__pageChangersButtons {
     @include button;
-    color: black;
+    color: #2c3e50;
     font-size: $font-md;
     padding: 1rem;
   }
@@ -131,7 +125,7 @@ export default {
   cursor: pointer;
   &:hover {
     button {
-      color: black;
+      color: #2c3e50;
     }
   }
 }
@@ -139,7 +133,7 @@ export default {
   transform: rotate(180deg);
 }
 .activePage {
-  color: black;
+  color: #2c3e50;
 }
 
 .buttonClickAnimation {

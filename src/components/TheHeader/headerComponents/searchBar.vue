@@ -115,9 +115,9 @@ export default {
   }
   .searchBarContainer__dropdown {
     position: relative;
-
+    color: white;
     border-radius: 25px 25px 0 0;
-    background-color: #bdbb40;
+    background-color: rgb(62, 175, 124);
   }
   .searchBarContainer__submitIcon {
     width: 70%;

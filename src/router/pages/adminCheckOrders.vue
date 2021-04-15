@@ -2,7 +2,7 @@
   <section class="checkOrders">
     <h3 class="checkOrders__h3">Orders</h3>
     <ul class="checkOrders__ordersList">
-      <li class="checkOrder__product">
+      <li class="checkOrder__tableDescription">
         <h4>Order id</h4>
         <h4>Order Details</h4>
         <h4>Order Value</h4>
@@ -44,6 +44,7 @@
     <pagination-buttons
       class="searchResult__paginationButtons"
       :numberOfPages="numberOfPages"
+      :currentPage="currentPage"
       @pageChange="handleChangePageRequest"
       @previousPageClick="
         handleChangePageRequest(parseInt(this.currentPage) - 1)
@@ -92,6 +93,7 @@ export default {
     },
 
     currentPage() {
+      console.log(this.$route.query.page);
       return this.$route.query.page;
     },
     numberOfPages() {
@@ -146,9 +148,6 @@ export default {
   @include flexLayout;
   margin: 3rem;
   flex-direction: column;
-  button {
-    @include button;
-  }
 }
 .checkOrders__ordersList {
   margin: 0 auto;
@@ -182,16 +181,16 @@ export default {
     width: 100%;
   }
 }
-.checkOrder__product {
+.checkOrder__tableDescription {
   font-size: 1.5rem;
   height: 4rem;
   display: grid;
   align-self: center;
   grid-template-columns: 2fr 1fr 1fr 2fr;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: #3eaf7c;
   border: 1px solid black;
   grid-gap: 0;
-  color: black;
+  color: white;
   h4 {
     align-self: center;
     font-weight: 600;
@@ -204,5 +203,15 @@ export default {
   font-size: $font-md;
   @include button;
   @include mainFontBold;
+  &:hover {
+    color: #2c3e50;
+  }
+}
+.searchResult__paginationButtons {
+  .paginationButtons__hexagonShapes {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+  }
 }
 </style>

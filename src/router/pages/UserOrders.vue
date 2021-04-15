@@ -3,7 +3,7 @@
     <h2>History of orders</h2>
     <div>
       <ul v-if="this.userOrders.length > 0" class="checkOrders__ordersList">
-        <li class="checkOrder__product">
+        <li class="checkOrder__tableDescription">
           <h4>Order id</h4>
           <h4>Order Details</h4>
           <h4>Order Value</h4>
@@ -42,7 +42,7 @@
         </li>
       </ul>
       <p v-else>There is no history of orders</p>
-      <button class="userOrder__confirmationButton" @click="fetchUserOrders">
+      <button class="userOrder__updateButton" @click="fetchUserOrders">
         Update orders
       </button>
     </div>
@@ -116,5 +116,17 @@ export default {
 
   min-height: 100rem;
   margin: 3rem;
+  h2 {
+    padding: 3rem;
+  }
+}
+.userOrder__updateButton {
+  @include button;
+  margin-top: 2rem;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  &:hover {
+    color: #2c3e50;
+  }
 }
 </style>

@@ -117,16 +117,17 @@ export default {
 
   button {
     @include button;
-    background-color: $primary-color;
+    background-color: rgb(62, 175, 124);
     font-family: inherit;
+    font-weight: 600;
     width: 80%;
-    box-shadow: 3px 3px 8px;
-    color: black;
+    box-shadow: 3px 3px 8px black;
     padding: 1rem;
     border-radius: 20px;
 
     &:hover {
       transform: scale(1.01);
+      color: #2c3e50;
     }
   }
 }

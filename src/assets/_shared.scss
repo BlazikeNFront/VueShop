@@ -1,4 +1,5 @@
 $primiary-color: #fcac59;
+
 $background-Select-gray: rgb(195, 199, 196);
 
 //fonts
@@ -55,7 +56,7 @@ $backdrop: 1000;
 }
 
 @mixin button {
-  background-color: #bdbb40;
+  background-color: rgb(62, 175, 124);
   color: White;
   border: none;
   border-radius: 20px;

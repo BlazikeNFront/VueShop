@@ -43,7 +43,7 @@ export default {
     position: absolute;
     width: 2rem;
     height: 2.2rem;
-    left: 50%;
+    left: 48.4%;
     top: 66%;
     transform: translate(-53%, -62%) rotate(241deg) skew(0deg, -35deg);
   }

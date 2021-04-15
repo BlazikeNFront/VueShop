@@ -134,14 +134,14 @@ export default {
     cursor: pointer;
     font-size: 2rem;
     font-weight: 600;
-    color: #bdbb40;
+    color: rgb(62, 175, 124);
   }
 }
 .loginFormControl__errorMsg {
   color: red;
 }
 .loginFormControl__button {
-  background-color: #bdbb40;
+  background-color: rgb(62, 175, 124);
   color: White;
   border: none;
   width: 25rem;

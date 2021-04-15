@@ -171,7 +171,7 @@ export default {
   width: 75%;
   height: 4rem;
   border: none;
-  background-color: #00ba48;
+  background-color: rgb(62, 175, 124);
   transition: all 0.2s ease-in-out;
   color: white;
   &:hover {
