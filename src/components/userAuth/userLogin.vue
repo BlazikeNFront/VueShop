@@ -41,13 +41,13 @@
       </p>
     </form>
 
-    <error-modal
+    <modal-dialog
       v-if="serverErrorMsg"
       @closeDialog="closeErrorModal"
       @confirmError="closeErrorModal"
     >
       <p class="login__modalErrorMsg">{{}}</p>
-    </error-modal>
+    </modal-dialog>
   </div>
 </template>
 <script>
@@ -155,9 +155,5 @@ export default {
 .login .login__modalErrorMsg {
   color: $primiary-color;
   font-size: $font-bg;
-}
-.kekw-enter-active,
-.kekw-leave-active {
-  animation: test 4s;
 }
 </style>

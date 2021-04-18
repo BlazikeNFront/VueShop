@@ -1,6 +1,6 @@
 <template>
   <div class="orderDetailsView__modal">
-    <error-modal
+    <modal-dialog
       @closeDialog="this.$emit('closeModal')"
       @confirmError="this.$emit('closeModal')"
       width="70%"
@@ -86,7 +86,7 @@
         <button class="orderStatusForm__button">Submit change</button>
         <loader class="orderStatusForm__loader" v-if="loader"></loader>
       </form>
-    </error-modal>
+    </modal-dialog>
   </div>
 </template>
 <script>

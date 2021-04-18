@@ -16,7 +16,12 @@ $secondary-color: #212121;
 
 //z-indexes for common
 $backdrop: 1000;
-
+.basicCart {
+  background-color: #bd4f6c;
+  background-image: linear-gradient(326deg, #bd4f6c 0%, #d7816a 74%);
+  border-radius: 10px;
+  box-shadow: 5px 5px 15px black;
+}
 @mixin containerLaptop {
   width: 96rem;
 }

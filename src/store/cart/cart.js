@@ -84,6 +84,7 @@ export default {
     },
     resetCart(context) {
       context.commit("resetCart", []);
+      context.dispatch("setCartInLocalStorage");
       context.dispatch("updateCartInDb"); // IT SHOULD ONLOY RESET CART IN FRONT
     },
     resetCartFron(context) {

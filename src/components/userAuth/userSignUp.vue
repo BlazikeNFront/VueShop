@@ -60,14 +60,14 @@
       </p>
     </form>
 
-    <error-modal
+    <modal-dialog
       v-if="dialogModal.type"
       @closeDialog="closeErrorModal"
       @confirmError="closeErrorModal"
       ><p class="signUpForm__errorMsg">
         {{ dialogModal.msg }}
       </p>
-    </error-modal>
+    </modal-dialog>
   </div>
 </template>
 <script>

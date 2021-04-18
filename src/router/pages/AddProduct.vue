@@ -242,7 +242,7 @@
   </div>
 </template>
 <script>
-import ConfirmationModal from "../../components/common/ErrorModal.vue";
+import ConfirmationModal from "../../components/common/ModalDialog.vue";
 export default {
   components: {
     ConfirmationModal,
@@ -370,6 +370,7 @@ export default {
       try {
         const response = await fetch("http://localhost:3000/admin/addProduct", {
           method: "POST",
+          hheaders: { "Content-Type": "application/json" },
           body: product,
         });
         if (response.status !== 200) {

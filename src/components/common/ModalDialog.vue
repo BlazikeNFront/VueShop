@@ -1,10 +1,10 @@
 <template>
   <teleport to="body">
     <back-drop @click="this.$emit('closeDialog')"></back-drop>
-    <div class="errorDialog" :style="boxDimension">
-      <h3 class="errorDialog__h3">Infomation</h3>
+    <div class="modalDialog" :style="boxDimension">
+      <h3 class="modalDialog__h3">Infomation</h3>
       <slot> </slot>
-      <button class="errorDialog__button" @click="this.$emit('confirmError')">
+      <button class="modalDialog__button" @click="this.$emit('closeDialog')">
         Close
       </button>
     </div>
@@ -22,7 +22,7 @@ export default {
 };
 </script>
 <style lang='scss'>
-.errorDialog {
+.modalDialog {
   @include centerAbsolute;
   @include flexLayout;
   flex-direction: column;
@@ -35,13 +35,14 @@ export default {
   border-radius: 10px;
   background-color: #d9e4f5;
   background-image: linear-gradient(315deg, #d9e4f5 0%, #f5e3e6 74%);
+  overflow: hidden;
 }
-.errorDialog__h3 {
+.modalDialog__h3 {
   margin: 1rem;
   color: black;
   font-size: 3rem;
 }
-.errorDialog__button {
+.modalDialog__button {
   @include button;
   font-size: 2rem;
   font-weight: 600;

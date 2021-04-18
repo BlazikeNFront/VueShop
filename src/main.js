@@ -52,7 +52,7 @@ library.add(
 import BackDrop from "./components/common/BackDrop.vue";
 import Loader from "./components/common/loader.vue";
 import BaseCard from "./components/common/BaseCard.vue";
-import ErrorModal from "./components/common/ErrorModal.vue";
+import ModalDialog from "./components/common/ModalDialog.vue";
 
 const app = createApp(App);
 
@@ -61,7 +61,7 @@ app.use(router);
 app.component("back-drop", BackDrop);
 app.component("loader", Loader);
 app.component("base-card", BaseCard);
-app.component("error-modal", ErrorModal);
+app.component("modal-dialog", ModalDialog);
 app.component("font-awesome-icon", FontAwesomeIcon);
 
 app.mount("#app");
