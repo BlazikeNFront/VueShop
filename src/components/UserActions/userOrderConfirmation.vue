@@ -1,25 +1,48 @@
 <template>
   <div>
     <modal-dialog
-      @closeDialog="this.$emit('hideAddressDialog')"
-      @confirmError="this.$emit('hideAddressDialog')"
+      @closeDialog="this.$emit('hideUserConfirmationDialog')"
+      @confirmError="this.$emit('hideUserConfirmationDialog')"
       width="90%"
       height="50%"
     >
       <div class="confirmationBox">
-        <div>
+        <div
+          class="confirmationBox__pickAddressBox"
+          v-if="!this.lastUsedAddress"
+        >
+          <h3>There is no delivery address</h3>
+          <p>
+            Click
+            <button
+              class="confirmationBox__pickAddressButton"
+              @click="this.showAddressForm = true"
+            >
+              Here
+            </button>
+            to pick delivery address
+          </p>
+        </div>
+
+        <div v-else>
           <div class="confirmationBox__infoBox">
             <span>Name:</span>
-            <p>{{ userAdress.name }}</p>
+            <p>{{ lastUsedAddress.name }}</p>
           </div>
           <div class="confirmationBox__infoBox">
             <span>Surname:</span>
-            <p>{{ userAdress.surname }}</p>
+            <p>{{ lastUsedAddress.surname }}</p>
           </div>
           <div class="confirmationBox__infoBox">
             <span>Address:</span>
-            <p>{{ userAdress.address }}</p>
+            <p>{{ lastUsedAddress.address }}</p>
           </div>
+          <button
+            class="confirmationBox__changeAddressButton"
+            @click="this.showAddressForm = true"
+          >
+            Change address
+          </button>
         </div>
 
         <transition name="fadeFromLeft" mode="out-in">
@@ -79,6 +102,7 @@
 </template>
 <script>
 import AddAddressForm from "./addAdressForm.vue";
+
 export default {
   components: {
     AddAddressForm,
@@ -87,11 +111,7 @@ export default {
   data() {
     return {
       showAddressForm: false,
-      userAdress: {
-        name: "Damian",
-        surname: "Blaziken",
-        address: "dsad jaksdj aksd jasij d",
-      },
+
       orderResult: {
         visible: false,
         result: null,
@@ -100,6 +120,12 @@ export default {
       },
     };
   },
+  computed: {
+    lastUsedAddress() {
+      return this.$store.getters["UserAuth/getLastUsedAddress"];
+    },
+  },
+
   methods: {
     async handleOrderRequest() {
       try {
@@ -151,19 +177,18 @@ export default {
 <style lang="scss">
 .confirmationBox {
   @include flexLayout;
-  position: relative;
   flex-direction: column;
+  justify-content: space-evenly;
+  position: relative;
+
   width: 70%;
+  height: 80%;
   span {
     width: 30%;
     font-size: 1.5rem;
     font-weight: 600;
   }
-  p {
-    width: 65%;
-    text-align: left;
-    font-size: 1.5rem;
-  }
+
   label {
     margin: 1rem;
     font-size: 1.5rem;
@@ -222,17 +247,43 @@ export default {
   @include flexLayout;
   width: 100%;
 }
-
+.confirmationBox__pickAddressBox {
+  h3 {
+    margin: 1.5rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+  p {
+    text-align: center;
+    width: 100%;
+    font-weight: 600;
+  }
+}
 .confirmationBox__addAdressBox {
   position: absolute;
-  right: -16%;
-  top: -28%;
+  right: -20%;
+  top: -10%;
   opacity: 1;
 }
+.confirmationBox__changeAddressButton {
+  position: absolute;
+  top: 0;
 
+  right: 10rem;
+}
 .confirmationBox__infoBox {
   @include flexLayout;
   margin: 2rem;
+  width: 50rem;
+  text-align: right;
+  span {
+    width: 35%;
+  }
+  p {
+    width: 60%;
+    text-align: left;
+    font-size: 2rem;
+  }
 }
 .confirmationBox__addAdressBox__addressButtons {
   button {

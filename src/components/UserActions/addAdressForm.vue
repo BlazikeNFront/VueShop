@@ -1,65 +1,85 @@
 <template>
-  <form class="confirmationBox__form" @click="clearFormError">
+  <div class="addAddressBox">
     <button
       class="confirmationBox__formExitButton"
       @click.prevent="this.$emit('exitButton')"
     >
       <font-awesome-icon :icon="['fas', 'times']"></font-awesome-icon>
     </button>
-    <div
-      class="confirmationForm__formControl"
-      :class="{ newAddressError: this.newAddressForm.name.error }"
-    >
-      <label for="Name">Name: </label
-      ><input
-        id="Name"
-        name="name"
-        type="text"
-        placeholder="Name"
-        v-model.trim="newAddressForm.name.value"
-      />
+    <div>
+      <p v-if="this.userAddressList.length === 0">
+        Theres is no saved addresses.
+      </p>
+      <drop-down
+        v-else
+        class="addAddress__dropdown"
+        :defaultCategory="this.createDropDownListItems[0]"
+        :listOfCategories="this.createDropDownListItems"
+        @categoryChange="setUserAddress"
+      ></drop-down>
     </div>
-    <div
-      class="confirmationForm__formControl"
-      :class="{ newAddressError: this.newAddressForm.surname.error }"
-    >
-      <label for="Surname">Surname: </label
-      ><input
-        id="Surname"
-        name="Surname"
-        type="text"
-        placeholder="Surname"
-        v-model.trim="newAddressForm.surname.value"
-      />
-    </div>
-    <div
-      class="confirmationForm__formControl"
-      :class="{ newAddressError: this.newAddressForm.address.error }"
-    >
-      <label for="Addres">Address: </label
-      ><input
-        id="Name"
-        name="name"
-        type="text"
-        placeholder="Name"
-        v-model.trim="newAddressForm.address.value"
-      />
-    </div>
-    <p v-if="this.formErrorMsg">{{ formErrorMsg }}</p>
-    <button
-      type="submit"
-      class="confirmationForm__button"
-      v-if="!this.formLoader"
-      @click.prevent="addNewAddress"
-    >
-      Confirm address
-    </button>
-    <loader v-else></loader>
-    <p v-if="this.addressUpdateResult">{{ addressUpdateResult }}</p>
-  </form>
+    <h4>Add new delivery address</h4>
+    <form class="confirmationBox__form" @click="clearFormError">
+      <div
+        class="confirmationForm__formControl"
+        :class="{ newAddressError: this.newAddressForm.name.error }"
+      >
+        <label for="Name">Name: </label
+        ><input
+          id="Name"
+          name="name"
+          type="text"
+          placeholder="Name"
+          v-model.trim="newAddressForm.name.value"
+        />
+      </div>
+      <div
+        class="confirmationForm__formControl"
+        :class="{ newAddressError: this.newAddressForm.surname.error }"
+      >
+        <label for="Surname">Surname: </label
+        ><input
+          id="Surname"
+          name="Surname"
+          type="text"
+          placeholder="Surname"
+          v-model.trim="newAddressForm.surname.value"
+        />
+      </div>
+      <div
+        class="confirmationForm__formControl"
+        :class="{ newAddressError: this.newAddressForm.address.error }"
+      >
+        <label for="Addres">Address: </label
+        ><input
+          id="Name"
+          name="name"
+          type="text"
+          placeholder="Name"
+          v-model.trim="newAddressForm.address.value"
+        />
+      </div>
+      <p v-if="this.formErrorMsg">{{ formErrorMsg }}</p>
+      <button
+        type="submit"
+        class="confirmationForm__button"
+        v-if="!this.formLoader"
+        @click.prevent="addNewAddress"
+      >
+        Confirm address
+      </button>
+      <loader v-else></loader>
+      <p v-if="this.addressUpdateResult">{{ addressUpdateResult }}</p>
+    </form>
+  </div>
 </template>
 <script>
+import DropDown from "../common/dropDown.vue";
 export default {
+  components: {
+    DropDown,
+  },
+
   data() {
     return {
       newAddressForm: {
@@ -72,7 +92,22 @@ export default {
       formLoader: false,
     };
   },
+  computed: {
+    userAddressList() {
+      return this.$store.getters["UserAuth/getAllUserAddresses"];
+    },
+
+    createDropDownListItems() {
+      return this.userAddressList.map(
+        (element) => `${element.name} ${element.surname} ${element.address}`
+      );
+    },
+  },
   methods: {
+    setUserAddress(category, index) {
+      const addressObject = this.userAddressList[index];
+      this.$store.dispatch("UserAuth/setLastUsedUserAddress", addressObject);
+    },
     clearFormError() {
       this.formErrorMsg = null;
       for (let key in this.newAddressForm) {
@@ -153,15 +188,24 @@ export default {
 };
 </script>
 <style lang="scss">
-.confirmationBox__form {
+.addAddressBox {
   @include basicCart;
+  padding: 1.5rem;
+  padding-top: 2.5rem;
+  h4 {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+}
+.confirmationBox__form {
   @include flexLayout;
   flex-direction: column;
   position: relative;
   max-width: 35rem;
-  margin: 2rem;
-  padding: 1.5rem;
-  padding-top: 4rem;
+  margin: 1rem;
+
   p {
     position: absolute;
     color: black;
@@ -174,7 +218,33 @@ export default {
     font-size: 1rem;
   }
 }
+.addAddress__dropdown {
+  @include flexLayout;
 
+  margin: 0rem auto;
+  margin-top: 2rem;
+  width: 90%;
+  height: 5rem;
+  border-radius: 20px 20px 0 0;
+  position: relative;
+  background-color: rgb(62, 175, 124);
+  .customSelect {
+    width: 100%;
+  }
+  svg {
+    font-size: 3rem;
+  }
+  .customSelect__selectOption {
+    width: 100%;
+    margin: 0 auto;
+    top: 4rem;
+    left: 0;
+    text-align: center;
+    li {
+      padding: 1rem;
+    }
+  }
+}
 .confirmationBox__infoBox {
   @include flexLayout;
   margin: 2rem;

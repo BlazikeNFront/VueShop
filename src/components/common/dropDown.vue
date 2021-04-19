@@ -23,9 +23,9 @@
     <transition name="dropDown">
       <ul class="customSelect__selectOption" v-if="selectCategory">
         <li
-          v-for="category in this.listOfCategories"
+          v-for="(category, index) in this.listOfCategories"
           :key="category"
-          @click="changeSelectedCategory(category)"
+          @click="changeSelectedCategory(category, index)"
         >
           {{ category }}
         </li>
@@ -50,16 +50,18 @@ export default {
     return {
       selectedCategory: null,
       selectCategory: false,
+      indexOfSelected: null,
     };
   },
   methods: {
     selectCategoryAction() {
       this.selectCategory = !this.selectCategory;
     },
-    changeSelectedCategory(category) {
+    changeSelectedCategory(category, index) {
       this.selectedCategory = category;
+      this.indexOfSelected = index;
       this.selectCategoryAction();
-      this.$emit("categoryChange", category);
+      this.$emit("categoryChange", category, index);
     },
   },
 };

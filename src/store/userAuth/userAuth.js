@@ -4,6 +4,10 @@ export default {
     return {
       token: null,
       admin: true,
+      addresses: {
+        lastUsed: null,
+        all: [],
+      },
     };
   },
   mutations: {
@@ -11,8 +15,13 @@ export default {
       state.token = payload.token;
     },
     logout(state) {
-      console.log(state.token);
       state.token = null;
+    },
+    setUserAddress(state, payload) {
+      state.addresses.all = payload; //PAYLOAD SHOULD BE AN ARRAY
+    },
+    setLastUsedUserAddress(state, payload) {
+      state.addresses.lastUsed = payload;
     },
   },
   actions: {
@@ -53,11 +62,54 @@ export default {
         console.log(err);
       }
     },
+    async fetchUserAddress(context) {
+      try {
+        const token = context.getters["getToken"].token;
+
+        const rawData = await fetch("http://localhost:3000/getUserAddresses", {
+          headers: { Authorization: token },
+        });
+
+        if (rawData.status !== 200) {
+          throw new Error("Server couldnt fetch user address");
+        }
+        const data = await rawData.json();
+        context.commit("setLastUsedUserAddress", data.lastUsed);
+        context.commit("setUserAddress", data.all);
+      } catch (err) {
+        console.log(err);
+      }
+    },
     logout(context) {
       context.commit("logout");
       this.dispatch("Cart/resetCartFron", {
         root: true,
       });
+    },
+    async setLastUsedUserAddress(context, payload) {
+      try {
+        context.commit("setLastUsedUserAddress", payload);
+        const token = context.getters["getToken"].token;
+        const payloadForServer = {
+          token,
+          address: payload,
+        };
+        console.log("poszedl request");
+        const responseFromServer = await fetch(
+          "http://localhost:3000/updateDefaultUserAddress",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: await JSON.stringify(payloadForServer),
+          }
+        );
+
+        if (responseFromServer.status !== 200) {
+          throw new Error("Server did not saved last used user address");
+        }
+      } catch (err) {
+        console.log(err);
+      }
     },
   },
   getters: {
@@ -66,6 +118,12 @@ export default {
     },
     getAdminState(state) {
       return state.admin;
+    },
+    getLastUsedAddress(state) {
+      return state.addresses.lastUsed;
+    },
+    getAllUserAddresses(state) {
+      return state.addresses.all;
     },
   },
 };

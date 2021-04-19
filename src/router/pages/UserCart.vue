@@ -1,7 +1,7 @@
 <template>
   <section class="userCart">
     <h2>Cart</h2>
-    <div v-if="!this.addressDialog">
+    <div v-if="!this.userConfirmationDialog">
       <div v-if="this.userCart.length > 0">
         <ul class="userCart__productList">
           <li class="userCart__tableDescription userCart__product">
@@ -45,17 +45,21 @@
         <p class="userCart__summaryCost">Summary: {{ summaryCost }}$</p>
         <button
           class="userCart__confirmationButton"
-          @click="this.addressDialog = true"
+          @click="
+            this.userConfirmationDialog = true;
+            this.fetchUserAddress();
+          "
         >
           Confirm order
         </button>
       </div>
       <p v-else class="userCart__summaryCost">There is no product in cart !</p>
     </div>
+
     <user-confirmation
       v-else
       class="userCart__adressConfirmation"
-      @hideAddressDialog="hideAddressDialog"
+      @hideUserConfirmationDialog="hideUserConfirmationDialog"
     ></user-confirmation>
   </section>
 </template>
@@ -66,7 +70,7 @@ export default {
 
   data() {
     return {
-      addressDialog: false,
+      userConfirmationDialog: false,
     };
   },
   computed: {
@@ -83,8 +87,11 @@ export default {
     },
   },
   methods: {
-    hideAddressDialog() {
-      this.addressDialog = false;
+    hideUserConfirmationDialog() {
+      this.userConfirmationDialog = false;
+    },
+    fetchUserAddress() {
+      this.$store.dispatch("UserAuth/fetchUserAddress");
     },
   },
 };

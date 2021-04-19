@@ -26,7 +26,7 @@
   </div>
 </template>
 <script>
-import DropDown from "../headerComponents/dropDown.vue";
+import DropDown from "../../common/dropDown.vue";
 
 export default {
   components: {
@@ -118,6 +118,10 @@ export default {
     color: white;
     border-radius: 25px 25px 0 0;
     background-color: rgb(62, 175, 124);
+    .customSelect {
+      width: 14rem;
+      padding: 1rem 1.5rem;
+    }
   }
   .searchBarContainer__submitIcon {
     width: 70%;
