@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="userAuth__userLogin">
     <form class="loginForm__form" @submit.prevent="handleLogin" v-if="!token">
       <div class="loginForm__inputs">
         <div class="loginFormControl">
@@ -98,22 +98,26 @@ export default {
 };
 </script>
 <style lang='scss'>
+.userAuth__userLogin {
+  margin: 0 auto;
+  width: 90%;
+  transition: all 0.2s;
+  transition-delay: 0.5s;
+}
 .loginForm__form {
   @include flexLayout;
-  color: white;
-  padding: 10rem 0 10rem 0;
-  flex-direction: column;
   width: 100%;
-  height: 60rem;
+  flex-direction: column;
+  color: white;
 }
 .loginForm__inputs {
   @include flexLayout;
+  margin: 2rem;
   flex-direction: column;
-  margin-top: 8rem;
-  height: 13rem;
 }
 .loginFormControl {
   @include flexLayout;
+  margin-bottom: 1rem;
   flex-direction: column;
 }
 .loginFormControll__label {
@@ -121,36 +125,40 @@ export default {
 }
 
 .loginFormControll__input {
-  width: 30rem;
-  font-size: 1.5rem;
+  width: 25rem;
   padding: 1rem 0 1rem 1rem;
   border-radius: 5px;
   border: none;
   background-color: #efefef;
+  font-size: 1.5rem;
 }
 .signUpLink {
-  font-size: $font-md;
+  margin: 3rem;
+  font-size: 1.5rem;
   span {
-    cursor: pointer;
     font-size: 2rem;
     font-weight: 600;
-    color: rgb(62, 175, 124);
+    color: #2c3e50;
+    cursor: pointer;
   }
 }
 .loginFormControl__errorMsg {
-  color: red;
+  margin-top: 0.5rem;
+  color: $red-error;
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 .loginFormControl__button {
-  background-color: rgb(62, 175, 124);
-  color: White;
-  border: none;
   width: 25rem;
-  border-radius: 20px;
   padding: 0.5rem;
+  border: none;
+  background-color: white;
+  border-radius: 20px;
   font-family: inherit;
   text-decoration: none;
   font-size: 2.5rem;
   font-weight: 600;
+  color: #2c3e50;
 }
 .login .login__modalErrorMsg {
   color: $primiary-color;

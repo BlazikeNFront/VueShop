@@ -1,6 +1,10 @@
 <template>
-  <div>
-    <form class="loginForm__form" @submit.prevent="handleSignUp">
+  <div class="userAuth__userSignUp">
+    <form
+      class="loginForm__form"
+      @click="clearErrors"
+      @submit.prevent="handleSignUp"
+    >
       <div class="loginForm__inputs loginForm__signUpInputs">
         <div class="loginFormControl">
           <label class="loginForm_label" for="signupEmail">Email:</label>
@@ -44,7 +48,9 @@
             v-model.trim="confirmPassword"
             :class="{ userInputError: formErrors.passwordErrorMsg }"
           />
-          <p>{{ formErrors.passwordErrorMsg }}</p>
+          <p class="loginFormControl__errorMsg">
+            {{ formErrors.passwordErrorMsg }}
+          </p>
         </div>
       </div>
       <button class="loginFormControl__button loginFormControl__button--signUp">
@@ -89,6 +95,10 @@ export default {
     };
   },
   methods: {
+    clearErrors() {
+      this.formErrors.passwordErrorMsg = null;
+      this.formErrors.userNameErrorMsg = null;
+    },
     closeForm() {
       this.$router.push("/");
     },
@@ -125,14 +135,12 @@ export default {
       }
     },
     checkForm() {
-      //Requirements -minimum eight characters, at least one letter and one number
       const regexForEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-      const regexForPassword = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+      const regexForPassword = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/; //Requirements -minimum eight characters, at least one letter and one number
 
       if (regexForEmail.test(this.email) === false) {
         this.formErrors.userNameErrorMsg = "Invalid email";
-        console.log(!!this.formErrors.userNameErrorMsg);
 
         return false;
       }
@@ -162,6 +170,13 @@ export default {
 };
 </script>
 <style lang='scss'>
+.userAuth__userSignUp {
+  /*   margin: 0 auto;
+  width: 90%;
+  transition: all 0.2s;
+  transition-delay: 0.5s; */
+}
+
 .loginForm_label {
   font-size: 2rem;
   margin: 0.5rem;
@@ -172,9 +187,7 @@ export default {
 .loginForm__signUpInputs {
   margin-top: 5rem;
 }
-.userInputError {
-  border: 2px solid red !important;
-}
+
 .signupForm__form {
   border: 2px solid $primary-color;
   margin: 0 auto;
@@ -198,16 +211,15 @@ export default {
       padding: 5%;
     }
   }
-
-  p {
-    color: red;
-  }
 }
 .loginFormControl__button--signUp {
-  margin-top: 6rem;
+  margin-top: 2rem;
 }
 .signUpForm__errorMsg {
   color: $primiary-color;
   font-size: $font-bg;
+}
+.userInputError {
+  border: 2px solid red;
 }
 </style>

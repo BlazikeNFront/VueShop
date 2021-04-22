@@ -4,7 +4,7 @@
   </div>
   <div class="container">
     <the-header></the-header>
-    <nav-bar id="nav"></nav-bar>
+
     <main id="main">
       <router-view v-slot="{ Component, route }">
         <transition mode="out-in" :name="route.meta.transition || 'pageChange'">
@@ -19,14 +19,12 @@
 <script>
 import WeekOfferBox from "./components/mainPage/currentOffersBox/currentOfferBox.vue";
 
-import NavBar from "./components/navBar/navBar.vue";
 import TheHeader from "./components/TheHeader/TheHeader.vue";
 import FooterComponent from "./components/footer/footer.vue";
 
 export default {
   name: "App",
   components: {
-    NavBar,
     TheHeader,
     WeekOfferBox,
     FooterComponent,
@@ -91,7 +89,7 @@ button {
   text-align: center;
   color: #2c3e50;
   background-color: #d9e4f5;
-  background-image: linear-gradient(315deg, #d9e4f5 0%, #f5e3e6 74%);
+  /* background-image: linear-gradient(315deg, #d9e4f5 0%, #f5e3e6 74%); */
 }
 
 .container {
@@ -102,13 +100,11 @@ button {
 }
 
 #main {
-  margin: 2.5rem auto;
+  margin: 0rem auto;
   padding: 2rem 2rem; // avoid margin stacking
   height: 100%;
   width: 100%;
   max-width: 125rem;
-  position: relative;
-  overflow: hidden;
 }
 .pageChange-enter-active,
 .pageChange-leave-active {

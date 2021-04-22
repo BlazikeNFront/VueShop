@@ -2,7 +2,7 @@
   <section class="containerForMainImg">
     <div class="containerForMainImg__InfoDisplay">
       <div class="containerForMainImg__text">
-        <h3>NEW SAVAGE GEAR</h3>
+        <h1>NEW SAVAGE GEAR</h1>
         <img src="../../../assets/savagearLogo.png" alt="savagear logo" />
 
         <p>
@@ -17,17 +17,13 @@
   </section>
 </template>
 <script>
-export default {
-  mounted() {
-    setTimeout(() => {}, 1500);
-  },
-};
 </script>
 <style lang='scss'>
 .containerForMainImg {
   position: relative;
-  width: 100%;
+  width: 100vw;
   height: 80rem;
+  transform: translate(-2rem);
   background-image: url("../../../assets/mainInformationBackground.png");
   background-attachment: fixed;
   background-position: center;
@@ -36,37 +32,36 @@ export default {
 }
 
 .containerForMainImg__text {
+  @include flexLayout;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  @include flexLayout;
-  flex-direction: column;
-  justify-content: space-around;
-  border: 4px solid $primary-color;
-  width: 70%;
+  width: 90%;
   height: 80%;
+  border: 4px solid $chartrouse-color;
   border-radius: 20px;
   flex-direction: column;
+  justify-content: space-around;
   background-color: rgba(0, 0, 0, 0.9);
   overflow: hidden;
   animation: 0.5s ease-in 1s 1 normal both running mainInformationBoxAppearence;
 
-  h3 {
+  h1 {
+    font-size: 5rem;
     font-family: $secondaryFont;
     font-weight: 800;
     color: $primary-color;
-    font-size: 5rem;
   }
   img {
-    width: 60%;
+    width: 90%;
     height: 40%;
     max-width: 40rem;
     max-height: 12rem;
     object-fit: cover;
   }
   p {
-    width: 70%;
+    width: 80%;
     height: 30%;
     font-size: $font-md;
     color: white;

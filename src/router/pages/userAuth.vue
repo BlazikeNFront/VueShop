@@ -1,15 +1,5 @@
 <template>
-  <div class="userAuth">
-    <user-login
-      class="userAuth__userLogin"
-      :class="{ opacityTransition: !this.showUserLogin }"
-      @changeView="changeView"
-    ></user-login>
-    <user-sign-up
-      class="userAuth__userSignUp"
-      :class="{ opacityTransition: this.showUserLogin }"
-      @changeView="changeView"
-    ></user-sign-up>
+  <div class="userAuth" :class="{ changedHeight: !this.showUserLogin }">
     <div
       class="userAuth__logoBox"
       :class="{ loginToSignupAnim: !this.showUserLogin }"
@@ -20,6 +10,15 @@
         :class="{ iconReverseAnim: !this.showUserLogin }"
       ></div>
     </div>
+    <user-login
+      class="userAuth__userLogin"
+      :class="{ changeViewTransition: !this.showUserLogin }"
+      @changeView="changeView"
+    ></user-login>
+    <user-sign-up
+      :class="{ changeViewTransition: this.showUserLogin }"
+      @changeView="changeView"
+    ></user-sign-up>
   </div>
 </template>
 <script>
@@ -28,14 +27,23 @@ import UserSignUp from "../../components/userAuth/userSignUp.vue";
 
 export default {
   components: { userLogin, UserSignUp },
-  data() {
-    return {
-      showUserLogin: true, //while true sohw loginform comonent else show signup
-    };
-  },
+
   methods: {
     changeView() {
-      this.showUserLogin = !this.showUserLogin;
+      if (this.showUserLogin) {
+        this.$router.push("/User/signUp");
+      } else {
+        this.$router.push("/User/login");
+      }
+    },
+  },
+  computed: {
+    showUserLogin() {
+      if (this.$route.params.view === "login") {
+        return true;
+      } else {
+        return false;
+      }
     },
   },
 };
@@ -43,22 +51,29 @@ export default {
 <style lang="scss">
 .userAuth {
   @include flexLayout;
+  @include greenToBlueGradient;
   width: 100%;
-  height: 50%;
-  background-color: #bd4f6c;
-  background-image: linear-gradient(326deg, #bd4f6c 0%, #d7816a 74%);
+  height: 55rem;
   border-radius: 10px;
   box-shadow: 5px 5px 15px black;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow: hidden;
+  transition: all 1s;
 }
 .userAuth__logoBox {
+  width: 100%;
+  height: 23rem;
+
+  /*  position: absolute;
   width: 50%;
   height: 70rem;
   right: 5%;
-  position: absolute;
   padding: 10rem 0 10rem 0;
   border-radius: 10px;
-  transition: all 2s;
+  transition: all 2s; */
 }
+
 .userAuth__companyLogoText {
   margin: 0 auto;
   width: 70%;
@@ -75,27 +90,17 @@ export default {
   transform: scaleX(1);
   transition: all 2s;
 }
-.userAuth__userLogin {
-  margin: 0 auto;
-  width: 90%;
-  transition: all 0.2s;
-  transition-delay: 0.5s;
-}
-.userAuth__userSignUp {
-  margin: 0 auto;
-  width: 90%;
-  transition: all 0.2s;
-  transition-delay: 0.5s;
-}
 
 .loginToSignupAnim {
   transition: all 2s;
-  transform: translateX(-90%);
+  /*  transform: translateX(-90%); */
 }
-.opacityTransition {
-  opacity: 0;
+.changeViewTransition {
+  display: none;
 }
-
+.changedHeight {
+  height: 70rem;
+}
 .iconReverseAnim {
   transform: scaleX(-1);
 }

@@ -1,7 +1,7 @@
 <template>
   <footer class="footer">
     <div class="footerSingleList">
-      <h3 class="footerSingleList__title">COMPANY</h3>
+      <h2>COMPANY</h2>
       <ul class="footerSingleList__listBox">
         <li class="footerSingleList__listElement"><p>About Us</p></li>
         <li class="footerSingleList__listElement"><p>Partners</p></li>
@@ -12,7 +12,7 @@
       </ul>
     </div>
     <div class="footerSingleList">
-      <h3 class="footerSingleList__title">ACCOUNT</h3>
+      <h2>ACCOUNT</h2>
       <ul class="footerSingleList__listBox">
         <li class="footerSingleList__listElement"><p>Account</p></li>
         <li class="footerSingleList__listElement"><p>Sign in</p></li>
@@ -21,7 +21,7 @@
       </ul>
     </div>
     <div class="footerSingleList">
-      <h3 class="footerSingleList__title">CONTACT US</h3>
+      <h2>CONTACT US</h2>
       <ul class="footerSingleList__listBox">
         <li class="footerSingleList__listElement">
           <div class="footerSingleList__box">
@@ -90,17 +90,20 @@ export default {};
   color: black;
   margin-top: 10rem;
   max-width: 130rem;
+  h2 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 600;
+  }
 }
 .footerSingleList {
+  margin: 3rem;
   width: 20rem;
   display: flex;
   flex-direction: column;
   justify-content: left;
 }
-.footerSingleList__title {
-  text-align: center;
-  font-size: $font-bg;
-}
+
 .footerSingleList__listBox {
   margin-top: 1rem;
   width: 100%;

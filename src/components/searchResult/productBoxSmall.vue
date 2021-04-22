@@ -56,24 +56,19 @@ export default {
   background-color: White;
   font-size: $font-md;
 
-  border: 2px solid $primiary-color;
+  border: 2px solid #2a2a72;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 2px 0px 10px $primiary-color;
+  box-shadow: 1px 1px 8px #2a2a72;
   &:hover .productBoxSmall__hoverBackdrop {
     display: block;
   }
-  /*  &:hover .productBoxSmall__imageBox,
-  &:hover .productBoxSmall__textContent {
-    // opacity: 0.5;
-  } */
+
   &:hover button {
     opacity: 1;
     transform: translate(-50%, 150%);
     &:hover {
-      background-color: #f5e3e6;
-      border-color: #ff6600;
-      color: #ff6600;
+      background-color: #acf1c3;
     }
   }
 }
@@ -97,11 +92,11 @@ export default {
 .productBoxSmall__button {
   opacity: 0;
   @include centerAbsolute;
-  color: $primiary-color;
+  color: #2a2a72;
   top: 25%;
   background-color: white;
   padding: 1rem 5rem;
-  @include mainBorder;
+  border: #2a2a72 3px solid;
   border-radius: 20px;
   transition: all 0.5s ease;
   cursor: pointer;

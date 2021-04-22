@@ -3,6 +3,7 @@ export default {
   state() {
     return {
       cart: [],
+      showCart: false,
     };
   },
   mutations: {
@@ -18,8 +19,14 @@ export default {
     setCart(state, payload) {
       state.cart = payload;
     },
+    setShowCart(state, payload) {
+      state.showCart = payload;
+    },
   },
   actions: {
+    setShowCart(context, payload) {
+      context.commit("setShowCart", payload);
+    },
     async fetchCartFromDb(context, token) {
       try {
         const rawData = await fetch("http://localhost:3000/getUserCart", {
@@ -140,6 +147,9 @@ export default {
   getters: {
     getCart(state) {
       return state.cart;
+    },
+    getShowCart(state) {
+      return state.showCart;
     },
   },
 };

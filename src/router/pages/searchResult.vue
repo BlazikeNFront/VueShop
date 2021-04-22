@@ -93,12 +93,13 @@ export default {
 .serachData__h3 {
   margin-top: 25rem;
   font-size: $font-bg;
-  color: $primiary-color;
 }
 .searchResult__paginationButtons {
-  bottom: 0rem;
-  width: 50%;
+  width: 100%;
   margin-left: 50%;
   transform: translate(-50%);
+  .paginationButtons__hexagonShapes {
+    margin: 1rem;
+  }
 }
 </style>

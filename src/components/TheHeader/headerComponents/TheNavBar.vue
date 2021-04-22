@@ -10,7 +10,7 @@
   </nav>
 </template>
 <script>
-import NavBarItem from "./navBarComponents/navBarItem.vue";
+import NavBarItem from "./navBarItem.vue";
 
 export default {
   components: {
@@ -25,19 +25,17 @@ export default {
 </script>
 <style lang='scss'>
 nav {
-  margin: 1rem;
   width: 100%;
   height: 4rem;
   position: relative;
-
   z-index: 100;
   ul {
-    @include centerWithTranslate;
+    /*  @include centerWithTranslate; */
     @include flexLayout;
+    width: 100%;
+    height: 100%;
 
     justify-content: space-around;
-    width: 80%;
-    height: 100%;
   }
 }
 </style>

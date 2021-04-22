@@ -5,32 +5,30 @@
       v-if="selectCategory"
       blackOpacity="0"
     ></back-drop>
-    <div
+    <button
       class="customSelect"
       :class="{ hideBorderRadius: selectCategory }"
-      @click="selectCategoryAction"
+      @click.prevent="selectCategoryAction"
     >
       <p class="customSelect__selected">
         {{ selectedCategory || this.defaultCategory }}
       </p>
-      <button disabled>
-        <font-awesome-icon
-          :icon="['fas', 'arrow-right']"
-          class="customSelect__buttonIcon"
-        ></font-awesome-icon>
-      </button>
-    </div>
-    <transition name="dropDown">
-      <ul class="customSelect__selectOption" v-if="selectCategory">
-        <li
-          v-for="(category, index) in this.listOfCategories"
-          :key="category"
-          @click="changeSelectedCategory(category, index)"
-        >
-          {{ category }}
-        </li>
-      </ul>
-    </transition>
+
+      <font-awesome-icon
+        :icon="['fas', 'arrow-right']"
+        class="customSelect__buttonIcon"
+      ></font-awesome-icon>
+    </button>
+
+    <ul class="customSelect__selectOption" v-if="selectCategory">
+      <li
+        v-for="(category, index) in this.listOfCategories"
+        :key="category"
+        @click="changeSelectedCategory(category, index)"
+      >
+        {{ category }}
+      </li>
+    </ul>
   </div>
 </template>
 <script>
@@ -70,37 +68,22 @@ export default {
 .customSelect {
   @include flexLayout;
   position: relative;
-  padding: 1rem 1.5rem;
-  font-size: $font-md;
+
   cursor: pointer;
-  width: 14rem;
   z-index: 1200;
+  background: none;
+  border: none;
 
-  &:hover {
-    color: #2c3e50;
-    svg {
-      color: #2c3e50;
-    }
-  }
-  p {
-    @include mainFontBold;
-  }
-
-  button {
-    @include buttonTransparent;
-    width: 3rem;
-  }
   svg {
     width: 100%;
     height: 100%;
     color: white;
-    font-size: 1.5rem;
     transform: rotate(90deg);
   }
 }
 
-.customSelect__selectOption {
-  position: absolute;
+/* .customSelect__selectOption {
+  /* position: absolute;
   z-index: 1200;
   width: 14rem;
   top: 3.2rem;
@@ -109,10 +92,10 @@ export default {
   font-size: 1.2rem;
   overflow: hidden;
   cursor: pointer;
-  background-color: rgb(62, 175, 124);
+  background-color: #2a2a72; */
 
-  li {
-    padding: 0.5rem;
+/* li {
+    /* padding: 0.5rem;
     @include mainFontBold;
     border-radius: 5px;
     position: relative;
@@ -129,14 +112,14 @@ export default {
     }
     &:hover {
       color: #2c3e50;
-      background-color: rgba(0, 0, 0, 0.2);
+      background-color: rgba(255, 255, 255, 0.2);
       &::after {
         background-color: #2c3e50;
       }
-    }
-  }
-}
-
+    } 
+  } 
+} */
+/* 
 .dropDown-enter-active,
 .dropDown-leave-active {
   transition: all 0.2s linear;
@@ -148,5 +131,5 @@ export default {
 .dropDown-enter-to,
 .dropDown-leave-from {
   height: 12rem;
-}
+} */
 </style>

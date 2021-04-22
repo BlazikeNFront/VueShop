@@ -125,7 +125,7 @@ export default {
     position: relative;
     text-align: right;
     color: black;
-    font-size: 5rem;
+    font-size: 4rem;
     font-family: $secondaryFont;
     font-weight: 800;
     margin-bottom: 2rem;
@@ -141,20 +141,24 @@ export default {
   ul {
     @include flexLayout;
     justify-content: initial;
-    height: 40rem;
+    flex-direction: column;
+    height: 50rem;
     border-radius: 30px;
     overflow: hidden;
   }
   li {
     height: inherit;
-    width: 25%;
+    width: 100%;
     overflow: hidden;
     position: relative;
     cursor: pointer;
     transition: all 1s ease;
     background-color: black;
+    img {
+      opacity: 0.4;
+    }
     &:hover {
-      width: 70%;
+      // width: 70%;
       & img {
         opacity: 0.4;
       }
@@ -181,20 +185,21 @@ export default {
 .sliderContainer__para {
   display: block;
   position: absolute;
-  font-size: 3rem;
-
+  font-size: 5rem;
   z-index: 100;
   font-family: $secondaryFont;
-  font-weight: 800;
+  font-weight: 600;
   color: white;
+
   transition: all 0.6s;
 }
 .sliderContainer__para--normal {
-  bottom: 2rem;
+  top: 50%;
   margin-left: 50%;
   transform: translate(-50%, -50%);
 }
 .sliderContainer__para--hover {
+  display: none;
   top: 5rem;
   margin-left: 50%;
 
@@ -209,8 +214,8 @@ export default {
   z-index: 100;
   font-family: $secondaryFont;
   font-weight: 800;
-  color: white;
-  font-size: 3rem;
+  color: $light-blue;
+  font-size: 4rem;
   transition: all 0.6s;
   &::before {
     content: "";
@@ -231,19 +236,19 @@ export default {
     display: block;
     width: 4rem;
     height: 0.2rem;
-    background-color: white;
+    background-color: $light-blue;
     transition: 0.2s all ease-in-out;
   }
   &:hover {
-    color: #0bd3d3;
+    color: $light-blue;
     transform: translate(1rem, -50%);
     &::before {
       width: 4rem;
-      background-color: #0bd3d3;
+      background-color: $light-blue;
     }
     &::after {
       width: 0rem;
-      background-color: #0bd3d3;
+      background-color: $light-blue;
     }
   }
 }

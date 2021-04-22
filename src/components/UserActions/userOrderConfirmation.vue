@@ -23,7 +23,6 @@
             to pick delivery address
           </p>
         </div>
-
         <div v-else>
           <div class="confirmationBox__infoBox">
             <span>Name:</span>

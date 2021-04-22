@@ -4,6 +4,7 @@
       <button
         @click="previousPageClick()"
         class="pagination__pageChangersButtons"
+        :class="{ pageChangersRealignment: this.alignPageChangersButton }"
       >
         <font-awesome-icon
           :icon="['fas', 'arrow-right']"
@@ -12,7 +13,7 @@
       </button>
       <div class="paginationButtons__pages" ref="buttons">
         <hexagonal-shape
-          :color="'#3eaf7c' || this.backgroundOfHexagon"
+          :color="this.backgroundOfHexagon || '#01baef'"
           v-for="page in numberOfPages"
           :key="page"
           @click="pageClick($event, page)"
@@ -29,6 +30,7 @@
       <button
         @click="nextPageClick($event)"
         class="pagination__pageChangersButtons"
+        :class="{ pageChangersRealignment: this.alignPageChangersButton }"
       >
         <font-awesome-icon
           :icon="['fas', 'arrow-right']"
@@ -46,7 +48,15 @@ export default {
   components: {
     HexagonalShape,
   },
-
+  computed: {
+    alignPageChangersButton() {
+      if (this.numberOfPages > 10) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+  },
   methods: {
     previousPageClick() {
       if (parseInt(this.currentPage) === 1) {
@@ -90,12 +100,12 @@ export default {
   @include flexLayout;
   .pagination__pageChangersButtons {
     @include button;
-    color: #2c3e50;
+    color: white;
     font-size: $font-md;
     padding: 1rem;
   }
   button:hover {
-    color: white;
+    color: #2c3e50;
   }
 }
 .paginationButtons__hexagonButtons {
@@ -140,6 +150,9 @@ export default {
   animation-name: buttonAnimation;
   animation-fill-mode: forwards;
   animation-duration: 1s;
+}
+.pageChangersRealignment {
+  transform: translateY(-51%);
 }
 @keyframes buttonAnimation {
   0% {

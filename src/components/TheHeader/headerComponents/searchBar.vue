@@ -12,7 +12,7 @@
           type="text"
           id="searchBarInput"
           name="searchBarInputArea"
-          placeholder="Search products"
+          :placeholder="placeholder"
           v-model.trim="searBarInputValue"
         />
         <button type="submit">
@@ -38,6 +38,15 @@ export default {
       searBarInputValue: "",
       selectedCategory: null,
     };
+  },
+  computed: {
+    placeholder() {
+      if (this.selectedCategory) {
+        return `Search in ${this.selectedCategory}`;
+      } else {
+        return "Search products";
+      }
+    },
   },
   methods: {
     addCategoryToSearchQuery(e) {
@@ -73,21 +82,20 @@ export default {
 </script>
 <style lang='scss'>
 .searchBarContainer {
-  width: 40%;
   form {
     @include flexLayout;
-    width: 30rem;
   }
   .searchBarInput {
     @include flexLayout;
-    margin-left: 2rem;
+    margin-left: 1rem;
+    width: 15rem;
     border-bottom: 1px solid grey;
-    height: 3rem;
 
     input {
+      width: 11rem;
+      font-size: 1.2rem;
       border: none;
       text-align: center;
-      height: 90%;
       font-family: inherit;
       font-weight: 600;
       background: transparent;
@@ -104,25 +112,75 @@ export default {
       box-shadow: 0 0 0 30px #f5e3e6 inset;
     }
     button {
-      border: none;
-      width: 3.5rem;
-      height: 100%;
-      background-size: contain;
-      background-repeat: no-repeat;
-      background: transparent;
-      cursor: pointer;
+      @include buttonTransparent;
+      width: 4rem;
+      svg {
+        color: $main-color;
+      }
     }
   }
   .searchBarContainer__dropdown {
     position: relative;
     color: white;
-    border-radius: 25px 25px 0 0;
-    background-color: rgb(62, 175, 124);
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background-color: #2a2a72;
     .customSelect {
-      width: 14rem;
+      @include flexLayout;
+      position: relative;
+      height: 3rem;
       padding: 1rem 1.5rem;
+      cursor: pointer;
+      z-index: 1200;
+      p {
+        display: none;
+      }
+      svg {
+        position: absolute;
+        left: 0.5rem;
+        width: 2rem;
+      }
+    }
+    .customSelect__selectOption {
+      @include greenToBlueGradient;
+      position: absolute;
+      top: 3.5rem;
+      left: -5.5rem;
+      width: 14rem;
+      border-radius: 10px;
+      border: 2px solid $main-color;
+      font-size: 1.4rem;
+      font-weight: 600;
+      letter-spacing: 3px;
+      z-index: $headerDropDown;
+
+      li {
+        position: relative;
+        padding: 1rem;
+        cursor: pointer;
+        &::after {
+          content: "";
+          display: block;
+          bottom: 1px;
+          left: 50%;
+          transform: translate(-50%);
+          position: absolute;
+          width: 70%;
+          height: 0.1rem;
+          background-color: white;
+        }
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.2);
+          font-weight: 600;
+          &::after {
+            background-color: $light-Black;
+          }
+        }
+      }
     }
   }
+
   .searchBarContainer__submitIcon {
     width: 70%;
     height: 100%;

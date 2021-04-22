@@ -11,7 +11,6 @@ import AdminCMS from "./pages/adminCMS.vue";
 import AdminOrders from "./pages/adminCheckOrders.vue";
 import UserCart from "./pages/UserCart.vue";
 import UserOrders from "./pages/UserOrders.vue";
-import UserMenu from "./pages/UserMenu.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -25,13 +24,15 @@ const router = createRouter({
     { path: "/productDetails/:productId", component: ProductDetails },
     {
       name: "user-login",
-      path: "/User/login",
+      path: "/User/:view",
+
       component: UserAuth,
     },
 
     {
       name: "user-signUp",
-      path: "/User/signUp",
+      path: "/User/:view",
+
       component: UserAuth,
     },
 
@@ -93,7 +94,7 @@ const router = createRouter({
     },
     { name: "user-cart", path: "/UserCart", component: UserCart },
     { name: "user-orders", path: "/UserOrders", component: UserOrders },
-    { name: "user-menu", path: "/menu", component: UserMenu },
+
     { path: "/user/historyOrder", component: UserCart },
   ],
   scrollBehavior(to, from, savedPosition) {

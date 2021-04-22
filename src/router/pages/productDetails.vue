@@ -67,6 +67,7 @@ export default {
       payload.price = this.product.price;
       payload.quantity = this.quantity;
       this.$store.dispatch("Cart/addItemtoCart", payload);
+      this.$store.dispatch("Cart/setShowCart", true);
       this.showNotifaction = true;
       this.$store.dispatch("Cart/setCartInLocalStorage");
     },
@@ -83,18 +84,19 @@ export default {
 </script>
 <style lang='scss'>
 .productDetails {
-  width: 90%;
-  margin: 2rem auto;
-  min-height: 70rem;
-  @include mainBorder;
   @include flexLayout;
+  @include mainBorder;
+  width: 100%;
+  margin: 2rem auto;
+  padding-bottom: 3rem;
   flex-direction: column;
   background-color: white;
   font-size: $font-md;
   color: black;
-}
-.productDetails__image {
-  width: 72rem;
+  img {
+    width: 100%;
+    //72rem on desktop
+  }
 }
 
 .productDetails__title {
@@ -105,7 +107,7 @@ export default {
 .productDetails__desc {
   margin: 0 auto;
   width: 80%;
-  text-align: left;
+  text-align: justify;
   font-size: 1.4rem;
   white-space: pre-wrap;
   line-height: 3.5rem;
@@ -117,9 +119,10 @@ export default {
 
   button {
     @include button;
-    background-color: rgb(62, 175, 124);
+
     font-family: inherit;
     font-weight: 600;
+    letter-spacing: 1px;
     width: 80%;
     box-shadow: 3px 3px 8px black;
     padding: 1rem;
@@ -127,12 +130,12 @@ export default {
 
     &:hover {
       transform: scale(1.01);
-      color: #2c3e50;
     }
   }
 }
 
 .productDetails__price {
+  margin: 1rem;
   font-size: 3.5rem;
   font-weight: 500;
 }
@@ -140,15 +143,13 @@ export default {
   margin: 1rem;
 }
 .productDetails__addProductToCartBox {
-  position: relative;
   width: 100%;
 }
 .productDetails__addedToCartNotification {
   @include flexLayout;
   position: absolute;
-  top: 50%;
-  right: 0;
-  transform: translate(100%, -50%);
+  bottom: 6rem;
+  left: 8rem;
   display: flex;
   color: rgb(62, 175, 124);
   font-size: 1.5rem;

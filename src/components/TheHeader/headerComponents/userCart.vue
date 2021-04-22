@@ -82,18 +82,15 @@ export default {
   components: {
     InputNumber,
   },
-  data() {
-    return {
-      showUserCart: false,
-    };
-  },
+
   methods: {
     showUserCartAction() {
-      this.showUserCart = !this.showUserCart;
+      const payload = !this.showUserCart; //Boolean Value
+      this.$store.dispatch("Cart/setShowCart", payload);
     },
     handleOrderRequest() {
       if (!this.token) {
-        this.$router.push({ name: "user-login" });
+        this.$router.push({ path: "/User/login" });
         return;
       }
       this.$router.push("/userOrder");
@@ -119,6 +116,9 @@ export default {
   computed: {
     token() {
       return this.$store.getters["UserAuth/getToken"];
+    },
+    showUserCart() {
+      return this.$store.getters["Cart/getShowCart"];
     },
     userCart() {
       return this.$store.getters["Cart/getCart"];
@@ -148,6 +148,7 @@ export default {
   height: 4rem;
   cursor: pointer;
   position: relative;
+  display: none;
 
   img {
     width: 100%;
@@ -179,8 +180,8 @@ export default {
   }
 }
 .cartContainer {
-  width: 30rem;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   background-color: white;
   position: fixed;
   display: flex;
@@ -270,7 +271,7 @@ export default {
   ul {
     margin-top: 5rem;
     overflow-y: scroll;
-    height: 60rem;
+    height: 54vh;
   }
   li {
     @include flexLayout;

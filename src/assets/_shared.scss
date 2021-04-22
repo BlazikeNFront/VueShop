@@ -1,6 +1,18 @@
-$primiary-color: #fcac59;
+/* LOGIC BEHIND STYLES
+DIVS ALWAYS HAVE CLASS
+IF SAME ELEMENTS INSIDE DIV HAVE SAME APPEARENCE , THEY ARE  STYLED USING SCSS NESTING (IN CASE ELEMENT OCCURS MORE THAN ONCE BUT STYLE ARE SAME IT IS ALSO STYLED USING NESTING - eg. <li> in lists ), OTHERWISE IT HAVE CLASS
+/////////
+SCSS MIXINS AND FUNCS ALWAYS ON TOP OF CLASS;
+SCSS VARIABLES FOR CSS PROPERTIES APPEARS BY ORDER BELOW LIKE NORMAL CSS PROPERTIES;
+////////////////
+ORDER OF PROPERTIRES IN CLASS: 
+1. POSITION AND DIMENSIONS
+2.APPEARANCE 
+3.TEXT PROPERTIES
+4.OTHERS (z-index,aniamtions properties etc.)
+*/
 
-$background-Select-gray: rgb(195, 199, 196);
+$primiary-color: #2a2a72;
 
 //fonts
 $mainFont: "Montserrat", sans-serif;
@@ -11,11 +23,39 @@ $font-bg: 2rem;
 $font-md: 1.5rem;
 $font-sm: 1.2rem;
 //colors
-$primary-color: #fcac59;
-$secondary-color: #212121;
+$main-color: #2a2a72;
+$chartrouse-color: #20bf55;
+$light-Black: #2c3e50;
+$light-blue: #0bd3d3;
+$red-error: #ad0000;
 
-//z-indexes for common
+//z-indexes
 $backdrop: 1000;
+$headerDropDown: 1100;
+
+//MIXINS
+//MIXINS
+@mixin mainWidthClamp {
+  width: clamp(35rem, 90%, 150rem);
+}
+@mixin greenToBlueGradient {
+  background-color: #20bf55;
+  background-image: linear-gradient(315deg, #20bf55 0%, #01baef 74%);
+}
+@mixin bluesGradient {
+  background-color: #2a2a72;
+  background-image: linear-gradient(315deg, #2a2a72 0%, #009ffd 74%);
+}
+@mixin flexLayout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+@mixin buttonTransparent {
+  border: none;
+  background: transparent;
+}
+
 .basicCart {
   background-color: #bd4f6c;
   background-image: linear-gradient(326deg, #bd4f6c 0%, #d7816a 74%);
@@ -25,11 +65,9 @@ $backdrop: 1000;
 @mixin containerLaptop {
   width: 96rem;
 }
-@mixin buttonTransparent {
-  border: none;
-  background: transparent;
-}
 
+$primary-color: #fcac59;
+$secondary-color: #212121;
 @mixin mainFontBold {
   font-family: "Montserrat", sans-serif;
   font-weight: 800;
@@ -47,12 +85,6 @@ $backdrop: 1000;
   transform: translate(-50%, -50%);
 }
 
-@mixin flexLayout {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
 @mixin basicCart {
   background-color: #bd4f6c;
   background-image: linear-gradient(326deg, #bd4f6c 0%, #d7816a 74%);
@@ -61,7 +93,7 @@ $backdrop: 1000;
 }
 
 @mixin button {
-  background-color: rgb(62, 175, 124);
+  background-color: #2a2a72;
   color: White;
   border: none;
   border-radius: 20px;

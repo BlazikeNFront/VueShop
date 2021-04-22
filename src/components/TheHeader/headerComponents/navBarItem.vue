@@ -1,9 +1,13 @@
 <template>
-  <li class="mainNavList__item" @click="searchAction(this.title)">
+  <li
+    class="mainNavList__item"
+    :class="{ letterSpacing: isShortTitle }"
+    @click="searchAction(this.title)"
+  >
     {{ this.title }}
     <ul class="mainNavList__subList">
       <li>{{ this.title }}</li>
-      <!-- i want to have same gradient continues in sublist item so sublist works like popUp replaceing oringal nav -->
+      <!-- i want to same color gradient continues in sublist item, so to achive that  sublist works like popUp replaceing original nav -->
       <li
         v-for="element in this.listElements"
         :key="element"
@@ -17,10 +21,20 @@
 <script>
 export default {
   props: ["title"],
+
   data() {
     return {
       listElements: ["Rods", "Reels", "Lines", "Other"],
     };
+  },
+  computed: {
+    isShortTitle() {
+      if (this.title.length < 9) {
+        return true;
+      } else {
+        return false;
+      }
+    },
   },
   methods: {
     searchAction(title, element) {
@@ -50,17 +64,17 @@ export default {
 </script>
 <style lang='scss'>
 .mainNavList__item {
-  width: 22rem;
+  @include bluesGradient;
+  width: 9rem;
   position: relative;
   z-index: 10000;
   margin: 0 0.5rem;
   padding: 1rem 0;
-  font-size: 1.5rem;
-  cursor: pointer;
-  background-color: #ffac81;
-
-  background-image: linear-gradient(315deg, #ffac81 0%, #ff928b 74%);
   border-radius: 10px 10px 0 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
 
   li {
     font-size: 1.2rem;
@@ -68,28 +82,28 @@ export default {
     padding: 1rem;
   }
   li:nth-child(1) {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     font-weight: 600;
   }
 }
 .mainNavList__subList {
   @include flexLayout;
   @include centerWithTranslate;
+  @include bluesGradient;
   display: none;
   margin-left: 50%;
   font-size: 1.5rem;
   position: absolute;
   top: 0;
   left: 0;
-  width: 22rem;
+  width: 9rem;
   height: 18rem;
   flex-direction: column;
   font-size: 1.5rem;
-  color: black;
+  color: white;
   border-radius: 0 0 5px 5px;
   transition: all 0.5s ease;
-  background-color: #ffac81;
-  background-image: linear-gradient(315deg, #ffac81 0%, #ff928b 74%);
+
   border-radius: 10px;
   li {
     position: relative;
@@ -108,8 +122,6 @@ export default {
   }
 }
 .mainNavList__item:hover {
-  font-weight: 700;
-
   .mainNavList__subList {
     display: block;
   }
@@ -122,5 +134,8 @@ export default {
       }
     }
   }
+}
+.letterSpacing {
+  letter-spacing: 2px;
 }
 </style>
