@@ -131,6 +131,8 @@ export default {
   border: none;
   background-color: #efefef;
   font-size: 1.5rem;
+  font-weight: 600;
+  font-family: inherit;
 }
 .signUpLink {
   margin: 3rem;

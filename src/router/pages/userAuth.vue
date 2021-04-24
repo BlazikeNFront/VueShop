@@ -63,7 +63,7 @@ export default {
 }
 .userAuth__logoBox {
   width: 100%;
-  height: 23rem;
+  height: 27rem;
 
   /*  position: absolute;
   width: 50%;
@@ -77,14 +77,14 @@ export default {
 .userAuth__companyLogoText {
   margin: 0 auto;
   width: 70%;
-  height: 50%;
+  height: 45%;
   background-image: url("../../assets/companyTextLogo.png");
   background-size: cover;
 }
 .userAuth__companyLogoIcon {
   margin: 0 auto;
   width: 60%;
-  height: 50%;
+  height: 55%;
   background-image: url("../../assets/companyFishIcon.png");
   background-size: cover;
   transform: scaleX(1);

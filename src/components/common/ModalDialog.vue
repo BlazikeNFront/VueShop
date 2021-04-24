@@ -25,6 +25,7 @@ export default {
 .modalDialog {
   @include centerAbsolute;
   @include flexLayout;
+
   flex-direction: column;
   position: fixed;
   z-index: 1100;
@@ -41,6 +42,7 @@ export default {
   margin: 1rem;
   color: black;
   font-size: 3rem;
+  text-align: center;
 }
 .modalDialog__button {
   @include button;

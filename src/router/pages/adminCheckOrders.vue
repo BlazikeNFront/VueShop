@@ -62,7 +62,7 @@
   </section>
 </template>
 <script >
-import OrderDetails from "../../components/admin/orderDetails.vue";
+import OrderDetails from "../../components/UserActions/orderDetails.vue";
 import PaginationButtons from "../../components/common/PaginationButtons.vue";
 export default {
   components: {
@@ -142,7 +142,7 @@ export default {
 };
 </script>
 <style lang='scss'>
-.checkOrders {
+/* .checkOrders {
   @include basicCart;
   min-height: 100rem;
   @include flexLayout;
@@ -206,7 +206,7 @@ export default {
   &:hover {
     color: #2c3e50;
   }
-}
+} */
 .searchResult__paginationButtons {
   .paginationButtons__hexagonShapes {
     width: 3rem;

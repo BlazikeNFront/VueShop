@@ -23,7 +23,7 @@
   position: relative;
   width: 100vw;
   height: 80rem;
-  transform: translate(-2rem);
+
   background-image: url("../../../assets/mainInformationBackground.png");
   background-attachment: fixed;
   background-position: center;

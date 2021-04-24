@@ -1,65 +1,24 @@
 <template>
   <section class="userOrders">
     <h2>History of orders</h2>
-    <div>
-      <ul v-if="this.userOrders.length > 0" class="checkOrders__ordersList">
-        <li class="checkOrder__tableDescription">
-          <h4>Order id</h4>
-          <h4>Order Details</h4>
-          <h4>Order Value</h4>
-          <h4>Status</h4>
-        </li>
-        <loader v-if="!this.userOrders"></loader>
-        <li
-          class="checkOrder__li"
-          v-else
-          v-for="order in this.userOrders"
-          :key="order._id"
-        >
-          <div class="userOrder__productInfomartionBox">
-            <p class="userOrder__productInformation">
-              {{ order._id }}
-            </p>
-          </div>
-          <div class="userOrder__productInfomartionBox">
-            <button
-              class="userOrder__checkDeatils"
-              @click="toggleOrderDetails(order)"
-            >
-              Check details
-            </button>
-          </div>
-          <div class="userOrder__productInfomartionBox">
-            <p class="userOrder__productInformation">
-              {{ calculateOrderValue(order) }} $
-            </p>
-          </div>
-          <div class="userOrder__productInfomartionBox">
-            <p class="userOrder__productInformation">
-              {{ getOrderStatus(order.status) }}
-            </p>
-          </div>
-        </li>
-      </ul>
-      <p v-else>There is no history of orders</p>
-      <button class="userOrder__updateButton" @click="fetchUserOrders">
-        Update orders
-      </button>
-    </div>
-    <order-details
-      v-if="showOrderDetails"
-      :order="this.selectedOrder"
-      :changeOrderStatus="false"
-      @closeModal="closeModal"
-    ></order-details>
+
+    <user-orders-table
+      v-if="this.userOrders.length > 0"
+      :userOrders="this.userOrders"
+    ></user-orders-table>
+    <p v-else>There is no history of orders</p>
+    <loader v-if="!this.userOrders"></loader>
+
+    <button class="userOrder__updateButton" @click="this.fetchUserOrders">
+      Update orders
+    </button>
   </section>
 </template>
 <script>
-import OrderDetails from "../../components/admin/orderDetails.vue";
+import UserOrdersTable from "../../components/UserActions/userOrdersTable.vue";
+
 export default {
-  components: {
-    OrderDetails,
-  },
+  components: { UserOrdersTable },
   mounted() {
     this.fetchUserOrders();
   },
@@ -84,22 +43,7 @@ export default {
         console.log(err);
       }
     },
-    calculateOrderValue(order) {
-      const sum = order.cart.reduce((acc, item) => {
-        return acc + item.price * item.quantity;
-      }, 0);
 
-      return Number(sum).toFixed(2);
-    },
-    getOrderStatus(status) {
-      if (status === 0) {
-        return "Waiting for acceptance";
-      } else if (status === 1) {
-        return "In realization";
-      } else {
-        return "Realized";
-      }
-    },
     toggleOrderDetails(order) {
       this.selectedOrder = order;
       this.showOrderDetails = true;
@@ -113,8 +57,7 @@ export default {
 <style lang="scss">
 .userOrders {
   @include basicCart;
-
-  min-height: 100rem;
+  min-height: 60rem;
   margin: 3rem;
   h2 {
     padding: 3rem;

@@ -32,6 +32,7 @@ $red-error: #ad0000;
 //z-indexes
 $backdrop: 1000;
 $headerDropDown: 1100;
+$addAddressDropDown: 1100;
 
 //MIXINS
 //MIXINS
@@ -56,12 +57,6 @@ $headerDropDown: 1100;
   background: transparent;
 }
 
-.basicCart {
-  background-color: #bd4f6c;
-  background-image: linear-gradient(326deg, #bd4f6c 0%, #d7816a 74%);
-  border-radius: 10px;
-  box-shadow: 5px 5px 15px black;
-}
 @mixin containerLaptop {
   width: 96rem;
 }
@@ -86,8 +81,8 @@ $secondary-color: #212121;
 }
 
 @mixin basicCart {
-  background-color: #bd4f6c;
-  background-image: linear-gradient(326deg, #bd4f6c 0%, #d7816a 74%);
+  background-color: #20bf55;
+  background-image: linear-gradient(315deg, #20bf55 0%, #01baef 74%);
   border-radius: 10px;
   box-shadow: 5px 5px 15px black;
 }

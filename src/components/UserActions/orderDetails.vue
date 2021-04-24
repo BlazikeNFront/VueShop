@@ -1,54 +1,57 @@
 <template>
-  <div class="orderDetailsView__modal">
+  <div class="orderDetailsView">
     <modal-dialog
       @closeDialog="this.$emit('closeModal')"
       @confirmError="this.$emit('closeModal')"
-      width="70%"
+      width="95%"
       height="fit-content"
     >
       <h4 class="orderDetailsView__h4">
-        Order Details for {{ this.order._id }}
+        Order Details for: {{ this.order._id }}
       </h4>
-      <ul class="orderDetails__products">
-        <li class="orderDetails__products__thead">
-          <div class="orderDetails__descriptionBox">
-            <p>Product Image</p>
-          </div>
-          <div class="orderDetails__descriptionBox">
-            <p>Product Name</p>
-          </div>
-          <div class="orderDetails__descriptionBox">
-            <p>Quantity</p>
-          </div>
-          <div class="orderDetails__descriptionBox">
-            <p>Price</p>
-          </div>
-          <div class="orderDetails__descriptionBox">
-            <p>Total cost of product</p>
-          </div>
-        </li>
-        <li v-for="product in this.order.cart" :key="product._id">
-          <div class="orderDetails__productInfomartionBox">
-            <img :src="product.imagePath" :alt="product.name + ' image'" />
-          </div>
-          <div class="orderDetails__productInfomartionBox">
-            <p>
-              {{ product.name }}
-            </p>
-          </div>
-          <div class="orderDetails__productInfomartionBox">
-            <p>
-              {{ product.quantity }}
-            </p>
-          </div>
-          <div class="orderDetails__productInfomartionBox">
-            <p>{{ product.price }}$</p>
-          </div>
-          <div class="orderDetails__productInfomartionBox">
-            <p>{{ (product.price * product.quantity).toFixed(2) }}$</p>
-          </div>
-        </li>
-      </ul>
+      <div class="orderDetails__listContainer" @scroll="this.setUserOrderClick">
+        <div class="userCart__arrowForMobile" v-if="!this.userOrderClick">
+          <font-awesome-icon :icon="['fa', 'arrow-right']"></font-awesome-icon>
+        </div>
+        <ul class="userCart__productList orderDetails__productList">
+          <li class="userCart__product userCart__product--tableDescription">
+            <span></span>
+            <h4 class="userCart__columnDescription">Product name</h4>
+            <h4 class="userCart__columnDescription">Quantity</h4>
+            <h4 class="userCart__columnDescription">Product price</h4>
+            <h4 class="userCart__columnDescription">Summary</h4>
+          </li>
+          <li
+            class="userCart__product"
+            v-for="product in order.cart"
+            :key="product._id"
+          >
+            <img
+              class="userCart__productImage"
+              :src="product.imagePath"
+              :alt="product.name + 'image'"
+            />
+            <div class="userCart__productInfomartionBox">
+              <p class="userCart__productInformation">
+                {{ product.name }}
+              </p>
+            </div>
+            <div class="userCart__productInfomartionBox">
+              <p class="userCart__productInformation">
+                {{ product.quantity }}
+              </p>
+            </div>
+            <div class="userCart__productInfomartionBox">
+              <p class="userCart__productInformation">{{ product.price }} $</p>
+            </div>
+            <div class="userCart__productInfomartionBox">
+              <p class="userCart__productInformation">
+                {{ (product.price * product.quantity).toFixed(2) }} $
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
       <h5 class="orderDetailsView__h5">Client information</h5>
       <div class="orderDetailsView__userInformation">
         <p class="orderDetailsView__p">Name: Damian</p>
@@ -100,6 +103,7 @@ export default {
       orderDetailsModal: false,
       orderDeatilsModalMsg: null,
       loader: false,
+      userOrderClick: false,
     };
   },
   computed: {
@@ -108,6 +112,9 @@ export default {
     },
   },
   methods: {
+    setUserOrderClick() {
+      this.userOrderClick = true;
+    },
     closeModal() {
       this.$store.dispatch("Admin/closeShowOrderDetails");
     },
@@ -144,48 +151,32 @@ export default {
 };
 </script>
 <style lang='scss'>
+.orderDetailsView {
+  text-align: center;
+}
+
 .orderDetailsView__h4 {
+  text-align: center;
   font-size: 2rem;
 }
 .orderDetailsView__h5 {
   margin-top: 1rem;
   font-size: 1.5rem;
-  color: black;
+  text-align: center;
 }
-.orderDetails__products {
-  margin-top: 2rem;
-  @include flexLayout;
-  flex-direction: column;
-  width: 80%;
-  background-color: white;
-
-  li {
-    width: 100%;
-    @include flexLayout;
-    border: 1px solid black;
-    border-bottom: none;
-    &:first-child {
-      border: none;
-    }
-    &:last-child {
-      border-bottom: 1px solid black;
-    }
-  }
-}
-
-.orderDetails__productInfomartionBox {
-  width: 100%;
-  height: 10rem;
-  @include flexLayout;
-  justify-content: center;
-  &:not(:first-child) {
-    border-left: 1px solid black;
-  }
+.orderDetails__productList {
+  margin: 1rem auto;
   p {
     text-align: center;
-    font-size: $font-md;
   }
 }
+
+.orderDetails__listContainer {
+  width: 100%;
+  position: relative;
+  overflow-x: scroll;
+}
+
 .orderDetails__products__thead {
   height: 5rem;
   font-size: 1.5rem;
@@ -203,6 +194,7 @@ export default {
   width: 100%;
   justify-content: space-evenly;
   font-size: 1.5rem;
+  text-align: center;
 }
 .orderStatusForm {
   @include flexLayout;

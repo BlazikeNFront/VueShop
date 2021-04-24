@@ -101,7 +101,7 @@ button {
 
 #main {
   margin: 0rem auto;
-  padding: 2rem 2rem; // avoid margin stacking
+  // padding: 2rem 2rem; // avoid margin stacking
   height: 100%;
   width: 100%;
   max-width: 125rem;

@@ -19,8 +19,9 @@
       ></drop-down>
     </div>
     <h4>Add new delivery address</h4>
-    <form class="confirmationBox__form" @click="clearFormError">
+    <form class="confirmationBox__form">
       <div
+        @click="clearFormError"
         class="confirmationForm__formControl"
         :class="{ newAddressError: this.newAddressForm.name.error }"
       >
@@ -34,6 +35,7 @@
         />
       </div>
       <div
+        @click="clearFormError"
         class="confirmationForm__formControl"
         :class="{ newAddressError: this.newAddressForm.surname.error }"
       >
@@ -47,6 +49,7 @@
         />
       </div>
       <div
+        @click="clearFormError"
         class="confirmationForm__formControl"
         :class="{ newAddressError: this.newAddressForm.address.error }"
       >
@@ -107,6 +110,7 @@ export default {
     setUserAddress(category, index) {
       const addressObject = this.userAddressList[index];
       this.$store.dispatch("UserAuth/setLastUsedUserAddress", addressObject);
+      this.$emit("exitButton");
     },
     clearFormError() {
       this.formErrorMsg = null;
@@ -119,6 +123,7 @@ export default {
         if (this.formValidation() === false) {
           return;
         }
+
         this.formLoader = true;
         const payload = {
           token: this.$store.getters["UserAuth/getToken"].token,
@@ -208,38 +213,50 @@ export default {
 
   p {
     position: absolute;
-    color: black;
+    color: $red-error;
     text-align: center;
-    left: 7%;
-    bottom: 5rem;
+
+    bottom: 4.5rem;
     font-size: 1rem;
     font-weight: 600;
-    width: 90%;
-    font-size: 1rem;
+    width: 100%;
+    font-size: 1.3rem;
   }
 }
 .addAddress__dropdown {
+  @include button;
   @include flexLayout;
-
+  position: relative;
   margin: 0rem auto;
   margin-top: 2rem;
-  width: 90%;
+  width: 100%;
   height: 5rem;
   border-radius: 20px 20px 0 0;
-  position: relative;
-  background-color: rgb(62, 175, 124);
+  color: white;
+
   .customSelect {
     width: 100%;
+    p {
+      width: 100%;
+      font-size: 1.2rem;
+      color: white;
+      font-weight: 600;
+      text-align: center;
+    }
   }
   svg {
     font-size: 3rem;
   }
   .customSelect__selectOption {
-    width: 100%;
-    margin: 0 auto;
+    position: absolute;
     top: 4rem;
     left: 0;
+    width: 100%;
+    margin: 0 auto;
+    border-radius: 0 0 20px 20px;
     text-align: center;
+    background-color: $main-color;
+    z-index: $addAddressDropDown;
     li {
       padding: 1rem;
     }
@@ -251,7 +268,7 @@ export default {
 }
 .confirmationForm__formControl {
   @include flexLayout;
-  width: 95%;
+  width: 30rem;
   margin: 1rem;
   padding: 0.5rem;
   border-radius: 10px;
@@ -280,13 +297,20 @@ export default {
     box-shadow: 0 0 0 30px #f5e3e6 inset;
   }
 }
+
 .newAddressError {
   border: 1px solid red;
 }
+
 .confirmationForm__button {
-  margin-top: 3rem;
+  @include button;
+  padding: 1rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-top: 6rem;
 }
 .confirmationBox__formExitButton {
+  @include button;
   position: absolute;
   top: 1rem;
   right: 4rem;

@@ -1,47 +1,55 @@
 <template>
   <section class="userCart">
     <h2>Cart</h2>
-    <div v-if="!this.userConfirmationDialog">
+    <div>
       <div v-if="this.userCart.length > 0">
-        <ul class="userCart__productList">
-          <li class="userCart__tableDescription userCart__product">
-            <span></span>
-            <h4 class="userCart__columnDescription">Product name</h4>
-            <h4 class="userCart__columnDescription">Product name</h4>
-            <h4 class="userCart__columnDescription">Product price</h4>
-            <h4 class="userCart__columnDescription">Summary</h4>
-          </li>
-          <li
-            class="userCart__product"
-            v-for="product in userCart"
-            :key="product._id"
-          >
-            <img
-              class="userCart__productImage"
-              :src="product.imagePath"
-              :alt="product.name + 'image'"
-            />
-            <div class="userCart__productInfomartionBox">
-              <p class="userCart__productInformation">
-                {{ product.name }}
-              </p>
-            </div>
-            <div class="userCart__productInfomartionBox">
-              <p class="userCart__productInformation">
-                {{ product.quantity }}
-              </p>
-            </div>
-            <div class="userCart__productInfomartionBox">
-              <p class="userCart__productInformation">{{ product.price }} $</p>
-            </div>
-            <div class="userCart__productInfomartionBox">
-              <p class="userCart__productInformation">
-                {{ (product.price * product.quantity).toFixed(2) }} $
-              </p>
-            </div>
-          </li>
-        </ul>
-
+        <div class="userCart__cartContainer" @scroll="this.setUserClick">
+          <div class="userCart__arrowForMobile" v-if="!this.userCartClick">
+            <font-awesome-icon
+              :icon="['fa', 'arrow-right']"
+            ></font-awesome-icon>
+          </div>
+          <ul class="userCart__productList">
+            <li class="userCart__product userCart__product--tableDescription">
+              <span></span>
+              <h4 class="userCart__columnDescription">Product name</h4>
+              <h4 class="userCart__columnDescription">Quantity</h4>
+              <h4 class="userCart__columnDescription">Product price</h4>
+              <h4 class="userCart__columnDescription">Summary</h4>
+            </li>
+            <li
+              class="userCart__product"
+              v-for="product in userCart"
+              :key="product._id"
+            >
+              <img
+                class="userCart__productImage"
+                :src="product.imagePath"
+                :alt="product.name + 'image'"
+              />
+              <div class="userCart__productInfomartionBox">
+                <p class="userCart__productInformation">
+                  {{ product.name }}
+                </p>
+              </div>
+              <div class="userCart__productInfomartionBox">
+                <p class="userCart__productInformation">
+                  {{ product.quantity }}
+                </p>
+              </div>
+              <div class="userCart__productInfomartionBox">
+                <p class="userCart__productInformation">
+                  {{ product.price }} $
+                </p>
+              </div>
+              <div class="userCart__productInfomartionBox">
+                <p class="userCart__productInformation">
+                  {{ (product.price * product.quantity).toFixed(2) }} $
+                </p>
+              </div>
+            </li>
+          </ul>
+        </div>
         <p class="userCart__summaryCost">Summary: {{ summaryCost }}$</p>
         <button
           class="userCart__confirmationButton"
@@ -57,7 +65,7 @@
     </div>
 
     <user-confirmation
-      v-else
+      v-if="this.userConfirmationDialog"
       class="userCart__adressConfirmation"
       @hideUserConfirmationDialog="hideUserConfirmationDialog"
     ></user-confirmation>
@@ -71,6 +79,7 @@ export default {
   data() {
     return {
       userConfirmationDialog: false,
+      userCartClick: false,
     };
   },
   computed: {
@@ -83,7 +92,7 @@ export default {
         return acc + sum;
       }, 0);
 
-      return summaryCost;
+      return summaryCost.toFixed(2);
     },
   },
   methods: {
@@ -93,49 +102,71 @@ export default {
     fetchUserAddress() {
       this.$store.dispatch("UserAuth/fetchUserAddress");
     },
+    setUserClick() {
+      this.userCartClick = true;
+    },
   },
 };
 </script>
 <style lang='scss'>
 .userCart {
   @include basicCart;
-
-  margin: 3rem;
+  margin: 1rem;
+  min-height: 50rem;
 
   h2 {
     padding: 2rem;
   }
 }
+.userCart__cartContainer {
+  position: relative;
+  padding: 1rem;
+  overflow: scroll;
+}
 .userCart__productList {
   margin: 5rem auto;
-  width: 80%;
-}
-.userCart__tableDescription {
-  @include flexLayout;
-  height: 4rem;
+  width: 60rem;
+  border: solid;
+  border-radius: 10px;
+  overflow-x: scroll;
 }
 
 .userCart__columnDescription {
   margin: auto;
   font-weight: 600;
+  text-align: center;
 }
 .userCart__product {
   font-size: $font-md;
-
   display: grid;
   grid-template-columns: 13rem 2fr 1fr 1fr 1fr;
   background-color: white;
-
   grid-gap: 0;
   color: black;
   border: 1px solid black;
   border-bottom: none;
   &:nth-child(odd) {
-    background-color: #3eaf7c;
+    background-color: $main-color;
+    color: white;
   }
   &:last-child {
     border-bottom: 1px solid black;
   }
+}
+.userCart__arrowForMobile {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  right: 4rem;
+  font-size: 4rem;
+  color: $chartrouse-color;
+  animation-name: arrowMove;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}
+.userCart__product--tableDescription {
+  background-color: $main-color !important;
+  color: white;
 }
 .userCart__productInfomartionBox {
   width: 100%;
@@ -144,10 +175,12 @@ export default {
   align-self: center;
   border-left: 1px solid black;
 }
+
 .userCart__productInformation {
   @include flexLayout;
   justify-content: center;
   height: 100%;
+  font-weight: 600;
 }
 .userCart__productImage {
   margin: 0 auto;
@@ -160,22 +193,34 @@ export default {
 .userCart__summaryCost {
   font-weight: 600;
   font-size: 2rem;
-  color: rgb(44, 62, 80);
+  color: $main-color;
 }
 .userCart__adressConfirmation {
   width: 50%;
 }
 .userCart__confirmationButton {
-  margin: 1rem;
   @include button;
-  color: white;
-  @include mainBorder;
-  font-size: $font-md;
+  margin: 1rem;
   padding: 1rem;
+  color: white;
+  font-size: $font-md;
+  font-weight: 600;
 }
 
 .userCart__modalMessage {
   color: white;
   font-size: $font-md;
+}
+
+@keyframes arrowMove {
+  0% {
+    transform: translate(0, -50%);
+  }
+  50% {
+    transform: translate(2rem, -50%);
+  }
+  100% {
+    transform: translate(0rem, -50%);
+  }
 }
 </style>

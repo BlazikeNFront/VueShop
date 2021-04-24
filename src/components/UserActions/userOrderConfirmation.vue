@@ -4,7 +4,7 @@
       @closeDialog="this.$emit('hideUserConfirmationDialog')"
       @confirmError="this.$emit('hideUserConfirmationDialog')"
       width="90%"
-      height="50%"
+      height="70%"
     >
       <div class="confirmationBox">
         <div
@@ -36,12 +36,6 @@
             <span>Address:</span>
             <p>{{ lastUsedAddress.address }}</p>
           </div>
-          <button
-            class="confirmationBox__changeAddressButton"
-            @click="this.showAddressForm = true"
-          >
-            Change address
-          </button>
         </div>
 
         <transition name="fadeFromLeft" mode="out-in">
@@ -50,7 +44,6 @@
             v-if="this.showAddressForm"
           >
             <add-address-form
-              class="confirmationBox__addAddressForm"
               @exitButton="this.showAddressForm = false"
             ></add-address-form>
           </div>
@@ -180,7 +173,7 @@ export default {
   justify-content: space-evenly;
   position: relative;
 
-  width: 70%;
+  width: 95%;
   height: 80%;
   span {
     width: 30%;
@@ -191,10 +184,6 @@ export default {
   label {
     margin: 1rem;
     font-size: 1.5rem;
-    font-weight: 600;
-  }
-  button {
-    @include button;
     font-weight: 600;
   }
 }
@@ -260,20 +249,20 @@ export default {
 }
 .confirmationBox__addAdressBox {
   position: absolute;
-  right: -20%;
-  top: -10%;
+  top: 0;
+  left: 0;
+  width: 100%;
   opacity: 1;
 }
 .confirmationBox__changeAddressButton {
   position: absolute;
   top: 0;
-
   right: 10rem;
 }
 .confirmationBox__infoBox {
   @include flexLayout;
-  margin: 2rem;
-  width: 50rem;
+  margin: 1.5rem;
+  width: 90%;
   text-align: right;
   span {
     width: 35%;
@@ -285,8 +274,12 @@ export default {
   }
 }
 .confirmationBox__addAdressBox__addressButtons {
+  @include flexLayout;
+
   button {
-    margin: 2rem;
+    @include button;
+    margin: 1rem;
+    padding: 0.5rem;
   }
 }
 
