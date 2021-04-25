@@ -158,7 +158,6 @@ export default {
       opacity: 0.4;
     }
     &:hover {
-      // width: 70%;
       & img {
         opacity: 0.4;
       }
@@ -215,24 +214,25 @@ export default {
   font-family: $secondaryFont;
   font-weight: 800;
   color: $light-blue;
-  font-size: 4rem;
+  font-size: 5rem;
+  letter-spacing: 2px;
   transition: all 0.6s;
   &::before {
     content: "";
     position: absolute;
-    top: 50%;
-    left: -1rem;
+    top: 58%;
+    left: -4rem;
     display: block;
-    width: 0rem;
+    width: 4rem;
     height: 0.2rem;
-    background-color: #292d2d;
+    background-color: $light-blue;
     transition: 0.2s all ease-in-out;
   }
   &::after {
     content: "";
     position: absolute;
-    top: 50%;
-    right: -1rem;
+    top: 58%;
+    right: -4rem;
     display: block;
     width: 4rem;
     height: 0.2rem;
@@ -249,6 +249,29 @@ export default {
     &::after {
       width: 0rem;
       background-color: $light-blue;
+    }
+  }
+}
+@media (min-width: 768px) {
+  .sliderContainer {
+    ul {
+      flex-direction: row;
+
+      li {
+        width: 25%;
+        p {
+          font-size: 4rem;
+        }
+        img {
+          opacity: 0.4;
+        }
+        &:hover {
+          width: 70%;
+          img {
+            opacity: 1;
+          }
+        }
+      }
     }
   }
 }

@@ -19,13 +19,16 @@ export default {
     setCart(state, payload) {
       state.cart = payload;
     },
-    setShowCart(state, payload) {
+    toggleCart(state, payload) {
       state.showCart = payload;
+      console.log(state.showCart);
     },
   },
   actions: {
-    setShowCart(context, payload) {
-      context.commit("setShowCart", payload);
+    toggleCart(context) {
+      const curentState = context.getters["getShowCart"];
+
+      context.commit("toggleCart", !curentState);
     },
     async fetchCartFromDb(context, token) {
       try {

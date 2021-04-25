@@ -119,7 +119,7 @@ export default {
     } 
   } 
 } */
-/* 
+/* */
 .dropDown-enter-active,
 .dropDown-leave-active {
   transition: all 0.2s linear;
@@ -131,5 +131,5 @@ export default {
 .dropDown-enter-to,
 .dropDown-leave-from {
   height: 12rem;
-} */
+}
 </style>

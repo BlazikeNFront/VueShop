@@ -28,7 +28,6 @@
 .promoBar {
   display: block;
   width: 100%;
-
   background-color: #2d2d2d;
   color: white;
 }
@@ -42,7 +41,7 @@
     font-weight: 600;
     letter-spacing: 2rem;
   }
-  @media (min-width: 580px) {
+  @media (min-width: 768px) {
     display: none;
   }
 }
@@ -51,7 +50,7 @@
   display: none;
   margin: 0 auto;
   width: clamp(57rem, 90%, 100rem);
-  @media (min-width: 580px) {
+  @media (min-width: 768px) {
     display: flex;
   }
 

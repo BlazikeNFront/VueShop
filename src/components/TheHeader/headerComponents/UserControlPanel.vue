@@ -1,11 +1,15 @@
 <template>
   <div class="userControlPanel">
-    <button @click="handleUserButton" class="userControlPanel__showPanelButton">
+    <button
+      @click="this.handleUserButton"
+      class="userControlPanel__showPanelButton"
+    >
       <font-awesome-icon
         :class="{ loggedUserIcon: token }"
         :icon="['fa', 'user']"
       ></font-awesome-icon>
     </button>
+
     <back-drop v-if="this.showUserPanel" @click="hideUserPanel"></back-drop>
     <transition name="user-panel">
       <div class="userControlPanel__panel" v-if="this.showUserPanel">
@@ -23,6 +27,11 @@ export default {
       showUserPanel: false,
     };
   },
+  computed: {
+    token() {
+      return this.$store.getters["UserAuth/getToken"];
+    },
+  },
   methods: {
     hideUserPanel() {
       this.showUserPanel = false;
@@ -34,6 +43,7 @@ export default {
         this.$router.push({ path: "/User/login" });
       }
     },
+
     logout() {
       this.$store.dispatch("UserAuth/logout");
       this.hideUserPanel();
@@ -48,17 +58,10 @@ export default {
       this.$router.push({ name: "user-orders" });
     },
   },
-  computed: {
-    token() {
-      return this.$store.getters["UserAuth/getToken"];
-    },
-  },
 };
 </script>
 <style lang="scss">
 .userControlPanel {
-  position: relative;
-
   button {
     border: none;
     background: none;
@@ -74,7 +77,7 @@ export default {
   @include bluesGradient;
   position: absolute;
   top: -1rem;
-  left: -14rem;
+  right: -6%;
   width: 19rem;
   height: 21rem;
   border: 2px solid white;

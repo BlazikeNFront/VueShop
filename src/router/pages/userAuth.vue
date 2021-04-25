@@ -52,7 +52,9 @@ export default {
 .userAuth {
   @include flexLayout;
   @include greenToBlueGradient;
-  width: 100%;
+  margin-left: 3%;
+
+  width: 95%;
   height: 55rem;
   border-radius: 10px;
   box-shadow: 5px 5px 15px black;
@@ -76,15 +78,15 @@ export default {
 
 .userAuth__companyLogoText {
   margin: 0 auto;
-  width: 70%;
-  height: 45%;
+  width: 29rem;
+  height: 12rem;
   background-image: url("../../assets/companyTextLogo.png");
   background-size: cover;
 }
 .userAuth__companyLogoIcon {
   margin: 0 auto;
-  width: 60%;
-  height: 55%;
+  width: 23rem;
+  height: 14rem;
   background-image: url("../../assets/companyFishIcon.png");
   background-size: cover;
   transform: scaleX(1);
@@ -99,8 +101,9 @@ export default {
   display: none;
 }
 .changedHeight {
-  height: 70rem;
+  height: 73rem;
 }
+
 .iconReverseAnim {
   transform: scaleX(-1);
 }

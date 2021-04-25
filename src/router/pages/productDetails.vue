@@ -67,7 +67,7 @@ export default {
       payload.price = this.product.price;
       payload.quantity = this.quantity;
       this.$store.dispatch("Cart/addItemtoCart", payload);
-      this.$store.dispatch("Cart/setShowCart", true);
+      this.$store.dispatch("Cart/toggleCart");
       this.showNotifaction = true;
       this.$store.dispatch("Cart/setCartInLocalStorage");
     },

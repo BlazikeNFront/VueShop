@@ -195,12 +195,21 @@ export default {
 <style lang="scss">
 .addAddressBox {
   @include basicCart;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 1;
   padding: 1.5rem;
   padding-top: 2.5rem;
   h4 {
     text-align: center;
     margin-top: 1rem;
     font-size: 1.5rem;
+    font-weight: 600;
+  }
+  p {
+    text-align: center;
     font-weight: 600;
   }
 }
@@ -322,6 +331,21 @@ export default {
   font-weight: 600;
   svg {
     margin-left: 1%;
+  }
+}
+@media (min-width: 768px) {
+  .addAddressBox {
+    position: absolute;
+    top: 0;
+    width: 40rem;
+    opacity: 1;
+    left: 50%;
+    transform: translate(-50%);
+    .customSelect {
+      svg {
+        left: 33rem;
+      }
+    }
   }
 }
 </style>

@@ -38,15 +38,11 @@
           </div>
         </div>
 
-        <transition name="fadeFromLeft" mode="out-in">
-          <div
-            class="confirmationBox__addAdressBox"
+        <transition name="addNewAddress" mode="out-in">
+          <add-address-form
             v-if="this.showAddressForm"
-          >
-            <add-address-form
-              @exitButton="this.showAddressForm = false"
-            ></add-address-form>
-          </div>
+            @exitButton="this.showAddressForm = false"
+          ></add-address-form>
         </transition>
 
         <div class="confirmationBox__addAdressBox__addressButtons">
@@ -56,7 +52,7 @@
           <button @click="this.handleOrderRequest">Confirm Order</button>
         </div>
       </div>
-      <transition name="fadeFromLeft" mode="out-in">
+      <transition name="orderResult" mode="out-in">
         <div
           class="confirmationBox__orderResultBox"
           v-if="this.orderResult.visible"
@@ -160,7 +156,7 @@ export default {
       if (this.orderResult.result === true) {
         this.$router.push({ name: "user-orders" });
       } else {
-        this.$emit("hideAddressDialog");
+        this.orderResult.visible = false;
       }
     },
   },
@@ -199,6 +195,10 @@ export default {
   position: absolute;
   width: 28rem;
   height: 28rem;
+  @media (min-width: 768px) {
+    left: 50%;
+    transform: translate(-50%);
+  }
   h4 {
     margin-top: 2rem;
     font-size: 2rem;
@@ -246,14 +246,11 @@ export default {
     width: 100%;
     font-weight: 600;
   }
+  button {
+    @include button;
+  }
 }
-.confirmationBox__addAdressBox {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  opacity: 1;
-}
+
 .confirmationBox__changeAddressButton {
   position: absolute;
   top: 0;
@@ -283,21 +280,46 @@ export default {
   }
 }
 
-.fadeFromLeft-enter-active {
+.addNewAddress-enter-active,
+.orderResult-enter-active {
   transition: all 0.5s ease-out;
 }
-.fadeFromLeft-leave-active {
+.addNewAddress-leave-active,
+.orderResult-leave-active {
   transition: all 0.5s ease-in;
 }
-.fadeFromLeft-enter-from,
-.fadeFromLeft-leave-to {
-  transform: translate(75%);
+.addNewAddress-enter-from,
+.addNewAddress-leave-to {
+  transform: translate(30rem);
   opacity: 0;
+  @media (min-width: 768px) {
+    transform: translate(40rem);
+  }
 }
-.fadeFromLeft-enter-to,
-.fadeFromLeft-leave-from {
+.addNewAddress-enter-to,
+.addNewAddress-leave-from {
   transform: translate(0rem);
   opacity: 1;
+  @media (min-width: 768px) {
+    transform: translate(-50%);
+  }
+}
+
+.orderResult-enter-from,
+.orderResult-leave-to {
+  transform: translate(30rem);
+  opacity: 0;
+  @media (min-width: 768px) {
+    transform: translate(40rem);
+  }
+}
+.orderResult-enter-to,
+.orderResult-leave-from {
+  transform: translate(0rem);
+  opacity: 1;
+  @media (min-width: 768px) {
+    transform: translate(-50%);
+  }
 }
 </style>
 

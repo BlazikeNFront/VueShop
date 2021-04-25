@@ -27,6 +27,9 @@ export default {
   width: 9.5rem;
   height: 7rem;
   cursor: pointer;
+  @media (min-width: 768px) {
+    width: 17.5rem;
+  }
 }
 .header__fishImg {
   width: 12rem;

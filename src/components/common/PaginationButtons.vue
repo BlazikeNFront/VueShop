@@ -94,10 +94,11 @@ export default {
 </script>
 <style lang="scss">
 .paginationButtons {
+  @include flexLayout;
   margin: 0 2rem;
   margin: 4rem auto;
+  width: 90%;
 
-  @include flexLayout;
   .pagination__pageChangersButtons {
     @include button;
     color: white;
@@ -161,6 +162,12 @@ export default {
 
   100% {
     transform: rotateY(1turn) scale(1.4);
+  }
+}
+
+@media (min-width: 768px) {
+  .paginationButtons {
+    width: 70%;
   }
 }
 </style>

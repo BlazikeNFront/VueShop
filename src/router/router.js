@@ -41,10 +41,6 @@ const router = createRouter({
       path: "/Admin",
       component: AdminCMS,
       beforeEnter(to, from, next) {
-        to;
-        from;
-        next;
-
         if (
           !globalStore.getters["UserAuth/getAdminState"] ||
           !globalStore.getters["UserAuth/getToken"]
@@ -59,10 +55,6 @@ const router = createRouter({
       path: "/Admin/AddProduct",
       component: AdminAddProduct,
       beforeEnter(to, from, next) {
-        to;
-        from;
-        next;
-
         if (
           !globalStore.getters["UserAuth/getAdminState"] ||
           !globalStore.getters["UserAuth/getToken"]
@@ -78,10 +70,6 @@ const router = createRouter({
       path: "/Admin/orders",
       component: AdminOrders,
       beforeEnter(to, from, next) {
-        to;
-        from;
-        next;
-
         if (
           !globalStore.getters["UserAuth/getAdminState"] ||
           !globalStore.getters["UserAuth/getToken"]
@@ -93,7 +81,18 @@ const router = createRouter({
       },
     },
     { name: "user-cart", path: "/UserCart", component: UserCart },
-    { name: "user-orders", path: "/UserOrders", component: UserOrders },
+    {
+      name: "user-orders",
+      path: "/UserOrders",
+      component: UserOrders,
+      beforeEnter(to, from, next) {
+        if (!globalStore.getters["UserAuth/getToken"]) {
+          next({ name: "user-login", params: { view: "login" } });
+        } else {
+          next();
+        }
+      },
+    },
 
     { path: "/user/historyOrder", component: UserCart },
   ],

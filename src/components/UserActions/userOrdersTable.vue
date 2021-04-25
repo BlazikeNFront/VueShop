@@ -97,8 +97,10 @@ export default {
 .orders__container {
   overflow-x: scroll;
   margin-left: 5%;
-  width: 95%;
   position: relative;
+  @media (min-width: 768px) {
+    margin: 0;
+  }
 }
 .orders__ordersList {
   margin: 0 auto;

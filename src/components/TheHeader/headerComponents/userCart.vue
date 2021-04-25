@@ -72,7 +72,7 @@
           </button>
         </div>
       </div>
-      <a @click.prevent="userCartPageLink">VIEW CART</a>
+      <a @click.prevent="this.userCartPageLink">VIEW CART</a>
     </section>
   </transition>
 </template>
@@ -81,36 +81,6 @@ import InputNumber from "../../common/InputNumber.vue";
 export default {
   components: {
     InputNumber,
-  },
-
-  methods: {
-    showUserCartAction() {
-      const payload = !this.showUserCart; //Boolean Value
-      this.$store.dispatch("Cart/setShowCart", payload);
-    },
-    handleOrderRequest() {
-      if (!this.token) {
-        this.$router.push({ path: "/User/login" });
-        return;
-      }
-      this.$router.push("/userOrder");
-    },
-    userCartPageLink() {
-      this.showUserCartAction();
-      this.$router.push({
-        name: "user-cart",
-      });
-    },
-    changeProductQuantityInCart(number, prodId) {
-      const payload = {
-        newQuantity: number,
-        prodId,
-      };
-      this.$store.dispatch("Cart/updateProductQuantityInCart", payload);
-    },
-    deleteProductFromCart(prodId) {
-      this.$store.dispatch("Cart/deleteItemFromCart", prodId);
-    },
   },
 
   computed: {
@@ -139,6 +109,34 @@ export default {
       this.userCart = newVal;
     },
   },
+  methods: {
+    showUserCartAction() {
+      this.$store.dispatch("Cart/toggleCart");
+    },
+    handleOrderRequest() {
+      if (!this.token) {
+        this.$router.push({ path: "/User/login" });
+        return;
+      }
+      this.$router.push("/userOrder");
+    },
+    userCartPageLink() {
+      this.showUserCartAction();
+      this.$router.push({
+        name: "user-cart",
+      });
+    },
+    changeProductQuantityInCart(number, prodId) {
+      const payload = {
+        newQuantity: number,
+        prodId,
+      };
+      this.$store.dispatch("Cart/updateProductQuantityInCart", payload);
+    },
+    deleteProductFromCart(prodId) {
+      this.$store.dispatch("Cart/deleteItemFromCart", prodId);
+    },
+  },
 };
 </script>
 <style lang='scss'>
@@ -149,6 +147,9 @@ export default {
   cursor: pointer;
   position: relative;
   display: none;
+  @media (min-width: 425px) {
+    display: flex;
+  }
 
   img {
     width: 100%;
@@ -191,6 +192,9 @@ export default {
   top: 0;
   z-index: 1400;
   cursor: default;
+  @media (min-width: 768px) {
+    width: 50vh;
+  }
 
   h4 {
     @include flexLayout;
@@ -282,7 +286,7 @@ export default {
 }
 
 .cartContainer__cartIcon {
-  font-size: $font-bg;
+  font-size: 2.5rem;
 }
 .cartContainer__XButton {
   font-size: 3rem;
@@ -290,10 +294,10 @@ export default {
 }
 .cartContainer__totalQtn {
   position: relative;
-  width: 1.5rem;
-  height: 1.5rem;
-  top: 1rem;
-  left: -0.8rem;
+  width: 2rem;
+  height: 2rem;
+  bottom: -1.3rem;
+  left: -0.2rem;
   color: white;
   z-index: 500;
   font-size: $font-sm;
@@ -302,8 +306,10 @@ export default {
     content: "";
     display: block;
     position: absolute;
-    width: 1.5rem;
-    height: 1.5rem;
+    top: -0.2rem;
+    left: -0.4rem;
+    width: 2rem;
+    height: 2rem;
     background-color: red;
     border-radius: 50%;
     z-index: -1;
@@ -318,6 +324,9 @@ export default {
 .cart-enter-from,
 .cart-leave-to {
   transform: translate(30rem, 0);
+  @media (min-width: 425px) {
+    transform: translate(45rem, 0);
+  }
 }
 .cart-enter-to,
 .cart-leave-from {

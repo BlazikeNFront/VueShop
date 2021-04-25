@@ -85,80 +85,145 @@ export default {
   form {
     @include flexLayout;
   }
-  .searchBarInput {
-    @include flexLayout;
-    margin-left: 1rem;
-    width: 15rem;
-    border-bottom: 1px solid grey;
+}
+.searchBarInput {
+  @include flexLayout;
+  margin-left: 1rem;
+  width: 15rem;
+  border-bottom: 1px solid grey;
 
-    input {
-      width: 11rem;
-      font-size: 1.2rem;
-      border: none;
-      text-align: center;
-      font-family: inherit;
-      font-weight: 600;
-      background: transparent;
-      &:focus {
-        outline: none;
+  input {
+    width: 11rem;
+    font-size: 1.2rem;
+    border: none;
+    text-align: center;
+    font-family: inherit;
+    font-weight: 600;
+    background: transparent;
+    &:focus {
+      outline: none;
+    }
+  }
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus {
+    border: none;
+    -webkit-text-fill-color: black;
+    -webkit-box-shadow: 0 0 0 30px #f5e3e6 inset;
+    box-shadow: 0 0 0 30px #f5e3e6 inset;
+  }
+  button {
+    @include buttonTransparent;
+    font-size: 2rem;
+    svg {
+      color: $main-color;
+    }
+  }
+}
+.searchBarContainer__dropdown {
+  position: relative;
+  color: white;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background-color: #2a2a72;
+  .customSelect {
+    @include flexLayout;
+    position: relative;
+    height: 3rem;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    z-index: 1200;
+    p {
+      display: none;
+    }
+    svg {
+      position: absolute;
+      left: 0.5rem;
+      width: 2rem;
+    }
+  }
+  .customSelect__selectOption {
+    @include greenToBlueGradient;
+    position: absolute;
+    top: 3.5rem;
+    left: -5.5rem;
+    width: 14rem;
+    border-radius: 10px;
+    border: 2px solid $main-color;
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    z-index: $headerDropDown;
+
+    li {
+      position: relative;
+      padding: 1rem;
+      cursor: pointer;
+      &::after {
+        content: "";
+        display: block;
+        bottom: 1px;
+        left: 50%;
+        transform: translate(-50%);
+        position: absolute;
+        width: 70%;
+        height: 0.1rem;
+        background-color: white;
       }
-    }
-    input:-webkit-autofill,
-    input:-webkit-autofill:hover,
-    input:-webkit-autofill:focus {
-      border: none;
-      -webkit-text-fill-color: black;
-      -webkit-box-shadow: 0 0 0 30px #f5e3e6 inset;
-      box-shadow: 0 0 0 30px #f5e3e6 inset;
-    }
-    button {
-      @include buttonTransparent;
-      width: 4rem;
-      svg {
-        color: $main-color;
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.2);
+        font-weight: 600;
+        &::after {
+          background-color: $light-Black;
+        }
       }
     }
   }
+}
+
+@media (min-width: 768px) {
   .searchBarContainer__dropdown {
-    position: relative;
-    color: white;
-    width: 3rem;
-    height: 3rem;
-    border-radius: 50%;
-    background-color: #2a2a72;
+    width: 10rem;
+    border-radius: 10px 10px 0 0;
     .customSelect {
-      @include flexLayout;
-      position: relative;
-      height: 3rem;
-      padding: 1rem 1.5rem;
-      cursor: pointer;
-      z-index: 1200;
+      width: 100%;
       p {
-        display: none;
+        display: block;
+        color: white;
+        font-weight: 600;
+        font-size: 1.1rem;
+        letter-spacing: 1px;
       }
       svg {
-        position: absolute;
-        left: 0.5rem;
+        left: 7.3rem;
         width: 2rem;
       }
     }
     .customSelect__selectOption {
-      @include greenToBlueGradient;
       position: absolute;
-      top: 3.5rem;
-      left: -5.5rem;
-      width: 14rem;
-      border-radius: 10px;
-      border: 2px solid $main-color;
-      font-size: 1.4rem;
-      font-weight: 600;
-      letter-spacing: 3px;
-      z-index: $headerDropDown;
+      z-index: 1200;
+      width: 10rem;
+      top: 3rem;
+      left: 0;
+      border-radius: 0 0 10px 10px;
+      font-size: 1.2rem;
+      overflow: hidden;
+      cursor: pointer;
+      background-image: none;
+      background: rgb(42, 42, 114);
+      background: linear-gradient(
+        180deg,
+        rgba(42, 42, 114, 1) 0%,
+        rgba(9, 9, 121, 1) 11%,
+        rgba(11, 211, 211, 1) 100%
+      );
 
       li {
+        @include mainFontBold;
+        padding: 0.5rem;
+        border-radius: 5px;
         position: relative;
-        padding: 1rem;
-        cursor: pointer;
         &::after {
           content: "";
           display: block;
@@ -171,22 +236,13 @@ export default {
           background-color: white;
         }
         &:hover {
-          background-color: rgba(0, 0, 0, 0.2);
-          font-weight: 600;
+          color: #2c3e50;
+          background-color: rgba(255, 255, 255, 0.2);
           &::after {
-            background-color: $light-Black;
+            background-color: #2c3e50;
           }
         }
       }
-    }
-  }
-
-  .searchBarContainer__submitIcon {
-    width: 70%;
-    height: 100%;
-    color: gray;
-    &:hover {
-      color: black;
     }
   }
 }

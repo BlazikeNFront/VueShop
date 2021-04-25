@@ -53,10 +53,7 @@
         <p class="userCart__summaryCost">Summary: {{ summaryCost }}$</p>
         <button
           class="userCart__confirmationButton"
-          @click="
-            this.userConfirmationDialog = true;
-            this.fetchUserAddress();
-          "
+          @click="this.showUserConfimationDialog()"
         >
           Confirm order
         </button>
@@ -66,7 +63,6 @@
 
     <user-confirmation
       v-if="this.userConfirmationDialog"
-      class="userCart__adressConfirmation"
       @hideUserConfirmationDialog="hideUserConfirmationDialog"
     ></user-confirmation>
   </section>
@@ -83,6 +79,10 @@ export default {
     };
   },
   computed: {
+    token() {
+      return this.$store.getters["UserAuth/getToken"] || false;
+    },
+
     userCart() {
       return this.$store.getters["Cart/getCart"];
     },
@@ -96,6 +96,15 @@ export default {
     },
   },
   methods: {
+    showUserConfimationDialog() {
+      if (!this.token) {
+        this.$router.push({ name: "user-login", params: { view: "login" } });
+        return;
+      }
+      this.userConfirmationDialog = true;
+
+      this.fetchUserAddress();
+    },
     hideUserConfirmationDialog() {
       this.userConfirmationDialog = false;
     },
@@ -221,6 +230,11 @@ export default {
   }
   100% {
     transform: translate(0rem, -50%);
+  }
+}
+@media (min-width: 768px) {
+  .userCart__arrowForMobile {
+    display: none;
   }
 }
 </style>
