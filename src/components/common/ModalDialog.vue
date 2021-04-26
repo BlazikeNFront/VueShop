@@ -28,15 +28,18 @@ export default {
 
   flex-direction: column;
   position: fixed;
-  z-index: 1100;
+  z-index: $modal-dialog;
   width: inherit;
-  width: 100%;
+
   height: fit-content;
   border: 2px solid $primiary-color;
   border-radius: 10px;
   background-color: #d9e4f5;
   background-image: linear-gradient(315deg, #d9e4f5 0%, #f5e3e6 74%);
   overflow: hidden;
+}
+.backdrop {
+  z-index: $modal-dialog;
 }
 .modalDialog__h3 {
   margin: 1rem;

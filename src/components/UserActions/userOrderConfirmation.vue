@@ -3,8 +3,6 @@
     <modal-dialog
       @closeDialog="this.$emit('hideUserConfirmationDialog')"
       @confirmError="this.$emit('hideUserConfirmationDialog')"
-      width="90%"
-      height="70%"
     >
       <div class="confirmationBox">
         <div
@@ -168,9 +166,8 @@ export default {
   flex-direction: column;
   justify-content: space-evenly;
   position: relative;
-
-  width: 95%;
-  height: 80%;
+  width: 35rem;
+  height: 45rem;
   span {
     width: 30%;
     font-size: 1.5rem;
@@ -320,6 +317,21 @@ export default {
   @media (min-width: 768px) {
     transform: translate(-50%);
   }
+}
+
+@media (min-width: 768px) {
+  .confirmationBox {
+    width: 60rem;
+    height: 50rem;
+  }
+  .confirmationBox__addAdressBox__addressButtons {
+    button {
+      padding: 1rem;
+      font-weight: 600;
+    }
+  }
+}
+@media (min-width: 1024px) {
 }
 </style>
 

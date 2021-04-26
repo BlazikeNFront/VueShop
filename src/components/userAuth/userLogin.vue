@@ -90,11 +90,6 @@ export default {
       this.serverErrorMsg = null;
     },
   },
-  computed: {
-    token() {
-      return this.$store.getters["UserAuth/getToken"];
-    },
-  },
 };
 </script>
 <style lang='scss'>

@@ -127,6 +127,7 @@ export default {
   height: 3rem;
   border-radius: 50%;
   background-color: #2a2a72;
+  z-index: 1000;
   .customSelect {
     @include flexLayout;
     position: relative;
@@ -141,6 +142,9 @@ export default {
       position: absolute;
       left: 0.5rem;
       width: 2rem;
+    }
+    .backdrop {
+      z-index: $headerDropDown;
     }
   }
   .customSelect__selectOption {
@@ -196,8 +200,8 @@ export default {
         letter-spacing: 1px;
       }
       svg {
-        left: 7.3rem;
-        width: 2rem;
+        left: 8rem;
+        width: 1.5rem;
       }
     }
     .customSelect__selectOption {
@@ -243,6 +247,33 @@ export default {
           }
         }
       }
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  .searchBarContainer {
+    width: 33rem;
+  }
+  .searchBarContainer__dropdown {
+    width: 13rem;
+
+    .customSelect {
+      svg {
+        left: 9.5rem;
+      }
+    }
+    .customSelect__selectOption {
+      width: 13rem;
+    }
+  }
+
+  .searchBarInput {
+    width: 17rem;
+
+    input {
+      width: 14rem;
+      font-size: 1.3rem;
     }
   }
 }

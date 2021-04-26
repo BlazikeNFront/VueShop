@@ -95,6 +95,7 @@
 <script>
 export default {
   props: ["order", "changeOrderStatus"],
+
   emits: ["orderStatusChanged", "closeModal"],
 
   data() {
@@ -106,11 +107,7 @@ export default {
       userOrderClick: false,
     };
   },
-  computed: {
-    getToken() {
-      return this.$store.getters["UserAuth/getToken"];
-    },
-  },
+
   methods: {
     setUserOrderClick() {
       this.userOrderClick = true;

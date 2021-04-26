@@ -1,9 +1,7 @@
 <template>
   <div
     class="backdrop"
-    :style="` background-color: rgba(0, 0, 0, ${
-      this.blackOpacity || 0.5
-    });z-index:${this.zIndex || 1000}`"
+    :style="` background-color: rgba(0, 0, 0, ${this.blackOpacity || 0.5});`"
   ></div>
 </template>
 <script>

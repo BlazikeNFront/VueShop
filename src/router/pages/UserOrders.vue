@@ -65,8 +65,8 @@ export default {
 }
 .userOrder__updateButton {
   @include button;
-  margin-top: 2rem;
-  padding: 0.5rem 1rem;
+  margin: 2rem;
+  padding: 1rem;
   font-weight: 600;
   &:hover {
     color: #2c3e50;

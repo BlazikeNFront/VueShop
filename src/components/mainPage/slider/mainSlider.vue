@@ -199,10 +199,10 @@ export default {
 }
 .sliderContainer__para--hover {
   display: none;
-  top: 5rem;
+  top: 10rem;
   margin-left: 50%;
-
   transform: translate(-50rem, -50%);
+  font-size: 5rem;
 }
 .sliderContainer__link {
   display: block;
@@ -247,13 +247,14 @@ export default {
       background-color: $light-blue;
     }
     &::after {
-      width: 0rem;
+      width: 4rem;
       background-color: $light-blue;
     }
   }
 }
 @media (min-width: 768px) {
   .sliderContainer {
+    width: 95%;
     ul {
       flex-direction: row;
 
@@ -271,6 +272,40 @@ export default {
             opacity: 1;
           }
         }
+      }
+    }
+  }
+}
+@media (min-width: 1024px) {
+  .sliderContainer {
+    width: 100rem;
+    ul {
+      li {
+        p {
+          display: block;
+          font-size: 5rem;
+        }
+      }
+    }
+  }
+  .sliderContainer__para--hover {
+    display: block;
+    font-size: 8rem;
+    color: black;
+    -webkit-text-stroke: 1px white;
+  }
+
+  .sliderContainer__link {
+    &::before {
+      width: 0rem;
+    }
+
+    &:hover {
+      &::before {
+        width: 4rem;
+      }
+      &::after {
+        width: 0rem;
       }
     }
   }

@@ -130,7 +130,6 @@ export default {
 .userCart__cartContainer {
   position: relative;
   padding: 1rem;
-  overflow: scroll;
 }
 .userCart__productList {
   margin: 5rem auto;
@@ -235,6 +234,11 @@ export default {
 @media (min-width: 768px) {
   .userCart__arrowForMobile {
     display: none;
+  }
+}
+@media (min-width: 768px) {
+  .userCart__productList {
+    overflow: initial;
   }
 }
 </style>

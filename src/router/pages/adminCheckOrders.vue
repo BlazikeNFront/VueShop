@@ -64,11 +64,13 @@
 <script >
 import OrderDetails from "../../components/UserActions/orderDetails.vue";
 import PaginationButtons from "../../components/common/PaginationButtons.vue";
+
 export default {
   components: {
     OrderDetails,
     PaginationButtons,
   },
+
   mounted() {
     const page = this.$route.query.page;
 
@@ -87,9 +89,6 @@ export default {
   computed: {
     orders() {
       return this.$store.getters["Admin/getOrders"];
-    },
-    getToken() {
-      return this.$store.getters["UserAuth/getToken"];
     },
 
     currentPage() {

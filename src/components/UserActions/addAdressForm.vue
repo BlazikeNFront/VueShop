@@ -13,7 +13,7 @@
       <drop-down
         v-else
         class="addAddress__dropdown"
-        :defaultCategory="this.createDropDownListItems[0]"
+        :defaultCategory="this.createDefaultDropdownValue"
         :listOfCategories="this.createDropDownListItems"
         @categoryChange="setUserAddress"
       ></drop-down>
@@ -82,7 +82,7 @@ export default {
   components: {
     DropDown,
   },
-
+  emits: ["exitButton"],
   data() {
     return {
       newAddressForm: {
@@ -90,6 +90,7 @@ export default {
         surname: { value: "", error: false },
         address: { value: "", error: false },
       },
+
       formErrorMsg: null,
       addressUpdateResult: null,
       formLoader: false,
@@ -99,7 +100,16 @@ export default {
     userAddressList() {
       return this.$store.getters["UserAuth/getAllUserAddresses"];
     },
-
+    createDefaultDropdownValue() {
+      if (this.$store.getters["UserAuth/getLastUsedAddress"]) {
+        const { name, surname, address } = this.$store.getters[
+          "UserAuth/getLastUsedAddress"
+        ];
+        return `${name} ${surname} ${address}`;
+      } else {
+        return this.createDropDownListItems[0];
+      }
+    },
     createDropDownListItems() {
       return this.userAddressList.map(
         (element) => `${element.name} ${element.surname} ${element.address}`
@@ -109,6 +119,7 @@ export default {
   methods: {
     setUserAddress(category, index) {
       const addressObject = this.userAddressList[index];
+
       this.$store.dispatch("UserAuth/setLastUsedUserAddress", addressObject);
       this.$emit("exitButton");
     },
@@ -196,9 +207,8 @@ export default {
 .addAddressBox {
   @include basicCart;
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+  margin: 0 auto;
+  width: 28rem;
   opacity: 1;
   padding: 1.5rem;
   padding-top: 2.5rem;
@@ -245,6 +255,7 @@ export default {
 
   .customSelect {
     width: 100%;
+    z-index: $addAddressDropDown;
     p {
       width: 100%;
       font-size: 1.2rem;
@@ -266,8 +277,13 @@ export default {
     text-align: center;
     background-color: $main-color;
     z-index: $addAddressDropDown;
+    cursor: pointer;
+
     li {
       padding: 1rem;
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+      }
     }
   }
 }
@@ -277,21 +293,25 @@ export default {
 }
 .confirmationForm__formControl {
   @include flexLayout;
-  width: 30rem;
+  flex-direction: column;
+  width: 25rem;
   margin: 1rem;
   padding: 0.5rem;
   border-radius: 10px;
   justify-content: flex-end;
-  background-color: rgba(255, 255, 255, 0.2);
+
   input {
     border: none;
-
     text-align: center;
+    width: 95%;
     height: 90%;
     font-family: inherit;
     font-weight: 600;
     background: transparent;
-    border-bottom: 1px solid #2c3e50;
+    border-bottom: 2px solid #2c3e50;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 1rem;
+    border-radius: 10px;
     &:focus {
       outline: none;
     }
@@ -316,7 +336,7 @@ export default {
   padding: 1rem;
   font-weight: 600;
   letter-spacing: 1px;
-  margin-top: 6rem;
+  margin-top: 2rem;
 }
 .confirmationBox__formExitButton {
   @include button;
@@ -333,6 +353,7 @@ export default {
     margin-left: 1%;
   }
 }
+
 @media (min-width: 768px) {
   .addAddressBox {
     position: absolute;
@@ -345,6 +366,15 @@ export default {
       svg {
         left: 33rem;
       }
+    }
+  }
+  .confirmationForm__formControl {
+    flex-direction: row;
+    background-color: rgba(255, 255, 255, 0.2);
+    input {
+      background-color: transparent;
+      border-width: 1px;
+      border-radius: 0;
     }
   }
 }

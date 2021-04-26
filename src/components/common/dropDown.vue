@@ -43,6 +43,9 @@ export default {
       type: Object,
     },
   },
+  mounted() {
+    console.log(this.defaultCategory);
+  },
   emits: ["categoryChange"],
   data() {
     return {
@@ -68,9 +71,7 @@ export default {
 .customSelect {
   @include flexLayout;
   position: relative;
-
   cursor: pointer;
-  z-index: 1200;
   background: none;
   border: none;
 

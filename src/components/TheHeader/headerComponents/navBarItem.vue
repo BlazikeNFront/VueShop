@@ -138,4 +138,18 @@ export default {
 .letterSpacing {
   letter-spacing: 2px;
 }
+@media (min-width: 1024px) {
+  .mainNavList__item {
+    width: 20rem;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  .mainNavList__subList {
+    width: 20rem;
+  }
+  .mainNavList__item li:nth-child(1) {
+    font-size: 1.4rem;
+  }
+}
 </style>

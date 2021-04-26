@@ -39,10 +39,12 @@
 </template>
 <script>
 import InputRange from "../../components/common/InputNumber.vue";
+
 export default {
   components: {
     InputRange,
   },
+
   data() {
     return {
       quantity: 1,
@@ -73,9 +75,6 @@ export default {
     },
   },
   computed: {
-    token() {
-      return this.$store.getters["UserAuth/getToken"];
-    },
     product() {
       return this.$store.getters["UserSearch/getProductDetails"];
     },

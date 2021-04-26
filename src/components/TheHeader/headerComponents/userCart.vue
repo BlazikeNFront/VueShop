@@ -8,11 +8,7 @@
       {{ totalQuantityOfUserProducts }}
     </p>
   </div>
-  <back-drop
-    @click="showUserCartAction"
-    v-if="showUserCart"
-    zIndex="1200"
-  ></back-drop>
+  <back-drop @click="showUserCartAction" v-if="showUserCart"></back-drop>
   <transition name="cart">
     <section class="cartContainer" v-if="showUserCart">
       <h4>
@@ -78,15 +74,13 @@
 </template>
 <script>
 import InputNumber from "../../common/InputNumber.vue";
+
 export default {
   components: {
     InputNumber,
   },
 
   computed: {
-    token() {
-      return this.$store.getters["UserAuth/getToken"];
-    },
     showUserCart() {
       return this.$store.getters["Cart/getShowCart"];
     },
@@ -142,10 +136,11 @@ export default {
 <style lang='scss'>
 .cartIconContainer {
   @include flexLayout;
+  position: relative;
   width: 4rem;
   height: 4rem;
   cursor: pointer;
-  position: relative;
+
   display: none;
   @media (min-width: 425px) {
     display: flex;
@@ -192,8 +187,8 @@ export default {
   top: 0;
   z-index: 1400;
   cursor: default;
-  @media (min-width: 768px) {
-    width: 50vh;
+  @media (min-width: 425px) {
+    width: 30rem;
   }
 
   h4 {
