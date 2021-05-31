@@ -11,7 +11,6 @@
       ></div>
     </div>
     <user-login
-      class="userAuth__userLogin"
       :class="{ changeViewTransition: !this.showUserLogin }"
       @changeView="changeView"
     ></user-login>
@@ -52,8 +51,8 @@ export default {
 .userAuth {
   @include flexLayout;
   @include greenToBlueGradient;
+  position: relative;
   margin-left: 3%;
-
   width: 95%;
   height: 55rem;
   border-radius: 10px;
@@ -66,14 +65,6 @@ export default {
 .userAuth__logoBox {
   width: 100%;
   height: 27rem;
-
-  /*  position: absolute;
-  width: 50%;
-  height: 70rem;
-  right: 5%;
-  padding: 10rem 0 10rem 0;
-  border-radius: 10px;
-  transition: all 2s; */
 }
 
 .userAuth__companyLogoText {
@@ -95,16 +86,40 @@ export default {
 
 .loginToSignupAnim {
   transition: all 2s;
-  /*  transform: translateX(-90%); */
 }
 .changeViewTransition {
-  display: none;
+  opacity: 0;
 }
 .changedHeight {
   height: 73rem;
 }
-
 .iconReverseAnim {
   transform: scaleX(-1);
+}
+@media (min-width: 1024px) {
+  .userAuth {
+    margin: 0 auto;
+    width: 90%;
+    height: 55rem;
+    max-width: $max-width;
+
+    flex-direction: row;
+    justify-content: initial;
+  }
+  .userAuth__logoBox {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10rem 0 10rem 0;
+    width: 50%;
+    height: 70rem;
+
+    border-radius: 10px;
+    transition: all 2s;
+  }
+  .loginToSignupAnim {
+    transition: all 2s;
+    transform: translateX(-90%);
+  }
 }
 </style>

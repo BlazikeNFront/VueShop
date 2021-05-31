@@ -4,7 +4,6 @@
       <button
         @click="previousPageClick()"
         class="pagination__pageChangersButtons"
-        :class="{ pageChangersRealignment: this.alignPageChangersButton }"
       >
         <font-awesome-icon
           :icon="['fas', 'arrow-right']"
@@ -30,7 +29,6 @@
       <button
         @click="nextPageClick($event)"
         class="pagination__pageChangersButtons"
-        :class="{ pageChangersRealignment: this.alignPageChangersButton }"
       >
         <font-awesome-icon
           :icon="['fas', 'arrow-right']"
@@ -48,15 +46,7 @@ export default {
   components: {
     HexagonalShape,
   },
-  computed: {
-    alignPageChangersButton() {
-      if (this.numberOfPages > 10) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-  },
+
   methods: {
     previousPageClick() {
       if (parseInt(this.currentPage) === 1) {
@@ -95,15 +85,15 @@ export default {
 <style lang="scss">
 .paginationButtons {
   @include flexLayout;
-  margin: 0 2rem;
   margin: 4rem auto;
   width: 90%;
 
   .pagination__pageChangersButtons {
     @include button;
+    margin: 3rem;
+    padding: 1rem;
     color: white;
     font-size: $font-md;
-    padding: 1rem;
   }
   button:hover {
     color: #2c3e50;
@@ -112,25 +102,23 @@ export default {
 .paginationButtons__hexagonButtons {
   @include mainFontBold;
   position: relative;
-  color: white;
-  padding: 0;
-  outline: none;
   width: 100%;
   height: 100%;
+  color: white;
   font-size: 1.5rem;
   background-color: transparent;
   border: none;
+  outline: none;
   z-index: 1;
 }
 
 .paginationButtons__pages {
-  flex-wrap: wrap;
   @include flexLayout;
   justify-content: center;
+  flex-wrap: wrap;
 }
 .paginationButtons__hexagonShapes {
   margin: 0 1rem;
-
   transform: scale(1.4);
   transition: all 0.5s;
   cursor: pointer;
@@ -152,9 +140,7 @@ export default {
   animation-fill-mode: forwards;
   animation-duration: 1s;
 }
-.pageChangersRealignment {
-  transform: translateY(-51%);
-}
+
 @keyframes buttonAnimation {
   0% {
     transform: rotateY(0turn) scale(1.4);

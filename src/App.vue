@@ -4,7 +4,6 @@
   </div>
   <div class="container">
     <the-header></the-header>
-
     <main id="main">
       <router-view v-slot="{ Component, route }">
         <transition mode="out-in" :name="route.meta.transition || 'pageChange'">
@@ -13,6 +12,13 @@
       </router-view>
     </main>
     <footer-component></footer-component>
+    <modal-dialog
+      v-if="this.userActionError"
+      @closeDialog="this.closeErrorModal"
+    >
+      <h4 class="errorDialog_h4">Error occured :(</h4>
+      <p class="errorDialog_p">{{ this.userActionErrorMessage }}</p>
+    </modal-dialog>
   </div>
 </template>
 
@@ -28,6 +34,19 @@ export default {
     TheHeader,
     WeekOfferBox,
     FooterComponent,
+  },
+  computed: {
+    userActionError() {
+      return this.$store.getters["ErrorHandler/getShowErrorModal"];
+    },
+    userActionErrorMessage() {
+      return this.$store.getters["ErrorHandler/getErrorModalMsg"];
+    },
+  },
+  methods: {
+    closeErrorModal() {
+      this.$store.dispatch("ErrorHandler/closeModal");
+    },
   },
 };
 </script>
@@ -78,34 +97,40 @@ button {
 
 .brandAdd {
   position: fixed;
-  z-index: 2222;
   top: 50%;
+  z-index: 2222;
 }
 
 #app {
+  background-color: #d9e4f5;
   font-family: $mainFont;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  background-color: #d9e4f5;
-  /* background-image: linear-gradient(315deg, #d9e4f5 0%, #f5e3e6 74%); */
 }
 
 .container {
+  position: relative;
   width: 100%;
   min-height: 100vh;
-  position: relative;
+
   overflow: hidden;
 }
 
 #main {
   margin: 0rem auto;
-  padding-top: 4rem; // avoid margin stacking
-  height: 100%;
+  padding: 4rem 0; // avoid margin stacking
   width: 100%;
-  max-width: 125rem;
+  height: 100%;
+  max-width: 192rem;
+  overflow: hidden;
 }
+
+.errorDialog_h4 {
+  width: 50rem;
+}
+
 .pageChange-enter-active,
 .pageChange-leave-active {
   transition: all 0.5s;

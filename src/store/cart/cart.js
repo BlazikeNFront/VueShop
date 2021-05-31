@@ -34,6 +34,7 @@ export default {
       try {
         const rawData = await fetch("http://localhost:3000/getUserCart", {
           headers: { Authorization: token },
+          credentials: "include",
         });
         if (rawData.status !== 200) {
           throw new Error("Server couldnt update the cart");
@@ -62,7 +63,6 @@ export default {
       }
     },
     addItemtoCart(context, payload) {
-      console.log(payload);
       const id = payload._id;
 
       const newCart = [...context.state.cart];
@@ -103,20 +103,22 @@ export default {
     async updateCartInDb(context) {
       try {
         const cart = context.getters["getCart"];
-        const token = context.rootGetters["UserAuth/getToken"];
-        if (!token) {
-          return;
+        const token = context.rootGetters["UserAuth/getToken"] || null;
+        const requestHeaders = new Headers();
+        requestHeaders.append("Content-Type", "application/json");
+        if (token) {
+          requestHeaders.append("Authorization", `Bearer ${token}`);
         }
         const payload = {
           cart,
-          token,
         };
         const updateCartResult = await fetch(
           "http://localhost:3000/updateUserCart",
           {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: requestHeaders,
             body: JSON.stringify(payload),
+            credentials: "include",
           }
         );
         updateCartResult;

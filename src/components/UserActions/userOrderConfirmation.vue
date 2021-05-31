@@ -1,9 +1,6 @@
 <template>
   <div>
-    <modal-dialog
-      @closeDialog="this.$emit('hideUserConfirmationDialog')"
-      @confirmError="this.$emit('hideUserConfirmationDialog')"
-    >
+    <modal-dialog @closeDialog="this.$emit('hideUserConfirmationDialog')">
       <div class="confirmationBox">
         <div
           class="confirmationBox__pickAddressBox"
@@ -147,6 +144,7 @@ export default {
         }
         this.orderResult.loader = false;
       } catch (err) {
+        this.orderResult.loader = false;
         console.log(err);
       }
     },
@@ -163,11 +161,12 @@ export default {
 <style lang="scss">
 .confirmationBox {
   @include flexLayout;
-  flex-direction: column;
-  justify-content: space-evenly;
   position: relative;
   width: 35rem;
   height: 45rem;
+  flex-direction: column;
+  justify-content: space-evenly;
+
   span {
     width: 30%;
     font-size: 1.5rem;
@@ -184,14 +183,14 @@ export default {
 .confirmationBox__orderResultBox {
   @include basicCart;
   @include flexLayout;
-
-  flex-direction: column;
-  padding: 2rem;
+  position: absolute;
   top: 20%;
   right: 7%;
-  position: absolute;
+  padding: 2rem;
   width: 28rem;
   height: 28rem;
+  flex-direction: column;
+
   @media (min-width: 768px) {
     left: 50%;
     transform: translate(-50%);
@@ -214,19 +213,20 @@ export default {
 
   span {
     @include flexLayout;
-    justify-content: center;
     margin: 1rem;
     width: 5rem;
     height: 5rem;
     border-radius: 50%;
     background-color: white;
+    justify-content: center;
+
     font-size: 4rem;
   }
 }
 .orderResultBox__confirmButton {
   @include button;
-  font-weight: 600;
   padding: 0.5rem 1rem;
+  font-weight: 600;
 }
 .orderResultBox__resultDisplay {
   @include flexLayout;
@@ -239,9 +239,9 @@ export default {
     text-align: center;
   }
   p {
-    text-align: center;
     width: 100%;
     font-weight: 600;
+    text-align: center;
   }
   button {
     @include button;

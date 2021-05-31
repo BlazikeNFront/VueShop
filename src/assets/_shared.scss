@@ -31,14 +31,15 @@ $red-error: #ad0000;
 
 //z-indexes
 $backdrop: 1000;
-$headerDropDown: 900;
+$headerDropDown: 1200;
 $addAddressDropDown: 1300;
 $modal-dialog: 1200;
 
+$max-width: 135rem;
 //MIXINS
 //MIXINS
 @mixin mainWidthClamp {
-  width: clamp(35rem, 90%, 150rem);
+  width: clamp(35rem, 90%, 135rem);
 }
 @mixin greenToBlueGradient {
   background-color: #20bf55;

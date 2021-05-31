@@ -3,53 +3,78 @@
     <h2>History of orders</h2>
 
     <user-orders-table
-      v-if="this.userOrders.length > 0"
-      :userOrders="this.userOrders"
+      v-if="this.orders.length > 0"
+      :userOrders="this.orders"
+      :admin="false"
     ></user-orders-table>
     <p v-else>There is no history of orders</p>
-    <loader v-if="!this.userOrders"></loader>
+    <loader v-if="!this.orders"></loader>
 
     <button class="userOrder__updateButton" @click="this.fetchUserOrders">
       Update orders
     </button>
+    <pagination-buttons
+      class="searchResult__paginationButtons"
+      :numberOfPages="numberOfPages"
+      :currentPage="currentPage"
+      @pageChange="handleChangePageRequestAdmin"
+      @previousPageClick="
+        handleChangePageRequestAdmin(parseInt(this.currentPage) - 1)
+      "
+      @nextPageClick="
+        handleChangePageRequestAdmin(parseInt(this.currentPage) + 1)
+      "
+    ></pagination-buttons>
   </section>
 </template>
 <script>
 import UserOrdersTable from "../../components/UserActions/userOrdersTable.vue";
-
+import PaginationButtons from "../../components/common/PaginationButtons.vue";
+import userOrdersMixin from "../../components/mixins/userOrders.js";
 export default {
-  components: { UserOrdersTable },
+  mixins: [userOrdersMixin],
+  components: { UserOrdersTable, PaginationButtons },
+
   mounted() {
-    this.fetchUserOrders();
+    const page = this.$route.query.page;
+    this.fetchUserOrders(page);
   },
 
-  data() {
-    return { userOrders: [], showOrderDetails: false, selectedOrder: null };
-  },
-  computed: {
-    token() {
-      return this.$store.getters["UserAuth/getToken"].token;
-    },
-  },
   methods: {
-    async fetchUserOrders() {
+    async fetchUserOrders(page) {
       try {
-        const rawData = await fetch("http://localhost:3000/getUserOrders", {
-          headers: { Authorization: this.token },
-        });
-        const data = await rawData.json();
-        this.userOrders = data;
+        const rawData = await fetch(
+          `http://localhost:3000/getUserOrders?page=${page}`,
+          {
+            headers: { Authorization: this.token.token },
+          }
+        );
+        if (rawData.status !== 200) {
+          throw new Error("Couldnt fetched data from server");
+        }
+        if (rawData.status !== 200) {
+          throw new Error("Couldnt fetched data from server");
+        }
+        const ordersData = await rawData.json();
+
+        const { data, totalItems } = ordersData;
+        const numberOfPages = Math.ceil(totalItems / 10);
+        this.orders = data;
+        this.numberOfPages = numberOfPages;
       } catch (err) {
         console.log(err);
+        this.$store.dispatch("ErrorHandler/showError", err.message);
       }
     },
-
-    toggleOrderDetails(order) {
-      this.selectedOrder = order;
-      this.showOrderDetails = true;
-    },
-    closeModal() {
-      this.showOrderDetails = false;
+    handleChangePageRequestAdmin(page) {
+      if (page < 1 || page > this.numberOfPages) {
+        return;
+      }
+      this.fetchUserOrders(page);
+      this.$router.push({
+        name: "user-orders",
+        query: { page: page },
+      });
     },
   },
 };
@@ -57,8 +82,9 @@ export default {
 <style lang="scss">
 .userOrders {
   @include basicCart;
-  min-height: 60rem;
   margin: 3rem;
+  min-height: 60rem;
+
   h2 {
     padding: 3rem;
   }
@@ -70,6 +96,12 @@ export default {
   font-weight: 600;
   &:hover {
     color: #2c3e50;
+  }
+}
+@media (min-width: 1024px) {
+  .userOrders {
+    margin: 0 auto;
+    max-width: $max-width;
   }
 }
 </style>

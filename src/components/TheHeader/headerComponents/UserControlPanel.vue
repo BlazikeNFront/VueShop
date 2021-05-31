@@ -16,6 +16,9 @@
         <div class="userControlPanel__panel">
           <a @click.prevent="this.redirectToUserCart">Check current cart</a>
           <a @click.prevent="this.redirectToUserOrder">Check orders</a>
+          <a v-if="this.userIsAdmin" @click.prevent="this.redirectToAdminPanel"
+            >ADMIN</a
+          >
           <button @click="logout">Logout</button>
         </div>
       </div>
@@ -29,7 +32,12 @@ export default {
       showUserPanel: false,
     };
   },
-
+  computed: {
+    userIsAdmin() {
+      console.log(this.$store.getters["UserAuth/getAdminState"]);
+      return this.$store.getters["UserAuth/getAdminState"];
+    },
+  },
   methods: {
     hideUserPanel() {
       this.showUserPanel = false;
@@ -53,7 +61,11 @@ export default {
     },
     redirectToUserOrder() {
       this.hideUserPanel();
-      this.$router.push({ name: "user-orders" });
+      this.$router.push({ name: "user-orders", query: { page: 1 } });
+    },
+    redirectToAdminPanel() {
+      this.hideUserPanel();
+      this.$router.push({ name: "admin-cms" });
     },
   },
 };
@@ -75,7 +87,7 @@ export default {
 }
 .userControlPanel__panelContainer {
   position: absolute;
-  transform: translate(-8rem, 0rem);
+  right: -6%;
   width: 19rem;
   height: 21rem;
   overflow: hidden;
@@ -98,9 +110,9 @@ export default {
     padding: 1rem;
     background-color: white;
     border-radius: 20px 0 0 20px;
-    color: black;
     font-size: 1.5rem;
     font-weight: 600;
+    color: black;
   }
   button {
     @include button;
@@ -131,12 +143,23 @@ export default {
   transform: translate(0rem);
 }
 @media (min-width: 768px) {
+  .userControlPanel__panelContainer {
+    position: absolute;
+    left: 0;
+    right: 0%;
+    width: 19rem;
+    height: 21rem;
+    transform: translate(-8rem, 0rem);
+
+    overflow: hidden;
+    z-index: 2000;
+  }
   .userControlPanel {
     position: relative;
   }
   .userControlPanel__panel {
-    align-items: center;
     border-radius: 10px;
+    align-items: center;
 
     a {
       border-radius: 20px;

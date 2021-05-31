@@ -26,7 +26,7 @@
           <transition name="productDetailsNotifacation">
             <div
               class="productDetails__addedToCartNotification"
-              v-if="showNotifaction"
+              v-if="this.showNotifaction"
             >
               <font-awesome-icon :icon="['fas', 'check']"></font-awesome-icon>
               <p>Product added to cart</p>
@@ -85,9 +85,10 @@ export default {
 .productDetails {
   @include flexLayout;
   @include mainBorder;
-  width: 100%;
   margin: 2rem auto;
   padding-bottom: 3rem;
+  width: 100%;
+
   flex-direction: column;
   background-color: white;
   font-size: $font-md;
@@ -100,8 +101,8 @@ export default {
 
 .productDetails__title {
   @include mainFontBold;
-  font-size: 4rem;
   margin: 5rem 0 3rem 0;
+  font-size: 4rem;
 }
 .productDetails__desc {
   margin: 0 auto;
@@ -118,14 +119,13 @@ export default {
 
   button {
     @include button;
-
+    padding: 1rem;
+    width: 80%;
+    border-radius: 20px;
+    box-shadow: 3px 3px 8px black;
     font-family: inherit;
     font-weight: 600;
     letter-spacing: 1px;
-    width: 80%;
-    box-shadow: 3px 3px 8px black;
-    padding: 1rem;
-    border-radius: 20px;
 
     &:hover {
       transform: scale(1.01);
@@ -142,14 +142,18 @@ export default {
   margin: 1rem;
 }
 .productDetails__addProductToCartBox {
+  position: relative;
   width: 100%;
 }
 .productDetails__addedToCartNotification {
   @include flexLayout;
-  position: absolute;
-  bottom: 6rem;
-  left: 8rem;
   display: flex;
+
+  position: absolute;
+  bottom: 0.8rem;
+  left: 24rem;
+  width: 20rem;
+
   color: rgb(62, 175, 124);
   font-size: 1.5rem;
   opacity: 1;
@@ -158,7 +162,7 @@ export default {
     height: 100%;
   }
   p {
-    margin-left: 2rem;
+    width: 100%;
   }
 }
 
@@ -170,5 +174,17 @@ export default {
 }
 .productDetailsNotifacation-enter-to {
   opacity: 1;
+}
+@media (min-width: 1024px) {
+  .productDetails {
+    width: 90%;
+    max-width: $max-width;
+    img {
+      width: 72rem;
+    }
+  }
+  .productDetails__addedToCartNotification {
+    display: flex;
+  }
 }
 </style>

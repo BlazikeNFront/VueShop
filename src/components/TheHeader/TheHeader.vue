@@ -4,8 +4,10 @@
     <div class="header__elements">
       <shop-logo></shop-logo>
       <search-bar></search-bar>
-      <user-control-panel></user-control-panel>
-      <user-cart></user-cart>
+      <div class="header__userActions">
+        <user-control-panel></user-control-panel>
+        <user-cart></user-cart>
+      </div>
     </div>
     <nav-bar id="nav"></nav-bar>
   </header>
@@ -37,13 +39,27 @@ export default {
 .header__elements {
   @include flexLayout;
   @include mainWidthClamp;
-  height: 7rem;
   position: relative;
+  height: 7rem;
 }
 .header__button {
   @include buttonTransparent;
   width: 3rem;
   height: 3rem;
   font-size: $font-bg;
+}
+.header__userActions {
+  @include flexLayout;
+  width: 8rem;
+}
+@media (min-width: 768px) {
+  .header__userActions {
+    width: 12rem;
+  }
+}
+@media (min-width: 1024px) {
+  .header__elements {
+    height: 9rem;
+  }
 }
 </style>

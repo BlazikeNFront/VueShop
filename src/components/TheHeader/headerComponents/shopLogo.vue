@@ -25,7 +25,7 @@ export default {
 .header__logo {
   @include flexLayout;
   width: 9.5rem;
-  height: 7rem;
+  height: 100%;
   cursor: pointer;
   @media (min-width: 768px) {
     width: 17.5rem;
@@ -41,6 +41,17 @@ export default {
   height: 100%;
   @media (min-width: 768px) {
     display: block;
+  }
+}
+@media (min-width: 1024px) {
+  .header__logo {
+    width: 27.5rem;
+  }
+  .header__fishImg {
+    width: 16rem;
+  }
+  .header__textImg {
+    width: 18rem;
   }
 }
 </style>

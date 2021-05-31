@@ -25,9 +25,11 @@ export default {
 </script>
 <style lang='scss'>
 nav {
-  width: 100%;
-  height: 4rem;
   position: relative;
+  width: 100%;
+  max-width: 150rem;
+  height: 4rem;
+
   z-index: 100;
   ul {
     /*  @include centerWithTranslate; */

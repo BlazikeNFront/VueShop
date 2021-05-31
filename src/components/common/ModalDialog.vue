@@ -12,7 +12,7 @@
 </template>
 <script>
 export default {
-  emits: ["closeDialog", "confirmError"],
+  emits: ["closeDialog"],
   props: ["width", "height"],
   computed: {
     boxDimension() {
@@ -25,17 +25,16 @@ export default {
 .modalDialog {
   @include centerAbsolute;
   @include flexLayout;
-
-  flex-direction: column;
   position: fixed;
-  z-index: $modal-dialog;
   width: inherit;
-
   height: fit-content;
+  max-width: 135rem;
+  flex-direction: column;
   border: 2px solid $primiary-color;
   border-radius: 10px;
   background-color: #d9e4f5;
   background-image: linear-gradient(315deg, #d9e4f5 0%, #f5e3e6 74%);
+  z-index: $modal-dialog;
   overflow: hidden;
 }
 .backdrop {
@@ -49,9 +48,9 @@ export default {
 }
 .modalDialog__button {
   @include button;
+  margin: 2rem;
+  padding: 0.5rem 1rem;
   font-size: 2rem;
   font-weight: 600;
-  padding: 0.5rem 1rem;
-  margin: 2rem;
 }
 </style>

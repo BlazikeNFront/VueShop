@@ -39,9 +39,9 @@ export default {
 </script>
 <style lang='scss'>
 .range__slider {
+  position: relative;
   margin: 5rem auto;
   width: 20rem;
-  position: relative;
 }
 
 .rangeInput {

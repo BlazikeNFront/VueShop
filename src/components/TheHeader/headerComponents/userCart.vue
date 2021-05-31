@@ -136,12 +136,12 @@ export default {
 <style lang='scss'>
 .cartIconContainer {
   @include flexLayout;
+  display: none;
   position: relative;
   width: 4rem;
   height: 4rem;
   cursor: pointer;
 
-  display: none;
   @media (min-width: 425px) {
     display: flex;
   }
@@ -157,20 +157,22 @@ export default {
 }
 .cartContainer__deleteProductButton {
   @include buttonTransparent;
-  font-size: 2rem;
   position: absolute;
   top: 0;
   left: 1rem;
+  font-size: 2rem;
 }
 .cartContainer__orderButton {
-  font-size: $font-md;
   @include mainFontBold;
   width: 75%;
   height: 4rem;
   border: none;
   background-color: rgb(62, 175, 124);
-  transition: all 0.2s ease-in-out;
+
+  font-size: $font-md;
   color: white;
+  transition: all 0.2s ease-in-out;
+
   &:hover {
     background-color: #292d2b;
   }
@@ -178,23 +180,27 @@ export default {
 .cartContainer {
   width: 100vw;
   height: 100vh;
-  background-color: white;
-  position: fixed;
   display: flex;
+  position: fixed;
+  top: 0;
+  right: 0;
+
+  background-color: white;
+
   flex-direction: column;
   align-items: center;
-  right: 0;
-  top: 0;
-  z-index: 1400;
   cursor: default;
+  z-index: 1400;
+
   @media (min-width: 425px) {
     width: 30rem;
   }
 
   h4 {
     @include flexLayout;
-    width: 80%;
     margin: 2rem 1rem 0 0;
+    width: 80%;
+
     font-size: $font-md;
     float: right;
   }
@@ -202,16 +208,18 @@ export default {
     font-size: $font-md;
   }
   a {
-    position: relative;
     @include mainFontBold;
+    position: relative;
+
     left: -3.5rem;
     width: 70%;
     margin-top: 2rem;
-    text-decoration: none;
-    letter-spacing: 0.1rem;
-    color: #292d2b;
     font-size: 1.5rem;
     font-weight: 700;
+    color: #292d2b;
+
+    text-decoration: none;
+    letter-spacing: 0.1rem;
     cursor: pointer;
     transition: 0.2s all ease-in-out;
     &:hover {
@@ -228,10 +236,10 @@ export default {
     }
     &::before {
       content: "";
+      display: block;
       position: absolute;
       top: 50%;
       left: 0;
-      display: block;
       width: 0rem;
       height: 0.2rem;
       background-color: #292d2d;
@@ -239,10 +247,11 @@ export default {
     }
     &::after {
       content: "";
+      display: block;
       position: absolute;
       top: 50%;
       right: 0;
-      display: block;
+
       width: 5rem;
       height: 0.2rem;
       background-color: #292d2b;
@@ -255,9 +264,9 @@ export default {
 }
 .cartContainer__SummaryBox {
   @include flexLayout;
-
-  padding: 1.5rem 2rem;
   margin-right: 3rem;
+  padding: 1.5rem 2rem;
+
   p {
     @include mainFontBold;
   }
@@ -268,15 +277,15 @@ export default {
 
 .cartContainer__cartList {
   ul {
+    height: 54vh;
     margin-top: 5rem;
     overflow-y: scroll;
-    height: 54vh;
   }
   li {
     @include flexLayout;
     position: relative;
-    flex-direction: column;
     padding: 2rem;
+    flex-direction: column;
   }
 }
 
@@ -288,15 +297,17 @@ export default {
   cursor: pointer;
 }
 .cartContainer__totalQtn {
+  @include mainFontBold;
   position: relative;
-  width: 2rem;
-  height: 2rem;
   bottom: -1.3rem;
   left: -0.2rem;
-  color: white;
-  z-index: 500;
+  width: 2rem;
+  height: 2rem;
   font-size: $font-sm;
-  @include mainFontBold;
+  color: white;
+
+  z-index: 500;
+
   &::before {
     content: "";
     display: block;
@@ -305,8 +316,9 @@ export default {
     left: -0.4rem;
     width: 2rem;
     height: 2rem;
-    background-color: red;
     border-radius: 50%;
+    background-color: red;
+
     z-index: -1;
   }
 }
@@ -326,5 +338,12 @@ export default {
 .cart-enter-to,
 .cart-leave-from {
   transform: translate(0rem, 0);
+}
+@media (min-width: 1024px) {
+  .cartContainer__cartList {
+    ul {
+      height: 65vh;
+    }
+  }
 }
 </style>

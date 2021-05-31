@@ -2,7 +2,6 @@
   <div class="orderDetailsView">
     <modal-dialog
       @closeDialog="this.$emit('closeModal')"
-      @confirmError="this.$emit('closeModal')"
       width="95%"
       height="fit-content"
     >
@@ -63,7 +62,7 @@
         class="orderStatusForm"
         @submit.prevent="handleChangeOrderStatus(this.order._id)"
       >
-        <p class="orderStatusForm__p">Change order Status</p>
+        <p class="orderStatusForm__p">Change order Status:</p>
         <div class="orderStatusForm__formControl">
           <label class="orderStatusForm__lablel" for="1">Accept Order</label>
           <input
@@ -142,6 +141,7 @@ export default {
       } catch (err) {
         console.log(err);
         this.loader = false;
+        this.$store.dispatch("ErrorHandler/showError", err.message);
       }
     },
   },
@@ -153,8 +153,8 @@ export default {
 }
 
 .orderDetailsView__h4 {
-  text-align: center;
   font-size: 2rem;
+  text-align: center;
 }
 .orderDetailsView__h5 {
   margin-top: 1rem;
@@ -180,14 +180,16 @@ export default {
   font-weight: 600;
 }
 .orderDetails__descriptionBox {
+  @include flexLayout;
   width: 100%;
   height: 3rem;
-  @include flexLayout;
+
   justify-content: center;
 }
 .orderDetailsView__userInformation {
-  margin: 2rem;
   @include flexLayout;
+  margin: 2rem;
+
   width: 100%;
   justify-content: space-evenly;
   font-size: 1.5rem;
@@ -200,21 +202,26 @@ export default {
 .orderDetailsView__p {
   color: black;
 }
-
-.orderStatusForm__lablel {
-  color: black;
-}
-.orderStatusForm__p {
-  color: black;
-  font-size: $font-md;
-}
 .orderStatusForm__formControl {
   @include flexLayout;
   margin: 0.5rem;
+  align-items: flex-start;
 }
+.orderStatusForm__lablel {
+  font-size: 1.5rem;
+  color: black;
+}
+.orderStatusForm__p {
+  margin-right: 1rem;
+
+  font-size: 1.6rem;
+  color: black;
+}
+
 .orderStatusForm__button {
   @include button;
-  color: black;
+  padding: 0.5rem 1rem;
+  color: white;
 }
 .orderStatusForm__loader {
   transform: scale(0.5);

@@ -40,7 +40,7 @@
     <order-details
       v-if="showOrderDetails"
       :order="this.selectedOrder"
-      :changeOrderStatus="false"
+      :changeOrderStatus="this.allowOrderStatusChange"
       @closeModal="this.closeModal"
     ></order-details>
   </div>
@@ -55,6 +55,10 @@ export default {
     userOrders: {
       required: true,
     },
+    admin: {
+      required: false,
+      type: Boolean,
+    },
   },
   data() {
     return {
@@ -62,6 +66,15 @@ export default {
       showOrderDetails: false,
       userOrderTableScroll: false,
     };
+  },
+  computed: {
+    allowOrderStatusChange() {
+      if (this.admin === true) {
+        return true;
+      } else {
+        return false;
+      }
+    },
   },
   methods: {
     setUserOrderTableScroll() {
@@ -95,12 +108,11 @@ export default {
 </script>
 <style lang='scss'>
 .orders__container {
-  overflow-x: scroll;
-  margin-left: 5%;
   position: relative;
-  @media (min-width: 768px) {
-    margin: 0;
-  }
+  margin-left: 5%;
+
+  height: 50rem;
+  overflow-x: scroll;
 }
 .orders__ordersList {
   margin: 0 auto;
@@ -110,13 +122,13 @@ export default {
   background-color: White;
 }
 .order__li {
-  font-size: $font-md;
-  height: 4.5rem;
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 2fr;
-
-  border: 1px solid black;
   grid-gap: 0;
+  height: 4.5rem;
+  border: 1px solid black;
+  font-size: $font-md;
+
   color: black;
   &:nth-child(odd) {
     background-color: $main-color;
@@ -139,14 +151,15 @@ export default {
   }
 }
 .order__tableDescription {
-  font-size: 1.5rem;
-  height: 4rem;
   display: grid;
-  align-self: center;
   grid-template-columns: 2fr 1fr 1fr 2fr;
+  align-self: center;
+  grid-gap: 0;
+  height: 4rem;
   background-color: $main-color;
   border: 1px solid black;
-  grid-gap: 0;
+  font-size: 1.5rem;
+
   color: white;
   h4 {
     align-self: center;
@@ -163,6 +176,21 @@ export default {
   background-color: $light-blue;
   &:hover {
     color: #2c3e50;
+  }
+}
+@media (min-width: 768px) {
+  .orders__container {
+    margin: 0;
+    overflow: initial;
+  }
+}
+@media (min-width: 1024px) {
+  .orders__container {
+    margin: 0;
+  }
+  .orders__ordersList {
+    margin: 0 auto;
+    width: 90%;
   }
 }
 </style>

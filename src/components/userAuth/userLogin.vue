@@ -52,6 +52,7 @@
 </template>
 <script>
 export default {
+  emits: ["changeView"],
   data() {
     return {
       loginPage: true, //true === userLogin page, false=== signUp page
@@ -64,6 +65,7 @@ export default {
   },
   methods: {
     async handleLogin() {
+      console.log("kekw");
       if (this.userPassword === null || "") {
         this.passwordError = "Please insert password";
         return;
@@ -77,6 +79,7 @@ export default {
           userName: this.userName,
           password: this.userPassword,
         };
+        console.log("component");
         await this.$store.dispatch("UserAuth/handleLogin", payload);
         this.$router.push("/");
       } catch (err) {
@@ -122,12 +125,13 @@ export default {
 .loginFormControll__input {
   width: 25rem;
   padding: 1rem 0 1rem 1rem;
-  border-radius: 5px;
   border: none;
+  border-radius: 5px;
+
   background-color: #efefef;
+  font-family: inherit;
   font-size: 1.5rem;
   font-weight: 600;
-  font-family: inherit;
 }
 .signUpLink {
   margin: 3rem;
@@ -141,24 +145,32 @@ export default {
 }
 .loginFormControl__errorMsg {
   margin-top: 0.5rem;
-  color: $red-error;
   font-size: 1.5rem;
   font-weight: 600;
+  color: $red-error;
 }
 .loginFormControl__button {
   width: 25rem;
   padding: 0.5rem;
-  border: none;
   background-color: white;
+  border: none;
   border-radius: 20px;
   font-family: inherit;
-  text-decoration: none;
   font-size: 2.5rem;
   font-weight: 600;
+  text-decoration: none;
   color: #2c3e50;
 }
 .login .login__modalErrorMsg {
-  color: $primiary-color;
   font-size: $font-bg;
+  color: $primiary-color;
+}
+@media (min-width: 1024px) {
+  .userAuth__userLogin {
+    display: block;
+    margin: 0;
+    width: 50%;
+    opacity: 1;
+  }
 }
 </style>

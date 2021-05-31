@@ -33,7 +33,7 @@
 }
 .promoBar__mobile {
   @include flexLayout;
-  display: flex;
+
   height: 3rem;
   h3 {
     width: 100%;

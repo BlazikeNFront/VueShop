@@ -14,6 +14,10 @@ export default {
     handleLogin(state, payload) {
       state.token = payload.token;
     },
+    handleAdminLogin(state, payload) {
+      state.token = payload.token;
+      state.admin = true;
+    },
     logout(state) {
       state.token = null;
     },
@@ -22,6 +26,10 @@ export default {
     },
     setLastUsedUserAddress(state, payload) {
       state.addresses.lastUsed = payload;
+    },
+    adminLogout(state) {
+      state.token = null;
+      state.admin = false;
     },
   },
   actions: {
@@ -35,6 +43,7 @@ export default {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: await JSON.stringify(userData),
+          credentials: "include",
         });
 
         const dataJSON = await data.json();
@@ -56,10 +65,17 @@ export default {
               root: true,
             });
           }
+          /*  if (dataJSON.admin === true) {
+            context.commit("handleAdminLogin", payload);
+            return;
+          } */
           context.commit("handleLogin", payload);
         }
       } catch (err) {
         console.log(err);
+        this.dispatch("ErrorHandler/showError", err.message, {
+          root: true,
+        });
       }
     },
     async fetchUserAddress(context) {
@@ -68,6 +84,7 @@ export default {
 
         const rawData = await fetch("http://localhost:3000/getUserAddresses", {
           headers: { Authorization: token },
+          credentials: "include",
         });
 
         if (rawData.status !== 200) {
@@ -81,6 +98,10 @@ export default {
       }
     },
     logout(context) {
+      if (context.getters["getAdminState"] === true) {
+        context.commit("adminLogout");
+        return;
+      }
       context.commit("logout");
       this.dispatch("Cart/resetCartFron", {
         root: true,
@@ -94,13 +115,14 @@ export default {
           token,
           address: payload,
         };
-        console.log("poszedl request");
+
         const responseFromServer = await fetch(
           "http://localhost:3000/updateDefaultUserAddress",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: await JSON.stringify(payloadForServer),
+            credentials: "include",
           }
         );
 

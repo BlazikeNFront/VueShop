@@ -34,9 +34,9 @@ export default {
   top: -10rem;
   right: 0;
   width: 3.5rem;
+  border-radius: 10px 0 0 10px;
   background-color: #d47304;
   color: black;
-  border-radius: 10px 0 0 10px;
 
   p {
     padding: 0.5rem;
@@ -48,10 +48,11 @@ export default {
   right: 7%;
   top: 4%;
   padding: 1.5rem;
+  border: none;
   background-image: url("../../../assets/icons/closeButton.svg");
   background-size: cover;
   background-color: transparent;
-  border: none;
+
   &:focus {
     outline: rgb(212, 115, 4);
     outline-width: 0.3rem;
@@ -60,9 +61,9 @@ export default {
 .currentOfferContainer {
   @include centerAbsolute;
   position: fixed;
+  padding: 1rem;
   width: 60%;
   background-color: black;
-  padding: 1rem;
   border-radius: 15px;
   color: black;
   overflow: hidden;
@@ -70,9 +71,9 @@ export default {
     width: 90%;
   }
   p {
+    font-family: $mainFont;
     font-size: $font-bg;
     color: white;
-    font-family: $mainFont;
     text-align: center;
     span {
       color: rgb(212, 115, 4);

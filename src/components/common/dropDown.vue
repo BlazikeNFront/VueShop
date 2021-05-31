@@ -5,11 +5,7 @@
       v-if="selectCategory"
       blackOpacity="0"
     ></back-drop>
-    <button
-      class="customSelect"
-      :class="{ hideBorderRadius: selectCategory }"
-      @click.prevent="selectCategoryAction"
-    >
+    <button class="customSelect" @click.prevent="selectCategoryAction">
       <p class="customSelect__selected">
         {{ selectedCategory || this.defaultCategory }}
       </p>
@@ -19,16 +15,21 @@
         class="customSelect__buttonIcon"
       ></font-awesome-icon>
     </button>
-
-    <ul class="customSelect__selectOption" v-if="selectCategory">
-      <li
-        v-for="(category, index) in this.listOfCategories"
-        :key="category"
-        @click="changeSelectedCategory(category, index)"
-      >
-        {{ category }}
-      </li>
-    </ul>
+    <transition
+      name="dropDown"
+      @enter="emitCurrentDropDownState"
+      @after-leave="emitCurrentDropDownState"
+    >
+      <ul class="customSelect__selectOption" v-if="selectCategory">
+        <li
+          v-for="(category, index) in this.listOfCategories"
+          :key="category"
+          @click="changeSelectedCategory(category, index)"
+        >
+          {{ category }}
+        </li>
+      </ul>
+    </transition>
   </div>
 </template>
 <script>
@@ -43,10 +44,8 @@ export default {
       type: Object,
     },
   },
-  mounted() {
-    console.log(this.defaultCategory);
-  },
-  emits: ["categoryChange"],
+
+  emits: ["categoryChange", "selectCategory"],
   data() {
     return {
       selectedCategory: null,
@@ -55,6 +54,10 @@ export default {
     };
   },
   methods: {
+    emitCurrentDropDownState() {
+      this.$emit("selectCategory", this.selectCategory);
+    },
+
     selectCategoryAction() {
       this.selectCategory = !this.selectCategory;
     },
@@ -83,48 +86,11 @@ export default {
   }
 }
 
-/* .customSelect__selectOption {
-  /* position: absolute;
-  z-index: 1200;
-  width: 14rem;
-  top: 3.2rem;
-  left: 0;
-  border-radius: 0 0 5px 5px;
-  font-size: 1.2rem;
-  overflow: hidden;
-  cursor: pointer;
-  background-color: #2a2a72; */
-
-/* li {
-    /* padding: 0.5rem;
-    @include mainFontBold;
-    border-radius: 5px;
-    position: relative;
-    &::after {
-      content: "";
-      display: block;
-      bottom: 1px;
-      left: 50%;
-      transform: translate(-50%);
-      position: absolute;
-      width: 70%;
-      height: 0.1rem;
-      background-color: white;
-    }
-    &:hover {
-      color: #2c3e50;
-      background-color: rgba(255, 255, 255, 0.2);
-      &::after {
-        background-color: #2c3e50;
-      }
-    } 
-  } 
-} */
-/* */
 .dropDown-enter-active,
 .dropDown-leave-active {
   transition: all 0.2s linear;
 }
+
 .dropDown-enter-from,
 .dropDown-leave-to {
   height: 0rem;
@@ -132,5 +98,13 @@ export default {
 .dropDown-enter-to,
 .dropDown-leave-from {
   height: 12rem;
+}
+@media (min-width: 768px) {
+  .dropDown-enter-active {
+    transition: all 0.2s ease-out;
+  }
+  .dropDown-leave-active {
+    transition: all 0.2s ease-in;
+  }
 }
 </style>

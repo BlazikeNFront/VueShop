@@ -123,37 +123,39 @@ export default {
 
   h2 {
     position: relative;
+    margin-bottom: 2rem;
+    font-family: $secondaryFont;
+    font-size: 4rem;
+    font-weight: 800;
     text-align: right;
     color: black;
-    font-size: 4rem;
-    font-family: $secondaryFont;
-    font-weight: 800;
-    margin-bottom: 2rem;
+
     &::before {
+      content: "Discover";
       position: absolute;
       top: -2rem;
       right: 0;
-      content: "Discover";
       font-size: 2rem;
       color: gray;
     }
   }
   ul {
     @include flexLayout;
-    justify-content: initial;
-    flex-direction: column;
     height: 50rem;
     border-radius: 30px;
+    justify-content: initial;
+    flex-direction: column;
     overflow: hidden;
   }
   li {
-    height: inherit;
-    width: 100%;
-    overflow: hidden;
     position: relative;
+    width: 100%;
+    height: inherit;
+    background-color: black;
+    overflow: hidden;
     cursor: pointer;
     transition: all 1s ease;
-    background-color: black;
+
     img {
       opacity: 0.4;
     }
@@ -173,10 +175,9 @@ export default {
     }
 
     img {
-      height: inherit;
-      background-color: black;
       width: 100%;
       height: 100%;
+      background-color: black;
       object-fit: cover;
     }
   }
@@ -184,17 +185,16 @@ export default {
 .sliderContainer__para {
   display: block;
   position: absolute;
-  font-size: 5rem;
-  z-index: 100;
   font-family: $secondaryFont;
+  font-size: 5rem;
   font-weight: 600;
   color: white;
-
+  z-index: 100;
   transition: all 0.6s;
 }
 .sliderContainer__para--normal {
-  top: 50%;
   margin-left: 50%;
+  top: 50%;
   transform: translate(-50%, -50%);
 }
 .sliderContainer__para--hover {
@@ -205,24 +205,24 @@ export default {
   font-size: 5rem;
 }
 .sliderContainer__link {
-  display: block;
   @include centerAbsolute;
-  text-decoration: none;
+  display: block;
   width: 23rem;
+  text-decoration: none;
   transform: translate(-50rem, -50%);
-  z-index: 100;
   font-family: $secondaryFont;
   font-weight: 800;
   color: $light-blue;
   font-size: 5rem;
   letter-spacing: 2px;
+  z-index: 100;
   transition: all 0.6s;
   &::before {
     content: "";
+    display: block;
     position: absolute;
     top: 58%;
     left: -4rem;
-    display: block;
     width: 4rem;
     height: 0.2rem;
     background-color: $light-blue;
@@ -230,10 +230,10 @@ export default {
   }
   &::after {
     content: "";
+    display: block;
     position: absolute;
     top: 58%;
     right: -4rem;
-    display: block;
     width: 4rem;
     height: 0.2rem;
     background-color: $light-blue;
@@ -308,6 +308,11 @@ export default {
         width: 0rem;
       }
     }
+  }
+}
+@media (min-width: 1440px) {
+  .sliderContainer {
+    width: 100%;
   }
 }
 </style>

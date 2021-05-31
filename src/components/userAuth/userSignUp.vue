@@ -78,6 +78,7 @@
 </template>
 <script>
 export default {
+  emits: ["changeView"],
   data() {
     return {
       email: null,
@@ -132,6 +133,7 @@ export default {
       } catch (err) {
         this.loader = false;
         console.log(err.message);
+        this.$store.dispatch("ErrorHandler/showError", err.message);
       }
     },
     checkForm() {
@@ -170,16 +172,9 @@ export default {
 };
 </script>
 <style lang='scss'>
-.userAuth__userSignUp {
-  /*   margin: 0 auto;
-  width: 90%;
-  transition: all 0.2s;
-  transition-delay: 0.5s; */
-}
-
 .loginForm_label {
-  font-size: 2rem;
   margin: 0.5rem;
+  font-size: 2rem;
 }
 .loginForm__form--signUp {
   padding: 5rem 0 10rem 0;
@@ -189,26 +184,26 @@ export default {
 }
 
 .signupForm__form {
-  border: 2px solid $primary-color;
   margin: 0 auto;
   width: 40rem;
   height: 50rem;
+  border: 2px solid $primary-color;
   label {
     margin: 1rem;
     font-size: $font-bg;
   }
   .formControl {
     @include flexLayout;
-    flex-direction: column;
     margin: 2rem;
+    flex-direction: column;
 
     input {
       width: 100%;
+      padding: 5%;
       font-size: $font-md;
+      border: 2px solid $primiary-color;
       background-color: transparent;
       color: $primiary-color;
-      border: 2px solid $primiary-color;
-      padding: 5%;
     }
   }
 }
@@ -221,5 +216,13 @@ export default {
 }
 .userInputError {
   border: 2px solid red;
+}
+@media (min-width: 1024px) {
+  .userAuth__userSignUp {
+    width: 50%;
+    opacity: 1;
+    transition: all 0.2s;
+    transition-delay: 0.5s;
+  }
 }
 </style>

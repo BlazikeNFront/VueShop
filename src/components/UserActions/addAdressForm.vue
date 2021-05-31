@@ -158,7 +158,7 @@ export default {
         }
       } catch (err) {
         this.formLoader = false;
-        console.log(err);
+        this.$store.dispatch("ErrorHandler/showError", err.message);
       }
     },
     clearUserInputs() {
@@ -208,38 +208,39 @@ export default {
   @include basicCart;
   position: absolute;
   margin: 0 auto;
-  width: 28rem;
-  opacity: 1;
   padding: 1.5rem;
   padding-top: 2.5rem;
+  width: 28rem;
+  opacity: 1;
+
   h4 {
-    text-align: center;
     margin-top: 1rem;
+
     font-size: 1.5rem;
     font-weight: 600;
+    text-align: center;
   }
   p {
-    text-align: center;
     font-weight: 600;
+    text-align: center;
   }
 }
 .confirmationBox__form {
   @include flexLayout;
-  flex-direction: column;
   position: relative;
   max-width: 35rem;
   margin: 1rem;
+  flex-direction: column;
 
   p {
     position: absolute;
-    color: $red-error;
-    text-align: center;
-
     bottom: 4.5rem;
-    font-size: 1rem;
-    font-weight: 600;
     width: 100%;
     font-size: 1.3rem;
+    font-weight: 600;
+    color: $red-error;
+
+    text-align: center;
   }
 }
 .addAddress__dropdown {
@@ -259,8 +260,9 @@ export default {
     p {
       width: 100%;
       font-size: 1.2rem;
-      color: white;
       font-weight: 600;
+      color: white;
+
       text-align: center;
     }
   }
@@ -274,8 +276,9 @@ export default {
     width: 100%;
     margin: 0 auto;
     border-radius: 0 0 20px 20px;
-    text-align: center;
     background-color: $main-color;
+    text-align: center;
+
     z-index: $addAddressDropDown;
     cursor: pointer;
 
@@ -293,25 +296,26 @@ export default {
 }
 .confirmationForm__formControl {
   @include flexLayout;
-  flex-direction: column;
-  width: 25rem;
   margin: 1rem;
+  width: 25rem;
   padding: 0.5rem;
   border-radius: 10px;
+  flex-direction: column;
+
   justify-content: flex-end;
 
   input {
-    border: none;
-    text-align: center;
     width: 95%;
     height: 90%;
+    padding: 1rem;
+    border: none;
+    border-bottom: 2px solid #2c3e50;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.2);
+    background: transparent;
     font-family: inherit;
     font-weight: 600;
-    background: transparent;
-    border-bottom: 2px solid #2c3e50;
-    background-color: rgba(255, 255, 255, 0.2);
-    padding: 1rem;
-    border-radius: 10px;
+    text-align: center;
     &:focus {
       outline: none;
     }
@@ -320,10 +324,9 @@ export default {
   input:-webkit-autofill:hover,
   input:-webkit-autofill:focus {
     border: none;
-
+    box-shadow: 0 0 0 30px #f5e3e6 inset;
     -webkit-text-fill-color: #2c3e50;
     -webkit-box-shadow: 0 0 0 30px #f5e3e6 inset;
-    box-shadow: 0 0 0 30px #f5e3e6 inset;
   }
 }
 
@@ -333,20 +336,21 @@ export default {
 
 .confirmationForm__button {
   @include button;
+  margin-top: 2rem;
   padding: 1rem;
   font-weight: 600;
   letter-spacing: 1px;
-  margin-top: 2rem;
 }
 .confirmationBox__formExitButton {
   @include button;
   position: absolute;
   top: 1rem;
   right: 4rem;
+  margin: 0;
   width: 3rem;
   height: 3rem;
   border-radius: 50%;
-  margin: 0;
+
   font-size: 2rem;
   font-weight: 600;
   svg {
@@ -358,9 +362,10 @@ export default {
   .addAddressBox {
     position: absolute;
     top: 0;
+    left: 50%;
     width: 40rem;
     opacity: 1;
-    left: 50%;
+
     transform: translate(-50%);
     .customSelect {
       svg {

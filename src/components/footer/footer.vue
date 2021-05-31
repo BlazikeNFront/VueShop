@@ -84,16 +84,17 @@ export default {};
 <style lang='scss'>
 .footer {
   margin: 0 auto;
+  margin-top: 10rem;
+  max-width: 130rem;
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
   color: black;
-  margin-top: 10rem;
-  max-width: 130rem;
+
   h2 {
-    text-align: center;
     font-size: 2rem;
     font-weight: 600;
+    text-align: center;
   }
 }
 .footerSingleList {
@@ -115,8 +116,8 @@ export default {};
 }
 .footerSingleList__listElement {
   padding: 1rem;
-  font-size: $font-md;
   width: inherit;
+  font-size: $font-md;
   text-align: inherit;
   cursor: pointer;
   &:hover {
@@ -124,19 +125,19 @@ export default {};
   }
 }
 .footerSingleList__paragraph {
-  text-align: left;
   margin-left: 0.7rem;
+  text-align: left;
 }
 
 .icons {
+  @include flexLayout;
   margin: 1rem 0;
   width: 100%;
-  @include flexLayout;
   justify-content: space-around;
   font-size: $font-bg;
   & * {
-    cursor: pointer;
     width: 2.5rem;
+    cursor: pointer;
   }
 }
 .icons__facebookIcon:hover {

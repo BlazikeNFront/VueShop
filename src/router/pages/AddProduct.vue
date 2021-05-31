@@ -44,6 +44,18 @@
               >Line</label
             >
           </div>
+          <div class="addProduct__formControl__radioInput">
+            <input
+              id="lure"
+              type="radio"
+              name="productType"
+              value="lure"
+              v-model="formInputs.typeOfProduct.value"
+            />
+            <label class="addProduct__formControl__lables" for="lure"
+              >Lure</label
+            >
+          </div>
 
           <div class="addProduct__formControl__radioInput">
             <input
@@ -386,6 +398,7 @@ export default {
         return responseJSON.productId;
       } catch (err) {
         console.log(err);
+        this.$store.dispatch("ErrorHandler/showError", err.message);
       }
     },
     cleanErrors() {
@@ -406,38 +419,49 @@ export default {
 <style lang='scss'>
 .form-addProduct {
   @include basicCart;
+  @include flexLayout;
   margin: 3rem auto;
   padding: 2rem;
-  width: 80%;
+  width: 95%;
   height: 80%;
-  @include flexLayout;
+
   flex-direction: column;
   font-size: $font-md;
 
-  color: white;
+  color: black;
+  font-weight: 600;
+
+  textarea {
+    padding: 1rem;
+    width: 100%;
+    font-family: inherit;
+  }
 }
 .addProduct__formControl {
   @include flexLayout;
-  flex-direction: column;
+  position: relative;
   margin: 1rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid grey;
-  position: relative;
+  flex-direction: column;
 }
 .addProduct__formControl__inputBox {
   @include flexLayout;
   margin: 1rem;
+  flex-direction: column;
 }
 .addProduct__formControl__radioInput {
   @include flexLayout;
+  margin: 0.5rem;
+
   justify-content: space-around;
 }
 .addProduct__formControl__lables {
   margin-right: 1rem;
 }
 .form-addProduct__h4 {
-  font-size: $font-bg;
   margin-top: 4rem;
+  font-size: $font-bg;
 }
 .form-addProduct__para {
   margin-right: 1rem;
@@ -445,10 +469,12 @@ export default {
 }
 .form-addProduct__button {
   @include button;
-  color: white;
-  font-size: 2rem;
   padding: 0.5rem 1rem;
+
+  font-size: 2rem;
+
   font-weight: 600;
+  color: white;
 }
 .addProduct__formControl__input {
   text-align: center;
@@ -456,13 +482,27 @@ export default {
 .addProduct__errorMsg {
   position: absolute;
   bottom: 0;
-  color: red;
 
   width: 150%;
   font-size: $font-sm;
+  color: red;
 }
 .addProduct__errorMsg__moddalText {
   font-size: $font-bg;
   color: $primiary-color;
+}
+
+@media (min-width: 768px) {
+  .addProduct__formControl {
+    flex-direction: row;
+  }
+  .addProduct__formControl__inputBox {
+    flex-direction: row;
+  }
+}
+@media (min-width: 1024px) {
+  .form-addProduct {
+    max-width: $max-width;
+  }
 }
 </style>

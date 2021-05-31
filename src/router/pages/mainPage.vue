@@ -25,8 +25,8 @@ export default {
   color: $primiary-color;
 }
 .slides {
-  max-width: 130rem;
   margin: 0 auto;
   margin-top: 7rem;
+  max-width: 130rem;
 }
 </style>

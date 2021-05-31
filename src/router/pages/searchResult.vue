@@ -82,12 +82,15 @@ export default {
 </script>
 <style lang='scss'>
 .searchData__wrapper {
-  margin-top: 2rem;
   @include flexLayout;
+  margin-top: 2rem;
+  margin-left: 50%;
+  width: 95%;
+  min-height: 60rem;
+  max-width: 120rem;
   justify-content: center;
   flex-wrap: wrap;
-  width: 95%;
-  margin-left: 50%;
+
   transform: translate(-50%);
 }
 .serachData__h3 {
@@ -95,8 +98,9 @@ export default {
   font-size: $font-bg;
 }
 .searchResult__paginationButtons {
-  width: 100%;
   margin-left: 50%;
+  width: 100%;
+
   transform: translate(-50%);
   .paginationButtons__hexagonShapes {
     margin: 1rem;

@@ -121,7 +121,7 @@ export default {
 .userCart {
   @include basicCart;
   margin: 1rem;
-  min-height: 50rem;
+  min-height: 60rem;
 
   h2 {
     padding: 2rem;
@@ -130,6 +130,7 @@ export default {
 .userCart__cartContainer {
   position: relative;
   padding: 1rem;
+  overflow: scroll;
 }
 .userCart__productList {
   margin: 5rem auto;
@@ -145,14 +146,17 @@ export default {
   text-align: center;
 }
 .userCart__product {
-  font-size: $font-md;
   display: grid;
   grid-template-columns: 13rem 2fr 1fr 1fr 1fr;
-  background-color: white;
   grid-gap: 0;
-  color: black;
   border: 1px solid black;
   border-bottom: none;
+
+  background-color: white;
+  font-size: $font-md;
+
+  color: black;
+
   &:nth-child(odd) {
     background-color: $main-color;
     color: white;
@@ -164,8 +168,8 @@ export default {
 .userCart__arrowForMobile {
   position: absolute;
   top: 50%;
-  transform: translate(0, -50%);
   right: 4rem;
+  transform: translate(0, -50%);
   font-size: 4rem;
   color: $chartrouse-color;
   animation-name: arrowMove;
@@ -179,15 +183,16 @@ export default {
 .userCart__productInfomartionBox {
   width: 100%;
   height: 100%;
+  border-left: 1px solid black;
   justify-self: center;
   align-self: center;
-  border-left: 1px solid black;
 }
 
 .userCart__productInformation {
   @include flexLayout;
-  justify-content: center;
   height: 100%;
+  justify-content: center;
+
   font-weight: 600;
 }
 .userCart__productImage {
@@ -199,8 +204,9 @@ export default {
   text-align: right;
 }
 .userCart__summaryCost {
-  font-weight: 600;
   font-size: 2rem;
+  font-weight: 600;
+
   color: $main-color;
 }
 .userCart__adressConfirmation {
@@ -210,14 +216,15 @@ export default {
   @include button;
   margin: 1rem;
   padding: 1rem;
-  color: white;
+
   font-size: $font-md;
+  color: white;
   font-weight: 600;
 }
 
 .userCart__modalMessage {
-  color: white;
   font-size: $font-md;
+  color: white;
 }
 
 @keyframes arrowMove {
@@ -232,13 +239,21 @@ export default {
   }
 }
 @media (min-width: 768px) {
+  .userCart {
+    margin: 0 auto;
+    width: 90%;
+    max-width: 135rem;
+  }
   .userCart__arrowForMobile {
     display: none;
   }
-}
-@media (min-width: 768px) {
   .userCart__productList {
     overflow: initial;
+  }
+}
+@media (min-width: 1024px) {
+  .userCart {
+    max-width: $max-width;
   }
 }
 </style>

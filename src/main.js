@@ -51,7 +51,7 @@ library.add(
 //global componenets
 import BackDrop from "./components/common/BackDrop.vue";
 import Loader from "./components/common/loader.vue";
-import BaseCard from "./components/common/BaseCard.vue";
+
 import ModalDialog from "./components/common/ModalDialog.vue";
 
 //global mixin
@@ -64,7 +64,7 @@ app.use(router);
 app.mixin(getUserToken);
 app.component("back-drop", BackDrop);
 app.component("loader", Loader);
-app.component("base-card", BaseCard);
+
 app.component("modal-dialog", ModalDialog);
 app.component("font-awesome-icon", FontAwesomeIcon);
 

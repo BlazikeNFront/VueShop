@@ -1,11 +1,7 @@
-export default {
+/* export default {
   namespaced: true,
   state() {
-    return {
-      showOrderDetails: false,
-      numberOfPages: null,
-      orders: null,
-    };
+    return {};
   },
   mutations: {
     closeShowOrderDetails(state) {
@@ -29,32 +25,6 @@ export default {
     openShowOrderDetails(context) {
       context.commit("openShowOrderDetails");
     },
-    async fetchOrders(context, payload) {
-      try {
-        const { token, page } = payload;
-
-        const rawData = await fetch(
-          `http://localhost:3000/admin/getOrders?page=${page}`,
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
-        );
-
-        if (rawData.status !== 200) {
-          throw new Error("Couldnt fetched data from server");
-        }
-        const ordersData = await rawData.json();
-
-        const { data, totalItems } = ordersData;
-        const numberOfPages = Math.ceil(totalItems / 10);
-        context.commit("setOrdersData", data);
-        context.commit("setNumberOfPages", numberOfPages);
-      } catch (err) {
-        console.log(err);
-      }
-    },
   },
   getters: {
     showOrderDetails(state) {
@@ -67,4 +37,4 @@ export default {
       return state.orders;
     },
   },
-};
+}; */

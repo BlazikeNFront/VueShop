@@ -65,21 +65,21 @@ export default {
 <style lang='scss'>
 .mainNavList__item {
   @include bluesGradient;
-  width: 9rem;
   position: relative;
-  z-index: 10000;
   margin: 0 0.5rem;
   padding: 1rem 0;
+  width: 9rem;
   border-radius: 10px 10px 0 0;
   font-size: 1.2rem;
   font-weight: 600;
   color: white;
   cursor: pointer;
+  z-index: 10000;
 
   li {
-    font-size: 1.2rem;
-    width: 100%;
     padding: 1rem;
+    width: 100%;
+    font-size: 1.2rem;
   }
   li:nth-child(1) {
     font-size: 1.1rem;
@@ -91,20 +91,19 @@ export default {
   @include centerWithTranslate;
   @include bluesGradient;
   display: none;
-  margin-left: 50%;
-  font-size: 1.5rem;
   position: absolute;
   top: 0;
   left: 0;
+  margin-left: 50%;
+  font-size: 1.5rem;
   width: 9rem;
   height: 18rem;
+  border-radius: 10px;
   flex-direction: column;
   font-size: 1.5rem;
   color: white;
-  border-radius: 0 0 5px 5px;
   transition: all 0.5s ease;
 
-  border-radius: 10px;
   li {
     position: relative;
     border-radius: 10px;
@@ -112,12 +111,12 @@ export default {
   li::after {
     content: "";
     display: block;
+    position: absolute;
     bottom: 1px;
     left: 50%;
-    transform: translate(-50%);
-    position: absolute;
     width: 70%;
     height: 0.1rem;
+    transform: translate(-50%);
     background-color: white;
   }
 }
@@ -127,8 +126,9 @@ export default {
   }
   li {
     &:hover {
-      font-weight: 700;
       background-color: rgba(0, 0, 0, 0.2);
+      font-weight: 700;
+
       &::after {
         background-color: #bdbb40;
       }
