@@ -69,7 +69,7 @@ export default {
       payload.price = this.product.price;
       payload.quantity = this.quantity;
       this.$store.dispatch("Cart/addItemtoCart", payload);
-      this.$store.dispatch("Cart/toggleCart");
+      this.$store.dispatch("Cart/toggleCartBarView");
       this.showNotifaction = true;
       this.$store.dispatch("Cart/setCartInLocalStorage");
     },
@@ -147,13 +147,10 @@ export default {
 }
 .productDetails__addedToCartNotification {
   @include flexLayout;
-  display: flex;
-
   position: absolute;
-  bottom: 0.8rem;
-  left: 24rem;
+  bottom: -3.2rem;
+  left: 2rem;
   width: 20rem;
-
   color: rgb(62, 175, 124);
   font-size: 1.5rem;
   opacity: 1;
@@ -174,6 +171,12 @@ export default {
 }
 .productDetailsNotifacation-enter-to {
   opacity: 1;
+}
+@media (min-width: 768px) {
+  .productDetails__addedToCartNotification {
+    bottom: 0.8rem;
+    left: 24rem;
+  }
 }
 @media (min-width: 1024px) {
   .productDetails {

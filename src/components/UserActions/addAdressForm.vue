@@ -137,14 +137,21 @@ export default {
 
         this.formLoader = true;
         const payload = {
-          token: this.$store.getters["UserAuth/getToken"].token,
           name: this.newAddressForm.name.value,
           surname: this.newAddressForm.surname.value,
           address: this.newAddressForm.address.value,
         };
+
+        const token = this.$store.getters["UserAuth/getToken"];
+
+        const requestHeaders = new Headers();
+        requestHeaders.append("Content-Type", "application/json");
+        if (token) {
+          requestHeaders.append("Authorization", `Bearer ${token}`);
+        }
         const postResult = await fetch("http://localhost:3000/addUserAddress", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: requestHeaders,
           body: await JSON.stringify(payload),
         });
         if (postResult.status !== 200) {
@@ -345,7 +352,7 @@ export default {
   @include button;
   position: absolute;
   top: 1rem;
-  right: 4rem;
+  right: 1rem;
   margin: 0;
   width: 3rem;
   height: 3rem;

@@ -37,16 +37,24 @@ export default {
 
   mounted() {
     const page = this.$route.query.page;
+
     this.fetchUserOrders(page);
   },
 
   methods: {
     async fetchUserOrders(page) {
       try {
+        const token = this.$store.getters["UserAuth/getToken"];
+        const requestHeaders = new Headers();
+        requestHeaders.append("Content-Type", "application/json");
+        if (token) {
+          requestHeaders.append("Authorization", `Bearer ${token}`);
+        }
         const rawData = await fetch(
           `http://localhost:3000/getUserOrders?page=${page}`,
           {
-            headers: { Authorization: this.token.token },
+            headers: requestHeaders,
+            credentials: "include",
           }
         );
         if (rawData.status !== 200) {

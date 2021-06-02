@@ -88,7 +88,7 @@ export default {
   transition: all 2s;
 }
 .changeViewTransition {
-  opacity: 0;
+  display: none;
 }
 .changedHeight {
   height: 73rem;
@@ -102,7 +102,6 @@ export default {
     width: 90%;
     height: 55rem;
     max-width: $max-width;
-
     flex-direction: row;
     justify-content: initial;
   }
@@ -120,6 +119,10 @@ export default {
   .loginToSignupAnim {
     transition: all 2s;
     transform: translateX(-90%);
+  }
+  .changeViewTransition {
+    display: flex;
+    opacity: 0;
   }
 }
 </style>

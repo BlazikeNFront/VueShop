@@ -19,21 +19,27 @@ export default {
     setCart(state, payload) {
       state.cart = payload;
     },
-    toggleCart(state, payload) {
+    toggleCartBarView(state, payload) {
       state.showCart = payload;
       console.log(state.showCart);
     },
   },
   actions: {
-    toggleCart(context) {
+    toggleCartBarView(context) {
       const curentState = context.getters["getShowCart"];
-
-      context.commit("toggleCart", !curentState);
+      context.commit("toggleCartBarView", !curentState);
     },
-    async fetchCartFromDb(context, token) {
+
+    async fetchCartFromDb(context) {
       try {
+        const token = context.rootGetters["UserAuth/getToken"] || null;
+        const requestHeaders = new Headers();
+        requestHeaders.append("Content-Type", "application/json");
+        if (token) {
+          requestHeaders.append("Authorization", `Bearer ${token}`);
+        }
         const rawData = await fetch("http://localhost:3000/getUserCart", {
-          headers: { Authorization: token },
+          headers: requestHeaders,
           credentials: "include",
         });
         if (rawData.status !== 200) {
@@ -103,7 +109,7 @@ export default {
     async updateCartInDb(context) {
       try {
         const cart = context.getters["getCart"];
-        const token = context.rootGetters["UserAuth/getToken"] || null;
+        const token = context.rootGetters["UserAuth/getToken"];
         const requestHeaders = new Headers();
         requestHeaders.append("Content-Type", "application/json");
         if (token) {

@@ -58,7 +58,7 @@
       </button>
       <loader v-if="loader"></loader>
       <p class="signUpLink">
-        U dont have an account? Click
+        U already have an account? Click
         <span class="loginForm__routerLink" @click="this.$emit('changeView')"
           >Here</span
         >
@@ -132,7 +132,7 @@ export default {
         this.loader = false;
       } catch (err) {
         this.loader = false;
-        console.log(err.message);
+
         this.$store.dispatch("ErrorHandler/showError", err.message);
       }
     },

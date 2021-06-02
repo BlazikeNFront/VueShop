@@ -105,7 +105,7 @@ export default {
   },
   methods: {
     showUserCartAction() {
-      this.$store.dispatch("Cart/toggleCart");
+      this.$store.dispatch("Cart/toggleCartBarView");
     },
     handleOrderRequest() {
       if (!this.token) {
@@ -136,15 +136,18 @@ export default {
 <style lang='scss'>
 .cartIconContainer {
   @include flexLayout;
-  display: none;
-  position: relative;
+  flex-direction: column;
+  position: fixed;
+  top: 15rem;
+  right: 0;
+  padding: 0.2rem;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 10px 0 0 10px;
+  border-right: none;
   width: 4rem;
-  height: 4rem;
+  height: 4.5rem;
   cursor: pointer;
-
-  @media (min-width: 425px) {
-    display: flex;
-  }
 
   img {
     width: 100%;
@@ -290,7 +293,7 @@ export default {
 }
 
 .cartContainer__cartIcon {
-  font-size: 2.5rem;
+  font-size: 2rem;
 }
 .cartContainer__XButton {
   font-size: 3rem;
@@ -299,23 +302,18 @@ export default {
 .cartContainer__totalQtn {
   @include mainFontBold;
   position: relative;
-  bottom: -1.3rem;
-  left: -0.2rem;
-  width: 2rem;
-  height: 2rem;
   font-size: $font-sm;
   color: white;
-
   z-index: 500;
 
   &::before {
     content: "";
     display: block;
     position: absolute;
-    top: -0.2rem;
+    top: -0.1rem;
     left: -0.4rem;
-    width: 2rem;
-    height: 2rem;
+    width: 1.7rem;
+    height: 1.7rem;
     border-radius: 50%;
     background-color: red;
 
@@ -330,14 +328,50 @@ export default {
 
 .cart-enter-from,
 .cart-leave-to {
-  transform: translate(30rem, 0);
-  @media (min-width: 425px) {
-    transform: translate(45rem, 0);
-  }
+  transform: translate(38rem, 0);
 }
 .cart-enter-to,
 .cart-leave-from {
   transform: translate(0rem, 0);
+}
+
+@media (min-width: 425px) {
+  .cartIconContainer {
+    @include flexLayout;
+    position: relative;
+    width: 4rem;
+    height: 4rem;
+    cursor: pointer;
+  }
+  .cartContainer__totalQtn {
+    @include mainFontBold;
+    position: relative;
+    bottom: -1.3rem;
+    left: -0.2rem;
+    width: 2rem;
+    height: 2rem;
+    font-size: $font-sm;
+    color: white;
+    z-index: 500;
+
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: -0.2rem;
+      left: -0.4rem;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      background-color: red;
+
+      z-index: -1;
+    }
+  }
+  .cart-enter-from,
+  .cart-leave-to {
+    transform: translate(45rem, 0);
+  }
 }
 @media (min-width: 1024px) {
   .cartContainer__cartList {

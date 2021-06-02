@@ -115,15 +115,20 @@ export default {
         this.orderResult.visible = true;
         this.orderResult.loader = true;
         const token = this.$store.getters["UserAuth/getToken"];
+        const requestHeaders = new Headers();
+        requestHeaders.append("Content-Type", "application/json");
+        if (token) {
+          requestHeaders.append("Authorization", `Bearer ${token}`);
+        }
         const payload = {
           cart: this.$store.getters["Cart/getCart"],
-          token,
         };
 
         const rawData = await fetch("http://localhost:3000/confirmOrder", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: requestHeaders,
           body: await JSON.stringify(payload),
+          credentials: "include",
         });
 
         if (rawData.status === 406) {
@@ -150,7 +155,7 @@ export default {
     },
     confirmAction() {
       if (this.orderResult.result === true) {
-        this.$router.push({ name: "user-orders" });
+        this.$router.push({ name: "user-orders", query: { page: "1" } });
       } else {
         this.orderResult.visible = false;
       }
@@ -257,6 +262,7 @@ export default {
   @include flexLayout;
   margin: 1.5rem;
   width: 90%;
+  min-width: 20rem;
   text-align: right;
   span {
     width: 35%;

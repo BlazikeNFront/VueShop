@@ -12,10 +12,11 @@ export default {
   },
   mutations: {
     handleLogin(state, payload) {
-      state.token = payload.token;
+      state.token = payload;
     },
+
     handleAdminLogin(state, payload) {
-      state.token = payload.token;
+      state.token = payload;
       state.admin = true;
     },
     logout(state) {
@@ -51,9 +52,9 @@ export default {
         if (data.status !== 200) {
           return dataJSON.message;
         } else {
-          const payload = {
-            token: dataJSON,
-          };
+          const tokenPayload = dataJSON.token;
+          context.commit("handleLogin", tokenPayload);
+
           const localStorageUserCart = await this.dispatch(
             "Cart/fetchCartFromLocalStorage",
             {
@@ -69,7 +70,6 @@ export default {
             context.commit("handleAdminLogin", payload);
             return;
           } */
-          context.commit("handleLogin", payload);
         }
       } catch (err) {
         console.log(err);
@@ -80,10 +80,14 @@ export default {
     },
     async fetchUserAddress(context) {
       try {
-        const token = context.getters["getToken"].token;
-
+        const token = context.rootGetters["UserAuth/getToken"] || null;
+        const requestHeaders = new Headers();
+        requestHeaders.append("Content-Type", "application/json");
+        if (token) {
+          requestHeaders.append("Authorization", `Bearer ${token}`);
+        }
         const rawData = await fetch("http://localhost:3000/getUserAddresses", {
-          headers: { Authorization: token },
+          headers: requestHeaders,
           credentials: "include",
         });
 
@@ -110,7 +114,12 @@ export default {
     async setLastUsedUserAddress(context, payload) {
       try {
         context.commit("setLastUsedUserAddress", payload);
-        const token = context.getters["getToken"].token;
+        const token = context.rootGetters["UserAuth/getToken"] || null;
+        const requestHeaders = new Headers();
+        requestHeaders.append("Content-Type", "application/json");
+        if (token) {
+          requestHeaders.append("Authorization", `Bearer ${token}`);
+        }
         const payloadForServer = {
           token,
           address: payload,
@@ -120,7 +129,7 @@ export default {
           "http://localhost:3000/updateDefaultUserAddress",
           {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: requestHeaders,
             body: await JSON.stringify(payloadForServer),
             credentials: "include",
           }

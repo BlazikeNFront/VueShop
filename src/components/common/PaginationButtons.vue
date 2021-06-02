@@ -90,7 +90,7 @@ export default {
 
   .pagination__pageChangersButtons {
     @include button;
-    margin: 3rem;
+    margin: 1rem;
     padding: 1rem;
     color: white;
     font-size: $font-md;
@@ -104,11 +104,13 @@ export default {
   position: relative;
   width: 100%;
   height: 100%;
-  color: white;
-  font-size: 1.5rem;
-  background-color: transparent;
   border: none;
   outline: none;
+  @include flexLayout;
+  justify-content: center;
+  background-color: transparent;
+  font-size: 1.5rem;
+  color: white;
   z-index: 1;
 }
 
@@ -154,6 +156,9 @@ export default {
 @media (min-width: 768px) {
   .paginationButtons {
     width: 70%;
+  }
+  .pagination__pageChangersButtons {
+    margin: 3rem;
   }
 }
 </style>
