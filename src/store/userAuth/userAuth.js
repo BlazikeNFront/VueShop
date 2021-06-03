@@ -34,7 +34,7 @@ export default {
     },
   },
   actions: {
-    //login is made out of promises instead of async await because i want to handle login errors in userLogin component where i use async await syntax (  when async function made of others async function -- catch do not appear in higher order functions so its 'invisible' in catch block in userLogin compononet);
+    //login is made out of promises instead of async await because i want to handle login errors in userLogin component where i use async await syntax (  when async function is made out of others async function -- errors do not appear in higher order functions so its 'invisible' in catch block in userLogin compononet);
     handleLogin(context, payload) {
       const userData = {
         email: payload.userName,
