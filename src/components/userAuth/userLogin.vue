@@ -1,6 +1,11 @@
 <template>
   <div class="userAuth__userLogin">
-    <form class="loginForm__form" @submit.prevent="handleLogin" v-if="!token">
+    <form
+      class="loginForm__form"
+      @click="cleanFormErrors"
+      @submit.prevent="handleLogin"
+      v-if="!token"
+    >
       <div class="loginForm__inputs">
         <div class="loginFormControl">
           <label for="userName" class="loginFormControll__label">Email:</label>
@@ -30,6 +35,9 @@
           <p v-if="passwordError" class="loginFormControl__errorMsg">
             {{ passwordError }}
           </p>
+          <p v-if="serverErrorMsg" class="loginFormControl__errorMsg">
+            {{ serverErrorMsg }}
+          </p>
         </div>
       </div>
       <button class="loginFormControl__button">Login</button>
@@ -40,14 +48,6 @@
         to Sign up !
       </p>
     </form>
-
-    <modal-dialog
-      v-if="serverErrorMsg"
-      @closeDialog="closeErrorModal"
-      @confirmError="closeErrorModal"
-    >
-      <p class="login__modalErrorMsg">{{}}</p>
-    </modal-dialog>
   </div>
 </template>
 <script>
@@ -60,30 +60,40 @@ export default {
       userPassword: null,
       passwordError: null,
       userNameError: null,
+
       serverErrorMsg: null,
     };
   },
   methods: {
+    cleanFormErrors() {
+      this.passwordError = null;
+      this.userNameError = null;
+      this.serverErrorMsg = null;
+    },
+
     async handleLogin() {
-      console.log("kekw");
-      if (this.userPassword === null || "") {
-        this.passwordError = "Please insert password";
-        return;
-      }
-      if (this.userName === null || this.userName.split("").length < 5) {
-        this.userNameError = "Please insert correct email";
-        return;
-      }
       try {
+        if (this.userPassword === null || "") {
+          this.passwordError = "Please insert password";
+          return;
+        }
+        if (this.userName === null || this.userName.split("").length < 5) {
+          this.userNameError = "Please insert correct email";
+          return;
+        }
+
         const payload = {
           userName: this.userName,
           password: this.userPassword,
         };
-        console.log("component");
+
         await this.$store.dispatch("UserAuth/handleLogin", payload);
-        this.$router.push("/");
       } catch (err) {
-        console.log(err);
+        //error is response with other status than 200 ;
+        const errorResponse = await err.json();
+        this.serverErrorMsg =
+          errorResponse.message ||
+          "Couldnt authenticate user :( Try again later";
       }
     },
     changeRoute() {

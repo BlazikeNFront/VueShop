@@ -1,6 +1,6 @@
 <template>
   <section class="adminCMS">
-    <h3 class="adminCMS__h3">Hello Mr.Admin. What you want to do today ?</h3>
+    <h3 class="adminCMS__h3">Hello Admin. What you want to do today ?</h3>
     <div class="adminCMS__options">
       <router-link class="adminCMS__a" to="/Admin/AddProduct"
         >Add product</router-link
@@ -9,14 +9,10 @@
         >Check Orders</router-link
       >
     </div>
-    <slider class="test"></slider>
   </section>
 </template>
 <script>
-import Slider from "../../components/common/Slider.vue";
-
 export default {
-  components: { Slider },
   computed: {
     ordersLink() {
       return { name: "admin-orders", query: { page: 1 } };
@@ -27,7 +23,6 @@ export default {
 <style lang="scss">
 .adminCMS {
   @include basicCart;
-
   margin: 0 auto;
   padding: 2rem;
   width: 90%;
@@ -44,11 +39,12 @@ export default {
 .adminCMS__options {
   @include flexLayout;
   margin: 0 auto;
-  width: 50%;
+  width: 90%;
 }
 .adminCMS__a {
   @include button;
-  padding: 3rem;
+  padding: 1rem;
+  border: 2px solid white;
   font-size: $font-md;
   font-weight: 600;
   color: white;

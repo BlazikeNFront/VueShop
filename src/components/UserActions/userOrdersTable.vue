@@ -41,6 +41,7 @@
       v-if="showOrderDetails"
       :order="this.selectedOrder"
       :changeOrderStatus="this.allowOrderStatusChange"
+      :orderStatusChanged="this.showModalWithConfirmation"
       @closeModal="this.closeModal"
     ></order-details>
   </div>
@@ -95,13 +96,16 @@ export default {
       return Number(sum).toFixed(2);
     },
     getOrderStatus(status) {
-      if (status === 0) {
+      if (parseInt(status) === 0) {
         return "Waiting for acceptance";
-      } else if (status === 1) {
+      } else if (parseInt(status) === 1) {
         return "In realization";
       } else {
         return "Realized";
       }
+    },
+    showModalWithConfirmation() {
+      this.$store.dispatch("ModalHandler/showModal", "Orders status changed");
     },
   },
 };

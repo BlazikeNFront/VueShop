@@ -13,11 +13,11 @@
     </main>
     <footer-component></footer-component>
     <modal-dialog
-      v-if="this.userActionError"
-      @closeDialog="this.closeErrorModal"
+      v-if="this.showModal"
+      @closeDialog="this.closeModal"
+      class="kewk"
     >
-      <h4 class="errorDialog_h4">Error occured :(</h4>
-      <p class="errorDialog_p">{{ this.userActionErrorMessage }}</p>
+      <p class="errorDialog_p">{{ this.showModalMsg }}</p>
     </modal-dialog>
   </div>
 </template>
@@ -36,15 +36,15 @@ export default {
     FooterComponent,
   },
   computed: {
-    userActionError() {
-      return this.$store.getters["ErrorHandler/getShowErrorModal"];
+    showModal() {
+      return this.$store.getters["ModalHandler/getShowModal"];
     },
-    userActionErrorMessage() {
-      return this.$store.getters["ErrorHandler/getErrorModalMsg"];
+    showModalMsg() {
+      return this.$store.getters["ModalHandler/getModalMsg"];
     },
   },
   methods: {
-    closeErrorModal() {
+    closeModal() {
       this.$store.dispatch("ErrorHandler/closeModal");
     },
   },
@@ -65,7 +65,13 @@ html {
 *:after {
   box-sizing: inherit;
 }
-
+.kewk {
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  position: fixed;
+  z-index: 3000;
+}
 body,
 h1,
 h2,

@@ -34,49 +34,55 @@ export default {
     },
   },
   actions: {
-    async handleLogin(context, payload) {
-      try {
-        const userData = {
-          email: payload.userName,
-          password: payload.password,
+    //login is made out of promises instead of async await because i want to handle login errors in userLogin component where i use async await syntax (  when async function made of others async function -- catch do not appear in higher order functions so its 'invisible' in catch block in userLogin compononet);
+    handleLogin(context, payload) {
+      const userData = {
+        email: payload.userName,
+        password: payload.password,
+      };
+      return new Promise((resolve, reject) => {
+        const userDataJSON = () => {
+          return new Promise((resolve) => {
+            const json = JSON.stringify(userData);
+            resolve(json);
+          });
         };
-        const data = await fetch("http://localhost:3000/userAuth", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: await JSON.stringify(userData),
-          credentials: "include",
-        });
 
-        const dataJSON = await data.json();
-
-        if (data.status !== 200) {
-          return dataJSON.message;
-        } else {
-          const tokenPayload = dataJSON.token;
-          context.commit("handleLogin", tokenPayload);
-
-          const localStorageUserCart = await this.dispatch(
-            "Cart/fetchCartFromLocalStorage",
-            {
-              root: true,
-            }
-          );
-          if (localStorageUserCart === false) {
-            this.dispatch("Cart/fetchCartFromDb", dataJSON.token, {
-              root: true,
+        userDataJSON().then((userDataJSON) => {
+          fetch("http://localhost:3000/userAuth", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: userDataJSON,
+            credentials: "include",
+          })
+            .then((data) => {
+              if (data.status !== 200) {
+                throw data;
+              } else {
+                return data.json();
+              }
+            })
+            .then((dataJSON) => {
+              const tokenPayload = dataJSON.token;
+              context.commit("handleLogin", tokenPayload);
+              resolve(); //user shop cart disptaches are not essential ...
+              const localStorageUserCart = this.dispatch(
+                "Cart/fetchCartFromLocalStorage",
+                {
+                  root: true,
+                }
+              );
+              if (localStorageUserCart === false) {
+                this.dispatch("Cart/fetchCartFromDb", dataJSON.token, {
+                  root: true,
+                });
+              }
+            })
+            .catch((error) => {
+              reject(error);
             });
-          }
-          /*  if (dataJSON.admin === true) {
-            context.commit("handleAdminLogin", payload);
-            return;
-          } */
-        }
-      } catch (err) {
-        console.log(err);
-        this.dispatch("ErrorHandler/showError", err.message, {
-          root: true,
         });
-      }
+      });
     },
     async fetchUserAddress(context) {
       try {
