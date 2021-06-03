@@ -3,7 +3,7 @@
     <back-drop @click="this.$emit('closeDialog')"></back-drop>
     <div class="modalDialog" :style="boxDimension">
       <h3 class="modalDialog__h3">Infomation</h3>
-      <slot> </slot>
+      <slot></slot>
       <button class="modalDialog__button" @click="this.$emit('closeDialog')">
         Close
       </button>
@@ -26,14 +26,14 @@ export default {
   @include centerAbsolute;
   @include flexLayout;
   position: fixed;
-  width: inherit;
-  height: fit-content;
+  width: 90%;
   max-width: 135rem;
-  flex-direction: column;
+  height: fit-content;
   border: 2px solid $primiary-color;
   border-radius: 10px;
   background-color: #d9e4f5;
   background-image: linear-gradient(315deg, #d9e4f5 0%, #f5e3e6 74%);
+  flex-direction: column;
   z-index: $modal-dialog;
   overflow: hidden;
 }
@@ -52,5 +52,7 @@ export default {
   padding: 0.5rem 1rem;
   font-size: 2rem;
   font-weight: 600;
+}
+@media (min-width: 768px) {
 }
 </style>

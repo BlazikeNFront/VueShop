@@ -9,7 +9,7 @@
     <p v-else>There is no orders</p>
     <loader v-if="this.loader"></loader>
 
-    <button class="userOrders--adminView__button" @click="this.getOrders">
+    <button class="userOrders--adminView__button" @click="this.fetchOrders">
       FETCH ORDERS
     </button>
 
@@ -44,14 +44,17 @@ export default {
   methods: {
     async fetchOrders(page) {
       try {
-        const token = this.token.token;
+        const token = this.$store.getters["UserAuth/getToken"];
+        const requestHeaders = new Headers();
+        requestHeaders.append("Content-Type", "application/json");
+        if (token) {
+          requestHeaders.append("Authorization", `Bearer ${token}`);
+        }
 
         const rawData = await fetch(
           `http://localhost:3000/admin/getOrders?page=${page}`,
           {
-            headers: {
-              Authorization: token,
-            },
+            headers: requestHeaders,
           }
         );
 
@@ -66,7 +69,7 @@ export default {
         this.numberOfPages = numberOfPages;
       } catch (err) {
         console.log(err);
-        this.$store.dispatch("ErrorHandler/showError", err.message);
+        this.$store.dispatch("ModalHandler/showModal", err.message);
       }
     },
   },

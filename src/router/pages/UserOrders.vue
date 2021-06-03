@@ -60,9 +60,7 @@ export default {
         if (rawData.status !== 200) {
           throw new Error("Couldnt fetched data from server");
         }
-        if (rawData.status !== 200) {
-          throw new Error("Couldnt fetched data from server");
-        }
+
         const ordersData = await rawData.json();
 
         const { data, totalItems } = ordersData;
@@ -71,7 +69,7 @@ export default {
         this.numberOfPages = numberOfPages;
       } catch (err) {
         console.log(err);
-        this.$store.dispatch("ErrorHandler/showError", err.message);
+        this.$store.dispatch("ModalHandler/showModal", err.message);
       }
     },
     handleChangePageRequestAdmin(page) {

@@ -34,7 +34,6 @@ export default {
   },
   computed: {
     userIsAdmin() {
-      console.log(this.$store.getters["UserAuth/getAdminState"]);
       return this.$store.getters["UserAuth/getAdminState"];
     },
   },
@@ -98,7 +97,6 @@ export default {
   @include bluesGradient;
   width: 19rem;
   height: 21rem;
-
   border: 2px solid white;
   border-radius: 15px 0 0 15px;
   flex-direction: column;
@@ -150,7 +148,6 @@ export default {
     width: 19rem;
     height: 21rem;
     transform: translate(-8rem, 0rem);
-
     overflow: hidden;
     z-index: 2000;
   }

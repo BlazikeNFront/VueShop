@@ -63,8 +63,13 @@
         @submit.prevent="handleChangeOrderStatus(this.order._id)"
       >
         <p class="orderStatusForm__p">Change order Status:</p>
-        <div class="orderStatusForm__formControl">
-          <label class="orderStatusForm__lablel" for="1">Accept Order</label>
+        <div
+          class="orderStatusForm__formControl"
+          v-if="this.order.status !== '1'"
+        >
+          <label class="orderStatusForm__lablel" for="1"
+            >Mark as accepted</label
+          >
           <input
             id="orderStatusOptions"
             name="ordersStatus"
@@ -73,7 +78,10 @@
             v-model="this.orderDetailsStatus"
           />
         </div>
-        <div class="orderStatusForm__formControl">
+        <div
+          class="orderStatusForm__formControl"
+          v-if="this.order.status !== '2'"
+        >
           <label class="orderStatusForm__lablel" for="2"
             >Mark as realized</label
           >
@@ -88,6 +96,10 @@
         <button class="orderStatusForm__button">Submit change</button>
         <loader class="orderStatusForm__loader" v-if="loader"></loader>
       </form>
+      <div class="orderStatus__notifcation" v-if="this.orderDeatilsModalMsg">
+        <p>{{ this.orderDeatilsModalMsg }}</p>
+        <button @click="clearModal">OK</button>
+      </div>
     </modal-dialog>
   </div>
 </template>
@@ -96,12 +108,14 @@ export default {
   props: ["order", "changeOrderStatus"],
 
   emits: ["orderStatusChanged", "closeModal"],
-
+  mounted() {
+    console.log(this.order.status);
+  },
   data() {
     return {
       orderDetailsStatus: null,
       orderDetailsModal: false,
-      orderDeatilsModalMsg: null,
+      orderDeatilsModalMsg: false,
       loader: false,
       userOrderClick: false,
     };
@@ -117,6 +131,13 @@ export default {
     async handleChangeOrderStatus(orderId) {
       try {
         this.loader = true;
+        const token = this.$store.getters["UserAuth/getToken"];
+        const requestHeaders = new Headers();
+
+        requestHeaders.append("Content-Type", "application/json");
+        if (token) {
+          requestHeaders.append("Authorization", `Bearer ${token}`);
+        }
         const payload = {
           orderId,
           orderStatus: this.orderDetailsStatus,
@@ -125,24 +146,25 @@ export default {
           `http://localhost:3000/admin/changeOrderStatus`,
           {
             method: "POST",
-            headers: {
-              Authorization: this.getToken.token,
-              "Content-Type": "application/json",
-            },
+            headers: requestHeaders,
             body: await JSON.stringify(payload),
           }
         );
-        if (response.status !== 200) {
-          throw new Error("Server did not accepted change of order");
-        } else {
+        console.log(response.status === 200);
+        if (response.status === 200) {
           this.loader = false;
-          this.$emit("orderStatusChanged");
+          this.orderDeatilsModalMsg = "ORDER STATUS CHANGED SUCCESFULLY";
+        } else {
+          throw new Error("Server did not accepted change of order");
         }
       } catch (err) {
         console.log(err);
         this.loader = false;
-        this.$store.dispatch("ErrorHandler/showError", err.message);
+        this.orderDeatilsModalMsg = err.message;
       }
+    },
+    clearModal() {
+      this.orderDeatilsModalMsg = null;
     },
   },
 };
@@ -171,7 +193,7 @@ export default {
 .orderDetails__listContainer {
   width: 100%;
   position: relative;
-  overflow-x: scroll;
+  overflow: scroll;
 }
 
 .orderDetails__products__thead {
@@ -225,6 +247,31 @@ export default {
 }
 .orderStatusForm__loader {
   transform: scale(0.5);
+}
+.orderStatus__notifcation {
+  @include centerAbsolute;
+  @include flexLayout;
+  height: fit-content;
+  width: 90%;
+  max-width: 135rem;
+  height: 15rem;
+  flex-direction: column;
+  border: 2px solid $primiary-color;
+  border-radius: 10px;
+  background-color: #d9e4f5;
+  background-image: linear-gradient(315deg, #d9e4f5 0%, #f5e3e6 74%);
+  justify-content: space-evenly;
+  z-index: $modal-dialog;
+  overflow: hidden;
+  p {
+    @include mainFontBold;
+    font-size: 1.5rem;
+  }
+  button {
+    @include button;
+    padding: 0.5rem 1rem;
+    font-size: 2rem;
+  }
 }
 </style>
  

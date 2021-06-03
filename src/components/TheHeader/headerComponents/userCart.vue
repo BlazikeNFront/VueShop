@@ -140,18 +140,18 @@ export default {
   position: fixed;
   top: 15rem;
   right: 0;
+  width: 4rem;
+  height: 4.5rem;
   padding: 0.2rem;
   background-color: white;
   border: 2px solid black;
   border-radius: 10px 0 0 10px;
   border-right: none;
-  width: 4rem;
-  height: 4.5rem;
   cursor: pointer;
+  z-index: 1000;
 
   img {
-    width: 100%;
-    max-width: 4rem;
+    width: 2rem;
   }
 }
 .cartContainer__productDesc {
@@ -187,9 +187,7 @@ export default {
   position: fixed;
   top: 0;
   right: 0;
-
   background-color: white;
-
   flex-direction: column;
   align-items: center;
   cursor: default;
@@ -301,9 +299,12 @@ export default {
 }
 .cartContainer__totalQtn {
   @include mainFontBold;
+  display: block;
   position: relative;
-  font-size: $font-sm;
+  width: 100%;
+  font-size: 1.2rem;
   color: white;
+  text-align: center;
   z-index: 500;
 
   &::before {
@@ -311,7 +312,7 @@ export default {
     display: block;
     position: absolute;
     top: -0.1rem;
-    left: -0.4rem;
+    left: 0.9rem;
     width: 1.7rem;
     height: 1.7rem;
     border-radius: 50%;
@@ -337,17 +338,24 @@ export default {
 
 @media (min-width: 425px) {
   .cartIconContainer {
-    @include flexLayout;
+    display: block;
     position: relative;
+    top: 0;
+    left: 0;
     width: 4rem;
     height: 4rem;
+    background: transparent;
+    border: none;
     cursor: pointer;
+  }
+  .cartContainer__cartIcon {
+    font-size: 3rem;
   }
   .cartContainer__totalQtn {
     @include mainFontBold;
-    position: relative;
-    bottom: -1.3rem;
-    left: -0.2rem;
+    position: absolute;
+    bottom: -0.5rem;
+    right: -1rem;
     width: 2rem;
     height: 2rem;
     font-size: $font-sm;
@@ -355,16 +363,10 @@ export default {
     z-index: 500;
 
     &::before {
-      content: "";
-      display: block;
-      position: absolute;
       top: -0.2rem;
-      left: -0.4rem;
+      left: 0rem;
       width: 2rem;
       height: 2rem;
-      border-radius: 50%;
-      background-color: red;
-
       z-index: -1;
     }
   }
