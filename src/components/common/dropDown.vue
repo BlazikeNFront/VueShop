@@ -97,14 +97,14 @@ export default {
 }
 .dropDown-enter-to,
 .dropDown-leave-from {
-  height: 12rem;
+  height: 20rem;
 }
 @media (min-width: 768px) {
   .dropDown-enter-active {
-    transition: all 0.2s ease-out;
+    transition: all 0.2s linear;
   }
   .dropDown-leave-active {
-    transition: all 0.2s ease-in;
+    transition: all 0.2s linear;
   }
 }
 </style>

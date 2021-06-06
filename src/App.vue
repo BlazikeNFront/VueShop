@@ -92,7 +92,10 @@ h2 {
   font-size: 4rem;
   font-weight: 800;
 }
-
+h5 {
+  font-size: 1rem;
+  font-weight: 800;
+}
 ol,
 ul {
   list-style: none;
