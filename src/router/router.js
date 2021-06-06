@@ -25,14 +25,18 @@ const router = createRouter({
     {
       name: "user-login",
       path: "/User/:view",
-
       component: UserAuth,
+      beforeEnter(to, from, next) {
+        if (from.name) {
+          to.params.fromName = from.name;
+        }
+        next();
+      },
     },
 
     {
       name: "user-signUp",
       path: "/User/:view",
-
       component: UserAuth,
     },
 

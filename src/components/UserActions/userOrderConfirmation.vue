@@ -58,23 +58,42 @@
             v-if="!this.orderResult.message"
           ></loader>
           <div class="orderResultBox__resultDisplay" v-else>
-            <span
-              :style="
-                this.orderResult.result === true ? 'color:#3eaf7c' : 'color:red'
-              "
-              ><font-awesome-icon
-                v-if="this.orderResult.result === true"
-                :icon="['fa', 'check']"
-              ></font-awesome-icon>
-              <font-awesome-icon
-                v-else
-                :icon="['fas', 'times']"
-              ></font-awesome-icon
-            ></span>
-            <p>
-              {{ this.orderResult.message }}
-            </p>
+            <div class="orderResultBox__mainMessage">
+              <span
+                :style="
+                  this.orderResult.result === true
+                    ? 'color:#3eaf7c'
+                    : 'color:red'
+                "
+                ><font-awesome-icon
+                  v-if="this.orderResult.result === true"
+                  :icon="['fa', 'check']"
+                ></font-awesome-icon>
+                <font-awesome-icon
+                  v-else
+                  :icon="['fas', 'times']"
+                ></font-awesome-icon
+              ></span>
+              <p>
+                {{ this.orderResult.message }}
+              </p>
+            </div>
+            <div
+              class="orderResultBox__productsUnavalible"
+              v-if="this.orderResult.productsUnavaliable"
+            >
+              <h5>Products unavaliable:</h5>
+              <ul>
+                <li
+                  v-for="product in this.orderResult.productsUnavaliable"
+                  :key="product._id"
+                >
+                  {{ product.name }}
+                </li>
+              </ul>
+            </div>
           </div>
+
           <button class="orderResultBox__confirmButton" @click="confirmAction">
             OK
           </button>
@@ -90,7 +109,7 @@ export default {
   components: {
     AddAddressForm,
   },
-
+  emits: ["hideUserConfirmationDialog"],
   data() {
     return {
       showAddressForm: false,
@@ -138,6 +157,7 @@ export default {
           this.orderResult.message =
             "One or more products are no longer avaliable";
           this.orderResult.productsUnavaliable = productsUnavaliable;
+          console.log(this.orderResult.productsUnavaliable);
         } else if (rawData.status === 200) {
           this.orderResult.result = true;
           this.orderResult.message = "Order accepted";
@@ -189,15 +209,13 @@ export default {
   @include basicCart;
   @include flexLayout;
   position: absolute;
-  top: 20%;
-  right: 7%;
+  margin: 10rem auto;
   padding: 2rem;
   width: 28rem;
   height: 28rem;
   flex-direction: column;
 
   @media (min-width: 768px) {
-    left: 50%;
     transform: translate(-50%);
   }
   h4 {
@@ -236,6 +254,18 @@ export default {
 .orderResultBox__resultDisplay {
   @include flexLayout;
   width: 100%;
+  flex-direction: column;
+}
+.orderResultBox__mainMessage {
+  @include flexLayout;
+}
+.orderResultBox__productsUnavalible {
+  @include flexLayout;
+  flex-direction: column;
+  ul {
+    @include flexLayout;
+    flex-direction: column;
+  }
 }
 .confirmationBox__pickAddressBox {
   h3 {

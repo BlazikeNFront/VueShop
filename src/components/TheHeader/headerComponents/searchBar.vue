@@ -142,7 +142,7 @@ export default {
   height: 3rem;
   background-color: $main-color;
   color: white;
-  z-index: 1000;
+  z-index: $headerDropDown;
 
   .customSelect {
     @include flexLayout;

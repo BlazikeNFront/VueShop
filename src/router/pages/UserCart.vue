@@ -33,9 +33,18 @@
                 </p>
               </div>
               <div class="userCart__productInfomartionBox">
-                <p class="userCart__productInformation">
-                  {{ product.quantity }}
-                </p>
+                <button @click="deleteProductFromCart(product._id)">
+                  <font-awesome-icon
+                    :icon="['fas', 'times']"
+                  ></font-awesome-icon>
+                </button>
+                <input-number
+                  class="userCart__inputNumber"
+                  :initialNumber="product.quantity"
+                  @valueChange="
+                    changeProductQuantityInCart($event, product._id)
+                  "
+                ></input-number>
               </div>
               <div class="userCart__productInfomartionBox">
                 <p class="userCart__productInformation">
@@ -69,8 +78,9 @@
 </template>
 <script>
 import UserConfirmation from "../../components/UserActions/userOrderConfirmation.vue";
+import InputNumber from "../../components/common/InputNumber.vue";
 export default {
-  components: { UserConfirmation },
+  components: { UserConfirmation, InputNumber },
 
   data() {
     return {
@@ -96,15 +106,29 @@ export default {
     },
   },
   methods: {
+    deleteProductFromCart(prodId) {
+      this.$store.dispatch("Cart/deleteItemFromCart", prodId);
+    },
+    changeProductQuantityInCart(number, prodId) {
+      const payload = {
+        newQuantity: number,
+        prodId,
+      };
+      this.$store.dispatch("Cart/updateProductQuantityInCart", payload);
+    },
     showUserConfimationDialog() {
       if (!this.token) {
-        this.$router.push({ name: "user-login", params: { view: "login" } });
+        this.$router.push({
+          name: "user-login",
+          params: { view: "login", redirectAfterLogin: "user-cart" },
+        });
         return;
       }
       this.userConfirmationDialog = true;
 
       this.fetchUserAddress();
     },
+
     hideUserConfirmationDialog() {
       this.userConfirmationDialog = false;
     },
@@ -160,6 +184,23 @@ export default {
   &:nth-child(odd) {
     background-color: $main-color;
     color: white;
+    .userCart__productInfomartionBox {
+      button {
+        color: white;
+      }
+      .customInputRange {
+        border: 2px solid white;
+        label {
+          color: white;
+        }
+        svg {
+          color: white;
+        }
+        input {
+          color: White;
+        }
+      }
+    }
   }
   &:last-child {
     border-bottom: 1px solid black;
@@ -168,10 +209,10 @@ export default {
 .userCart__arrowForMobile {
   position: absolute;
   top: 50%;
-  right: 4rem;
-  transform: translate(0, -50%);
+  right: 10rem;
   font-size: 4rem;
   color: $chartrouse-color;
+  z-index: 1;
   animation-name: arrowMove;
   animation-duration: 1s;
   animation-iteration-count: infinite;
@@ -181,11 +222,22 @@ export default {
   color: white;
 }
 .userCart__productInfomartionBox {
+  @include flexLayout;
+  flex-direction: column;
+  justify-content: space-evenly;
   width: 100%;
   height: 100%;
   border-left: 1px solid black;
-  justify-self: center;
-  align-self: center;
+
+  button {
+    @include buttonTransparent;
+
+    align-self: flex-end;
+    font-size: 2rem;
+  }
+  .customInputRange {
+    border: 2px solid black;
+  }
 }
 
 .userCart__productInformation {

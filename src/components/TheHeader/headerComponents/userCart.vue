@@ -118,6 +118,7 @@ export default {
       this.showUserCartAction();
       this.$router.push({
         name: "user-cart",
+        params: { redirectAfterLogin: "user-cart" },
       });
     },
     changeProductQuantityInCart(number, prodId) {
@@ -191,7 +192,7 @@ export default {
   flex-direction: column;
   align-items: center;
   cursor: default;
-  z-index: 1400;
+  z-index: $cartBar;
 
   @media (min-width: 425px) {
     width: 30rem;
