@@ -53,9 +53,7 @@ export default {
   },
   mounted() {
     const routerProductId = this.$route.params.productId;
-    if (this.product === null || this.product._id !== routerProductId) {
-      this.$store.dispatch("UserSearch/setProductDetails", routerProductId);
-    }
+    this.$store.dispatch("UserSearch/setProductDetails", routerProductId);
   },
   methods: {
     changeQuantity(number) {

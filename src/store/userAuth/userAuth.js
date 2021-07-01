@@ -92,6 +92,7 @@ export default {
         if (token) {
           requestHeaders.append("Authorization", `Bearer ${token}`);
         }
+
         const rawData = await fetch("http://localhost:3000/getUserAddresses", {
           headers: requestHeaders,
           credentials: "include",

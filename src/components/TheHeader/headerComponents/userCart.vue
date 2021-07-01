@@ -32,7 +32,7 @@
       </p>
       <div v-else class="cartContainer__cartList">
         <ul>
-          <li v-for="product in userCart" :key="product">
+          <li v-for="product in userCart" :key="product._id">
             <div class="cartContainer__productDesc">
               <button
                 class="cartContainer__deleteProductButton"
@@ -62,13 +62,13 @@
           </div>
           <button
             class="cartContainer__orderButton"
-            @click="handleOrderRequest"
+            @click="userCartPageLink(true)"
           >
             Order
           </button>
         </div>
       </div>
-      <a @click.prevent="this.userCartPageLink">VIEW CART</a>
+      <a @click.prevent="this.userCartPageLink(false)">VIEW CART</a>
     </section>
   </transition>
 </template>
@@ -107,19 +107,16 @@ export default {
     showUserCartAction() {
       this.$store.dispatch("Cart/toggleCartBarView");
     },
-    handleOrderRequest() {
-      if (!this.token) {
-        this.$router.push({ path: "/User/login" });
-        return;
-      }
-      this.$router.push("/userOrder");
-    },
-    userCartPageLink() {
+
+    userCartPageLink(showConfirmOrderDialog) {
       this.showUserCartAction();
-      this.$router.push({
+      const routerPayload = {
         name: "user-cart",
-        params: { redirectAfterLogin: "user-cart" },
-      });
+      };
+      if (showConfirmOrderDialog) {
+        routerPayload.params = { showConfirmOrderDialog: true };
+      }
+      this.$router.push(routerPayload);
     },
     changeProductQuantityInCart(number, prodId) {
       const payload = {

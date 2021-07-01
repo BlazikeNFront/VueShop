@@ -55,8 +55,8 @@
       >
         <label for="Addres">Address: </label
         ><input
-          id="Name"
-          name="name"
+          id="address"
+          name="address"
           type="text"
           placeholder="Name"
           v-model.trim="newAddressForm.address.value"
@@ -102,9 +102,8 @@ export default {
     },
     createDefaultDropdownValue() {
       if (this.$store.getters["UserAuth/getLastUsedAddress"]) {
-        const { name, surname, address } = this.$store.getters[
-          "UserAuth/getLastUsedAddress"
-        ];
+        const { name, surname, address } =
+          this.$store.getters["UserAuth/getLastUsedAddress"];
         return `${name} ${surname} ${address}`;
       } else {
         return this.createDropDownListItems[0];

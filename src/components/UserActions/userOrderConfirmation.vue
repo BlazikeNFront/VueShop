@@ -88,7 +88,7 @@
                   v-for="product in this.orderResult.productsUnavaliable"
                   :key="product._id"
                 >
-                  {{ product.name }}
+                  <p>•{{ product.name }}</p>
                 </li>
               </ul>
             </div>
@@ -203,6 +203,9 @@ export default {
     font-size: 1.5rem;
     font-weight: 600;
   }
+  p {
+    font-size: 1.5rem;
+  }
 }
 
 .confirmationBox__orderResultBox {
@@ -265,6 +268,10 @@ export default {
   ul {
     @include flexLayout;
     flex-direction: column;
+  }
+  p {
+    width: 100%;
+    max-width: 100%;
   }
 }
 .confirmationBox__pickAddressBox {

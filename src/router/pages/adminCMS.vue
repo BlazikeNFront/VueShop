@@ -40,6 +40,7 @@ export default {
   @include flexLayout;
   margin: 0 auto;
   width: 90%;
+  max-width: 50rem;
 }
 .adminCMS__a {
   @include button;
