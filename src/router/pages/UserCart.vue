@@ -81,10 +81,13 @@ import UserConfirmation from "../../components/UserActions/userOrderConfirmation
 import InputNumber from "../../components/common/InputNumber.vue";
 export default {
   components: { UserConfirmation, InputNumber },
-
+  mounted() {
+    console.log(this.$route.params.showConfirmOrderDialog);
+  },
   data() {
     return {
-      userConfirmationDialog: false,
+      userConfirmationDialog:
+        this.$route.params.showConfirmOrderDialog || false,
       userCartClick: false,
     };
   },
@@ -125,7 +128,6 @@ export default {
         return;
       }
       this.userConfirmationDialog = true;
-
       this.fetchUserAddress();
     },
 
@@ -306,6 +308,9 @@ export default {
 @media (min-width: 1024px) {
   .userCart {
     max-width: $max-width;
+  }
+  .userCart__cartContainer {
+    overflow: initial;
   }
 }
 </style>

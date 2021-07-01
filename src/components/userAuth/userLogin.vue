@@ -54,14 +54,14 @@
 export default {
   emits: ["changeView"],
   mounted() {
-    if (this.$route.params.redirectAfterLogin) {
-      this.nameToRedirectAfterLoginAction =
-        this.$route.params.redirectAfterLogin;
-    }
+    console.log(this.$route.params);
   },
   data() {
     return {
-      nameToRedirectAfterLoginAction: "main-page",
+      nameToRedirectAfterLoginAction:
+        this.$route.params.redirectAfterLogin ||
+        this.$route.params.fromName ||
+        "main-page",
       loginPage: true, //true === userLogin page, false=== signUp page
       userName: null,
       userPassword: null,
@@ -101,6 +101,7 @@ export default {
           errorResponse.message ||
           "Couldnt authenticate user :( Try again later";
       }
+      console.log(this.nameToRedirectAfterLoginAction);
       this.$router.push({ name: this.nameToRedirectAfterLoginAction });
     },
     changeRoute() {

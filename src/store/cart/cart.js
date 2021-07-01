@@ -21,7 +21,6 @@ export default {
     },
     toggleCartBarView(state, payload) {
       state.showCart = payload;
-      console.log(state.showCart);
     },
   },
   actions: {
@@ -88,7 +87,7 @@ export default {
       const id = payload;
 
       const newCard = [...context.getters.getCart];
-      const productIndex = newCard.findIndex((product) => product.id === id);
+      const productIndex = newCard.findIndex((product) => product._id === id);
 
       newCard.splice(productIndex, 1);
 
@@ -110,6 +109,9 @@ export default {
       try {
         const cart = context.getters["getCart"];
         const token = context.rootGetters["UserAuth/getToken"];
+        if (!token) {
+          return;
+        }
         const requestHeaders = new Headers();
         requestHeaders.append("Content-Type", "application/json");
         if (token) {

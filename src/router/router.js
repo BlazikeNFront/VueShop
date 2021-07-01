@@ -91,7 +91,14 @@ const router = createRouter({
       component: UserOrders,
       beforeEnter(to, from, next) {
         if (!globalStore.getters["UserAuth/getToken"]) {
-          next({ name: "user-login", params: { view: "login" } });
+          const rotuerParams = {
+            view: "login",
+          };
+          if (to.params.redirectAfterLogin) {
+            rotuerParams.redirectAfterLogin = to.params.redirectAfterLogin;
+          }
+
+          next({ name: "user-login", params: rotuerParams });
         } else {
           next();
         }
@@ -106,7 +113,7 @@ const router = createRouter({
       return savedPosition;
     }
     return {
-      el: "#nav",
+      el: "#header",
       behavior: "smooth",
     };
   },

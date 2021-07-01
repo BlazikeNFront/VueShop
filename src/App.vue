@@ -1,9 +1,7 @@
 <template>
-  <div class="brandAdd">
-    <week-offer-box></week-offer-box>
-  </div>
+  <div class="brandAdd"></div>
   <div class="container">
-    <the-header></the-header>
+    <the-header id="header"></the-header>
     <main id="main">
       <router-view v-slot="{ Component, route }">
         <transition mode="out-in" :name="route.meta.transition || 'pageChange'">
@@ -15,7 +13,7 @@
     <modal-dialog
       v-if="this.showModal"
       @closeDialog="this.closeModal"
-      class="kewk"
+      class="mainModal"
     >
       <p class="errorDialog_p">{{ this.showModalMsg }}</p>
     </modal-dialog>
@@ -23,8 +21,6 @@
 </template>
 
 <script>
-import WeekOfferBox from "./components/mainPage/currentOffersBox/currentOfferBox.vue";
-
 import TheHeader from "./components/TheHeader/TheHeader.vue";
 import FooterComponent from "./components/footer/footer.vue";
 
@@ -32,7 +28,6 @@ export default {
   name: "App",
   components: {
     TheHeader,
-    WeekOfferBox,
     FooterComponent,
   },
   computed: {
@@ -65,7 +60,7 @@ html {
 *:after {
   box-sizing: inherit;
 }
-.kewk {
+.mainModal {
   width: 100vw;
   height: 100vh;
   background-color: black;
@@ -93,7 +88,7 @@ h2 {
   font-weight: 800;
 }
 h5 {
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: 800;
 }
 ol,

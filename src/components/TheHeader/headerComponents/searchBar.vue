@@ -181,7 +181,7 @@ export default {
     font-size: 1.4rem;
     letter-spacing: 3px;
     overflow: hidden;
-    z-index: $headerDropDown;
+    z-index: 1700;
 
     li {
       position: relative;
@@ -230,7 +230,7 @@ export default {
     }
     .customSelect__selectOption {
       position: absolute;
-      top: 2.4rem;
+      top: 1.8rem;
       left: 0;
       width: 10rem;
       border-radius: 0 0 20px 20px;
@@ -238,7 +238,6 @@ export default {
       font-size: 1.2rem;
       overflow: hidden;
       cursor: pointer;
-      z-index: 1200;
 
       li {
         @include mainFontBold;
@@ -285,7 +284,8 @@ export default {
       }
     }
     .customSelect__selectOption {
-      width: 17rem;
+      left: 0;
+      width: 100%;
     }
   }
 
