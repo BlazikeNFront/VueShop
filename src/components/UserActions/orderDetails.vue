@@ -53,9 +53,11 @@
       </div>
       <h5 class="orderDetailsView__h5">Client information</h5>
       <div class="orderDetailsView__userInformation">
-        <p class="orderDetailsView__p">Name: Damian</p>
-        <p class="orderDetailsView__p">Surname: Stachurski</p>
-        <p class="orderDetailsView__p">Adress: Panstwo Dykty i kartonu</p>
+        <p class="orderDetailsView__p"><span>Name:</span> Damian</p>
+        <p class="orderDetailsView__p"><span>Surname:</span> Stachurski</p>
+        <p class="orderDetailsView__p">
+          <span>Adress:</span> Panstwo Dykty i kartonu
+        </p>
       </div>
       <form
         v-if="this.changeOrderStatus"
@@ -108,9 +110,7 @@ export default {
   props: ["order", "changeOrderStatus"],
 
   emits: ["orderStatusChanged", "closeModal"],
-  mounted() {
-    console.log(this.order.status);
-  },
+
   data() {
     return {
       orderDetailsStatus: null,
@@ -150,7 +150,7 @@ export default {
             body: await JSON.stringify(payload),
           }
         );
-        console.log(response.status === 200);
+
         if (response.status === 200) {
           this.loader = false;
           this.orderDeatilsModalMsg = "ORDER STATUS CHANGED SUCCESFULLY";
@@ -192,6 +192,7 @@ export default {
 
 .orderDetails__listContainer {
   width: 100%;
+  max-height: 50rem;
   position: relative;
   overflow: scroll;
 }
@@ -211,7 +212,6 @@ export default {
 .orderDetailsView__userInformation {
   @include flexLayout;
   margin: 2rem;
-
   width: 100%;
   justify-content: space-evenly;
   font-size: 1.5rem;
@@ -223,6 +223,9 @@ export default {
 }
 .orderDetailsView__p {
   color: black;
+  span {
+    font-weight: 600;
+  }
 }
 .orderStatusForm__formControl {
   @include flexLayout;
@@ -235,7 +238,6 @@ export default {
 }
 .orderStatusForm__p {
   margin-right: 1rem;
-
   font-size: 1.6rem;
   color: black;
 }
@@ -275,7 +277,7 @@ export default {
 }
 @media (min-width: 1024px) {
   .orderDetails__listContainer {
-    overflow: initial;
+    overflow: scroll;
   }
 }
 </style>

@@ -53,9 +53,7 @@
 <script>
 export default {
   emits: ["changeView"],
-  mounted() {
-    console.log(this.$route.params);
-  },
+
   data() {
     return {
       nameToRedirectAfterLoginAction:
@@ -94,6 +92,7 @@ export default {
         };
 
         await this.$store.dispatch("UserAuth/handleLogin", payload);
+        this.$router.push({ name: this.nameToRedirectAfterLoginAction });
       } catch (err) {
         //error is response with other status than 200 ;
         const errorResponse = await err.json();
@@ -101,8 +100,6 @@ export default {
           errorResponse.message ||
           "Couldnt authenticate user :( Try again later";
       }
-      console.log(this.nameToRedirectAfterLoginAction);
-      this.$router.push({ name: this.nameToRedirectAfterLoginAction });
     },
     changeRoute() {
       this.$router.push({ name: "user-signUp" });

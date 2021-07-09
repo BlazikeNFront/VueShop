@@ -17,7 +17,7 @@
           :placeholder="placeholder"
           v-model.trim="searBarInputValue"
         />
-        <button type="submit">
+        <button type="submit" aria-label="Toggle search action">
           <font-awesome-icon
             :icon="['fa', 'search']"
             class="searchBarContainer__submitIcon"
@@ -45,7 +45,7 @@ export default {
   computed: {
     placeholder() {
       if (this.selectedCategory) {
-        console.log(this.selectedCategory);
+        
         return `Search in ${this.selectedCategory}`;
       } else {
         return "Search products";
@@ -117,8 +117,6 @@ export default {
     &::placeholder {
       color: $main-color;
     }
-    //code below removies background color in chrome after autocomplete
-    //code below removies background color in chrome after autocomplete
     &:-webkit-autofill,
     :-webkit-autofill:hover,
     :-webkit-autofill:focus,

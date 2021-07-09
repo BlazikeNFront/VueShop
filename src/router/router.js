@@ -1,16 +1,38 @@
 import { createRouter, createWebHistory } from "vue-router";
 import globalStore from "../store/index.js";
-import MainPage from "./pages/mainPage.vue";
-
-import SearchResult from "./pages/searchResult.vue";
-import UserAuth from "./pages/userAuth.vue";
-
-import ProductDetails from "./pages/productDetails.vue";
-import AdminAddProduct from "./pages/AddProduct.vue";
-import AdminCMS from "./pages/adminCMS.vue";
-import AdminOrders from "./pages/adminCheckOrders.vue";
+import MainPage from "./pages/MainPage.vue";
+import SearchResult from "./pages/SearchResult.vue";
+import UserAuth from "./pages/UserAuth.vue";
+import ProductDetails from "./pages/ProductDetails.vue";
+import AddProduct from "./pages/AddProduct.vue";
+import AdminOrders from "./pages/AdminCheckOrders.vue";
+import AdminCMS from "./pages/AdminCMS.vue";
 import UserCart from "./pages/UserCart.vue";
 import UserOrders from "./pages/UserOrders.vue";
+
+// const SearchResult = () =>
+//   import(/* webpackChunkName: "SearchResult" */ "./pages/SearchResult.vue");
+
+// const UserAuth = () =>
+//   import(/* webpackChunkName: "UserAuth" */ "./pages/UserAuth.vue");
+
+// const ProductDetails = () =>
+//   import(/* webpackChunkName: "ProductDetails" */ "./pages/ProductDetails.vue");
+
+// const AddProduct = () =>
+//   import(/* webpackChunkName: "AddProduct" */ "./pages/AddProduct.vue");
+
+// const AdminCMS = () =>
+//   import(/* webpackChunkName: "AdminCMS" */ "./pages/AdminCMS.vue");
+
+// const AdminOrders = () =>
+//   import(/* webpackChunkName: "AdminOrders" */ "./pages/AdminCheckOrders.vue");
+
+// const UserCart = () =>
+//   import(/* webpackChunkName: "UserCart" */ "./pages/UserCart.vue");
+
+// const UserOrders = () =>
+//   import(/* webpackChunkName: "UserOrders" */ "./pages/UserOrders.vue");
 
 const router = createRouter({
   history: createWebHistory(),
@@ -57,7 +79,7 @@ const router = createRouter({
     },
     {
       path: "/Admin/AddProduct",
-      component: AdminAddProduct,
+      component: AddProduct,
       beforeEnter(to, from, next) {
         if (
           !globalStore.getters["UserAuth/getAdminState"] ||

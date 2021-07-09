@@ -51,7 +51,5 @@ export default {
   color: white;
   letter-spacing: 1px;
 }
-.test {
-  margin: 2rem auto;
-}
+
 </style>

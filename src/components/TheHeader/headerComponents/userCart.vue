@@ -23,6 +23,7 @@
         </div>
         <font-awesome-icon
           :icon="['fas', 'times']"
+          aria-label="Close cart bar"
           class="cartContainer__XButton"
           @click="showUserCartAction"
         ></font-awesome-icon>
@@ -36,6 +37,7 @@
             <div class="cartContainer__productDesc">
               <button
                 class="cartContainer__deleteProductButton"
+                aria-label="Delete product"
                 @click="deleteProductFromCart(product._id)"
               >
                 <font-awesome-icon :icon="['fas', 'times']"></font-awesome-icon>
@@ -62,6 +64,7 @@
           </div>
           <button
             class="cartContainer__orderButton"
+            aria-label="Order"
             @click="userCartPageLink(true)"
           >
             Order
@@ -81,6 +84,9 @@ export default {
   },
 
   computed: {
+    token() {
+      return this.$store.getters["UserAuth/getToken"];
+    },
     showUserCart() {
       return this.$store.getters["Cart/getShowCart"];
     },
@@ -113,7 +119,7 @@ export default {
       const routerPayload = {
         name: "user-cart",
       };
-      if (showConfirmOrderDialog) {
+      if (showConfirmOrderDialog && this.token) {
         routerPayload.params = { showConfirmOrderDialog: true };
       }
       this.$router.push(routerPayload);

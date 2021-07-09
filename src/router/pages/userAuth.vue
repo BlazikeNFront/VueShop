@@ -54,7 +54,8 @@ export default {
   position: relative;
   margin-left: 3%;
   width: 95%;
-  height: 55rem;
+  height: 100%;
+  min-height: 65rem;
   border-radius: 10px;
   box-shadow: 5px 5px 15px black;
   flex-direction: column;
@@ -90,9 +91,7 @@ export default {
 .changeViewTransition {
   display: none;
 }
-.changedHeight {
-  height: 73rem;
-}
+
 .iconReverseAnim {
   transform: scaleX(-1);
 }
@@ -100,8 +99,9 @@ export default {
   .userAuth {
     margin: 0 auto;
     width: 90%;
-    height: 55rem;
+
     max-width: $max-width;
+
     flex-direction: row;
     justify-content: initial;
   }
@@ -123,6 +123,19 @@ export default {
   .changeViewTransition {
     display: flex;
     opacity: 0;
+  }
+}
+@media (min-width: 1440px) {
+  .userAuth__logoBox {
+    padding: 5rem 0 10rem 0;
+  }
+  .userAuth__companyLogoText {
+    width: 40rem;
+    height: 15rem;
+  }
+  .userAuth__companyLogoIcon {
+    width: 36rem;
+    height: 23rem;
   }
 }
 </style>

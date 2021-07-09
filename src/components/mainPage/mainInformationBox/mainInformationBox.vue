@@ -35,7 +35,7 @@ export default {
   position: relative;
   width: 100%;
   height: 80rem;
-  background-image: url("../../../assets/mainInformationBackground.png");
+  background-image: url("../../../assets/mainInformationBackgroundWebp.webp");
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
@@ -86,10 +86,14 @@ export default {
   a {
     display: block;
     margin-bottom: 2rem;
-    font-size: 2rem;
-    color: #d47304;
-    font-family: "Anton", sans-serif;
+    font-size: 2.5rem;
+    color: $orange-color;
+    text-shadow: 0 0 3px $orange-color;
+    font-family: $mainInformationBoxLinkFont;
     text-decoration: none;
+    &:hover {
+      text-shadow: 0 0 5px $orange-color;
+    }
   }
 }
 @media (min-width: 425px) {
@@ -112,7 +116,7 @@ export default {
     height: 90%;
     background-position-y: -12rem;
     p {
-      margin-top: 39rem;
+      margin-top: 42rem;
     }
   }
 }
@@ -127,6 +131,12 @@ export default {
       font-size: 2rem;
       width: 35%;
       align-self: flex-end;
+    }
+    a {
+      margin-bottom: 10rem;
+      width: 50%;
+      align-self: flex-end;
+      font-size: 4rem;
     }
   }
 }

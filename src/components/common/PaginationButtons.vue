@@ -2,8 +2,9 @@
   <div>
     <div class="paginationButtons">
       <button
-        @click="previousPageClick()"
         class="pagination__pageChangersButtons"
+        @click="previousPageClick()"
+        aria-label="previous page"
       >
         <font-awesome-icon
           :icon="['fas', 'arrow-right']"
@@ -28,6 +29,7 @@
       </div>
       <button
         @click="nextPageClick($event)"
+        aria-label="next page"
         class="pagination__pageChangersButtons"
       >
         <font-awesome-icon
@@ -52,9 +54,8 @@ export default {
       if (parseInt(this.currentPage) === 1) {
         return;
       }
-      const buttonToAnimate = this.$refs["buttons"].children[
-        this.currentPage - 2
-      ];
+      const buttonToAnimate =
+        this.$refs["buttons"].children[this.currentPage - 2];
       buttonToAnimate.classList.remove("buttonClickAnimation");
       void buttonToAnimate.offsetWidth; //force reflow
       buttonToAnimate.classList.add("buttonClickAnimation");
