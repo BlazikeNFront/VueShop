@@ -9,13 +9,17 @@
       />
     </div>
     <div class="productBoxSmall__textContent">
-      <h4 class="productBoxSmall__productTitle">{{ this.product.name }}</h4>
-      <div class="testProduct">
-        <p class="productBoxSmall__productPrice">{{ this.product.price }} $</p>
+      <h4 class="productBoxSmall__productTitle">{{ product.name }}</h4>
+      <div class="productBoxSmall__priceAndDesc">
+        <p class="productBoxSmall__productPrice">{{ product.price }} $</p>
         <p class="productBoxSmall__productDesc">{{ cutDesc }}</p>
       </div>
     </div>
-    <button class="productBoxSmall__button" @click="checkDetails">
+    <button
+      class="productBoxSmall__button"
+      aria-label="check details"
+      @click="checkDetails"
+    >
       <font-awesome-icon
         :icon="['fas', 'arrow-right']"
         class="productBoxSmall__arrowIcon"
@@ -50,14 +54,6 @@ export default {
 };
 </script>
 <style lang='scss'>
-.testProduct {
-  @include flexLayout;
-  width: 100%;
-  height: 100%;
-  flex-direction: column;
-  background-color: #2a2a72;
-  color: white;
-}
 .productBoxSmall {
   position: relative;
   margin: 1rem;
@@ -123,11 +119,16 @@ export default {
   font-size: $font-bg;
   font-weight: 600;
 }
+.productBoxSmall__priceAndDesc {
+  @include flexLayout;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  background-color: #2a2a72;
+  color: white;
+}
 .productBoxSmall__productPrice {
-  position: absolute;
-  left: 50%;
-  bottom: 8.5rem;
-  transform: translate(-50%);
   font-size: 1.7rem;
   font-weight: 600;
 }
@@ -135,10 +136,7 @@ export default {
   font-size: $font-md;
 }
 .productBoxSmall__productDesc {
-  display: block;
   margin: 0 0.5rem;
-  position: absolute;
-  bottom: 3rem;
   font-size: $font-sm;
 }
 @media (min-width: 1024px) {

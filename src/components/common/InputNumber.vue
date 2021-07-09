@@ -60,7 +60,6 @@ export default {
   @include flexLayout;
   flex-direction: column;
   label {
-    color: black;
     font-size: $font-md;
   }
 }

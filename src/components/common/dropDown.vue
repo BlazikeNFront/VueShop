@@ -5,7 +5,11 @@
       v-if="selectCategory"
       blackOpacity="0"
     ></back-drop>
-    <button class="customSelect" @click.prevent="selectCategoryAction">
+    <button
+      class="customSelect"
+      @click.prevent="selectCategoryAction"
+      aria-label="open possible options panel"
+    >
       <p class="customSelect__selected">
         {{ selectedCategory || this.defaultCategory }}
       </p>
@@ -54,13 +58,13 @@ export default {
     };
   },
   methods: {
+    selectCategoryAction() {
+      this.selectCategory = !this.selectCategory;
+    },
     emitCurrentDropDownState() {
       this.$emit("selectCategory", this.selectCategory);
     },
 
-    selectCategoryAction() {
-      this.selectCategory = !this.selectCategory;
-    },
     changeSelectedCategory(category, index) {
       this.selectedCategory = category;
       this.indexOfSelected = index;

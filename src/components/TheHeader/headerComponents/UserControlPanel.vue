@@ -1,8 +1,9 @@
 <template>
   <div class="userControlPanel">
     <button
-      @click="this.handleUserButton"
       class="userControlPanel__showPanelButton"
+      aria-label="show User  Panel"
+      @click="this.handleUserButton"
     >
       <font-awesome-icon
         :class="{ loggedUserIcon: token }"

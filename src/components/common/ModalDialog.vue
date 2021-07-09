@@ -28,7 +28,9 @@ export default {
   position: fixed;
   width: 90%;
   max-width: 135rem;
+
   height: fit-content;
+  min-height: 75rem;
   border: 2px solid $primiary-color;
   border-radius: 10px;
   background-color: #d9e4f5;
@@ -53,6 +55,5 @@ export default {
   font-size: 2rem;
   font-weight: 600;
 }
-@media (min-width: 768px) {
-}
+
 </style>

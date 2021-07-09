@@ -82,7 +82,9 @@ import InputNumber from "../../components/common/InputNumber.vue";
 export default {
   components: { UserConfirmation, InputNumber },
   mounted() {
-    console.log(this.$route.params.showConfirmOrderDialog);
+    if (this.userConfirmationDialog) {
+      this.fetchUserAddress();
+    }
   },
   data() {
     return {

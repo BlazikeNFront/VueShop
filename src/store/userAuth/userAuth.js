@@ -108,6 +108,9 @@ export default {
         console.log(err);
       }
     },
+    setUserAddresses(context, payload) {
+      context.commit("setUserAddress", payload);
+    },
     logout(context) {
       if (context.getters["getAdminState"] === true) {
         context.commit("adminLogout");
@@ -118,7 +121,7 @@ export default {
         root: true,
       });
     },
-    async setLastUsedUserAddress(context, payload) {
+    async fetchLastUsedUserAddress(context, payload) {
       try {
         context.commit("setLastUsedUserAddress", payload);
         const token = context.rootGetters["UserAuth/getToken"] || null;
@@ -148,6 +151,9 @@ export default {
       } catch (err) {
         console.log(err);
       }
+    },
+    setLastUsedUserAddress(context, payload) {
+      context.commit("setLastUsedUserAddress", payload);
     },
   },
   getters: {

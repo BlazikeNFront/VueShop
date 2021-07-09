@@ -157,7 +157,6 @@ export default {
           this.orderResult.message =
             "One or more products are no longer avaliable";
           this.orderResult.productsUnavaliable = productsUnavaliable;
-          console.log(this.orderResult.productsUnavaliable);
         } else if (rawData.status === 200) {
           this.orderResult.result = true;
           this.orderResult.message = "Order accepted";
@@ -218,9 +217,6 @@ export default {
   height: 28rem;
   flex-direction: column;
 
-  @media (min-width: 768px) {
-    transform: translate(-50%);
-  }
   h4 {
     margin-top: 2rem;
     font-size: 2rem;
@@ -357,9 +353,6 @@ export default {
 .orderResult-leave-from {
   transform: translate(0rem);
   opacity: 1;
-  @media (min-width: 768px) {
-    transform: translate(-50%);
-  }
 }
 
 @media (min-width: 768px) {
@@ -373,8 +366,6 @@ export default {
       font-weight: 600;
     }
   }
-}
-@media (min-width: 1024px) {
 }
 </style>
 

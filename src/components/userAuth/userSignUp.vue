@@ -19,7 +19,9 @@
             autocomplete="email"
           />
 
-          <p>{{ formErrors.userNameErrorMsg }}</p>
+          <p class="loginFormControl__errorMsg">
+            {{ formErrors.userNameErrorMsg }}
+          </p>
         </div>
         <div class="loginFormControl">
           <label class="loginForm_label" for="signupPassword">Password:</label>
@@ -114,11 +116,14 @@ export default {
           password: this.userPassword,
         };
 
-        const data = await fetch("http://localhost:3000/SignUp", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(userData),
-        });
+        const data = await fetch(
+          "https://vueshopbackend.herokuapp.com/SignUp",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(userData),
+          }
+        );
         const dataJSON = await data.json();
 
         if (data.status !== 200) {
@@ -137,7 +142,8 @@ export default {
       }
     },
     checkForm() {
-      const regexForEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      const regexForEmail =
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
       const regexForPassword = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/; //Requirements -minimum eight characters, at least one letter and one number
 
@@ -192,30 +198,16 @@ export default {
     margin: 1rem;
     font-size: $font-bg;
   }
-  .formControl {
-    @include flexLayout;
-    margin: 2rem;
-    flex-direction: column;
-
-    input {
-      width: 100%;
-      padding: 5%;
-      font-size: $font-md;
-      border: 2px solid $primiary-color;
-      background-color: transparent;
-      color: $primiary-color;
-    }
-  }
 }
 .loginFormControl__button--signUp {
   margin-top: 2rem;
 }
 .signUpForm__errorMsg {
-  color: $primiary-color;
+  color: $red-error;
   font-size: $font-bg;
 }
 .userInputError {
-  border: 2px solid red;
+  border: 2px solid $red-error;
 }
 @media (min-width: 1024px) {
   .userAuth__userSignUp {

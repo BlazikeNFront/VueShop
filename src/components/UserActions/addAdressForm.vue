@@ -161,6 +161,10 @@ export default {
           this.addressUpdateResult = "Address added successfully";
           this.clearFormError();
           this.clearUserInputs();
+          const userAddresses = await postResult.json();
+          console.log(userAddresses);
+          this.$store.dispatch("UserAuth/setUserAddresses", userAddresses.all);
+          this.$store.dispatch("UserAuth/setLastUsedUserAddress", payload);
         }
       } catch (err) {
         this.formLoader = false;
@@ -202,7 +206,7 @@ export default {
       ) {
         this.newAddressForm.address.error = true;
         this.formErrorMsg =
-          "Surname field should contain at least 5 characters and also not contain special signs like ?,&";
+          "Address field should contain at least 5 characters and also not contain special signs like ?,&";
         return false;
       }
     },
@@ -217,6 +221,8 @@ export default {
   padding: 1.5rem;
   padding-top: 2.5rem;
   width: 28rem;
+  height: 100%;
+  min-height: 63rem;
   opacity: 1;
 
   h4 {
@@ -284,7 +290,7 @@ export default {
     border-radius: 0 0 20px 20px;
     background-color: $main-color;
     text-align: center;
-
+    overflow: hidden;
     z-index: $addAddressDropDown;
     cursor: pointer;
 
@@ -316,7 +322,7 @@ export default {
     padding: 1rem;
     border: none;
     border-bottom: 2px solid #2c3e50;
-    border-radius: 10px;
+    border-radius: 20px;
     background-color: rgba(255, 255, 255, 0.2);
     background: transparent;
     font-family: inherit;
@@ -330,9 +336,10 @@ export default {
   input:-webkit-autofill:hover,
   input:-webkit-autofill:focus {
     border: none;
-    box-shadow: 0 0 0 30px #f5e3e6 inset;
+    border-radius: 20px;
+    box-shadow: 0 0 0 30px #3cc9ce inset;
     -webkit-text-fill-color: #2c3e50;
-    -webkit-box-shadow: 0 0 0 30px #f5e3e6 inset;
+    -webkit-box-shadow: 0 0 0 30px #3cc9ce inset;
   }
 }
 
@@ -342,8 +349,9 @@ export default {
 
 .confirmationForm__button {
   @include button;
-  margin-top: 2rem;
+  margin-top: 10rem;
   padding: 1rem;
+  font-size: 1.6rem;
   font-weight: 600;
   letter-spacing: 1px;
 }
@@ -370,8 +378,8 @@ export default {
     top: 0;
     left: 50%;
     width: 40rem;
+    min-height: 50rem;
     opacity: 1;
-
     transform: translate(-50%);
     .customSelect {
       svg {

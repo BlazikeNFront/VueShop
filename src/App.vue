@@ -1,5 +1,4 @@
 <template>
-  <div class="brandAdd"></div>
   <div class="container">
     <the-header id="header"></the-header>
     <main id="main">
@@ -98,12 +97,8 @@ ul {
 button {
   cursor: pointer;
 }
-
-.brandAdd {
-  position: fixed;
-  top: 50%;
-  z-index: 2222;
-}
+//code below removies background color from input in chrome after autocomplete
+//code below removies background color from input in chrome after autocomplete
 
 #app {
   background-color: #d9e4f5;
@@ -118,7 +113,6 @@ button {
   position: relative;
   width: 100%;
   min-height: 100vh;
-
   overflow: hidden;
 }
 
