@@ -5,6 +5,7 @@
       v-if="this.orders.length > 0"
       :userOrders="this.orders"
       :admin="true"
+      @orderStatusChanged="this.fetchOrders(page)"
     ></user-orders-table>
     <p v-else>There is no orders</p>
     <loader v-if="this.loader"></loader>
@@ -68,8 +69,12 @@ export default {
         this.orders = data;
         this.numberOfPages = numberOfPages;
       } catch (err) {
-        console.log(err);
-        this.$store.dispatch("ModalHandler/showModal", err.message);
+        if (err.body) {
+          const error = await err.json();
+          this.$store.dispatch("ModalHandler/showError", error.message);
+        } else {
+          this.$store.dispatch("ModalHandler/showError", err.message);
+        }
       }
     },
   },

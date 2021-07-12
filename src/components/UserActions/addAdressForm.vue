@@ -168,7 +168,12 @@ export default {
         }
       } catch (err) {
         this.formLoader = false;
-        this.$store.dispatch("ErrorHandler/showError", err.message);
+        if (err.body) {
+          const error = await err.json();
+          this.$store.dispatch("ModalHandler/showError", error.message);
+        } else {
+          this.$store.dispatch("ModalHandler/showError", err.message);
+        }
       }
     },
     clearUserInputs() {
@@ -274,7 +279,6 @@ export default {
       font-size: 1.2rem;
       font-weight: 600;
       color: white;
-
       text-align: center;
     }
   }
@@ -296,8 +300,11 @@ export default {
 
     li {
       padding: 1rem;
+      font-size: 1.3rem;
       &:hover {
         background-color: rgba(255, 255, 255, 0.2);
+
+        font-size: 1.4rem;
       }
     }
   }

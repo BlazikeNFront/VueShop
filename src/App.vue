@@ -29,6 +29,9 @@ export default {
     TheHeader,
     FooterComponent,
   },
+  mounted() {
+    this.checkForToken();
+  },
   computed: {
     showModal() {
       return this.$store.getters["ModalHandler/getShowModal"];
@@ -39,7 +42,12 @@ export default {
   },
   methods: {
     closeModal() {
-      this.$store.dispatch("ErrorHandler/closeModal");
+      this.$store.dispatch("ModalHandler/closeModal");
+    },
+    checkForToken() {
+      if (document.cookie.split("=")[1] === "true") {
+        this.$store.dispatch("UserAuth/authUserWithCookie");
+      }
     },
   },
 };

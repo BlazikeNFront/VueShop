@@ -153,7 +153,7 @@ export default {
     height: inherit;
     background-color: black;
     overflow: hidden;
-    cursor: pointer;
+
     transition: all 1s ease;
 
     img {

@@ -41,7 +41,7 @@
       v-if="showOrderDetails"
       :order="this.selectedOrder"
       :changeOrderStatus="this.allowOrderStatusChange"
-      :orderStatusChanged="this.showModalWithConfirmation"
+      @orderStatusChanged="this.$emit('orderStatusChanged')"
       @closeModal="this.closeModal"
     ></order-details>
   </div>
@@ -61,6 +61,7 @@ export default {
       type: Boolean,
     },
   },
+  emits: ["orderStatusChanged"],
   data() {
     return {
       selectedOrder: null,
@@ -103,9 +104,6 @@ export default {
       } else {
         return "Realized";
       }
-    },
-    showModalWithConfirmation() {
-      this.$store.dispatch("ModalHandler/showModal", "Orders status changed");
     },
   },
 };

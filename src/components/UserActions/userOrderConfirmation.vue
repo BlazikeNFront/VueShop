@@ -169,7 +169,6 @@ export default {
         this.orderResult.loader = false;
       } catch (err) {
         this.orderResult.loader = false;
-        console.log(err);
       }
     },
     confirmAction() {

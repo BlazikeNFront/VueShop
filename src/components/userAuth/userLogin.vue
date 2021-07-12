@@ -94,11 +94,12 @@ export default {
         await this.$store.dispatch("UserAuth/handleLogin", payload);
         this.$router.push({ name: this.nameToRedirectAfterLoginAction });
       } catch (err) {
-        //error is response with other status than 200 ;
-        const errorResponse = await err.json();
-        this.serverErrorMsg =
-          errorResponse.message ||
-          "Couldnt authenticate user :( Try again later";
+        if (err.body) {
+          const error = await err.json();
+          this.serverErrorMsg = error.message;
+        } else {
+          this.serverErrorMsg = "Couldnt authenticate user :( Try again later";
+        }
       }
     },
     changeRoute() {

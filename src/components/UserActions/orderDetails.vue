@@ -58,6 +58,9 @@
         <p class="orderDetailsView__p">
           <span>Adress:</span> Panstwo Dykty i kartonu
         </p>
+        <p class="orderDetailsView__p">
+          <span>Summary cost:</span> {{ summaryCost() }}$
+        </p>
       </div>
       <form
         v-if="this.changeOrderStatus"
@@ -92,9 +95,12 @@
             name="ordersStatus"
             type="radio"
             value="2"
-            v-model="orderDetailsStatus"
+            v-model="this.orderDetailsStatus"
           />
         </div>
+        <p v-if="orderFormError" class="orderStatusForm__p-error">
+          Please select status
+        </p>
         <button class="orderStatusForm__button">Submit change</button>
         <loader class="orderStatusForm__loader" v-if="loader"></loader>
       </form>
@@ -114,6 +120,7 @@ export default {
   data() {
     return {
       orderDetailsStatus: null,
+      orderFormError: false,
       orderDetailsModal: false,
       orderDeatilsModalMsg: false,
       loader: false,
@@ -128,8 +135,21 @@ export default {
     closeModal() {
       this.$store.dispatch("Admin/closeShowOrderDetails");
     },
+    summaryCost() {
+      const summaryCost = this.order.cart.reduce((acc, element) => {
+        const sum = Number(element.price) * Number(element.quantity);
+        return acc + sum;
+      }, 0);
+      console.log(summaryCost);
+      return summaryCost.toFixed(2);
+    },
     async handleChangeOrderStatus(orderId) {
       try {
+        if (!this.orderDetailsStatus) {
+          this.orderFormError = true;
+          return;
+        }
+        this.orderFormError = false;
         this.loader = true;
         const token = this.$store.getters["UserAuth/getToken"];
         const requestHeaders = new Headers();
@@ -138,6 +158,7 @@ export default {
         if (token) {
           requestHeaders.append("Authorization", `Bearer ${token}`);
         }
+
         const payload = {
           orderId,
           orderStatus: this.orderDetailsStatus,
@@ -154,13 +175,18 @@ export default {
         if (response.status === 200) {
           this.loader = false;
           this.orderDeatilsModalMsg = "ORDER STATUS CHANGED SUCCESFULLY";
+          this.$emit("orderStatusChanged");
         } else {
           throw new Error("Server did not accepted change of order");
         }
       } catch (err) {
-        console.log(err);
         this.loader = false;
-        this.orderDeatilsModalMsg = err.message;
+        if (err.body) {
+          const error = await err.json();
+          this.orderDeatilsModalMsg = error.message;
+        } else {
+          this.orderDeatilsModalMsg = err.message;
+        }
       }
     },
     clearModal() {
@@ -213,6 +239,8 @@ export default {
   @include flexLayout;
   margin: 2rem;
   width: 100%;
+  flex-direction: column;
+  flex-wrap: wrap;
   justify-content: space-evenly;
   font-size: 1.5rem;
   text-align: center;
@@ -220,12 +248,23 @@ export default {
 .orderStatusForm {
   @include flexLayout;
   margin: 2rem;
+  position: relative;
 }
+
 .orderDetailsView__p {
+  margin: 0.5rem;
   color: black;
   span {
     font-weight: 600;
   }
+}
+.orderStatusForm__p-error {
+  position: absolute;
+  bottom: -2rem;
+  left: 50%;
+  transform: translate(-50%);
+  font-size: 1.5rem;
+  color: $red-error;
 }
 .orderStatusForm__formControl {
   @include flexLayout;
@@ -268,6 +307,7 @@ export default {
   p {
     @include mainFontBold;
     font-size: 1.5rem;
+    text-align: center;
   }
   button {
     @include button;
@@ -275,9 +315,14 @@ export default {
     font-size: 2rem;
   }
 }
+
 @media (min-width: 1024px) {
   .orderDetails__listContainer {
-    overflow: scroll;
+    overflow: initial;
+    overflow-y: scroll;
+  }
+  .orderDetailsView__userInformation {
+    flex-direction: row;
   }
 }
 </style>

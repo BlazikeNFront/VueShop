@@ -2,7 +2,6 @@
   <div>
     <div class="mainPage"></div>
     <main-information-box></main-information-box>
-
     <main-slider class="slides"></main-slider>
   </div>
 </template>

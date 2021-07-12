@@ -237,7 +237,7 @@
           />
         </div>
         <p class="addProduct__errorMsg" v-if="formInputs.image.error">
-          {{ formInputs.image.error.errorMsg }}
+          {{ formInputs.image.errorMsg }}
         </p>
       </div>
       <button class="form-addProduct__button">Create product</button>
@@ -245,7 +245,6 @@
     <confirmation-modal
       v-if="this.formRequestConfirmation.visible"
       @closeDialog="closeModal"
-      @confirmError="closeModal"
     >
       <h4 class="addProduct__errorMsg__moddalText">
         {{ formRequestConfirmation.text }}
@@ -271,6 +270,7 @@ export default {
         quantity: { value: null, error: false, errorMsg: null },
         image: { value: null, error: false, errorMsg: null },
       },
+      forceImage: false,
     };
   },
 
@@ -313,11 +313,11 @@ export default {
       }
       if (
         descritpion.value === null ||
-        descritpion.value.split(" ").length < 30
+        descritpion.value.split(" ").length < 20
       ) {
         this.formInputs.descritpion.error = true;
         this.formInputs.descritpion.errorMsg =
-          "Descritpion should contain at least 30 words";
+          "Descritpion should contain at least 20 words";
         return false;
       }
       if (price.value === null || price.value < 0) {
@@ -338,11 +338,12 @@ export default {
       if (image.value === null) {
         this.formInputs.image.error = true;
         this.formInputs.image.errorMsg = "Image of product must be provided";
+
         return false;
       }
       return true;
     },
-    async handleFormRequest() {
+    handleFormRequest() {
       const {
         typeOfProduct,
         categoryOfProduct,
@@ -363,42 +364,34 @@ export default {
       product.append("price", price.value);
       product.append("quantity", quantity.value);
       product.append("image", image.value);
+      product.append("forceImage", this.forceImage);
 
       if (formValidation === true) {
-        const productId = await this.addProduct(product);
-
-        if (!productId) {
-          this.formRequestConfirmation.text =
-            "Server couldnt add product :( Try again";
-          this.formRequestConfirmation.visible = true;
-          throw new Error("no product iD in VUE PAGE");
-        }
-        this.formRequestConfirmation.text = "Added product succesfully";
-        this.formRequestConfirmation.visible = true;
-        this.cleanForm();
+        this.addProduct(product);
       }
     },
     async addProduct(product) {
       try {
-        const response = await fetch("http://localhost:3000/admin/addProduct", {
-          method: "POST",
-          hheaders: { "Content-Type": "application/json" },
-          body: product,
-        });
-        if (response.status !== 200) {
-          throw new Error("add product// status != 200");
-        }
-        const responseJSON = await response.json();
-        if (!responseJSON.productId) {
-          throw new Error(
-            "add prooduct action // backend did not send productId"
-          );
+        const token = this.$store.getters["UserAuth/getToken"];
+        const requestHeaders = new Headers();
+
+        if (token) {
+          requestHeaders.append("Authorization", `Bearer ${token}`);
         }
 
-        return responseJSON.productId;
+        const response = await fetch("http://localhost:3000/admin/addProduct", {
+          method: "POST",
+          headers: requestHeaders,
+          body: product,
+          credentials: "include",
+        });
+
+        if (response.status !== 200) {
+          throw new Error("Couldnt add product to server , try again later");
+        }
       } catch (err) {
         console.log(err);
-        this.$store.dispatch("ErrorHandler/showError", err.message);
+        this.$store.dispatch("ModalHandler/showModal", err.message);
       }
     },
     cleanErrors() {

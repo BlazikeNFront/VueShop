@@ -137,8 +137,12 @@ export default {
         this.loader = false;
       } catch (err) {
         this.loader = false;
-
-        this.$store.dispatch("ErrorHandler/showError", err.message);
+        if (err.body) {
+          const error = await err.json();
+          this.$store.dispatch("ModalHandler/showError", error.message);
+        } else {
+          this.$store.dispatch("ModalHandler/showError", err.message);
+        }
       }
     },
     checkForm() {

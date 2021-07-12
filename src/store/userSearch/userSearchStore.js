@@ -42,7 +42,7 @@ export default {
           throw new Error("Server side error");
         }
         const getNumberOfPages = Math.ceil(payload.totalItems / 8);
-
+        console.log(payload);
         context.commit("setSearchResult", payload.data);
         context.commit("setNumberOfPages", getNumberOfPages);
       } catch (err) {
