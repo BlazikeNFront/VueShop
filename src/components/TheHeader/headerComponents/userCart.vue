@@ -21,17 +21,18 @@
           ></span>
           YOUR CART
         </div>
-        <font-awesome-icon
-          :icon="['fas', 'times']"
-          aria-label="Close cart bar"
+        <button
           class="cartContainer__XButton"
           @click="showUserCartAction"
-        ></font-awesome-icon>
+          aria-label="Close side cart bar"
+        >
+          <font-awesome-icon :icon="['fas', 'times']"></font-awesome-icon>
+        </button>
       </h4>
       <p class="cartContainer__noProdInfo" v-if="this.userCart.length === 0">
         There is no product in your card
       </p>
-      <div v-else class="cartContainer__cartList">
+      <aside v-else class="cartContainer__cartList">
         <ul>
           <li v-for="product in userCart" :key="product._id">
             <div class="cartContainer__productDesc">
@@ -64,13 +65,13 @@
           </div>
           <button
             class="cartContainer__orderButton"
-            aria-label="Order"
+            aria-label="Order action"
             @click="userCartPageLink(true)"
           >
             Order
           </button>
         </div>
-      </div>
+      </aside>
       <a @click.prevent="this.userCartPageLink(false)">VIEW CART</a>
     </section>
   </transition>
@@ -104,17 +105,13 @@ export default {
       );
     },
   },
-  watch: {
-    getCart(newVal) {
-      this.userCart = newVal;
-    },
-  },
+
   methods: {
     showUserCartAction() {
       this.$store.dispatch("Cart/toggleCartBarView");
     },
 
-    userCartPageLink(showConfirmOrderDialog) {
+    userCartPageLink(showConfirmOrderDialog = false) {
       this.showUserCartAction();
       const routerPayload = {
         name: "user-cart",
@@ -298,6 +295,8 @@ export default {
   font-size: 2rem;
 }
 .cartContainer__XButton {
+  border: none;
+  background: transparent;
   font-size: 3rem;
   cursor: pointer;
 }

@@ -54,6 +54,7 @@ export default {
   },
   props: {
     userOrders: {
+      type: Array,
       required: true,
     },
     admin: {
@@ -62,6 +63,9 @@ export default {
     },
   },
   emits: ["orderStatusChanged"],
+  mounted() {
+    console.log(this.userOrders);
+  },
   data() {
     return {
       selectedOrder: null,

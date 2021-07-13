@@ -34,11 +34,11 @@ export default {
       type: Number,
     },
   },
-
+  emits: ["valueChange"],
   data() {
     return { number: this.initialNumber || 1 };
   },
-  emits: ["valueChange"],
+
   methods: {
     handleClick(number) {
       if (this.number + number < 1) {

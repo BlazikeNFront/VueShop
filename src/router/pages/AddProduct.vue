@@ -254,10 +254,12 @@
 </template>
 <script>
 import ConfirmationModal from "../../components/common/ModalDialog.vue";
+import createHeaders from "../../components/mixins/createHeaders.js";
 export default {
   components: {
     ConfirmationModal,
   },
+  mixins: [],
   data() {
     return {
       formRequestConfirmation: { visible: false, text: null },
@@ -270,7 +272,6 @@ export default {
         quantity: { value: null, error: false, errorMsg: null },
         image: { value: null, error: false, errorMsg: null },
       },
-      forceImage: false,
     };
   },
 

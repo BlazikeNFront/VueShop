@@ -50,6 +50,9 @@
       <transition name="orderResult" mode="out-in">
         <div
           class="confirmationBox__orderResultBox"
+          :class="{
+            orderResultBox__prodList: orderResult.productsUnavaliable,
+          }"
           v-if="this.orderResult.visible"
         >
           <h4>Order Request Result</h4>
@@ -104,12 +107,13 @@
 </template>
 <script>
 import AddAddressForm from "./addAdressForm.vue";
-
+import CreateHeaders from "../mixins/createHeaders.js";
 export default {
   components: {
     AddAddressForm,
   },
   emits: ["hideUserConfirmationDialog"],
+  mixins: [CreateHeaders],
   data() {
     return {
       showAddressForm: false,
@@ -134,11 +138,7 @@ export default {
         this.orderResult.visible = true;
         this.orderResult.loader = true;
         const token = this.$store.getters["UserAuth/getToken"];
-        const requestHeaders = new Headers();
-        requestHeaders.append("Content-Type", "application/json");
-        if (token) {
-          requestHeaders.append("Authorization", `Bearer ${token}`);
-        }
+        const requestHeaders = this.createHeaders(token);
         const payload = {
           cart: this.$store.getters["Cart/getCart"],
         };
@@ -253,6 +253,9 @@ export default {
   @include flexLayout;
   width: 100%;
   flex-direction: column;
+}
+.orderResultBox__prodList {
+  height: 35rem;
 }
 .orderResultBox__mainMessage {
   @include flexLayout;

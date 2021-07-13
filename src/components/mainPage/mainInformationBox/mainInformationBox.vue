@@ -36,7 +36,6 @@ export default {
   width: 100%;
   height: 80rem;
   background-image: url("../../../assets/mainInformationBackgroundWebp.webp");
-
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

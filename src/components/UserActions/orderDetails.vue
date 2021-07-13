@@ -112,9 +112,18 @@
   </div>
 </template>
 <script>
+import CreateHeaders from "../mixins/createHeaders.js";
 export default {
-  props: ["order", "changeOrderStatus"],
-
+  props: {
+    order: {
+      type: Object,
+      required: true,
+    },
+    changeOrderStatus: {
+      type: Boolean,
+    },
+  },
+  mixins: [CreateHeaders],
   emits: ["orderStatusChanged", "closeModal"],
 
   data() {
@@ -132,16 +141,16 @@ export default {
     setUserOrderClick() {
       this.userOrderClick = true;
     },
-    closeModal() {
-      this.$store.dispatch("Admin/closeShowOrderDetails");
-    },
+
     summaryCost() {
       const summaryCost = this.order.cart.reduce((acc, element) => {
         const sum = Number(element.price) * Number(element.quantity);
         return acc + sum;
       }, 0);
-      console.log(summaryCost);
       return summaryCost.toFixed(2);
+    },
+    clearModal() {
+      this.orderDeatilsModalMsg = null;
     },
     async handleChangeOrderStatus(orderId) {
       try {
@@ -152,12 +161,8 @@ export default {
         this.orderFormError = false;
         this.loader = true;
         const token = this.$store.getters["UserAuth/getToken"];
-        const requestHeaders = new Headers();
 
-        requestHeaders.append("Content-Type", "application/json");
-        if (token) {
-          requestHeaders.append("Authorization", `Bearer ${token}`);
-        }
+        const requestHeaders = this.createHeaders(token);
 
         const payload = {
           orderId,
@@ -169,6 +174,7 @@ export default {
             method: "POST",
             headers: requestHeaders,
             body: await JSON.stringify(payload),
+            credentials: "include",
           }
         );
 
@@ -188,9 +194,6 @@ export default {
           this.orderDeatilsModalMsg = err.message;
         }
       }
-    },
-    clearModal() {
-      this.orderDeatilsModalMsg = null;
     },
   },
 };

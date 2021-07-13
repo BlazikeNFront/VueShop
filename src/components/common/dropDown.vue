@@ -1,8 +1,8 @@
 <template>
   <div>
     <back-drop
-      @click="selectCategoryAction"
       v-if="selectCategory"
+      @click="selectCategoryAction"
       blackOpacity="0"
     ></back-drop>
     <button

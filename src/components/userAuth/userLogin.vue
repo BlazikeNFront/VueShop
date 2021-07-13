@@ -68,6 +68,11 @@ export default {
       serverErrorMsg: null,
     };
   },
+  computed: {
+    token() {
+      return this.$store.getters["UserAuth/getToken"];
+    },
+  },
   methods: {
     cleanFormErrors() {
       this.passwordError = null;
@@ -104,9 +109,6 @@ export default {
     },
     changeRoute() {
       this.$router.push({ name: "user-signUp" });
-    },
-    closeErrorModal() {
-      this.serverErrorMsg = null;
     },
   },
 };
