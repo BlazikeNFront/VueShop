@@ -51,17 +51,13 @@ library.add(
 //global componenets
 import BackDrop from "./components/common/BackDrop.vue";
 import Loader from "./components/common/loader.vue";
-
 import ModalDialog from "./components/common/ModalDialog.vue";
-
-//global mixin
-import getUserToken from "./components/mixins/logger.js";
 
 const app = createApp(App);
 
 app.use(store);
 app.use(router);
-app.mixin(getUserToken);
+
 app.component("back-drop", BackDrop);
 app.component("loader", Loader);
 

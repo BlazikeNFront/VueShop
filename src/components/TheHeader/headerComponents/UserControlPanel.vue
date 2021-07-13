@@ -37,6 +37,9 @@ export default {
     userIsAdmin() {
       return this.$store.getters["UserAuth/getAdminState"];
     },
+    token() {
+      return this.$store.getters["UserAuth/getToken"];
+    },
   },
   methods: {
     hideUserPanel() {

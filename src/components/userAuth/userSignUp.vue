@@ -79,8 +79,10 @@
   </div>
 </template>
 <script>
+import CreateHeaders from "../mixins/createHeaders.js";
 export default {
   emits: ["changeView"],
+  mixins: [CreateHeaders],
   data() {
     return {
       email: null,
@@ -115,13 +117,13 @@ export default {
           email: this.email,
           password: this.userPassword,
         };
-
+        const requestHeaders = this.createHeaders();
         const data = await fetch(
           "https://vueshopbackend.herokuapp.com/SignUp",
           {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(userData),
+            headers: requestHeaders,
+            body: await JSON.stringify(userData),
           }
         );
         const dataJSON = await data.json();
@@ -137,8 +139,12 @@ export default {
         this.loader = false;
       } catch (err) {
         this.loader = false;
-
-        this.$store.dispatch("ErrorHandler/showError", err.message);
+        if (err.body) {
+          const error = await err.json();
+          this.$store.dispatch("ModalHandler/showError", error.message);
+        } else {
+          this.$store.dispatch("ModalHandler/showError", err.message);
+        }
       }
     },
     checkForm() {

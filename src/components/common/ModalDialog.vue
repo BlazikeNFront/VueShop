@@ -13,7 +13,14 @@
 <script>
 export default {
   emits: ["closeDialog"],
-  props: ["width", "height"],
+  props: {
+    width: {
+      type: String,
+    },
+    height: {
+      type: String,
+    },
+  },
   computed: {
     boxDimension() {
       return "width:" + this.width + "; height:" + this.height + ";";
@@ -55,5 +62,4 @@ export default {
   font-size: 2rem;
   font-weight: 600;
 }
-
 </style>

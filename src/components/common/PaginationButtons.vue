@@ -29,8 +29,8 @@
       </div>
       <button
         @click="nextPageClick($event)"
-        aria-label="next page"
         class="pagination__pageChangersButtons"
+        aria-label="next page"
       >
         <font-awesome-icon
           :icon="['fas', 'arrow-right']"
@@ -43,11 +43,15 @@
 <script>
 import HexagonalShape from "./HexagonalShape.vue";
 export default {
-  props: ["numberOfPages", "backgroundOfHexagon", "currentPage"],
-  emits: ["pageChange", "previousPageClick", "nextPageClick"],
   components: {
     HexagonalShape,
   },
+  props: {
+    numberOfPages: { type: Number },
+    backgroundOfHexagon: { type: String },
+    currentPage: { type: String },
+  },
+  emits: ["pageChange", "previousPageClick", "nextPageClick"],
 
   methods: {
     previousPageClick() {
@@ -63,7 +67,7 @@ export default {
     },
 
     pageClick(e, page) {
-      const element = e.path[1];
+      const element = e.target.offsetParent;
       element.classList.remove("buttonClickAnimation");
       void element.offsetWidth; //force reflow
       element.classList.add("buttonClickAnimation");

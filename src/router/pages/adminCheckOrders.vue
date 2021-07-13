@@ -5,6 +5,7 @@
       v-if="this.orders.length > 0"
       :userOrders="this.orders"
       :admin="true"
+      @orderStatusChanged="this.fetchOrders(page)"
     ></user-orders-table>
     <p v-else>There is no orders</p>
     <loader v-if="this.loader"></loader>
@@ -29,8 +30,9 @@
 import PaginationButtons from "../../components/common/PaginationButtons.vue";
 import UserOrdersTable from "../../components/UserActions/userOrdersTable.vue";
 import userOrdersMixin from "../../components/mixins/userOrders.js";
+import createHeaders from "../../components/mixins/createHeaders.js";
 export default {
-  mixins: [userOrdersMixin],
+  mixins: [userOrdersMixin, createHeaders],
   components: {
     PaginationButtons,
     UserOrdersTable,
@@ -44,17 +46,13 @@ export default {
   methods: {
     async fetchOrders(page) {
       try {
-        const token = this.$store.getters["UserAuth/getToken"];
-        const requestHeaders = new Headers();
-        requestHeaders.append("Content-Type", "application/json");
-        if (token) {
-          requestHeaders.append("Authorization", `Bearer ${token}`);
-        }
+        const requestHeaders = createHeaders();
 
         const rawData = await fetch(
           `http://localhost:3000/admin/getOrders?page=${page}`,
           {
             headers: requestHeaders,
+            credentials: "include",
           }
         );
 
@@ -68,8 +66,12 @@ export default {
         this.orders = data;
         this.numberOfPages = numberOfPages;
       } catch (err) {
-        console.log(err);
-        this.$store.dispatch("ModalHandler/showModal", err.message);
+        if (err.body) {
+          const error = await err.json();
+          this.$store.dispatch("ModalHandler/showError", error.message);
+        } else {
+          this.$store.dispatch("ModalHandler/showError", err.message);
+        }
       }
     },
   },

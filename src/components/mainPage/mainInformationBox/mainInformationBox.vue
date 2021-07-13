@@ -36,7 +36,6 @@ export default {
   width: 100%;
   height: 80rem;
   background-image: url("../../../assets/mainInformationBackgroundWebp.webp");
-  background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -112,6 +111,9 @@ export default {
   }
 }
 @media (min-width: 1024px) {
+  .containerForMainImg {
+    background-attachment: fixed;
+  }
   .containerForMainImg__text {
     height: 90%;
     background-position-y: -12rem;

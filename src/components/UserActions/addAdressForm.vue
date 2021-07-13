@@ -78,11 +78,13 @@
 </template>
 <script>
 import DropDown from "../common/dropDown.vue";
+import CreateHeaders from "../mixins/createHeaders.js";
 export default {
   components: {
     DropDown,
   },
   emits: ["exitButton"],
+  mixins: [CreateHeaders],
   data() {
     return {
       newAddressForm: {
@@ -118,7 +120,6 @@ export default {
   methods: {
     setUserAddress(category, index) {
       const addressObject = this.userAddressList[index];
-
       this.$store.dispatch("UserAuth/setLastUsedUserAddress", addressObject);
       this.$emit("exitButton");
     },
@@ -126,54 +127,6 @@ export default {
       this.formErrorMsg = null;
       for (let key in this.newAddressForm) {
         this.newAddressForm[key].error = false;
-      }
-    },
-    async addNewAddress() {
-      try {
-        if (this.formValidation() === false) {
-          return;
-        }
-
-        this.formLoader = true;
-        const payload = {
-          name: this.newAddressForm.name.value,
-          surname: this.newAddressForm.surname.value,
-          address: this.newAddressForm.address.value,
-        };
-
-        const token = this.$store.getters["UserAuth/getToken"];
-
-        const requestHeaders = new Headers();
-        requestHeaders.append("Content-Type", "application/json");
-        if (token) {
-          requestHeaders.append("Authorization", `Bearer ${token}`);
-        }
-        const postResult = await fetch("http://localhost:3000/addUserAddress", {
-          method: "POST",
-          headers: requestHeaders,
-          body: await JSON.stringify(payload),
-        });
-        if (postResult.status !== 200) {
-          this.formLoader = false;
-          throw new Error("Server did not accepted address");
-        } else {
-          this.formLoader = false;
-          this.addressUpdateResult = "Address added successfully";
-          this.clearFormError();
-          this.clearUserInputs();
-          const userAddresses = await postResult.json();
-          console.log(userAddresses);
-          this.$store.dispatch("UserAuth/setUserAddresses", userAddresses.all);
-          this.$store.dispatch("UserAuth/setLastUsedUserAddress", payload);
-        }
-      } catch (err) {
-        this.formLoader = false;
-        this.$store.dispatch("ErrorHandler/showError", err.message);
-      }
-    },
-    clearUserInputs() {
-      for (let key in this.newAddressForm) {
-        this.newAddressForm[key].value = "";
       }
     },
     formValidation() {
@@ -208,6 +161,56 @@ export default {
         this.formErrorMsg =
           "Address field should contain at least 5 characters and also not contain special signs like ?,&";
         return false;
+      }
+    },
+    async addNewAddress() {
+      try {
+        if (this.formValidation() === false) {
+          return;
+        }
+
+        this.formLoader = true;
+        const payload = {
+          name: this.newAddressForm.name.value,
+          surname: this.newAddressForm.surname.value,
+          address: this.newAddressForm.address.value,
+        };
+
+        const token = this.$store.getters["UserAuth/getToken"];
+        const requestHeaders = this.createHeaders(token);
+
+        const postResult = await fetch("http://localhost:3000/addUserAddress", {
+          method: "POST",
+          headers: requestHeaders,
+          body: await JSON.stringify(payload),
+          credentials: "include",
+        });
+        if (postResult.status !== 200) {
+          this.formLoader = false;
+          throw new Error("Server did not accepted address");
+        } else {
+          this.formLoader = false;
+          this.addressUpdateResult = "Address added successfully";
+          this.clearFormError();
+          this.clearUserInputs();
+          const userAddresses = await postResult.json();
+
+          this.$store.dispatch("UserAuth/setUserAddresses", userAddresses.all);
+          this.$store.dispatch("UserAuth/setLastUsedUserAddress", payload);
+        }
+      } catch (err) {
+        this.formLoader = false;
+        if (err.body) {
+          const error = await err.json();
+          this.$store.dispatch("ModalHandler/showModal", error.message);
+        } else {
+          this.$store.dispatch("ModalHandler/showModal", err.message);
+        }
+      }
+    },
+    clearUserInputs() {
+      for (let key in this.newAddressForm) {
+        this.newAddressForm[key].value = "";
       }
     },
   },
@@ -274,7 +277,6 @@ export default {
       font-size: 1.2rem;
       font-weight: 600;
       color: white;
-
       text-align: center;
     }
   }
@@ -296,8 +298,11 @@ export default {
 
     li {
       padding: 1rem;
+      font-size: 1.3rem;
       &:hover {
         background-color: rgba(255, 255, 255, 0.2);
+
+        font-size: 1.4rem;
       }
     }
   }

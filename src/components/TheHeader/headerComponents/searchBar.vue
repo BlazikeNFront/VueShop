@@ -45,7 +45,6 @@ export default {
   computed: {
     placeholder() {
       if (this.selectedCategory) {
-        
         return `Search in ${this.selectedCategory}`;
       } else {
         return "Search products";
@@ -140,7 +139,6 @@ export default {
   height: 3rem;
   background-color: $main-color;
   color: white;
-  z-index: $headerDropDown;
 
   .customSelect {
     @include flexLayout;

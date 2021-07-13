@@ -41,7 +41,7 @@
       v-if="showOrderDetails"
       :order="this.selectedOrder"
       :changeOrderStatus="this.allowOrderStatusChange"
-      :orderStatusChanged="this.showModalWithConfirmation"
+      @orderStatusChanged="this.$emit('orderStatusChanged')"
       @closeModal="this.closeModal"
     ></order-details>
   </div>
@@ -54,12 +54,17 @@ export default {
   },
   props: {
     userOrders: {
+      type: Array,
       required: true,
     },
     admin: {
       required: false,
       type: Boolean,
     },
+  },
+  emits: ["orderStatusChanged"],
+  mounted() {
+    console.log(this.userOrders);
   },
   data() {
     return {
@@ -103,9 +108,6 @@ export default {
       } else {
         return "Realized";
       }
-    },
-    showModalWithConfirmation() {
-      this.$store.dispatch("ModalHandler/showModal", "Orders status changed");
     },
   },
 };

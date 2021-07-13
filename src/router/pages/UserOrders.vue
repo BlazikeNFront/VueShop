@@ -68,8 +68,12 @@ export default {
         this.orders = data;
         this.numberOfPages = numberOfPages;
       } catch (err) {
-        console.log(err);
-        this.$store.dispatch("ModalHandler/showModal", err.message);
+        if (err.body) {
+          const error = await err.json();
+          this.$store.dispatch("ModalHandler/showError", error.message);
+        } else {
+          this.$store.dispatch("ModalHandler/showError", err.message);
+        }
       }
     },
     handleChangePageRequestAdmin(page) {

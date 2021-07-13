@@ -42,7 +42,7 @@ export default {
           throw new Error("Server side error");
         }
         const getNumberOfPages = Math.ceil(payload.totalItems / 8);
-
+        console.log(payload);
         context.commit("setSearchResult", payload.data);
         context.commit("setNumberOfPages", getNumberOfPages);
       } catch (err) {
@@ -72,7 +72,7 @@ export default {
           `http://localhost:3000/getProductDetails/${prodId}`
         );
         const data = await rawData.json();
-        data.description = data.description.split("•").join("\n•"); // sometime in description appears list starting with "•" sign;this code makes the sign to start in new line(looks like acutallu list after that adjustment)
+        data.description = data.description.split("•").join("\n•"); // sometimes in description appears list starting with "•" sign;this code makes the sign to start in new line(looks like acutallu list after that adjustment)
         context.commit("setProductDetails", data);
       } catch (err) {
         console.log(err);
