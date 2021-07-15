@@ -4,7 +4,7 @@
     <div class="productDetails_productBox" v-else>
       <img
         :src="product.imagePath.large"
-        alt="rod"
+        :alt="product.name + 'image'"
         class="productDetails__image"
       />
 
@@ -53,6 +53,9 @@ export default {
   },
   mounted() {
     const routerProductId = this.$route.params.productId;
+    if (this.product === null || routerProductId) {
+      this.$store.dispatch("UserSearch/setProductDetails", routerProductId);
+    }
     this.$store.dispatch("UserSearch/setProductDetails", routerProductId);
   },
   methods: {

@@ -8,6 +8,7 @@
       {{ totalQuantityOfUserProducts }}
     </p>
   </div>
+
   <back-drop @click="showUserCartAction" v-if="showUserCart"></back-drop>
   <transition name="cart">
     <section class="cartContainer" v-if="showUserCart">
@@ -280,7 +281,7 @@ export default {
 .cartContainer__cartList {
   ul {
     height: 54vh;
-    margin-top: 5rem;
+    margin-top: 2rem;
     overflow-y: scroll;
   }
   li {
@@ -376,6 +377,13 @@ export default {
   .cart-enter-from,
   .cart-leave-to {
     transform: translate(45rem, 0);
+  }
+}
+@media (min-width: 725px) {
+  .cartContainer__cartList {
+    ul {
+      margin-top: 5rem;
+    }
   }
 }
 @media (min-width: 1024px) {

@@ -10,7 +10,6 @@ const store = createStore({
   modules: {
     UserAuth,
     Cart,
-
     UserSearch,
     ModalHandler,
   },

@@ -57,9 +57,7 @@ export default {
   data() {
     return {
       nameToRedirectAfterLoginAction:
-        this.$route.params.redirectAfterLogin ||
-        this.$route.params.fromName ||
-        "main-page",
+        this.$route.params.redirectAfterLogin || "main-page",
       loginPage: true, //true === userLogin page, false=== signUp page
       userName: null,
       userPassword: null,
@@ -99,9 +97,11 @@ export default {
         await this.$store.dispatch("UserAuth/handleLogin", payload);
         this.$router.push({ name: this.nameToRedirectAfterLoginAction });
       } catch (err) {
-        if (err.body) {
-          const error = await err.json();
-          this.serverErrorMsg = error.message;
+        console.log(err.status);
+        if (err.status === 402) {
+          this.serverErrorMsg = "User with that email does not exist";
+        } else if (err.status === 403) {
+          this.serverErrorMsg = "Incorrect password";
         } else {
           this.serverErrorMsg = "Couldnt authenticate user :( Try again later";
         }

@@ -3,7 +3,7 @@ export default {
   state() {
     return {
       token: null,
-      admin: true,
+      admin: false,
       addresses: {
         lastUsed: null,
         all: [],
@@ -57,6 +57,9 @@ export default {
             credentials: "include",
           })
             .then((data) => {
+              for (let entry of data.headers.entries()) {
+                console.log(entry);
+              }
               if (data.status !== 200) {
                 throw data;
               } else {
@@ -64,6 +67,7 @@ export default {
               }
             })
             .then((dataJSON) => {
+              console.log(dataJSON);
               const tokenPayload = dataJSON.token;
               context.commit("handleLogin", tokenPayload);
               resolve();

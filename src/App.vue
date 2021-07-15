@@ -9,12 +9,8 @@
       </router-view>
     </main>
     <footer-component></footer-component>
-    <modal-dialog
-      v-if="this.showModal"
-      @closeDialog="this.closeModal"
-      class="mainModal"
-    >
-      <p class="errorDialog_p">{{ this.showModalMsg }}</p>
+    <modal-dialog v-if="this.showModal" @closeDialog="this.closeModal">
+      <p class="modalDialog_p">{{ this.showModalMsg }}</p>
     </modal-dialog>
   </div>
 </template>
@@ -67,13 +63,7 @@ html {
 *:after {
   box-sizing: inherit;
 }
-.mainModal {
-  width: 100vw;
-  height: 100vh;
-  background-color: black;
-  position: fixed;
-  z-index: 3000;
-}
+
 body,
 h1,
 h2,
@@ -132,7 +122,13 @@ button {
   max-width: 192rem;
   overflow: hidden;
 }
-
+.modalDialog_p {
+  margin: 0 auto;
+  text-align: center;
+  width: 90%;
+  font-size: 2rem;
+  font-weight: 600;
+}
 .errorDialog_h4 {
   width: 50rem;
 }

@@ -116,8 +116,7 @@ export default {
 .orders__container {
   position: relative;
   margin-left: 5%;
-
-  height: 50rem;
+  max-height: 50rem;
   overflow-x: scroll;
 }
 .orders__ordersList {
