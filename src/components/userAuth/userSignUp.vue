@@ -59,6 +59,7 @@
         Sign Me Up !
       </button>
       <loader v-if="loader"></loader>
+
       <p class="signUpLink">
         U already have an account? Click
         <span class="loginForm__routerLink" @click="this.$emit('changeView')"
@@ -67,15 +68,6 @@
         to Log in !
       </p>
     </form>
-
-    <modal-dialog
-      v-if="dialogModal.type"
-      @closeDialog="closeErrorModal"
-      @confirmError="closeErrorModal"
-      ><p class="signUpForm__errorMsg">
-        {{ dialogModal.msg }}
-      </p>
-    </modal-dialog>
   </div>
 </template>
 <script>
@@ -93,10 +85,6 @@ export default {
         userNameErrorMsg: null,
       },
       loader: false,
-      dialogModal: {
-        type: null,
-        msg: null,
-      },
     };
   },
   methods: {
@@ -118,32 +106,33 @@ export default {
           password: this.userPassword,
         };
         const requestHeaders = this.createHeaders();
-        const data = await fetch(
-          "https://vueshopbackend.herokuapp.com/SignUp",
-          {
-            method: "POST",
-            headers: requestHeaders,
-            body: await JSON.stringify(userData),
-          }
-        );
-        const dataJSON = await data.json();
-
-        if (data.status !== 200) {
-          this.dialogModal.type = "error";
-          this.dialogModal.msg = dataJSON.message;
+        const data = await fetch("http://localhost:3000/SignUp", {
+          method: "POST",
+          headers: requestHeaders,
+          body: await JSON.stringify(userData),
+        });
+        if (data.status === 409) {
+          this.$store.dispatch(
+            "ModalHandler/showModal",
+            "Account with that email address already exist"
+          );
           this.loader = false;
           return;
+        } else if (data.status !== 200) {
+          throw new Error("Couldn't sign up, try again later");
         }
-        this.dialogModal.type = "confirmation";
-        this.dialogModal.msg = dataJSON.message;
-        this.loader = false;
+        this.$store.dispatch(
+          "ModalHandler/showModal",
+          "Account Created, You can now log in"
+        );
+        this.$router.push("/");
       } catch (err) {
         this.loader = false;
         if (err.body) {
           const error = await err.json();
-          this.$store.dispatch("ModalHandler/showError", error.message);
+          this.$store.dispatch("ModalHandler/showModal", error.message);
         } else {
-          this.$store.dispatch("ModalHandler/showError", err.message);
+          this.$store.dispatch("ModalHandler/showModal", err.message);
         }
       }
     },
@@ -173,13 +162,6 @@ export default {
       this.formErrors.userNameErrorMsg = null;
       this.formErrors.passwordErrorMsg = null;
     },
-    closeErrorModal() {
-      if (this.dialogModal.type === "confirmation") {
-        this.$router.push("/");
-      }
-      this.dialogModal.type = null;
-      this.dialogModal.msg = null;
-    },
   },
 };
 </script>
@@ -208,9 +190,11 @@ export default {
 .loginFormControl__button--signUp {
   margin-top: 2rem;
 }
-.signUpForm__errorMsg {
-  color: $red-error;
-  font-size: $font-bg;
+.signUpForm__modal {
+  p {
+    color: $red-error;
+    font-size: $font-bg;
+  }
 }
 .userInputError {
   border: 2px solid $red-error;

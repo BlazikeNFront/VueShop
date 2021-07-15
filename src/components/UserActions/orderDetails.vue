@@ -51,17 +51,21 @@
           </li>
         </ul>
       </div>
-      <h5 class="orderDetailsView__h5">Client information</h5>
       <div class="orderDetailsView__userInformation">
-        <p class="orderDetailsView__p"><span>Name:</span> Damian</p>
-        <p class="orderDetailsView__p"><span>Surname:</span> Stachurski</p>
+        <h4>Client information</h4>
         <p class="orderDetailsView__p">
-          <span>Adress:</span> Panstwo Dykty i kartonu
+          <span>Name: </span>{{ order.userAddress.name }}
         </p>
         <p class="orderDetailsView__p">
-          <span>Summary cost:</span> {{ summaryCost() }}$
+          <span>Surnameme: </span> {{ order.userAddress.surname }}
+        </p>
+        <p class="orderDetailsView__p">
+          <span>Address: </span> {{ order.userAddress.address }}
         </p>
       </div>
+      <p class="orderDetailsView__summaryCost">
+        <span>Summary cost:</span> {{ summaryCost() }}$
+      </p>
       <form
         v-if="this.changeOrderStatus"
         class="orderStatusForm"
@@ -221,7 +225,8 @@ export default {
 
 .orderDetails__listContainer {
   width: 100%;
-  max-height: 50rem;
+  height: 100%;
+  min-height: 20rem;
   position: relative;
   overflow: scroll;
 }
@@ -283,7 +288,12 @@ export default {
   font-size: 1.6rem;
   color: black;
 }
-
+.orderDetailsView__summaryCost {
+  font-size: 2rem;
+  span {
+    font-weight: 600;
+  }
+}
 .orderStatusForm__button {
   @include button;
   padding: 0.5rem 1rem;

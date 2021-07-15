@@ -141,6 +141,11 @@ export default {
         const requestHeaders = this.createHeaders(token);
         const payload = {
           cart: this.$store.getters["Cart/getCart"],
+          userAddress: {
+            name: this.lastUsedAddress.name,
+            surname: this.lastUsedAddress.surname,
+            address: this.lastUsedAddress.address,
+          },
         };
 
         const rawData = await fetch("http://localhost:3000/confirmOrder", {

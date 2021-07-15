@@ -46,8 +46,8 @@ export default {
   methods: {
     async fetchOrders(page) {
       try {
-        const requestHeaders = createHeaders();
-
+        const { requestHeaders } = this.createHeaders();
+        console.log(requestHeaders);
         const rawData = await fetch(
           `http://localhost:3000/admin/getOrders?page=${page}`,
           {
@@ -60,7 +60,7 @@ export default {
           throw new Error("Couldnt fetched data from server");
         }
         const ordersData = await rawData.json();
-
+        console.log(ordersData);
         const { data, totalItems } = ordersData;
         const numberOfPages = Math.ceil(totalItems / 10);
         this.orders = data;
@@ -68,9 +68,9 @@ export default {
       } catch (err) {
         if (err.body) {
           const error = await err.json();
-          this.$store.dispatch("ModalHandler/showError", error.message);
+          this.$store.dispatch("ModalHandler/showModal", error.message);
         } else {
-          this.$store.dispatch("ModalHandler/showError", err.message);
+          this.$store.dispatch("ModalHandler/showModal", err.message);
         }
       }
     },
