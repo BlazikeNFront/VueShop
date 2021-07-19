@@ -63,9 +63,7 @@ export default {
     },
   },
   emits: ["orderStatusChanged"],
-  mounted() {
-    console.log(this.userOrders);
-  },
+
   data() {
     return {
       selectedOrder: null,

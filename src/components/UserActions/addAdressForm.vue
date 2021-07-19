@@ -225,7 +225,8 @@ export default {
   padding-top: 2.5rem;
   width: 28rem;
   height: 100%;
-  min-height: 63rem;
+  min-height: 48rem;
+  overflow: scroll;
   opacity: 1;
 
   h4 {
@@ -383,7 +384,7 @@ export default {
     top: 0;
     left: 50%;
     width: 40rem;
-    min-height: 50rem;
+    min-height: 42rem;
     opacity: 1;
     transform: translate(-50%);
     .customSelect {
@@ -400,6 +401,11 @@ export default {
       border-width: 1px;
       border-radius: 0;
     }
+  }
+}
+@media (min-width: 768px) {
+  .addAddressBox {
+    overflow: initial;
   }
 }
 </style>

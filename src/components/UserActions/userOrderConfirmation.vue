@@ -73,7 +73,7 @@
                   :icon="['fa', 'check']"
                 ></font-awesome-icon>
                 <font-awesome-icon
-                  v-else
+                  v-if="this.orderResult.result !== true"
                   :icon="['fas', 'times']"
                 ></font-awesome-icon
               ></span>

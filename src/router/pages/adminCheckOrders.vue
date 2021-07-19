@@ -46,8 +46,9 @@ export default {
   methods: {
     async fetchOrders(page) {
       try {
-        const { requestHeaders } = this.createHeaders();
-        console.log(requestHeaders);
+        const token = this.$store.getters["UserAuth/getToken"];
+        const requestHeaders = this.createHeaders(token);
+
         const rawData = await fetch(
           `http://localhost:3000/admin/getOrders?page=${page}`,
           {
@@ -60,7 +61,7 @@ export default {
           throw new Error("Couldnt fetched data from server");
         }
         const ordersData = await rawData.json();
-        console.log(ordersData);
+
         const { data, totalItems } = ordersData;
         const numberOfPages = Math.ceil(totalItems / 10);
         this.orders = data;
