@@ -1,24 +1,6 @@
-# vueshop
-
-## Project setup
+# Online fishing shop. Options API VERSION
 ```
-npm install
+FrontEnd - VUE 3 / VUEX / VUE ROUTER /SCSS
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
