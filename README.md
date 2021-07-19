@@ -7,5 +7,5 @@ Besides user action, it contain admin panel (small CMS) where u can acccept user
 email - admin@kekw.com
 password - admin1234
 
-If you already upload something -**PLEASE** don't  make dumpster (weird pic or etc)
+If you already upload something -**PLEASE** don't  upload weird stuff
 [LIVE](https://taimen-shop-options.herokuapp.com/)
