@@ -31,8 +31,9 @@
 import UserOrdersTable from "../../components/UserActions/userOrdersTable.vue";
 import PaginationButtons from "../../components/common/PaginationButtons.vue";
 import userOrdersMixin from "../../components/mixins/userOrders.js";
+import createHeaders from "../../components/mixins/createHeaders.js";
 export default {
-  mixins: [userOrdersMixin],
+  mixins: [userOrdersMixin, createHeaders],
   components: { UserOrdersTable, PaginationButtons },
 
   mounted() {
@@ -45,11 +46,7 @@ export default {
     async fetchUserOrders(page) {
       try {
         const token = this.$store.getters["UserAuth/getToken"];
-        const requestHeaders = new Headers();
-        requestHeaders.append("Content-Type", "application/json");
-        if (token) {
-          requestHeaders.append("Authorization", `Bearer ${token}`);
-        }
+        const requestHeaders = this.createHeaders(token);
         const rawData = await fetch(
           `http://localhost:3000/getUserOrders?page=${page}`,
           {

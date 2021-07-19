@@ -40,8 +40,10 @@
           </p>
         </div>
       </div>
-      <button class="loginFormControl__button">Login</button>
-
+      <div class="loginFormControl__buttonContainer">
+        <button>Login</button>
+        <loader class="loginFormControl__loader" v-if="loader"></loader>
+      </div>
       <p class="signUpLink">
         U dont have an account? Click
         <span @click="this.$emit('changeView')">Here</span>
@@ -64,6 +66,7 @@ export default {
       passwordError: null,
       userNameError: null,
       serverErrorMsg: null,
+      loader: false,
     };
   },
   computed: {
@@ -72,6 +75,10 @@ export default {
     },
   },
   methods: {
+    clearForm() {
+      this.userName = null;
+      this.userPassword = null;
+    },
     cleanFormErrors() {
       this.passwordError = null;
       this.userNameError = null;
@@ -80,12 +87,16 @@ export default {
 
     async handleLogin() {
       try {
-        if (this.userPassword === null || "") {
-          this.passwordError = "Please insert password";
-          return;
-        }
+        this.loader = true;
+        console.log(this.userPassword);
         if (this.userName === null || this.userName.split("").length < 5) {
           this.userNameError = "Please insert correct email";
+          this.loader = false;
+          return;
+        }
+        if (this.userPassword === null || this.userPassword === "") {
+          this.passwordError = "Please insert password";
+          this.loader = false;
           return;
         }
 
@@ -95,9 +106,11 @@ export default {
         };
 
         await this.$store.dispatch("UserAuth/handleLogin", payload);
+        this.loader = false;
         this.$router.push({ name: this.nameToRedirectAfterLoginAction });
       } catch (err) {
         console.log(err.status);
+        this.loader = false;
         if (err.status === 402) {
           this.serverErrorMsg = "User with that email does not exist";
         } else if (err.status === 403) {
@@ -167,21 +180,36 @@ export default {
   font-weight: 600;
   color: $red-error;
 }
-.loginFormControl__button {
-  width: 25rem;
-  padding: 0.5rem;
-  background-color: white;
-  border: none;
-  border-radius: 20px;
-  font-family: inherit;
-  font-size: 2.5rem;
-  font-weight: 600;
-  text-decoration: none;
-  color: #2c3e50;
+.loginFormControl__buttonContainer {
+  position: relative;
+  button {
+    width: 25rem;
+    padding: 0.5rem;
+    background-color: white;
+    border: none;
+    border-radius: 20px;
+    font-family: inherit;
+    font-size: 2.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: #2c3e50;
+  }
+}
+.loginFormControl__loader {
+  position: absolute;
+  right: -7rem;
+  top: -2rem;
+  transform: scale(0.6);
 }
 .login .login__modalErrorMsg {
   font-size: $font-bg;
   color: $primiary-color;
+}
+@media (min-width: 768px) {
+  .loginFormControl__loader {
+    right: -8rem;
+    transform: scale(0.8);
+  }
 }
 @media (min-width: 1024px) {
   .userAuth__userLogin {
@@ -189,6 +217,16 @@ export default {
     margin: 0;
     width: 50%;
     opacity: 1;
+  }
+  .signUpLink {
+    margin-top: 7rem;
+  }
+  .loginFormControl__loader {
+    top: initial;
+    right: initial;
+    left: 50%;
+    bottom: -8rem;
+    transform: translate(-50%);
   }
 }
 </style>

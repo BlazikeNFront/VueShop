@@ -69,9 +69,13 @@ export default {
               }
             })
             .then((dataJSON) => {
-              console.log(dataJSON);
               const tokenPayload = dataJSON.token;
-              context.commit("handleLogin", tokenPayload);
+              if (dataJSON.userAdmin) {
+                context.commit("handleAdminLogin", tokenPayload);
+              } else {
+                context.commit("handleLogin", tokenPayload);
+              }
+
               resolve();
               //user cart disptaches are not essential ...
 

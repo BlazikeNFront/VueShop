@@ -2,11 +2,11 @@
   <div>
     <form
       ref="addProductFrom"
-      class="form-addProduct"
+      class="addProduct__form"
       @submit.prevent="handleFormRequest"
       @click="cleanErrors"
     >
-      <h4 class="form-addProduct__h4">Add product to store:</h4>
+      <h4 class="addProduct__h4">Add product to store:</h4>
       <div class="addProduct__formControl">
         <div class="addProduct__formControl__inputBox">
           <p class="form-addProduct__para">Select type of product:</p>
@@ -240,7 +240,10 @@
           {{ formInputs.image.errorMsg }}
         </p>
       </div>
-      <button class="form-addProduct__button">Create product</button>
+      <div class="addProduct__submitContainer">
+        <button>Create product</button>
+        <loader v-if="loader" class="addProduct__loader"></loader>
+      </div>
     </form>
     <confirmation-modal
       v-if="this.formRequestConfirmation.visible"
@@ -263,6 +266,7 @@ export default {
   data() {
     return {
       formRequestConfirmation: { visible: false, text: null },
+      loader: false,
       formInputs: {
         typeOfProduct: { value: null, error: false, errorMsg: null },
         categoryOfProduct: { value: null, error: false, errorMsg: null },
@@ -373,6 +377,7 @@ export default {
     },
     async addProduct(product) {
       try {
+        this.loader = true;
         const token = this.$store.getters["UserAuth/getToken"];
         const requestHeaders = new Headers();
 
@@ -390,8 +395,13 @@ export default {
         if (response.status !== 200) {
           throw new Error("Couldnt add product to server , try again later");
         }
+        this.formRequestConfirmation.visible = true;
+        this.loader = false;
+        this.formRequestConfirmation.text = "Product added succesfully";
+        this.cleanForm();
       } catch (err) {
         console.log(err);
+        this.loader = false;
         this.$store.dispatch("ModalHandler/showModal", err.message);
       }
     },
@@ -401,6 +411,7 @@ export default {
         this.formInputs[input]["errorMsg"] = null;
       }
     },
+
     cleanForm() {
       for (const input in this.formInputs) {
         this.formInputs[input]["value"] = null;
@@ -411,7 +422,7 @@ export default {
 };
 </script>
 <style lang='scss'>
-.form-addProduct {
+.addProduct__form {
   @include basicCart;
   @include flexLayout;
   margin: 3rem auto;
@@ -453,22 +464,14 @@ export default {
 .addProduct__formControl__lables {
   margin-right: 1rem;
 }
-.form-addProduct__h4 {
+
+.addProduct__h4 {
   margin-top: 4rem;
   font-size: $font-bg;
 }
 .form-addProduct__para {
   margin-right: 1rem;
   font-weight: 600;
-}
-.form-addProduct__button {
-  @include button;
-  padding: 0.5rem 1rem;
-
-  font-size: 2rem;
-
-  font-weight: 600;
-  color: white;
 }
 .addProduct__formControl__input {
   text-align: center;
@@ -485,7 +488,22 @@ export default {
   font-size: $font-bg;
   color: $primiary-color;
 }
-
+.addProduct__submitContainer {
+  @include flexLayout;
+  position: relative;
+  button {
+    @include button;
+    padding: 0.5rem 1rem;
+    font-size: 2rem;
+    font-weight: 600;
+    color: white;
+  }
+}
+.addProduct__loader {
+  position: absolute;
+  right: -8rem;
+  transform: scale(0.7);
+}
 @media (min-width: 768px) {
   .addProduct__formControl {
     flex-direction: row;

@@ -1,7 +1,4 @@
-/* LOGIC BEHIND STYLES
-DIVS ALWAYS HAVE CLASS
-IF SAME ELEMENTS INSIDE DIV HAVE SAME APPEARENCE , THEY ARE  STYLED USING SCSS NESTING (IN CASE ELEMENT OCCURS MORE THAN ONCE BUT STYLE ARE SAME IT IS ALSO STYLED USING NESTING - eg. <li> in lists ), OTHERWISE IT HAVE CLASS
-/////////
+/* 
 SCSS MIXINS AND FUNCS ALWAYS IN TOP OF CLASS PROPERTIES;
 SCSS VARIABLES FOR CSS PROPERTIES APPEARS BY ORDER BELOW LIKE NORMAL CSS PROPERTIES;
 ////////////////
@@ -117,12 +114,6 @@ $secondary-color: #212121;
 @mixin disabledButton {
   opacity: 0.7;
   cursor: default;
-}
-
-@mixin setAndResizeBackgroundImg($url) {
-  background-image: url($url);
-  background-size: cover;
-  background-repeat: no-repeat;
 }
 
 @mixin fadeInAnim {
