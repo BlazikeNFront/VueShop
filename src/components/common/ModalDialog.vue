@@ -33,9 +33,8 @@ export default {
   @include centerAbsolute;
   @include flexLayout;
   position: fixed;
-  width: 95%;
-  max-width: 135rem;
-  height: clamp(50rem, 80%, 80rem);
+  width: clamp(30rem, 80%, 50rem);
+  height: clamp(30rem, 90%, 57rem);
   border: 2px solid $primiary-color;
   border-radius: 10px;
   background-color: #d9e4f5;

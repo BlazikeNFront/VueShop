@@ -55,9 +55,7 @@
           </p>
         </div>
       </div>
-      <button class="loginFormControl__button loginFormControl__button--signUp">
-        Sign Me Up !
-      </button>
+      <button class="loginFormControl__button">Sign Me Up !</button>
       <loader v-if="loader"></loader>
 
       <p class="signUpLink">
@@ -95,47 +93,6 @@ export default {
     closeForm() {
       this.$router.push("/");
     },
-    async handleSignUp() {
-      if (this.checkForm() === false) {
-        return;
-      }
-      try {
-        this.loader = true;
-        const userData = {
-          email: this.email,
-          password: this.userPassword,
-        };
-        const requestHeaders = this.createHeaders();
-        const data = await fetch("http://localhost:3000/SignUp", {
-          method: "POST",
-          headers: requestHeaders,
-          body: await JSON.stringify(userData),
-        });
-        if (data.status === 409) {
-          this.$store.dispatch(
-            "ModalHandler/showModal",
-            "Account with that email address already exist"
-          );
-          this.loader = false;
-          return;
-        } else if (data.status !== 200) {
-          throw new Error("Couldn't sign up, try again later");
-        }
-        this.$store.dispatch(
-          "ModalHandler/showModal",
-          "Account Created, You can now log in"
-        );
-        this.$router.push("/");
-      } catch (err) {
-        this.loader = false;
-        if (err.body) {
-          const error = await err.json();
-          this.$store.dispatch("ModalHandler/showModal", error.message);
-        } else {
-          this.$store.dispatch("ModalHandler/showModal", err.message);
-        }
-      }
-    },
     checkForm() {
       const regexForEmail =
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -159,8 +116,44 @@ export default {
 
         return false;
       }
-      this.formErrors.userNameErrorMsg = null;
-      this.formErrors.passwordErrorMsg = null;
+      this.clearErrors();
+    },
+    async handleSignUp() {
+      if (this.checkForm() === false) {
+        return;
+      }
+      try {
+        this.loader = true;
+        const userData = {
+          email: this.email,
+          password: this.userPassword,
+        };
+        const requestHeaders = this.createHeaders();
+        const data = await fetch("http://localhost:8080/SignUp", {
+          method: "POST",
+          headers: requestHeaders,
+          body: await JSON.stringify(userData),
+        });
+        if (data.status === 409) {
+          this.$store.dispatch(
+            "ModalHandler/showModal",
+            "Account with that email address already exist"
+          );
+          this.loader = false;
+          return;
+        } else if (data.status !== 200) {
+          throw new Error("Couldn't sign up, try again later");
+        }
+        this.loader = false;
+        this.$store.dispatch(
+          "ModalHandler/showModal",
+          "Account Created, You can now log in"
+        );
+        this.$router.push({ path: "/User/login" });
+      } catch (err) {
+        this.loader = false;
+        this.$store.dispatch("ModalHandler/showModal", err.message);
+      }
     },
   },
 };
@@ -187,8 +180,18 @@ export default {
     font-size: $font-bg;
   }
 }
-.loginFormControl__button--signUp {
+.loginFormControl__button {
   margin-top: 2rem;
+  width: 25rem;
+  padding: 0.5rem;
+  background-color: white;
+  border: none;
+  border-radius: 20px;
+  font-family: inherit;
+  font-size: 2.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: #2c3e50;
 }
 .signUpForm__modal {
   p {

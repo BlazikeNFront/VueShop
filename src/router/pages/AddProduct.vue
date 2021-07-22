@@ -8,7 +8,7 @@
     >
       <h4 class="addProduct__h4">Add product to store:</h4>
       <div class="addProduct__formControl">
-        <div class="addProduct__formControl__inputBox">
+        <div class="addProduct__formControl__inputBox" id="typeOfProduct">
           <p class="form-addProduct__para">Select type of product:</p>
           <div class="addProduct__formControl__radioInput">
             <input
@@ -76,7 +76,7 @@
         </p>
       </div>
       <div class="addProduct__formControl">
-        <div class="addProduct__formControl__inputBox">
+        <div class="addProduct__formControl__inputBox" id="categoryOfProduct">
           <p class="form-addProduct__para">Select category of product:</p>
           <div class="addProduct__formControl__radioInput">
             <input
@@ -140,12 +140,21 @@
           </div>
         </div>
 
-        <p class="addProduct__errorMsg" v-if="formInputs.typeOfProduct.error">
-          {{ formInputs.typeOfProduct.errorMsg }}
+        <p
+          class="addProduct__errorMsg"
+          v-if="formInputs.categoryOfProduct.error"
+        >
+          {{ formInputs.categoryOfProduct.errorMsg }}
         </p>
       </div>
       <div class="addProduct__formControl">
-        <div class="addProduct__formControl__inputBox">
+        <div
+          class="
+            addProduct__formControl__inputBox
+            addProduct__formControl__inputBox--marginBottom
+          "
+          id="nameOfProduct"
+        >
           <label
             class="addProduct__formControl__lables"
             for="addProduct__productTile"
@@ -164,7 +173,13 @@
         </p>
       </div>
       <div class="addProduct__formControl">
-        <div class="addProduct__formControl__inputBox">
+        <div
+          class="
+            addProduct__formControl__inputBox
+            addProduct__formControl__inputBox--marginBottom
+          "
+          id="descriptionOfProduct"
+        >
           <label class="addProduct__formControl__lables" for="desc"
             >Enter description of product:</label
           >
@@ -182,7 +197,7 @@
         </p>
       </div>
       <div class="addProduct__formControl">
-        <div class="addProduct__formControl__inputBox">
+        <div class="addProduct__formControl__inputBox" id="productPrice">
           <label class="addProduct__formControl__lables" for="price">
             Price:</label
           >
@@ -202,7 +217,13 @@
         </p>
       </div>
       <div class="addProduct__formControl">
-        <div class="addProduct__formControl__inputBox">
+        <div
+          class="
+            addProduct__formControl__inputBox
+            addProduct__formControl__inputBox--marginBottom
+          "
+          id="productQuantitiy"
+        >
           <label class="addProduct__formControl__lables" for="quantity">
             Quantity:</label
           >
@@ -245,27 +266,12 @@
         <loader v-if="loader" class="addProduct__loader"></loader>
       </div>
     </form>
-    <confirmation-modal
-      v-if="this.formRequestConfirmation.visible"
-      @closeDialog="closeModal"
-    >
-      <h4 class="addProduct__errorMsg__moddalText">
-        {{ formRequestConfirmation.text }}
-      </h4>
-    </confirmation-modal>
   </div>
 </template>
 <script>
-import ConfirmationModal from "../../components/common/ModalDialog.vue";
-
 export default {
-  components: {
-    ConfirmationModal,
-  },
-
   data() {
     return {
-      formRequestConfirmation: { visible: false, text: null },
       loader: false,
       formInputs: {
         typeOfProduct: { value: null, error: false, errorMsg: null },
@@ -287,6 +293,10 @@ export default {
     updateImageFile(e) {
       this.formInputs.image.value = e.target.files[0];
     },
+    scrollToElement(idOfElement) {
+      const element = document.getElementById(idOfElement);
+      element.scrollIntoView();
+    },
     checkForm() {
       const {
         typeOfProduct,
@@ -302,18 +312,21 @@ export default {
         this.formInputs.typeOfProduct.error = true;
         this.formInputs.typeOfProduct.errorMsg =
           "U need to pick a type of product";
+        this.scrollToElement("typeOfProduct");
         return false;
       }
       if (categoryOfProduct.value === null) {
         this.formInputs.categoryOfProduct.error = true;
         this.formInputs.categoryOfProduct.errorMsg =
           "U need to pick a category of product";
+        this.scrollToElement("categoryOfProduct");
         return false;
       }
       if (name.value === null || name.value.length < 5) {
         this.formInputs.name.error = true;
         this.formInputs.name.errorMsg =
           "Name should contaitn at least 5 characters";
+        this.scrollToElement("nameOfProduct");
         return false;
       }
       if (
@@ -323,11 +336,13 @@ export default {
         this.formInputs.descritpion.error = true;
         this.formInputs.descritpion.errorMsg =
           "Descritpion should contain at least 20 words";
+        this.scrollToElement("descriptionOfProduct");
         return false;
       }
       if (price.value === null || price.value < 0) {
         this.formInputs.price.error = true;
         this.formInputs.price.errorMsg = "Price is not provided";
+        this.scrollToElement("productPrice");
         return false;
       }
 
@@ -338,6 +353,7 @@ export default {
       ) {
         this.formInputs.quantity.error = true;
         this.formInputs.quantity.errorMsg = "Quantity number must be integer";
+        this.scrollToElement("productQuantitiy");
         return false;
       }
       if (image.value === null) {
@@ -348,6 +364,7 @@ export default {
       }
       return true;
     },
+
     handleFormRequest() {
       const {
         typeOfProduct,
@@ -385,19 +402,25 @@ export default {
           requestHeaders.append("Authorization", `Bearer ${token}`);
         }
 
-        const response = await fetch("http://localhost:3000/admin/addProduct", {
-          method: "POST",
-          headers: requestHeaders,
-          body: product,
-          credentials: "include",
-        });
+        const response = await fetch(
+          "https://vueshopbackend.herokuapp.com/admin/addProduct",
+          {
+            method: "POST",
+            headers: requestHeaders,
+            body: product,
+            credentials: "include",
+          }
+        );
 
         if (response.status !== 200) {
           throw new Error("Couldnt add product to server , try again later");
         }
-        this.formRequestConfirmation.visible = true;
+
         this.loader = false;
-        this.formRequestConfirmation.text = "Product added succesfully";
+        this.$store.dispatch(
+          "ModalHandler/showModal",
+          "Product added successfully"
+        );
         this.cleanForm();
       } catch (err) {
         console.log(err);
@@ -429,10 +452,8 @@ export default {
   padding: 2rem;
   width: 95%;
   height: 80%;
-
   flex-direction: column;
   font-size: $font-md;
-
   color: black;
   font-weight: 600;
 
@@ -455,6 +476,9 @@ export default {
   margin: 1rem;
   flex-direction: column;
 }
+.addProduct__formControl__inputBox--marginBottom {
+  margin-bottom: 2rem;
+}
 .addProduct__formControl__radioInput {
   @include flexLayout;
   margin: 0.5rem;
@@ -464,7 +488,6 @@ export default {
 .addProduct__formControl__lables {
   margin-right: 1rem;
 }
-
 .addProduct__h4 {
   margin-top: 4rem;
   font-size: $font-bg;
@@ -473,18 +496,25 @@ export default {
   margin-right: 1rem;
   font-weight: 600;
 }
+.form-addProduct__button {
+  @include button;
+  padding: 0.5rem 1rem;
+  font-size: 2rem;
+  font-weight: 600;
+  color: white;
+}
 .addProduct__formControl__input {
   text-align: center;
 }
 .addProduct__errorMsg {
   position: absolute;
   bottom: 0;
-
-  width: 150%;
+  width: 100%;
   font-size: $font-sm;
-  color: red;
+  color: #b50909;
+  font-weight: 600;
 }
-.addProduct__errorMsg__moddalText {
+.addProduct__modalText {
   font-size: $font-bg;
   color: $primiary-color;
 }
