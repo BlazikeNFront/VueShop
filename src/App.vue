@@ -17,13 +17,13 @@
 
 <script>
 import TheHeader from "./components/TheHeader/TheHeader.vue";
-import FooterComponent from "./components/footer/footer.vue";
+import TheFooter from "./components/footer/TheFooter.vue";
 
 export default {
   name: "App",
   components: {
     TheHeader,
-    FooterComponent,
+    TheFooter,
   },
   mounted() {
     this.checkForToken();
