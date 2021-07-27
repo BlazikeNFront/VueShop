@@ -8,11 +8,14 @@
       :admin="false"
     ></user-orders-table>
     <p v-else>There is no history of orders</p>
-    <loader v-if="!this.orders"></loader>
 
-    <button class="userOrder__updateButton" @click="this.fetchUserOrders">
-      Update orders
-    </button>
+    <div class="userOrder_submitContainer">
+      <loader class="userOrder__loader" v-if="loader"></loader>
+
+      <button class="userOrder__updateButton" @click="this.fetchUserOrders">
+        Update orders
+      </button>
+    </div>
     <pagination-buttons
       class="searchResult__paginationButtons"
       :numberOfPages="numberOfPages"
@@ -48,7 +51,7 @@ export default {
         const token = this.$store.getters["UserAuth/getToken"];
         const requestHeaders = this.createHeaders(token);
         const rawData = await fetch(
-          `http://localhost:3000/getUserOrders?page=${page}`,
+          `https://vueshopbackend.herokuapp.com/getUserOrders?page=${page}`,
           {
             headers: requestHeaders,
             credentials: "include",
@@ -91,10 +94,18 @@ export default {
   @include basicCart;
   margin: 3rem;
   min-height: 60rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   h2 {
     padding: 3rem;
   }
+}
+.userOrder_submitContainer {
+  position: relative;
+  margin: 0 auto;
+  width: 20rem;
 }
 .userOrder__updateButton {
   @include button;
@@ -104,6 +115,11 @@ export default {
   &:hover {
     color: #2c3e50;
   }
+}
+.userOrder__loader {
+  position: absolute;
+  right: -4rem;
+  transform: scale(0.75);
 }
 @media (min-width: 1024px) {
   .userOrders {

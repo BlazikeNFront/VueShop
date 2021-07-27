@@ -159,6 +159,9 @@ export default {
 .cartContainer__productDesc {
   @include flexLayout;
   width: 100%;
+  img {
+    width: 12.8rem;
+  }
 }
 .cartContainer__deleteProductButton {
   @include buttonTransparent;
@@ -194,10 +197,7 @@ export default {
   align-items: center;
   cursor: default;
   z-index: $cartBar;
-
-  @media (min-width: 425px) {
-    width: 30rem;
-  }
+  overflow-y: scroll;
 
   h4 {
     @include flexLayout;
@@ -352,6 +352,9 @@ export default {
     border: none;
     cursor: pointer;
   }
+  .cartContainer {
+    width: 30rem;
+  }
   .cartContainer__cartIcon {
     font-size: 3rem;
   }
@@ -380,6 +383,9 @@ export default {
   }
 }
 @media (min-width: 725px) {
+  .cartContainer {
+    overflow-y: initial;
+  }
   .cartContainer__cartList {
     ul {
       margin-top: 5rem;

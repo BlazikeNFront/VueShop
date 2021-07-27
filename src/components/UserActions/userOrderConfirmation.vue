@@ -148,7 +148,7 @@ export default {
           },
         };
 
-        const rawData = await fetch("http://localhost:3000/confirmOrder", {
+        const rawData = await fetch("http://localhost:8080/confirmOrder", {
           method: "POST",
           headers: requestHeaders,
           body: await JSON.stringify(payload),

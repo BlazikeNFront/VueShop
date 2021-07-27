@@ -37,7 +37,7 @@ export default {
         if (token) {
           requestHeaders.append("Authorization", `Bearer ${token}`);
         }
-        const rawData = await fetch("http://localhost:3000/getUserCart", {
+        const rawData = await fetch("http://localhost:8080//getUserCart", {
           headers: requestHeaders,
           credentials: "include",
         });
@@ -109,9 +109,7 @@ export default {
       try {
         const cart = context.getters["getCart"];
         const token = context.rootGetters["UserAuth/getToken"];
-        if (!token) {
-          return;
-        }
+
         const requestHeaders = new Headers();
         requestHeaders.append("Content-Type", "application/json");
         if (token) {
@@ -121,7 +119,7 @@ export default {
           cart,
         };
         const updateCartResult = await fetch(
-          "http://localhost:3000/updateUserCart",
+          "http://localhost:8080//updateUserCart",
           {
             method: "POST",
             headers: requestHeaders,

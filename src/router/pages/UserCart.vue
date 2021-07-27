@@ -149,7 +149,7 @@ export default {
 .userCart {
   @include basicCart;
   margin: 1rem;
-  min-height: 60rem;
+  min-height: 30rem;
 
   h2 {
     padding: 2rem;
@@ -248,12 +248,12 @@ export default {
   @include flexLayout;
   height: 100%;
   justify-content: center;
-
+  text-align: center;
   font-weight: 600;
 }
 .userCart__productImage {
   margin: 0 auto;
-  width: 100%;
+  width: 12.8rem;
 }
 
 .userCart__summaryPrice {

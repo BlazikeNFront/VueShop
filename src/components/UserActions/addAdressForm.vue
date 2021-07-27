@@ -7,7 +7,10 @@
       <font-awesome-icon :icon="['fas', 'times']"></font-awesome-icon>
     </button>
     <div>
-      <p v-if="this.userAddressList.length === 0">
+      <p
+        class="addAddressBox__noAddressessNotification"
+        v-if="this.userAddressList.length === 0"
+      >
         Theres is no saved addresses.
       </p>
       <drop-down
@@ -179,7 +182,7 @@ export default {
         const token = this.$store.getters["UserAuth/getToken"];
         const requestHeaders = this.createHeaders(token);
 
-        const postResult = await fetch("http://localhost:3000/addUserAddress", {
+        const postResult = await fetch("http://localhost:8080/addUserAddress", {
           method: "POST",
           headers: requestHeaders,
           body: await JSON.stringify(payload),
@@ -255,9 +258,11 @@ export default {
     font-size: 1.3rem;
     font-weight: 600;
     color: $red-error;
-
     text-align: center;
   }
+}
+.addAddressBox__noAddressessNotification {
+  margin-top: 1.5rem;
 }
 .addAddress__dropdown {
   @include button;
@@ -266,12 +271,15 @@ export default {
   margin: 0rem auto;
   margin-top: 2rem;
   width: 100%;
-  height: 5rem;
   border-radius: 20px 20px 0 0;
   color: white;
 
   .customSelect {
+    padding: 1rem 1.5rem;
     width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    cursor: pointer;
     z-index: $addAddressDropDown;
     p {
       width: 100%;
@@ -288,8 +296,8 @@ export default {
     position: absolute;
     top: 4rem;
     left: 0;
-    width: 100%;
     margin: 0 auto;
+    width: 100%;
     border-radius: 0 0 20px 20px;
     background-color: $main-color;
     text-align: center;

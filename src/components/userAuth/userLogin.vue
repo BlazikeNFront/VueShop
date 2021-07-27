@@ -18,7 +18,9 @@
             placeholder="Email"
           />
 
-          <p v-if="userNameError">{{ this.userNameError }}</p>
+          <p class="loginFormControl__errorMsg" v-if="userNameError">
+            {{ this.userNameError }}
+          </p>
         </div>
         <div class="loginFormControl">
           <label for="password" class="loginFormControll__label"
@@ -88,7 +90,7 @@ export default {
     async handleLogin() {
       try {
         this.loader = true;
-        console.log(this.userPassword);
+
         if (this.userName === null || this.userName.split("").length < 5) {
           this.userNameError = "Please insert correct email";
           this.loader = false;
@@ -109,9 +111,9 @@ export default {
         this.loader = false;
         this.$router.push({ name: this.nameToRedirectAfterLoginAction });
       } catch (err) {
-        console.log(err.status);
+        console.log(err);
         this.loader = false;
-        if (err.status === 402) {
+        if (err.status === 404) {
           this.serverErrorMsg = "User with that email does not exist";
         } else if (err.status === 403) {
           this.serverErrorMsg = "Incorrect password";
@@ -166,7 +168,7 @@ export default {
 }
 .signUpLink {
   margin: 3rem;
-  font-size: 1.5rem;
+  font-size: 2rem;
   span {
     font-size: 2rem;
     font-weight: 600;
@@ -197,9 +199,9 @@ export default {
 }
 .loginFormControl__loader {
   position: absolute;
-  right: -7rem;
+  right: -6rem;
   top: -2rem;
-  transform: scale(0.6);
+  transform: scale(0.5);
 }
 .login .login__modalErrorMsg {
   font-size: $font-bg;

@@ -3,7 +3,7 @@
     <section class="searchData">
       <loader v-if="!searchData"></loader>
       <div class="searchData__wrapper" v-else>
-        <h3 class="serachData__h3" v-if="searchData.length === 0">
+        <h3 class="searchData__h3" v-if="searchData.length === 0">
           No single product was found :(
         </h3>
         <product-box-small
@@ -86,15 +86,14 @@ export default {
   margin-top: 2rem;
   margin-left: 50%;
   width: 95%;
-  min-height: 60rem;
+  min-height: 45rem;
   max-width: 120rem;
   justify-content: center;
   flex-wrap: wrap;
 
   transform: translate(-50%);
 }
-.serachData__h3 {
-  margin-top: 25rem;
+.searchData__h3 {
   font-size: $font-bg;
 }
 .searchResult__paginationButtons {

@@ -169,7 +169,7 @@ export default {
           orderStatus: this.orderDetailsStatus,
         };
         const response = await fetch(
-          `http://localhost:3000/admin/changeOrderStatus`,
+          `http://localhost:8080/admin/changeOrderStatus`,
           {
             method: "POST",
             headers: requestHeaders,
@@ -232,11 +232,11 @@ export default {
   font-size: 1.5rem;
   font-weight: 600;
 }
+
 .orderDetails__descriptionBox {
   @include flexLayout;
   width: 100%;
   height: 3rem;
-
   justify-content: center;
 }
 .orderDetailsView__userInformation {
@@ -280,7 +280,7 @@ export default {
   color: black;
 }
 .orderStatusForm__p {
-  margin-right: 1rem;
+  text-align: center;
   font-size: 1.6rem;
   color: black;
 }
@@ -296,7 +296,10 @@ export default {
   color: white;
 }
 .orderStatusForm__loader {
-  transform: scale(0.5);
+  position: absolute;
+  bottom: -6rem;
+  left: 52%;
+  transform: translate(-50%) scale(0.6);
 }
 .orderStatus__notifcation {
   @include centerAbsolute;
@@ -325,6 +328,17 @@ export default {
   }
 }
 
+@media (min-width: 768px) {
+  .orderStatusForm__p {
+    margin-right: 1rem;
+  }
+  .orderStatusForm__loader {
+    position: absolute;
+    bottom: -6rem;
+    left: 50%;
+    transform: translate(-50%) scale(0.6);
+  }
+}
 @media (min-width: 1024px) {
   .orderDetails__listContainer {
     overflow: initial;

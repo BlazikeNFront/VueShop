@@ -52,18 +52,17 @@ export default {
         };
 
         userDataJSON().then((userDataJSON) => {
-          fetch("http://localhost:3000/userAuth", {
+          fetch("http://localhost:8080/userAuth", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: userDataJSON,
             credentials: "include",
           })
             .then((data) => {
-              for (let entry of data.headers.entries()) {
-                console.log(entry);
-              }
               if (data.status !== 200) {
-                throw data;
+                const error = new Error();
+                error.status = data.status;
+                throw error;
               } else {
                 return data.json();
               }
@@ -102,7 +101,7 @@ export default {
     async authUserWithCookie(context) {
       try {
         context;
-        const response = await fetch("http://localhost:3000/authWithCookie", {
+        const response = await fetch("http://localhost:8080/authWithCookie", {
           method: "GET",
           headers: { "Content-Type": "application/json" },
           credentials: "include",
@@ -128,7 +127,7 @@ export default {
           requestHeaders.append("Authorization", `Bearer ${token}`);
         }
 
-        const rawData = await fetch("http://localhost:3000/getUserAddresses", {
+        const rawData = await fetch("http://localhost:8080/getUserAddresses", {
           headers: requestHeaders,
           credentials: "include",
         });
@@ -175,7 +174,7 @@ export default {
         };
 
         const responseFromServer = await fetch(
-          "http://localhost:3000/updateDefaultUserAddress",
+          "http://localhost:8080/updateDefaultUserAddress",
           {
             method: "POST",
             headers: requestHeaders,

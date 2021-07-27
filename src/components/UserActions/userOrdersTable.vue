@@ -103,8 +103,10 @@ export default {
         return "Waiting for acceptance";
       } else if (parseInt(status) === 1) {
         return "In realization";
-      } else {
+      } else if (parseInt(status) === 2) {
         return "Realized";
+      } else {
+        return "Can't get status from server";
       }
     },
   },
@@ -162,7 +164,6 @@ export default {
   background-color: $main-color;
   border: 1px solid black;
   font-size: 1.5rem;
-
   color: white;
   h4 {
     align-self: center;
